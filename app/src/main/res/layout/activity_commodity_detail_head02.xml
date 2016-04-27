@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/global_padding"
+    android:layout_marginTop="@dimen/global_padding"
+    android:background="@drawable/shape_white_stroke_no_corner"
+    android:padding="@dimen/global_padding">
+
+    <ImageView
+        android:id="@+id/iv_head"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_nick"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_toRightOf="@+id/iv_head"
+        android:text="niesen918" />
+
+    <TextView
+        android:id="@+id/tv_contact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:drawableLeft="@android:drawable/ic_menu_add"
+        android:gravity="center"
+        android:text="联系卖家" />
+
+    <TextView
+        android:id="@+id/tv_line"
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/iv_head"
+        android:layout_alignTop="@+id/iv_head"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="3dp"
+        android:layout_marginRight="@dimen/global_padding"
+        android:layout_marginTop="3dp"
+        android:layout_toLeftOf="@+id/tv_contact"
+        android:background="@color/line" />
+
+</RelativeLayout>

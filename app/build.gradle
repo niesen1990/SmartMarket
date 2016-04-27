@@ -1,0 +1,102 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "com.cmbb.smartmarket"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+        wandoujia {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]
+        }
+        baidu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
+        }
+        c360 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "c360"]
+        }
+        uc {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "uc"]
+        }
+        Tencent {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Tencent"]
+        }
+        Umeng {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Umeng"]
+        }
+        Meizu {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Meizu"]
+        }
+        XiaoMi {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "XiaoMi"]
+        }
+        HuaWei {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "HuaWei"]
+        }
+        Oppo {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Oppo"]
+        }
+        Lenovo {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Lenovo"]
+        }
+        SmartKids {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "SmartKids"]
+        }
+        SmartKids3 {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "SmartKids3"]
+        }
+        Beekingdom {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Beekingdom"]
+        }
+        Flowers {
+            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Flowers"]
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile file("/Users/niesen918/AndroidStudioProjects/key/smartkids")
+            storePassword "ns101288"
+            keyAlias "smartmarket"
+            keyPassword "niesen12345"
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:design:23.3.0'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.jakewharton.picasso:picasso2-okhttp3-downloader:1.0.2'
+    compile 'com.jude:rollviewpager:1.0.7'
+    compile 'com.umeng.analytics:analytics:latest.integration'
+    compile files('libs/BaiduLBS_Android.jar')
+    compile project(':SmartRecyclerView')
+    compile project(':UmengPushSDK')
+    compile project(':UmengOpenIMSDK')
+    compile project(':OkHttpUtils')
+    compile project(':MultiPhotoPicker')
+    compile project(':UmengShare')
+}

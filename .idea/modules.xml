@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MultiPhotoPicker/MultiPhotoPicker.iml" filepath="$PROJECT_DIR$/MultiPhotoPicker/MultiPhotoPicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/OkHttpUtils/OkHttpUtils.iml" filepath="$PROJECT_DIR$/OkHttpUtils/OkHttpUtils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SmartMarket.iml" filepath="$PROJECT_DIR$/SmartMarket.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SmartPhotoPicker/SmartPhotoPicker.iml" filepath="$PROJECT_DIR$/SmartPhotoPicker/SmartPhotoPicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SmartRecyclerView/SmartRecyclerView.iml" filepath="$PROJECT_DIR$/SmartRecyclerView/SmartRecyclerView.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UmengOpenIMSDK/UmengOpenIMSDK.iml" filepath="$PROJECT_DIR$/UmengOpenIMSDK/UmengOpenIMSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UmengPushSDK/UmengPushSDK.iml" filepath="$PROJECT_DIR$/UmengPushSDK/UmengPushSDK.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UmengShare/UmengShare.iml" filepath="$PROJECT_DIR$/UmengShare/UmengShare.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+    </modules>
+  </component>
+</project>

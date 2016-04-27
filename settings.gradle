@@ -1,0 +1,1 @@
+include ':app', ':SmartRecyclerView', ':UmengPushSDK', ':UmengOpenIMSDK', ':OkHttpUtils', ':SmartPhotoPicker', ':MultiPhotoPicker', ':UmengShare'

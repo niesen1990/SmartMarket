@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">禾苗</string>
+    <string name="unknow_version">未知版本</string>
+    <string name="os_version_code">OS版本号</string>
+    <string name="os_version_name">OS版本名</string>
+    <string name="os_display_name">OS显示名</string>
+    <string name="app_version_code">应用版本号</string>
+    <string name="app_version_name">应用版本名</string>
+    <string name="brand_info">品牌信息</string>
+    <string name="model_info">设备信息</string>
+    <string name="product_info">产品信息</string>
+    <string name="manufacturer_info">制造商信息</string>
+
+    <!--IM-->
+    <string name="app_key">23348470</string>
+    <string name="umeng_appkey">570f148c67e58edb70002040</string>
+    <!--IM-->
+    <string name="homepager">首页</string>
+    <string name="homeshop">求购</string>
+    <string name="homepublish">发布</string>
+    <string name="homemessage">消息</string>
+    <string name="homeme">我的</string>
+    <string name="title_home_pager_title">禾苗</string>
+    <string name="home_head_tuijian">官方推荐</string>
+    <string name="home_head_baobao">宝宝用品</string>
+    <string name="home_head_mama">妈妈商品</string>
+    <string name="home_head_jujia">居家商品</string>
+    <string name="menu_search">搜索</string>
+    <string name="search_hint">请输入搜索内容</string>
+    <string name="app_label">搜索</string>
+</resources>
