@@ -1,16 +1,12 @@
 <resources>
 
-    <style name="AppTheme" parent="Base.Theme">
-        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@color/primaryColorDark</item>-->
-    </style>
 
-    <style name="AppThemeHome" parent="HomePage.Theme.Design">
+    <style name="AppTheme.NoAnimation.v21" parent="AppTheme.Base">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="AppThemeWithAnimation" parent="HomePage.Theme.Design">
+    <style name="AppTheme.v21" parent="AppTheme.Base">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>

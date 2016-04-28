@@ -8,4 +8,6 @@ package com.cmbb.smartmarket.base;
  */
 public class Constants {
     public static final String INTENT_ACTION_EXIT_APP = "com.cmbb.smartmarket.exit";
+    public static final String AUTO_LOGIN_STATE_ACTION = "com.cmbb.smartmarket.autoLoginStateActionn";
+
 }

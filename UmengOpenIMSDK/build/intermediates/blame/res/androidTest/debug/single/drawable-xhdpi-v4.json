@@ -848,12 +848,12 @@
         "source": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/aliwx_comment_middle_n.9.png"
     },
     {
-        "merged": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/aliwx_reply_bar_face_normal.png",
-        "source": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/aliwx_reply_bar_face_normal.png"
-    },
-    {
         "merged": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/aliwx_s078.png",
         "source": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/aliwx_s078.png"
+    },
+    {
+        "merged": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/aliwx_reply_bar_face_normal.png",
+        "source": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/bundles/debug/res/drawable-xhdpi-v4/aliwx_reply_bar_face_normal.png"
     },
     {
         "merged": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4/aliwx_chatto_voice_playing_f3.png",

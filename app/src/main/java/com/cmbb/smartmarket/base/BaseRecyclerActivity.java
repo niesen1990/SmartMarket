@@ -38,7 +38,6 @@ public abstract class BaseRecyclerActivity extends BaseActivity implements Recyc
         adapter.setNoMore(R.layout.view_nomore);
         adapter.setOnItemClickListener(this);
         mSmartRecyclerView.setRefreshListener(this);
-        mSmartRecyclerView.showEmpty();
     }
 
     protected RecyclerView.LayoutManager setLayoutManager() {

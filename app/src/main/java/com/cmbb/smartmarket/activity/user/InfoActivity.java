@@ -77,7 +77,7 @@ public class InfoActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.rl_head:
-                PhotoPickerIntent intent = new PhotoPickerIntent(InfoActivity.this);
+                PhotoPickerIntent intent = new PhotoPickerIntent(this);
                 intent.setMultiChoose(false);
                 intent.setPhotoCount(1);
                 intent.setShowCamera(true);

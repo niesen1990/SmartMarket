@@ -54,7 +54,7 @@
 
         <activity
             android:name=".activity.SplashActivity"
-            android:theme="@style/AppThemeFullScreen">
+            android:theme="@style/AppTheme.FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,13 +62,21 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.home.HomePagerActivity" />
+        <activity
+            android:name=".activity.home.HomePagerActivity"
+            android:theme="@style/AppTheme.NoAnimation" />
         <activity
             android:name=".activity.home.HomeShopActivity"
-            android:theme="@style/AppThemeHome" />
-        <activity android:name=".activity.home.HomePublishActivity" />
-        <activity android:name=".activity.home.HomeMessageActivity" />
-        <activity android:name=".activity.home.HomeMeActivity" />
+            android:theme="@style/AppTheme.NoAnimation" />
+        <activity
+            android:name=".activity.home.HomePublishActivity"
+            android:theme="@style/AppTheme.NoAnimation" />
+        <activity
+            android:name=".activity.home.HomeMessageActivity"
+            android:theme="@style/AppTheme.NoAnimation" />
+        <activity
+            android:name=".activity.home.HomeMeActivity"
+            android:theme="@style/AppTheme.NoAnimation" />
 
         <activity
             android:name=".activity.search.SearchActivity"
@@ -81,7 +89,13 @@
                 android:resource="@xml/searchable" />
         </activity>
 
-        <activity android:name=".activity.login.LoginActivity" />
+        <activity android:name=".activity.user.ReportActivity" />
+        <activity android:name=".activity.user.MeCollectionActivity" />
+        <activity android:name=".activity.market.PublishCommodityActivity" />
+
+        <activity
+            android:name=".activity.login.LoginActivity"
+            android:theme="@style/AppTheme.v21" />
         <activity android:name=".activity.user.SettingActivity" />
         <activity android:name=".activity.user.InfoActivity" />
         <activity android:name=".activity.user.IntroduceActivity" />
@@ -96,7 +110,8 @@
 
         <activity
             android:name=".activity.market.CommodityDetailActivity"
-            android:theme="@style/AppThemeWithAnimation" />
+            android:theme="@style/AppTheme.v21" />
+        <activity android:name=".activity.message.SystemMessageActivity" />
 
 
         <activity
@@ -141,7 +156,7 @@
 
         <service
             android:name="com.sina.weibo.sdk.net.DownloadService"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:screenOrientation="portrait"

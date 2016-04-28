@@ -28,12 +28,12 @@
         "source": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/bundles/debug/res/drawable-hdpi-v4/aliwx_image_download_fail_view.png"
     },
     {
-        "merged": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/aliwx_send_original_btn_on.png",
-        "source": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/bundles/debug/res/drawable-hdpi-v4/aliwx_send_original_btn_on.png"
-    },
-    {
         "merged": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/aliwx_icon_rec_tab_unselect.png",
         "source": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/bundles/debug/res/drawable-hdpi-v4/aliwx_icon_rec_tab_unselect.png"
+    },
+    {
+        "merged": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/aliwx_send_original_btn_on.png",
+        "source": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/bundles/debug/res/drawable-hdpi-v4/aliwx_send_original_btn_on.png"
     },
     {
         "merged": "/Users/niesen918/AndroidStudioProjects/SmartMarket/UmengOpenIMSDK/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4/aliwx_title_loading_normal.png",

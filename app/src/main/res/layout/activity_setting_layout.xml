@@ -115,13 +115,11 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/tv_logout"
+        style="@style/Button.Smart.Normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:padding="@dimen/global_padding"
-        android:text="退出登陆"
-        android:textColor="@android:color/white" />
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:text="退出登陆" />
 
 </LinearLayout>

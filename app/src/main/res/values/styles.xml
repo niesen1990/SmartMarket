@@ -1,30 +1,24 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Base.Theme" />
+    <style name="AppTheme" parent="AppTheme.Base" />
 
-    <style name="AppThemeHome" parent="HomePage.Theme.Design">
+    <style name="AppTheme.NoAnimation" parent="AppTheme.Base">
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 
-    <style name="AppThemeWithAnimation" parent="HomePage.Theme.Design" />
-
-
-    <style name="AppThemeFullScreen" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.FullScreen" parent="AppTheme.Base">
         <item name="android:windowBackground">@mipmap/ic_launcher</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
 
-
-    <style name="HomePage.Theme.Design" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/windowBackgroundColor</item>
+    <style name="AppTheme.NoAnimation.v21" parent="AppTheme.Base">
         <item name="android:windowAnimationStyle">@null</item>
     </style>
 
-    <style name="Base.Theme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme.v21" parent="AppTheme.Base" />
+
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -35,7 +29,6 @@
         <item name="camera">@android:drawable/ic_menu_camera</item>
         <!--<item name="colorControlNormal">@android:color/white</item>-->
     </style>
-
 
     <style name="ProgressBarWaiting" parent="@android:style/Widget.ProgressBar.Large">
         <item name="android:windowFrame">@null</item><!--边框-->

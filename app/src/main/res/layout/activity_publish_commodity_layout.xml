@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar" />
+
+
+    <EditText
+        android:id="@+id/et_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_margin="@dimen/global_padding"
+        android:background="@drawable/shape_white_stroke_corner"
+        android:hint="标题最多不超过20个字"
+        android:padding="@dimen/global_padding"
+        android:maxLength="20"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/et_title"
+        android:layout_margin="@dimen/global_padding"
+        android:background="@drawable/shape_white_stroke_corner"
+        android:gravity="top"
+        android:hint="描述一下你的宝贝，字数不超过200字（尽可能描述详尽，例如买入时间，用了几次，现在如何等等）"
+        android:padding="@dimen/global_padding"
+        android:maxLength="200"
+        android:textSize="12sp" />
+
+    <LinearLayout
+        android:id="@+id/ll02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_content"
+        android:orientation="vertical">
+
+        <com.cmbb.smartkids.recyclerview.SmartRecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_white_stroke_no_corner"
+            app:scrollbarStyle="insideOverlay" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/global_padding"
+            android:drawableLeft="@android:drawable/ic_menu_add"
+            android:gravity="center_vertical"
+            android:text="上海 上海 杨浦区"
+            android:textColor="@color/address"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll02"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:orientation="horizontal"
+                android:padding="@dimen/global_padding">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="价格" />
+
+                <EditText
+                    android:id="@+id/tv_new_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@android:color/white"
+                    android:maxLines="1"
+                    android:text="￥6"
+                    android:inputType="numberDecimal" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="元" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:orientation="horizontal"
+                android:padding="@dimen/global_padding">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="原价" />
+
+                <EditText
+                    android:id="@+id/tv_old_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@android:color/white"
+                    android:maxLines="1"
+                    android:text="￥6"
+                    android:inputType="numberDecimal"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="元" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/shape_white_stroke_no_corner"
+            android:orientation="horizontal"
+            android:padding="@dimen/global_padding">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="运费" />
+
+            <EditText
+                android:id="@+id/tv_freight"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:maxLines="1"
+                android:background="@android:color/white"
+                android:text="￥6"
+                android:inputType="numberDecimal"/>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="元" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_submit"
+        style="@style/Button.Smart.Normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/global_padding"
+        android:text="确定发布" />
+
+
+</RelativeLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/half_global_padding">
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <net.steamcrafted.materialiconlib.MaterialIconView
+        android:id="@+id/del"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="5dp"
+        app:materialIcon="close_circle"
+        app:materialIconColor="?attr/del_color"
+        app:materialIconSize="20dp" />
+
+</FrameLayout>

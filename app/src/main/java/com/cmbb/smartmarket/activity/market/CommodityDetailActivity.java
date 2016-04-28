@@ -3,19 +3,27 @@ package com.cmbb.smartmarket.activity.market;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.cmbb.smartkids.recyclerview.adapter.RecyclerArrayAdapter;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.home.model.UserAttentionModel;
 import com.cmbb.smartmarket.activity.market.adapter.DetailReplayAdapter;
+import com.cmbb.smartmarket.activity.user.ReportActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.base.ResponseModel;
 import com.cmbb.smartmarket.network.OkHttp;
+import com.cmbb.smartmarket.utils.SocialUtils;
+import com.umeng.socialize.UMShareAPI;
 
 import java.util.HashMap;
 
@@ -28,8 +36,28 @@ import java.util.HashMap;
 public class CommodityDetailActivity extends BaseRecyclerActivity {
     private static final String TAG = CommodityDetailActivity.class.getSimpleName();
 
+    private AppBarLayout abl;
+    private ImageView rollViewPager;
+    private TextView tvMessage;
+    private ImageView ivCollection;
+    private TextView tvShare;
+    private TextView tvBuy;
+
+    protected void init() {
+        rollViewPager = (ImageView) findViewById(R.id.roll_view_pager);
+        tvMessage = (TextView) findViewById(R.id.tv_message);
+        tvMessage.setOnClickListener(this);
+        ivCollection = (ImageView) findViewById(R.id.iv_collection);
+        ivCollection.setOnClickListener(this);
+        tvShare = (TextView) findViewById(R.id.tv_share);
+        tvShare.setOnClickListener(this);
+        tvBuy = (TextView) findViewById(R.id.tv_buy);
+        tvBuy.setOnClickListener(this);
+    }
+
     @Override
     protected void initView(Bundle savedInstanceState) {
+        init();
         adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
             @Override
             public View onCreateView(ViewGroup parent) {
@@ -54,6 +82,41 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_commodity_detail_layout;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_commodity_detail, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_report:
+                ReportActivity.newIntent(this);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.tv_share:
+                SocialUtils.share(this, "http://smart.image.alimmdn.com/system/image/2016-04-18/file_50647_NTFjM2VmMjMtOTNiNC00MTI2LWJhMWMtOWFlZDc2MTg2MDU4", "魅族手机PRO6", "MEIZU design and make", "http://www.baidu.com");
+                break;
+            case R.id.tv_message:
+                // TODO: 16/4/28  
+                break;
+            case R.id.iv_collection:
+                // TODO: 16/4/28  
+                break;
+            case R.id.tv_buy:
+                // TODO: 16/4/28
+                break;
+        }
     }
 
     @Override
@@ -106,6 +169,12 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
                 adapter.pauseMore();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     public static void newIntent(Context context, String id) {

@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import com.cmbb.smartkids.recyclerview.adapter.RecyclerArrayAdapter;
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.market.PublishCommodityActivity;
 import com.cmbb.smartmarket.activity.user.InfoActivity;
+import com.cmbb.smartmarket.activity.user.MeCollectionActivity;
 import com.cmbb.smartmarket.activity.user.SettingActivity;
 
 /**
@@ -90,10 +92,12 @@ public class HomeMeActivity extends BaseHomeActivity {
             case R.id.rl_buy:
                 break;
             case R.id.rl_collection:
+                MeCollectionActivity.newIntent(this);
                 break;
             case R.id.rl_off:
                 break;
             case R.id.rl_address:
+                PublishCommodityActivity.newIntent(this);
                 break;
         }
     }

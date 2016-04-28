@@ -4,4 +4,10 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="global_padding">10dip</dimen>
     <dimen name="half_global_padding">5dip</dimen>
+    <dimen name="im_hint_text_view_height">40dp</dimen>
+    <dimen name="im_title_bar_height">45dp</dimen>
+    <dimen name="more_item_height">44dp</dimen>
+    <dimen name="common_safe_margin">12dp</dimen>
+    <dimen name="setting_item_height">44dp</dimen>
+    <dimen name="common_two_safe_margin">24dp</dimen>
 </resources>

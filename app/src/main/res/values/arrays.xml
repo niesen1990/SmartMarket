@@ -4,4 +4,11 @@
         <item>商品</item>
         <item>会员</item>
     </string-array>
+
+    <string-array name="shop_item">
+        <item>最新发布</item>
+        <item>浏览最多</item>
+        <item>已解决</item>
+        <item>未解决</item>
+    </string-array>
 </resources>

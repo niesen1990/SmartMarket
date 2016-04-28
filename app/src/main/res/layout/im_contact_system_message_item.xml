@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/aliwx_color_white">
+
+    <RelativeLayout
+        android:id="@+id/message_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/aliwx_common_safe_margin">
+
+        <com.alibaba.mobileim.fundamental.widget.WXNetworkImageView
+            android:id="@+id/head"
+            android:layout_width="@dimen/aliwx_common_head_size"
+            android:layout_height="@dimen/aliwx_common_head_size"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/aliwx_tribe_head_default" />
+
+        <RelativeLayout
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/aliwx_column_up_unit_margin">
+
+            <TextView
+                android:id="@+id/agree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/aliwx_common_blue_btn_bg"
+                android:text="接受"
+                android:textColor="@color/aliwx_white"
+                android:textSize="@dimen/aliwx_font_second_grade" />
+
+            <TextView
+                android:id="@+id/result"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已忽略"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/aliwx_column_up_unit_margin"
+            android:layout_toRightOf="@+id/head">
+
+            <TextView
+                android:id="@+id/contact_title"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称名称"
+                android:textColor="@color/aliwx_black"
+                android:textSize="@dimen/aliwx_font_second_grade" />
+
+            <TextView
+                android:id="@+id/invite_message"
+                android:layout_width="260dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_title"
+                android:layout_marginTop="5dp"
+                android:ellipsize="end"
+                android:lines="1"
+                android:text="邀请信息"
+                android:textColor="@color/aliwx_black"
+                android:textSize="@dimen/aliwx_font_third_grade" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

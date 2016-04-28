@@ -14,4 +14,10 @@
     <!--暗灰色 -->
     <color name="dimgray">#696969</color>
     <!--字体颜色-->
+
+    <!-- 群组 -->
+    <color name="tribe_host">#FFBD04 </color>
+    <color name="tribe_manager">#45D282 </color>
+    <color name="tab_pressed_color">#35a5e7</color>
+    <color name="tab_normal_color">#666666</color>
 </resources>

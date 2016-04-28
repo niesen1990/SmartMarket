@@ -28,4 +28,6 @@
     <string name="menu_search">搜索</string>
     <string name="search_hint">请输入搜索内容</string>
     <string name="app_label">搜索</string>
+    <string name="menu_report">举报</string>
+    <string name="quit_confirm">退出后您将收不到新消息通知，是否确认退出？</string>
 </resources>
