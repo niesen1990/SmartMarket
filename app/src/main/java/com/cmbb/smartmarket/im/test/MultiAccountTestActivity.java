@@ -174,7 +174,7 @@ public class MultiAccountTestActivity extends BaseActivity {
             @Override
             public void onError(int arg0, String arg1) {
                 Toast.makeText(BaseApplication.getContext(), "退出失败,请重新登录", Toast.LENGTH_SHORT).show();
-                IMLoginHelper.getInstance().loginOut_Sample();
+                IMLoginHelper.getInstance().loginOutIM();
             }
         });
 
