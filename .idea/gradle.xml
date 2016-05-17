@@ -8,26 +8,26 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/EasyRecyclerView" />
             <option value="$PROJECT_DIR$/MultiPhotoPicker" />
             <option value="$PROJECT_DIR$/OkHttpUtils" />
             <option value="$PROJECT_DIR$/SmartPhotoPicker" />
-            <option value="$PROJECT_DIR$/SmartRecyclerView" />
-            <option value="$PROJECT_DIR$/UmengOpenIMSDK" />
             <option value="$PROJECT_DIR$/UmengPushSDK" />
             <option value="$PROJECT_DIR$/UmengShare" />
+            <option value="$PROJECT_DIR$/WXIM" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
         <option name="myModules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/EasyRecyclerView" />
             <option value="$PROJECT_DIR$/MultiPhotoPicker" />
             <option value="$PROJECT_DIR$/OkHttpUtils" />
             <option value="$PROJECT_DIR$/SmartPhotoPicker" />
-            <option value="$PROJECT_DIR$/SmartRecyclerView" />
-            <option value="$PROJECT_DIR$/UmengOpenIMSDK" />
             <option value="$PROJECT_DIR$/UmengPushSDK" />
             <option value="$PROJECT_DIR$/UmengShare" />
+            <option value="$PROJECT_DIR$/WXIM" />
             <option value="$PROJECT_DIR$/app" />
           </set>
         </option>

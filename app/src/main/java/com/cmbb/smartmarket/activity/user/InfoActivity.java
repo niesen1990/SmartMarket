@@ -1,25 +1,45 @@
 package com.cmbb.smartmarket.activity.user;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.mobileim.ui.multi.lightservice.MultiPickGalleryActivity;
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateRequestModel;
+import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
+import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.db.DBContent;
+import com.cmbb.smartmarket.image.CircleTransform;
+import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.ApiInterface;
+import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.widget.NestedScrollView;
 import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-import io.github.wangeason.multiphotopicker.PhotoPickerActivity;
-import io.github.wangeason.multiphotopicker.utils.PhotoPickerIntent;
+import butterknife.BindView;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import rx.Observer;
 
 /**
  * 项目名称：SmartMarket
@@ -27,47 +47,61 @@ import io.github.wangeason.multiphotopicker.utils.PhotoPickerIntent;
  * 创建人：N.Sun
  * 创建时间：16/4/26 下午7:57
  */
-public class InfoActivity extends BaseActivity {
+public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final java.lang.String TAG = InfoActivity.class.getSimpleName();
-    private RelativeLayout rlHead;
-    private TextView tvHead;
-    private ImageView ivHead;
-    private RelativeLayout rlSex;
-    private TextView tvSexTag;
-    private RelativeLayout rlRule;
-    private TextView tvAddressTag;
-    private RelativeLayout rlIntroduce;
-    private TextView tvIntroduceTag;
-    private BottomSheetBehavior behaviorSex;
-    private TextView tvBoy, tvGirl;
-
+    @BindView(R.id.rl_head)
+    RelativeLayout rlHead;
+    @BindView(R.id.rl_nick)
+    RelativeLayout rlNick;
+    @BindView(R.id.tv_head)
+    TextView tvHead;
+    @BindView(R.id.iv_head)
+    ImageView ivHead;
+    @BindView(R.id.rl_sex)
+    RelativeLayout rlSex;
+    @BindView(R.id.tv_sex_tag)
+    TextView tvSexTag;
+    @BindView(R.id.tv_sex)
+    TextView tvSex;
+    @BindView(R.id.tv_nick)
+    TextView tvNick;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
+    @BindView(R.id.tv_introduce)
+    TextView tvIntroduce;
+    @BindView(R.id.rl_rule)
+    RelativeLayout rlRule;
+    @BindView(R.id.tv_address_tag)
+    TextView tvAddressTag;
+    @BindView(R.id.rl_introduce)
+    RelativeLayout rlIntroduce;
+    @BindView(R.id.tv_introduce_tag)
+    TextView tvIntroduceTag;
+    @BindView(R.id.scroll)
+    NestedScrollView scroll;
+    @BindView(R.id.tv_boy)
+    TextView tvBoy;
+    @BindView(R.id.tv_girl)
+    TextView tvGirl;
+    BottomSheetBehavior behaviorSex;
 
     @Override
     protected void init(Bundle savedInstanceState) {
         setTitle("我的资料");
         initView();
+        getSupportLoaderManager().initLoader(0, null, this);
     }
 
     protected void initView() {
-        behaviorSex = BottomSheetBehavior.from(findViewById(R.id.scroll));
-        rlHead = (RelativeLayout) findViewById(R.id.rl_head);
+        behaviorSex = BottomSheetBehavior.from(scroll);
         rlHead.setOnClickListener(this);
-        tvHead = (TextView) findViewById(R.id.tv_head);
-        ivHead = (ImageView) findViewById(R.id.iv_head);
-        rlSex = (RelativeLayout) findViewById(R.id.rl_sex);
         rlSex.setOnClickListener(this);
-        tvSexTag = (TextView) findViewById(R.id.tv_sex_tag);
-        rlRule = (RelativeLayout) findViewById(R.id.rl_rule);
         rlRule.setOnClickListener(this);
-        tvAddressTag = (TextView) findViewById(R.id.tv_address_tag);
-        rlIntroduce = (RelativeLayout) findViewById(R.id.rl_introduce);
         rlIntroduce.setOnClickListener(this);
-        tvIntroduceTag = (TextView) findViewById(R.id.tv_introduce_tag);
-        tvBoy = (TextView) findViewById(R.id.tv_boy);
         tvBoy.setOnClickListener(this);
-        tvGirl = (TextView) findViewById(R.id.tv_girl);
         tvGirl.setOnClickListener(this);
+        rlNick.setOnClickListener(this);
     }
 
     private final int PIC_REQUEST_CODE = 1001;
@@ -76,17 +110,28 @@ public class InfoActivity extends BaseActivity {
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
+
             case R.id.rl_head:
-                PhotoPickerIntent intent = new PhotoPickerIntent(this);
+                Intent intent = new Intent(this, MultiPickGalleryActivity.class);
+                intent.putExtra(MultiPickGalleryActivity.MAX_COUNT, 1);
+                intent.putExtra(MultiPickGalleryActivity.MAX_TOAST, "选择的图片不能超过5张");
+                intent.putExtra("titleRightText", "完成");
+                intent.putExtra("need_choose_original_pic", true);
+                startActivityForResult(intent, PIC_REQUEST_CODE);
+
+                /*PhotoPickerIntent intent = new PhotoPickerIntent(this);
                 intent.setMultiChoose(false);
                 intent.setPhotoCount(1);
                 intent.setShowCamera(true);
-                startActivityForResult(intent, PIC_REQUEST_CODE);
+                startActivityForResult(intent, PIC_REQUEST_CODE);*/
 
                /* Intent intent = new Intent(MainActivity.this, PhotoPagerActivity.class);
                 intent.putExtra(PhotoPagerActivity.EXTRA_CURRENT_ITEM, position);
                 intent.putExtra(PhotoPagerActivity.EXTRA_PHOTOS, imgPaths);
                 startActivityForResult(intent, MODIFY_CHOOSE);*/
+                break;
+            case R.id.rl_nick:
+                NickActivity.newIntent(this, tvNick.getText().toString());
                 break;
             case R.id.rl_sex:
                 intro(rlSex);
@@ -94,14 +139,17 @@ public class InfoActivity extends BaseActivity {
             case R.id.rl_rule:
                 break;
             case R.id.rl_introduce:
+                IntroduceActivity.newIntent(this, tvIntroduce.getText().toString());
                 break;
             case R.id.tv_boy:
-                showToast("boy");
+                tvSex.setText("男");
                 behaviorSex.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                updateRequest("", "1", "", "", "", "", "");
                 break;
             case R.id.tv_girl:
-                showToast("girl");
+                tvSex.setText("女");
                 behaviorSex.setState(BottomSheetBehavior.STATE_COLLAPSED);
+                updateRequest("", "2", "", "", "", "", "");
                 break;
         }
     }
@@ -114,13 +162,21 @@ public class InfoActivity extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == -1 && requestCode == PIC_REQUEST_CODE && data != null) {
-            final ArrayList<String> tempUrls = data.getStringArrayListExtra(PhotoPickerActivity.KEY_SELECTED_PHOTOS);
+            final ArrayList<String> tempUrls = data.getStringArrayListExtra("result_list");
             Uri source = Uri.fromFile(new File(tempUrls.get(0)));
             Uri destination = Uri.fromFile(new File(getCacheDir(), "cache_head"));
             Crop.of(source, destination).start(this);
         } else if (resultCode == -1 && requestCode == Crop.REQUEST_CROP) {
             if (Crop.getOutput(data) != null) {
                 Log.i(TAG, Crop.getOutput(data).getPath());
+                if (TextUtils.isEmpty(Crop.getOutput(data).getPath()))
+                    return;
+                showWaitingDialog();
+                File file = new File(Crop.getOutput(data).getPath());
+                Map<String, RequestBody> params = new HashMap<>();
+                params.put("token", RequestBody.create(MediaType.parse("text/plain"), BaseApplication.getToken()));
+                params.put("userImg\"; filename=\""+file.getName()+"\"", RequestBody.create(MediaType.parse("image/*"), file));
+                subscription = HttpMethod.getInstance().requestUpdateInfoImage(mUserInfoUpdateResponseModelObserver, params);
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -133,6 +189,102 @@ public class InfoActivity extends BaseActivity {
         } else {
             behaviorSex.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(this, DBContent.DBUser.CONTENT_URI, null, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if (cursor != null && cursor.moveToFirst()) {
+            String nick = cursor.getString(cursor.getColumnIndex(DBContent.DBUser.USER_NICK_NAME));
+            if (!TextUtils.isEmpty(nick))
+                tvNick.setText(nick);
+            String headImageUrl = cursor.getString(cursor.getColumnIndex(DBContent.DBUser.USER_HEAD_IMG));
+            if (!TextUtils.isEmpty(headImageUrl))
+                ImageLoader.loadUrlAndDiskCache(this, headImageUrl, ivHead, new CircleTransform(this));
+            String city = cursor.getString(cursor.getColumnIndex(DBContent.DBUser.USER_CITY));
+            String province = cursor.getString(cursor.getColumnIndex(DBContent.DBUser.USER_PROVINCE));
+            if (!TextUtils.isEmpty(city) && !TextUtils.isEmpty(province))
+                tvAddress.setText(province + " | " + city);
+            String sex = cursor.getString(cursor.getColumnIndex(DBContent.DBUser.USER_MALE));
+            if (!TextUtils.isEmpty(sex)) {
+                switch (sex) {
+                    case "1":
+                        tvSex.setText("男");
+                        break;
+                    case "2":
+                        tvSex.setText("女");
+                        break;
+                }
+            }
+            String introduce = cursor.getString(cursor.getColumnIndex(DBContent.DBUser.USER_INTRODUCE));
+            if (!TextUtils.isEmpty(introduce))
+                tvIntroduce.setText(introduce);
+            Log.i(TAG, cursor.getString(cursor.getColumnIndex(DBContent.DBUser.USER_TOKEN)));
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+    }
+
+    Observer<UserInfoUpdateResponseModel> mUserInfoUpdateResponseModelObserver = new Observer<UserInfoUpdateResponseModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            hideWaitingDialog();
+            Log.e(TAG, e.toString());
+        }
+
+        @Override
+        public void onNext(UserInfoUpdateResponseModel userInfoUpdateResponseModel) {
+            hideWaitingDialog();
+            showToast(userInfoUpdateResponseModel.getMsg());
+            ContentValues values = new ContentValues();
+            values.put(DBContent.DBUser.USER_TOKEN, userInfoUpdateResponseModel.getData().getLoginToken());
+            values.put(DBContent.DBUser.USER_ID, userInfoUpdateResponseModel.getData().getId());
+            values.put(DBContent.DBUser.USER_HEAD_IMG, userInfoUpdateResponseModel.getData().getUserImg());
+            values.put(DBContent.DBUser.USER_NICK_NAME, userInfoUpdateResponseModel.getData().getNickName());
+            values.put(DBContent.DBUser.USER_MALE, userInfoUpdateResponseModel.getData().getSex());
+            values.put(DBContent.DBUser.USER_PHONE, userInfoUpdateResponseModel.getData().getLoginAccount());
+            values.put(DBContent.DBUser.USER_PROVINCE_ID, userInfoUpdateResponseModel.getData().getProvince());
+            values.put(DBContent.DBUser.USER_CITY_ID, userInfoUpdateResponseModel.getData().getCity());
+            values.put(DBContent.DBUser.USER_LEVEL, userInfoUpdateResponseModel.getData().getUserLevel());
+            values.put(DBContent.DBUser.USER_INTRODUCE, userInfoUpdateResponseModel.getData().getIntroduce());
+            getContentResolver().update(DBContent.DBUser.CONTENT_URI, values, DBContent.DBUser.USER_ID + " = " + userInfoUpdateResponseModel.getData().getId(), null);
+        }
+    };
+
+    private void updateRequest(String nick, String sex, String provinceId, String province, String cityId, String city, String introduce) {
+        UserInfoUpdateRequestModel userInfoUpdateRequestModel = new UserInfoUpdateRequestModel();
+        userInfoUpdateRequestModel.setCmd(ApiInterface.UserInfoUpdate);
+        userInfoUpdateRequestModel.setToken(BaseApplication.getToken());
+        UserInfoUpdateRequestModel.ParametersEntity parametersEntity = new UserInfoUpdateRequestModel.ParametersEntity();
+        if (!TextUtils.isEmpty(nick))
+            parametersEntity.setUserNike(nick);
+        if (!TextUtils.isEmpty(sex))
+            parametersEntity.setUserSex(sex);
+        if (!TextUtils.isEmpty(provinceId))
+            parametersEntity.setProvince(provinceId);
+        if (!TextUtils.isEmpty(province))
+            parametersEntity.setProvinceText(province);
+        if (!TextUtils.isEmpty(cityId))
+            parametersEntity.setCity(cityId);
+        if (!TextUtils.isEmpty(city))
+            parametersEntity.setCityText(city);
+        if (!TextUtils.isEmpty(introduce))
+            parametersEntity.setUserPresentation(introduce);
+        userInfoUpdateRequestModel.setParameters(parametersEntity);
+        showWaitingDialog();
+        subscription = HttpMethod.getInstance().requestUpdateUserInfo(mUserInfoUpdateResponseModelObserver, userInfoUpdateRequestModel);
     }
 
     public static void newIntent(Context context) {

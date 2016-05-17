@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,9 +10,12 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <include layout="@layout/toolbar" />
+        <include layout="@layout/toolbar"/>
+
+
     </android.support.design.widget.AppBarLayout>
 
     <LinearLayout
@@ -35,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
-                android:text="头像" />
+                android:text="头像"/>
 
             <ImageView
                 android:id="@+id/iv_head"
@@ -43,7 +47,7 @@
                 android:layout_height="32dp"
                 android:layout_marginLeft="56dp"
                 android:layout_toRightOf="@+id/tv_head"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/ic_launcher"/>
 
             <ImageView
 
@@ -51,10 +55,46 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@android:drawable/ic_menu_help" />
+                android:src="@android:drawable/ic_menu_help"/>
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/rl_nick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/half_global_padding"
+            android:background="@drawable/shape_white_stroke_no_corner"
+            android:orientation="horizontal"
+            android:padding="@dimen/global_padding">
+
+            <TextView
+                android:id="@+id/tv_nick_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:text="昵称"/>
+
+            <TextView
+                android:id="@+id/tv_nick"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="56dp"
+                android:layout_toRightOf="@+id/tv_nick_tag"
+                android:gravity="center_vertical"
+                android:text="未设置"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@android:drawable/ic_menu_help"/>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_sex"
@@ -72,23 +112,24 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
-                android:text="性别" />
+                android:text="性别"/>
 
             <TextView
+                android:id="@+id/tv_sex"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="56dp"
                 android:layout_toRightOf="@+id/tv_sex_tag"
                 android:gravity="center_vertical"
-                android:text="女" />
+                android:text="性别"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@android:drawable/ic_menu_help" />
+                android:src="@android:drawable/ic_menu_help"/>
 
         </RelativeLayout>
 
@@ -108,16 +149,17 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
-                android:text="常住" />
+                android:text="常住"/>
 
             <TextView
+                android:id="@+id/tv_address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="56dp"
                 android:layout_toRightOf="@+id/tv_address_tag"
                 android:gravity="center_vertical"
-                android:text="上海 | 上海" />
+                android:text="省 | 市"/>
 
             <ImageView
 
@@ -125,7 +167,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@android:drawable/ic_menu_help" />
+                android:src="@android:drawable/ic_menu_help"/>
 
         </RelativeLayout>
 
@@ -145,16 +187,17 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
-                android:text="简介" />
+                android:text="简介"/>
 
             <TextView
+                android:id="@+id/tv_introduce"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="56dp"
                 android:layout_toRightOf="@+id/tv_introduce_tag"
                 android:gravity="center_vertical"
-                android:text="我是共产党" />
+                android:text="个人简介"/>
 
             <ImageView
 
@@ -162,14 +205,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@android:drawable/ic_menu_help" />
+                android:src="@android:drawable/ic_menu_help"/>
 
         </RelativeLayout>
 
     </LinearLayout>
 
 
-    <android.support.v4.widget.NestedScrollView
+    <com.cmbb.smartmarket.widget.NestedScrollView
         android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -186,20 +229,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_white_stroke_no_corner"
-                android:padding="@dimen/activity_vertical_margin"
                 android:gravity="center"
-                android:text="男" />
+                android:padding="@dimen/activity_vertical_margin"
+                android:text="男"/>
 
             <TextView
                 android:id="@+id/tv_girl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_white_stroke_no_corner"
-                android:padding="@dimen/activity_vertical_margin"
                 android:gravity="center"
-                android:text="女" />
+                android:padding="@dimen/activity_vertical_margin"
+                android:text="女"/>
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </com.cmbb.smartmarket.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

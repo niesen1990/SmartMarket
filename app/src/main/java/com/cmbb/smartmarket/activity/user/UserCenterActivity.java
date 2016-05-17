@@ -1,19 +1,24 @@
 package com.cmbb.smartmarket.activity.user;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.cmbb.smartkids.recyclerview.adapter.RecyclerArrayAdapter;
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.UserAttentionModel;
-import com.cmbb.smartmarket.activity.user.adapter.UserCenterAdapter;
-import com.cmbb.smartmarket.base.BaseApplication;
-import com.cmbb.smartmarket.base.BaseRecyclerActivity;
-import com.cmbb.smartmarket.base.ResponseModel;
-import com.cmbb.smartmarket.network.OkHttp;
+import com.cmbb.smartmarket.activity.user.adapter.UserCenterFragmentAdapter;
+import com.cmbb.smartmarket.base.BaseActivity;
+import com.cmbb.smartmarket.widget.MengCoordinatorLayout;
 
-import java.util.HashMap;
+import butterknife.BindView;
 
 /**
  * 项目名称：SmartMarket
@@ -21,18 +26,62 @@ import java.util.HashMap;
  * 创建人：N.Sun
  * 创建时间：16/4/26 下午7:03
  */
-public class UserCenterActivity extends BaseRecyclerActivity {
+public class UserCenterActivity extends BaseActivity implements AppBarLayout.OnOffsetChangedListener {
 
     private static final String TAG = UserCenterActivity.class.getSimpleName();
 
-    @Override
-    protected void initView(Bundle savedInstanceState) {
-        onRefresh();
-    }
+    @BindView(R.id.main_content)
+    MengCoordinatorLayout mainContent;
+    @BindView(R.id.abl)
+    AppBarLayout abl;
+    @BindView(R.id.iv_home_myself)
+    RelativeLayout ivHomeMyself;
+    @BindView(R.id.iv_head)
+    ImageView ivHead;
+    @BindView(R.id.tv_nick)
+    TextView tvNick;
+    @BindView(R.id.ratingBar)
+    RatingBar ratingBar;
+    @BindView(R.id.ll_bottom)
+    LinearLayout llBottom;
+    @BindView(R.id.ll_collection)
+    LinearLayout llCollection;
+    @BindView(R.id.tv_collection_count)
+    TextView tvCollectionCount;
+    @BindView(R.id.tv_collection_count_tag)
+    TextView tvCollectionCountTag;
+    @BindView(R.id.tv_collectio_name)
+    TextView tvCollectioName;
+    @BindView(R.id.ll_deal)
+    LinearLayout llDeal;
+    @BindView(R.id.tv_deal_count)
+    TextView tvDealCount;
+    @BindView(R.id.tv_deal_count_tag)
+    TextView tvDealCountTag;
+    @BindView(R.id.tv_deal_name)
+    TextView tvDealName;
+    @BindView(R.id.ll_evaluate)
+    LinearLayout llEvaluate;
+    @BindView(R.id.tv_evaluate_count)
+    TextView tvEvaluateCount;
+    @BindView(R.id.tv_evaluate_count_tag)
+    TextView tvEvaluateCountTag;
+    @BindView(R.id.tv_evaluate_name)
+    TextView tvEvaluateName;
+    @BindView(R.id.tablayout)
+    TabLayout tablayout;
+    @BindView(R.id.viewpager)
+    ViewPager viewpager;
+
+    UserCenterFragmentAdapter mUserCenterFragmentAdapter;
 
     @Override
-    protected RecyclerArrayAdapter initAdapter() {
-        return new UserCenterAdapter(this);
+    protected void init(Bundle savedInstanceState) {
+        mUserCenterFragmentAdapter = new UserCenterFragmentAdapter(getSupportFragmentManager(), this);
+        viewpager.setAdapter(mUserCenterFragmentAdapter);
+        tablayout.setupWithViewPager(viewpager);
+        tablayout.setTabMode(TabLayout.MODE_FIXED);
+        llEvaluate.setOnClickListener(this);
     }
 
     @Override
@@ -41,59 +90,47 @@ public class UserCenterActivity extends BaseRecyclerActivity {
     }
 
     @Override
-    protected RecyclerView.LayoutManager setLayoutManager() {
-        return new GridLayoutManager(this, 2);
+    public void onClick(View v) {
+        super.onClick(v);
+        switch (v.getId()) {
+            case R.id.ll_evaluate:
+                EvaluateListActivity.newIntent(this);
+                break;
+        }
     }
 
     @Override
-    public void onItemClick(int position) {
-
+    protected void onResume() {
+        super.onResume();
+        if (abl != null)
+            abl.addOnOffsetChangedListener(this);
     }
 
     @Override
-    public void onLoadMore() {
-        pager++;
-        HashMap<String, String> params = new HashMap<>();
-        params.put("pageNo", String.valueOf(pager));
-        params.put("numberOfPerPage", String.valueOf(pagerSize));
-        params.put("typeNum", String.valueOf(0));
-        params.put("token", BaseApplication.getToken());
-        OkHttp.post("smart/attention/getList", params, new ResponseModel<UserAttentionModel>() {
-
-            @Override
-            protected void onSuccess(UserAttentionModel result) {
-                adapter.addAll(result.getResponse().getData().getRows());
-            }
-
-            @Override
-            protected void onFailed() {
-                mSmartRecyclerView.showError();
-                adapter.pauseMore();
-            }
-        });
+    protected void onPause() {
+        super.onPause();
+        if (abl != null)
+            abl.removeOnOffsetChangedListener(this);
     }
 
     @Override
-    public void onRefresh() {
-        pager = 0;
-        HashMap<String, String> params = new HashMap<>();
-        params.put("pageNo", String.valueOf(pager));
-        params.put("numberOfPerPage", String.valueOf(pagerSize));
-        params.put("typeNum", String.valueOf(0));
-        params.put("token", BaseApplication.getToken());
-        OkHttp.post("smart/attention/getList", params, new ResponseModel<UserAttentionModel>() {
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        if (mUserCenterFragmentAdapter.getCurrentFragment().getSmartRecyclerView() == null)
+            return;
+        if (verticalOffset >= 0) {
+            mUserCenterFragmentAdapter.getCurrentFragment().getSmartRecyclerView().getSwipeToRefresh().setEnabled(true);
+        } else {
+            mUserCenterFragmentAdapter.getCurrentFragment().getSmartRecyclerView().getSwipeToRefresh().setEnabled(false);
+        }
+    }
 
-            @Override
-            protected void onSuccess(UserAttentionModel result) {
-                adapter.clear();
-                adapter.addAll(result.getResponse().getData().getRows());
-            }
-
-            @Override
-            protected void onFailed() {
-                mSmartRecyclerView.showError();
-                adapter.pauseMore();
-            }
-        });
+    /**
+     * @param context Context
+     * @param id      UserId
+     */
+    public static void newIntent(Context context, int id) {
+        Intent intent = new Intent(context, UserCenterActivity.class);
+        intent.putExtra("id", id);
+        context.startActivity(intent);
     }
 }

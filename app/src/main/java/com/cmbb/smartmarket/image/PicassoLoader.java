@@ -1,15 +1,5 @@
 package com.cmbb.smartmarket.image;
 
-import android.content.Context;
-import android.text.TextUtils;
-import android.widget.ImageView;
-
-import com.cmbb.smartmarket.log.Log;
-import com.cmbb.smartmarket.utils.TDevice;
-import com.jakewharton.picasso.OkHttp3Downloader;
-import com.squareup.picasso.Picasso;
-import com.zhy.http.okhttp.OkHttpUtils;
-
 /**
  * 项目名称：SmartMarket
  * 类描述：
@@ -18,7 +8,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
  */
 public class PicassoLoader {
 
-    private static Picasso picasso;
+    /*private static Picasso picasso;
     private static OkHttp3Downloader okHttp3Downloader;
     private static int width_Screen;
 
@@ -29,7 +19,6 @@ public class PicassoLoader {
                 .build();
         width_Screen = TDevice.getScreenWidth(context);
     }
-
 
     public static void loadImageWithResize(Context context, String url, ImageView into, String width, String height) {
         picasso.with(context)
@@ -80,5 +69,5 @@ public class PicassoLoader {
         } else {
             return 100;
         }
-    }
+    }*/
 }

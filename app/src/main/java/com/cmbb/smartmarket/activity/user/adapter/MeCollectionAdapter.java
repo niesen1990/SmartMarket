@@ -3,11 +3,10 @@ package com.cmbb.smartmarket.activity.user.adapter;
 import android.content.Context;
 import android.view.ViewGroup;
 
-import com.cmbb.smartkids.recyclerview.adapter.BaseViewHolder;
-import com.cmbb.smartkids.recyclerview.adapter.RecyclerArrayAdapter;
-import com.cmbb.smartmarket.activity.home.model.UserAttentionModel;
+import com.cmbb.smartmarket.activity.home.model.TestModel;
 import com.cmbb.smartmarket.activity.user.holder.MeCollectionItemHolder;
-
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 /**
  * 项目名称：LovelyBaby
@@ -15,7 +14,7 @@ import com.cmbb.smartmarket.activity.user.holder.MeCollectionItemHolder;
  * 创建人：javon
  * 创建时间：2015/8/24 13:31
  */
-public class MeCollectionAdapter extends RecyclerArrayAdapter<UserAttentionModel.ResponseEntity.DataEntity.RowsEntity> {
+public class MeCollectionAdapter extends RecyclerArrayAdapter<TestModel.DataEntity.RowsEntity> {
 
     public MeCollectionAdapter(Context context) {
         super(context);

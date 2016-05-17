@@ -2,8 +2,8 @@ package com.cmbb.smartmarket.activity.market.holder;
 
 import android.view.ViewGroup;
 
-import com.cmbb.smartkids.recyclerview.adapter.BaseViewHolder;
 import com.cmbb.smartmarket.R;
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
 /**
  * 项目名称：LovelyBaby
@@ -20,5 +20,6 @@ public class PublishItemHolder extends BaseViewHolder<String> {
     }
 
     public void setData(String row) {
+
     }
 }

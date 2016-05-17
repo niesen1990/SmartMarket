@@ -2,19 +2,27 @@ package com.cmbb.smartmarket.base;
 
 import android.app.Application;
 import android.app.Notification;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
+import android.widget.Toast;
 
 import com.alibaba.mobileim.YWAPI;
 import com.alibaba.wxlib.util.SysUtil;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
+import com.bumptech.glide.load.model.GlideUrl;
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.im.CustomHelper;
-import com.cmbb.smartmarket.im.IMLoginHelper;
-import com.cmbb.smartmarket.image.PicassoLoader;
+import com.cmbb.smartmarket.activity.message.im.IMHelper;
+import com.cmbb.smartmarket.activity.message.im.custom.CustomHelper;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.log.constant.ZoneOffset;
+import com.cmbb.smartmarket.network.SmartLogInterceptor;
 import com.cmbb.smartmarket.utils.SPCache;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
@@ -23,9 +31,11 @@ import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
 import com.umeng.socialize.PlatformConfig;
-import com.zhy.http.okhttp.OkHttpUtils;
 
+import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 
 /**
  * 项目名称：SmartMarket
@@ -39,20 +49,48 @@ public class BaseApplication extends Application {
     public static Application context;
     public static String token = "MzYxNGQ0MTUtNWUyYi00OWQ1LTlkZGMtNTQ3OWI0ZjI1ZjA4";
 
-
     @Override
     public void onCreate() {
         super.onCreate();
-        insideApplicationOnCreate();
         context = this;
-        //初始化云旺SDK
-        initYWSDK();
         initLog();
+        insideApplicationOnCreate();
+        if (insideApplicationOnCreate())
+            return;//todo 如果在":TCMSSevice"进程中，无需进行openIM和app业务的初始化，以节省内存
+        initIM();
         initSharePreference();
         initUmengAnalytics();
         initPushAgent();
         initOkHttp();
         initShare();
+        initBroadcastReceiver();
+
+        //
+        setToken(SPCache.getString(Constants.API_TOKEN,""));
+
+    }
+
+    private void initBroadcastReceiver() {
+        LocalBroadcastManager.getInstance(this).registerReceiver(new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Toast.makeText(BaseApplication.getContext(), intent.getStringExtra("err"), Toast.LENGTH_SHORT).show();
+            }
+        }, new IntentFilter(Constants.INTENT_ACTION_ERROR_INFRO));
+    }
+
+    private void initIM() {
+        if (SysUtil.isMainProcess()) {
+            // ------[todo step1]-------------
+            //［IM定制初始化］，如果不需要定制化，可以去掉此方法的调用
+            //todo 注意：由于增加全局初始化，该配置需最先执行！
+            CustomHelper.initCustom();
+            // ------[todo step2]-------------
+            //SDK初始化
+            IMHelper.getInstance().initSdk(getContext());
+            //后期将使用Override的方式进行集中配置，请参照YWSDKGlobalConfigSample
+            YWAPI.enableSDKLogOutput(true);
+        }
     }
 
     private void initShare() {
@@ -86,31 +124,16 @@ public class BaseApplication extends Application {
      * 初始化OkHttp
      */
     private void initOkHttp() {
-        OkHttpUtils.getInstance().debug("OkHttp").setConnectTimeout(15000, TimeUnit.MILLISECONDS);
-        PicassoLoader.init(this);
-    }
-
-    private void initYWSDK() {
-        //todo 只在主进程进行云旺SDK的初始化!!!
-        if (SysUtil.isMainProcess(getContext())) {
-            //TODO 注意：--------------------------------------
-            //  以下步骤调用顺序有严格要求，请按照示例的步骤（todo step）
-            // 的顺序调用！
-            //TODO --------------------------------------------
-
-            // ------[todo step1]-------------
-            //［IM定制初始化］，如果不需要定制化，可以去掉此方法的调用
-            //todo 注意：由于增加全局初始化，该配置需最先执行！
-
-            CustomHelper.initCustom();
-
-            // ------[todo step2]-------------
-            //SDK初始化
-            IMLoginHelper.getInstance().initSDK(getContext());
-
-            //后期将使用Override的方式进行集中配置，请参照YWSDKGlobalConfigSample
-            YWAPI.enableSDKLogOutput(true);
-        }
+        //OkHttpUtils.getInstance().debug("OkHttp").setConnectTimeout(15000, TimeUnit.MILLISECONDS);
+        //PicassoLoader.init(this);
+        SmartLogInterceptor interceptor = new SmartLogInterceptor();
+        interceptor.setLevel(SmartLogInterceptor.Level.BASIC);
+        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .retryOnConnectionFailure(true)
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .build();
+        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(okHttpClient));
     }
 
     /**
@@ -136,7 +159,6 @@ public class BaseApplication extends Application {
     private void initUmengAnalytics() {
         MobclickAgent.setDebugMode(true);
     }
-
 
     /**
      * 初始化友盟推送
@@ -201,6 +223,6 @@ public class BaseApplication extends Application {
     private boolean insideApplicationOnCreate() {
         //必须的初始化
         SysUtil.setApplication(this);
-        return SysUtil.isTCMSServiceProcess(getContext());
+        return SysUtil.isTCMSServiceProcess(this);
     }
 }

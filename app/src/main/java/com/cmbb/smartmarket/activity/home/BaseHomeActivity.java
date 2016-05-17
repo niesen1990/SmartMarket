@@ -1,11 +1,14 @@
 package com.cmbb.smartmarket.activity.home;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.market.PublishCommodityActivity;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
+
+import butterknife.BindView;
 
 /**
  * 项目名称：SmartMarket
@@ -15,18 +18,29 @@ import com.cmbb.smartmarket.base.BaseRecyclerActivity;
  */
 public abstract class BaseHomeActivity extends BaseRecyclerActivity {
 
+    @BindView(R.id.tv_home)
+    TextView tvHome;
+    @BindView(R.id.tv_shop)
+    TextView tvShop;
+    @BindView(R.id.tv_publish)
+    TextView tvPublish;
+    @BindView(R.id.tv_message)
+    TextView tvMessage;
+    @BindView(R.id.tv_me)
+    TextView tvMe;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void init(Bundle savedInstanceState) {
+        super.init(savedInstanceState);
         initBottom();
     }
 
     protected void initBottom() {
-        findViewById(R.id.tv_home).setOnClickListener(this);
-        findViewById(R.id.tv_shop).setOnClickListener(this);
-        findViewById(R.id.tv_publish).setOnClickListener(this);
-        findViewById(R.id.tv_message).setOnClickListener(this);
-        findViewById(R.id.tv_me).setOnClickListener(this);
+        tvHome.setOnClickListener(this);
+        tvShop.setOnClickListener(this);
+        tvPublish.setOnClickListener(this);
+        tvMessage.setOnClickListener(this);
+        tvMe.setOnClickListener(this);
     }
 
     @Override
@@ -40,7 +54,8 @@ public abstract class BaseHomeActivity extends BaseRecyclerActivity {
                 HomeShopActivity.newIntent(this);
                 break;
             case R.id.tv_publish:
-                HomePublishActivity.newIntent(this);
+                //                HomePublishActivity.newIntent(this);
+                PublishCommodityActivity.newIntent(this);
                 break;
             case R.id.tv_message:
                 HomeMessageActivity.newIntent(this);

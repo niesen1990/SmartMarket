@@ -7,12 +7,15 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.mobileim.channel.event.IWxCallback;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.login.LoginActivity;
+import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.base.BaseActivity;
-import com.cmbb.smartmarket.im.IMLoginHelper;
 import com.cmbb.smartmarket.utils.SocialUtils;
 import com.umeng.socialize.UMShareAPI;
+
+import butterknife.BindView;
 
 /**
  * 项目名称：SmartMarket
@@ -20,25 +23,28 @@ import com.umeng.socialize.UMShareAPI;
  * 创建人：N.Sun
  * 创建时间：16/4/26 下午7:41
  */
-public class SettingActivity extends BaseActivity {
+public class SettingActivity extends BaseActivity{
 
-    private RelativeLayout rlAbout;
-    private RelativeLayout rlSuggestion;
-    private RelativeLayout rlRule;
-    private RelativeLayout rlShare;
-    private TextView tvLogout;
+    @BindView(R.id.rl_about)
+    RelativeLayout rlAbout;
+    @BindView(R.id.rl_suggestion)
+    RelativeLayout rlSuggestion;
+    @BindView(R.id.rl_rule)
+    RelativeLayout rlRule;
+    @BindView(R.id.rl_share)
+    RelativeLayout rlShare;
+    @BindView(R.id.rl_update)
+    RelativeLayout rlUpdate;
+    @BindView(R.id.tv_logout)
+    TextView tvLogout;
 
     protected void initView() {
-        rlAbout = (RelativeLayout) findViewById(R.id.rl_about);
         rlAbout.setOnClickListener(this);
-        rlSuggestion = (RelativeLayout) findViewById(R.id.rl_suggestion);
         rlSuggestion.setOnClickListener(this);
-        rlRule = (RelativeLayout) findViewById(R.id.rl_rule);
         rlRule.setOnClickListener(this);
-        rlShare = (RelativeLayout) findViewById(R.id.rl_share);
         rlShare.setOnClickListener(this);
-        tvLogout = (TextView) findViewById(R.id.tv_logout);
         tvLogout.setOnClickListener(this);
+        rlUpdate.setOnClickListener(this);
     }
 
     @Override
@@ -65,7 +71,25 @@ public class SettingActivity extends BaseActivity {
             case R.id.tv_logout:
                 // TODO: 16/4/27
                 LoginActivity.newIntent(this);
-                IMLoginHelper.getInstance().loginOutIM();
+                IMHelper.getInstance().logoutIM(new IWxCallback() {
+                    @Override
+                    public void onSuccess(Object... objects) {
+                        showToast("登出成功");
+                    }
+
+                    @Override
+                    public void onError(int i, String s) {
+
+                    }
+
+                    @Override
+                    public void onProgress(int i) {
+
+                    }
+                });
+                break;
+            case R.id.rl_update:
+
                 break;
         }
     }
@@ -85,4 +109,5 @@ public class SettingActivity extends BaseActivity {
         Intent intent = new Intent(context, SettingActivity.class);
         context.startActivity(intent);
     }
+
 }

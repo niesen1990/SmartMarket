@@ -30,4 +30,10 @@
     <string name="app_label">搜索</string>
     <string name="menu_report">举报</string>
     <string name="quit_confirm">退出后您将收不到新消息通知，是否确认退出？</string>
+    <string name="tip_deal_psw"><![CDATA[请去“我的”->\"我的钱包”->\"设置交易密码\"]]></string>
+    <string name="tip_add_account">仅支持绑定实名认证的支付宝账号，绑定账号仅供提现使用，绑定支付宝账号之后不能修改</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_add">新增</string>
 </resources>

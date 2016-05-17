@@ -4,9 +4,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cmbb.smartkids.recyclerview.adapter.BaseViewHolder;
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.UserAttentionModel;
+import com.cmbb.smartmarket.activity.home.model.TestModel;
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
 /**
  * 项目名称：LovelyBaby
@@ -14,7 +14,7 @@ import com.cmbb.smartmarket.activity.home.model.UserAttentionModel;
  * 创建人：javon
  * 创建时间：2015/8/24 14:25
  */
-public class MeCollectionItemHolder extends BaseViewHolder<UserAttentionModel.ResponseEntity.DataEntity.RowsEntity> {
+public class MeCollectionItemHolder extends BaseViewHolder<TestModel.DataEntity.RowsEntity> {
     private final String TAG = MeCollectionItemHolder.class.getSimpleName();
 
     private ImageView imageView;
@@ -26,7 +26,7 @@ public class MeCollectionItemHolder extends BaseViewHolder<UserAttentionModel.Re
 //        textView = $(R.id.textView);
     }
 
-    public void setData(UserAttentionModel.ResponseEntity.DataEntity.RowsEntity row) {
+    public void setData(TestModel.DataEntity.RowsEntity row) {
 //        textView.setText(row.getUserNike());
 
     }

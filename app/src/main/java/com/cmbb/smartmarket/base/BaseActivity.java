@@ -1,8 +1,10 @@
 package com.cmbb.smartmarket.base;
 
 import android.content.BroadcastReceiver;
+import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,9 +16,13 @@ import android.widget.Toast;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.broadcast.ExitBroadcast;
+import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.widget.ProgressDialog;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
+
+import butterknife.ButterKnife;
+import rx.Subscription;
 
 /**
  * 项目名称：SmartMarket
@@ -24,19 +30,19 @@ import com.umeng.message.PushAgent;
  * 创建人：N.Sun
  * 创建时间：16/4/14 上午11:24
  */
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener {
-
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener, DialogInterface.OnDismissListener {
 
     private static final String TAG = BaseActivity.class.getSimpleName();
+    protected Subscription subscription;
     private BroadcastReceiver existReceiver;// EXIT
     private ProgressDialog _progressDialog;
-
     private ActionBar toolbar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
+        ButterKnife.bind(this);
         intToolbar();
         initPush();
         initBroadcast();
@@ -53,10 +59,11 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-
     protected abstract void init(Bundle savedInstanceState);
 
-    protected abstract int getLayoutId();
+    protected abstract
+    @LayoutRes
+    int getLayoutId();
 
     public ActionBar getToolbar() {
         return toolbar;
@@ -78,7 +85,6 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -95,6 +101,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void onDestroy() {
         super.onDestroy();
         unregisterReceiver(existReceiver);
+        unSubscribe();
     }
 
     @Override
@@ -128,9 +135,17 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         if (_progressDialog == null) {
             _progressDialog = new ProgressDialog(this, R.style.ProgressBarWaiting);
             _progressDialog.setCanceledOnTouchOutside(false);
+            _progressDialog.setOnDismissListener(this);
             _progressDialog.show();
         } else {
             _progressDialog.show();
+        }
+    }
+
+    protected void hideWaitingDialog() {
+        if (_progressDialog != null && _progressDialog.isShowing()) {
+            _progressDialog.dismiss();
+            _progressDialog = null;
         }
     }
 
@@ -140,14 +155,18 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public void onBackPressed() {
-        if (_progressDialog != null && _progressDialog.isShowing()) {
-            _progressDialog.dismiss();
-            _progressDialog = null;
-        } else {
-            super.onBackPressed();
-        }
+        unSubscribe();
+        super.onBackPressed();
     }
 
+    /**
+     * 取消Subscribe
+     */
+    protected void unSubscribe() {
+        if (subscription != null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
+    }
 
     /**
      * 程序退出
@@ -156,5 +175,10 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         existReceiver = new ExitBroadcast(this);
         IntentFilter filter = new IntentFilter(Constants.INTENT_ACTION_EXIT_APP);
         registerReceiver(existReceiver, filter);
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        unSubscribe();
     }
 }

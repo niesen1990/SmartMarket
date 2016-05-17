@@ -7,7 +7,7 @@ import android.widget.ImageView;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.home.model.AdModel;
-import com.cmbb.smartmarket.image.PicassoLoader;
+import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.log.Log;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 
@@ -34,12 +34,14 @@ public class BannerAdapter extends StaticPagerAdapter {
     @Override
     public View getView(ViewGroup container, final int position) {
         ImageView imageView = (ImageView) LayoutInflater.from(container.getContext()).inflate(R.layout.banner_image, null);
-//        ImageView imageView = new ImageView(container.getContext());
-//        imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 480);
-//        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        //        ImageView imageView = new ImageView(container.getContext());
+        //        imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 480);
+        //        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
         //加载图片
-//        PicassoLoader.loadImageWithResizeCenterCrop(container.getContext(), list.get(position).getImg(), imageView, list.get(position).getWidth(), list.get(position).getHeight());
-        PicassoLoader.loadImageWithFit(container.getContext(), list.get(position).getImg(), imageView);
+        //        PicassoLoader.loadImageWithResizeCenterCrop(container.getContext(), list.get(position).getImg(), imageView, list.get(position).getWidth(), list.get(position).getHeight());
+        //        PicassoLoader.loadImageWithFit(container.getContext(), list.get(position).getImg(), imageView);
+
+        ImageLoader.loadUrlAndDiskCache(container.getContext(), list.get(position).getImg(), imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

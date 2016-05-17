@@ -2,7 +2,12 @@ package com.cmbb.smartmarket.activity.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,12 +15,21 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cmbb.smartkids.recyclerview.adapter.RecyclerArrayAdapter;
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.market.PublishCommodityActivity;
+import com.cmbb.smartmarket.activity.address.AddressManagerActivity;
 import com.cmbb.smartmarket.activity.user.InfoActivity;
 import com.cmbb.smartmarket.activity.user.MeCollectionActivity;
+import com.cmbb.smartmarket.activity.user.RefundActivity;
 import com.cmbb.smartmarket.activity.user.SettingActivity;
+import com.cmbb.smartmarket.activity.user.UserCenterActivity;
+import com.cmbb.smartmarket.activity.wallet.WalletActivity;
+import com.cmbb.smartmarket.db.DBContent;
+import com.cmbb.smartmarket.image.CircleTransform;
+import com.cmbb.smartmarket.image.ImageLoader;
+import com.cmbb.smartmarket.log.Log;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+
+import butterknife.BindView;
 
 /**
  * 项目名称：SmartMarket
@@ -23,47 +37,48 @@ import com.cmbb.smartmarket.activity.user.SettingActivity;
  * 创建人：N.Sun
  * 创建时间：16/4/19 上午9:34
  */
-public class HomeMeActivity extends BaseHomeActivity {
+public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final String TAG = HomeMeActivity.class.getSimpleName();
 
-    private ImageView ivHead;
-    private TextView tvNick;
-    private TextView tvSex;
-    private TextView tvLine01;
-    private TextView tvAddress;
-    private RelativeLayout rlWallet;
-    private RelativeLayout rlInfo;
-    private RelativeLayout rlRefund;
-    private RelativeLayout rlPublish;
-    private RelativeLayout rlSelled;
-    private RelativeLayout rlBuy;
-    private RelativeLayout rlCollection;
-    private RelativeLayout rlOff;
-    private RelativeLayout rlAddress;
+    @BindView(R.id.rl_info)
+    RelativeLayout rlInfo;
+    @BindView(R.id.iv_head)
+    ImageView ivHead;
+    @BindView(R.id.tv_nick)
+    TextView tvNick;
+    @BindView(R.id.tv_sex)
+    TextView tvSex;
+    @BindView(R.id.tv_line01)
+    TextView tvLine01;
+    @BindView(R.id.tv_address)
+    TextView tvAddress;
+    @BindView(R.id.rl_wallet)
+    RelativeLayout rlWallet;
+    @BindView(R.id.rl_refund)
+    RelativeLayout rlRefund;
+    @BindView(R.id.rl_publish)
+    RelativeLayout rlPublish;
+    @BindView(R.id.rl_selled)
+    RelativeLayout rlSelled;
+    @BindView(R.id.rl_buy)
+    RelativeLayout rlBuy;
+    @BindView(R.id.rl_collection)
+    RelativeLayout rlCollection;
+    @BindView(R.id.rl_off)
+    RelativeLayout rlOff;
+    @BindView(R.id.rl_address)
+    RelativeLayout rlAddress;
 
     protected void init() {
-        ivHead = (ImageView) findViewById(R.id.iv_head);
-        tvNick = (TextView) findViewById(R.id.tv_nick);
-        tvSex = (TextView) findViewById(R.id.tv_sex);
-        tvLine01 = (TextView) findViewById(R.id.tv_line01);
-        tvAddress = (TextView) findViewById(R.id.tv_address);
-        rlWallet = (RelativeLayout) findViewById(R.id.rl_wallet);
+        tvMe.setSelected(true);
         rlWallet.setOnClickListener(this);
-        rlInfo = (RelativeLayout) findViewById(R.id.rl_info);
         rlInfo.setOnClickListener(this);
-        rlRefund = (RelativeLayout) findViewById(R.id.rl_refund);
         rlRefund.setOnClickListener(this);
-        rlPublish = (RelativeLayout) findViewById(R.id.rl_publish);
         rlPublish.setOnClickListener(this);
-        rlSelled = (RelativeLayout) findViewById(R.id.rl_selled);
         rlSelled.setOnClickListener(this);
-        rlBuy = (RelativeLayout) findViewById(R.id.rl_buy);
         rlBuy.setOnClickListener(this);
-        rlCollection = (RelativeLayout) findViewById(R.id.rl_collection);
         rlCollection.setOnClickListener(this);
-        rlOff = (RelativeLayout) findViewById(R.id.rl_off);
         rlOff.setOnClickListener(this);
-        rlAddress = (RelativeLayout) findViewById(R.id.rl_address);
         rlAddress.setOnClickListener(this);
     }
 
@@ -72,6 +87,7 @@ public class HomeMeActivity extends BaseHomeActivity {
         getToolbar().setDisplayHomeAsUpEnabled(false);
         setTitle("我的");
         init();
+        getSupportLoaderManager().initLoader(0, null, this);
     }
 
     @Override
@@ -79,11 +95,13 @@ public class HomeMeActivity extends BaseHomeActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.rl_wallet:
+                WalletActivity.newIntent(this);
                 break;
             case R.id.rl_info:
                 InfoActivity.newIntent(this);
                 break;
             case R.id.rl_refund:
+                RefundActivity.newIntent(this);
                 break;
             case R.id.rl_publish:
                 break;
@@ -95,9 +113,11 @@ public class HomeMeActivity extends BaseHomeActivity {
                 MeCollectionActivity.newIntent(this);
                 break;
             case R.id.rl_off:
+                UserCenterActivity.newIntent(this, 10);
                 break;
             case R.id.rl_address:
-                PublishCommodityActivity.newIntent(this);
+                AddressManagerActivity.newIntent(this);
+                //                PublishCommodityActivity.newIntent(this);
                 break;
         }
     }
@@ -106,7 +126,6 @@ public class HomeMeActivity extends BaseHomeActivity {
     protected int getLayoutId() {
         return R.layout.activity_home_me;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -129,7 +148,6 @@ public class HomeMeActivity extends BaseHomeActivity {
         return null;
     }
 
-
     @Override
     public void onItemClick(int position) {
 
@@ -142,6 +160,43 @@ public class HomeMeActivity extends BaseHomeActivity {
 
     @Override
     public void onRefresh() {
+
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        return new CursorLoader(this, DBContent.DBUser.CONTENT_URI, null, null, null, null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if (cursor != null && cursor.moveToFirst()) {
+            Log.i(TAG, cursor.getString(cursor.getColumnIndex(DBContent.DBUser.USER_TOKEN)));
+            String headImageUrl = cursor.getString(cursor.getColumnIndex(DBContent.DBUser.USER_HEAD_IMG));
+            if (!TextUtils.isEmpty(headImageUrl))
+                ImageLoader.loadUrlAndDiskCache(this, headImageUrl, ivHead, new CircleTransform(this));
+            String nick = cursor.getString(cursor.getColumnIndex(DBContent.DBUser.USER_NICK_NAME));
+            if (!TextUtils.isEmpty(nick))
+                tvNick.setText(nick);
+            String city = cursor.getString(cursor.getColumnIndex(DBContent.DBUser.USER_CITY));
+            if (!TextUtils.isEmpty(city))
+                tvAddress.setText(city);
+            String sex = cursor.getString(cursor.getColumnIndex(DBContent.DBUser.USER_MALE));
+            if (!TextUtils.isEmpty(sex)) {
+                switch (sex) {
+                    case "1":
+                        tvSex.setText("男");
+                        break;
+                    case "2":
+                        tvSex.setText("女");
+                        break;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
 
     }
 

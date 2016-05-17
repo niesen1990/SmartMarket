@@ -9,12 +9,12 @@
 
     <include layout="@layout/toolbar" />
 
-    <com.cmbb.smartkids.recyclerview.SmartRecyclerView
+    <com.jude.easyrecyclerview.EasyRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="56dp"
         app:layout_empty="@layout/view_empty"
         app:layout_progress="@layout/view_progress"
         app:scrollbarStyle="insideOverlay" />

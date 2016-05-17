@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:id="@+id/ll01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <TextView
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="收 件 人 :"/>
+
+        <EditText
+            android:id="@+id/et_name"
+            style="@style/TextAppearance.Smart.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@null"
+            android:hint="收件人姓名"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll01"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <TextView
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="手 机 号 :"/>
+
+        <EditText
+            android:id="@+id/et_phone"
+            style="@style/TextAppearance.Smart.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@null"
+            android:hint="输入手机号码"
+            android:inputType="phone"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll02"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <TextView
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="所在地址"/>
+
+        <TextView
+            style="@style/TextAppearance.Smart.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@null"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@android:drawable/ic_menu_add"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll04"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll03"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <TextView
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="详细地址 :"/>
+
+        <EditText
+            android:id="@+id/et_address_detail"
+            style="@style/TextAppearance.Smart.Small"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="3"
+            android:background="@null"
+            android:gravity="top"
+            android:hint="5-60个字"
+            android:maxLength="30"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll05"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll04"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <TextView
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="邮  编 :"/>
+
+        <EditText
+            android:id="@+id/et_zip_code"
+            style="@style/TextAppearance.Smart.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:background="@null"
+            android:hint="(可不填)"
+            android:maxLength="6"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll06"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll05"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <TextView
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:text="设为默认地址"/>
+
+        <TextView
+            style="@style/TextAppearance.Smart.Small"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2.5"
+            android:background="@null"
+            android:maxLength="6"/>
+
+        <Switch
+            android:id="@+id/switch_default"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_submit"
+        style="@style/Button.Smart.Normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll06"
+        android:layout_marginLeft="@dimen/global_padding"
+        android:layout_marginRight="@dimen/global_padding"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="确定"/>
+
+</RelativeLayout>

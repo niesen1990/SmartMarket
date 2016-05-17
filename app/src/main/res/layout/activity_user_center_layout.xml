@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.cmbb.smartmarket.widget.MengCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+<com.cmbb.smartmarket.widget.MengCoordinatorLayout android:id="@+id/main_content"
+                                                   xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/abl"
         android:layout_width="match_parent"
-        android:layout_height="270dp"
+        android:layout_height="256dp"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/line"
+            android:background="@color/user_center_bac"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginEnd="64dp"
@@ -36,7 +37,7 @@
                     android:layout_height="84dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="30dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/ic_launcher"/>
 
                 <TextView
                     android:id="@+id/tv_nick"
@@ -45,7 +46,7 @@
                     android:layout_below="@+id/iv_head"
                     android:gravity="center"
                     android:padding="@dimen/global_padding"
-                    android:text="我是共产党" />
+                    android:text="我是共产党"/>
 
                 <RatingBar
                     android:id="@+id/ratingBar"
@@ -55,13 +56,12 @@
                     android:layout_below="@+id/tv_nick"
                     android:layout_centerHorizontal="true"
                     android:numStars="5"
-                    android:rating="1" />
+                    android:rating="1"/>
 
                 <LinearLayout
                     android:id="@+id/ll_bottom"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/tv_sell_tag"
                     android:layout_below="@+id/ratingBar"
                     android:layout_marginTop="@dimen/half_global_padding"
                     android:gravity="center_vertical"
@@ -84,7 +84,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="139"
-                                android:textSize="22sp" />
+                                android:textSize="22sp"/>
 
                             <TextView
                                 android:id="@+id/tv_collection_count_tag"
@@ -92,7 +92,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="bottom"
                                 android:paddingBottom="2dp"
-                                android:text="个" />
+                                android:text="个"/>
 
                         </LinearLayout>
 
@@ -102,7 +102,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/ll_collection"
                             android:layout_centerHorizontal="true"
-                            android:text="收藏" />
+                            android:text="收藏"/>
 
                     </RelativeLayout>
 
@@ -124,7 +124,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="139"
-                                android:textSize="22sp" />
+                                android:textSize="22sp"/>
 
                             <TextView
                                 android:id="@+id/tv_deal_count_tag"
@@ -132,7 +132,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="bottom"
                                 android:paddingBottom="2dp"
-                                android:text="个" />
+                                android:text="个"/>
                         </LinearLayout>
 
                         <TextView
@@ -141,7 +141,7 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/ll_deal"
                             android:layout_centerHorizontal="true"
-                            android:text="成功交易" />
+                            android:text="成功交易"/>
 
                     </RelativeLayout>
 
@@ -163,7 +163,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:text="139"
-                                android:textSize="22sp" />
+                                android:textSize="22sp"/>
 
                             <TextView
                                 android:id="@+id/tv_evaluate_count_tag"
@@ -171,7 +171,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="bottom"
                                 android:paddingBottom="2dp"
-                                android:text="个" />
+                                android:text="个"/>
                         </LinearLayout>
 
                         <TextView
@@ -181,24 +181,11 @@
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/ll_evaluate"
                             android:layout_centerHorizontal="true"
-                            android:text="评价" />
+                            android:text="评价"/>
 
 
                     </RelativeLayout>
                 </LinearLayout>
-
-                <TextView
-                    android:id="@+id/tv_sell_tag"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:background="@drawable/shape_white_stroke_no_corner"
-                    android:drawableLeft="@android:drawable/ic_menu_add"
-                    android:gravity="center_vertical"
-                    android:text="在售商品"
-                    android:textColor="@color/dimgray"
-                    android:textSize="18sp" />
-
 
             </RelativeLayout>
 
@@ -216,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginRight="10dp"
-                    android:src="@android:drawable/ic_menu_add" />
+                    android:src="@android:drawable/ic_menu_add"/>
 
             </android.support.v7.widget.Toolbar>
 
@@ -224,15 +211,40 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <com.cmbb.smartkids.recyclerview.SmartRecyclerView
-        android:id="@+id/recyclerView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbar"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_empty="@layout/view_empty"
-        app:layout_progress="@layout/view_progress"
-        app:scrollbarStyle="insideOverlay" />
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_gravity="bottom"
+            android:background="@android:color/white"
+            app:tabContentStart="72dp"
+            app:tabIndicatorColor="@color/colorPrimaryDark"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextColor="@android:color/black"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+
+    <!-- <com.jude.easyrecyclerview.EasyRecyclerView
+         android:id="@+id/recyclerView"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         android:layout_below="@+id/toolbar"
+         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+         app:layout_empty="@layout/view_empty"
+         app:layout_progress="@layout/view_progress"
+         app:scrollbarStyle="insideOverlay"/>
+ -->
 
 </com.cmbb.smartmarket.widget.MengCoordinatorLayout>

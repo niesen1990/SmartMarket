@@ -24,9 +24,9 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowBackground">@color/windowBackgroundColor</item>
 
-        <item name="del_color">@android:color/black</item>
-        <item name="zoom_color">@color/darkgray</item>
-        <item name="camera">@android:drawable/ic_menu_camera</item>
+        <!--<item name="del_color">@android:color/black</item>-->
+        <!--<item name="zoom_color">@color/darkgray</item>-->
+        <!--<item name="camera">@android:drawable/ic_menu_camera</item>-->
         <!--<item name="colorControlNormal">@android:color/white</item>-->
     </style>
 

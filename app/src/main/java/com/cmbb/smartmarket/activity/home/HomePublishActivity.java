@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.cmbb.smartkids.recyclerview.adapter.RecyclerArrayAdapter;
 import com.cmbb.smartmarket.R;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 /**
  * 项目名称：SmartMarket

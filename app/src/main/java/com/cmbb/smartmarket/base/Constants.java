@@ -8,6 +8,9 @@ package com.cmbb.smartmarket.base;
  */
 public class Constants {
     public static final String INTENT_ACTION_EXIT_APP = "com.cmbb.smartmarket.exit";
+    public static final String INTENT_ACTION_ERROR_INFRO = "com.cmbb.smartmarket.err";
     public static final String AUTO_LOGIN_STATE_ACTION = "com.cmbb.smartmarket.autoLoginStateActionn";
-
+    public static final String IM_USER_ID = "im_user_id";
+    public static final String IM_USER_PASSWORD = "im_user_password";
+    public static final String API_TOKEN = "api_token";
 }

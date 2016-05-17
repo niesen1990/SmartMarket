@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.cmbb.smartmarket.widget.MengCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   android:fitsSystemWindows="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,7 +16,7 @@
             android:layout_height="96dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="60dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher"/>
 
         <LinearLayout
             android:id="@+id/ll_middle"
@@ -37,9 +37,10 @@
                 android:layout_weight="1"
                 android:padding="12dp"
                 android:text="手机号"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimary"/>
 
             <EditText
+                android:id="@+id/et_phone"
                 style="@style/Base.TextAppearance.AppCompat.Small"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -47,10 +48,12 @@
                 android:layout_weight="2"
                 android:background="@null"
                 android:hint="请输入11位手机号"
+                android:inputType="phone"
+                android:maxLength="11"
                 android:paddingBottom="@dimen/half_global_padding"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="@dimen/half_global_padding" />
+                android:paddingTop="@dimen/half_global_padding"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -61,7 +64,7 @@
                 android:text="获取验证码"
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp"
-                android:visibility="invisible" />
+                android:visibility="invisible"/>
         </LinearLayout>
 
         <LinearLayout
@@ -83,9 +86,10 @@
                 android:layout_weight="1"
                 android:padding="12dp"
                 android:text="验证码"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimary"/>
 
             <EditText
+                android:id="@+id/et_check"
                 style="@style/Base.TextAppearance.AppCompat.Small"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -93,12 +97,14 @@
                 android:layout_weight="2"
                 android:background="@null"
                 android:hint="请输入验证码"
+                android:inputType="number"
                 android:paddingBottom="@dimen/half_global_padding"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="@dimen/half_global_padding" />
+                android:paddingTop="@dimen/half_global_padding"/>
 
             <TextView
+                android:id="@+id/tv_check"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -106,7 +112,7 @@
                 android:padding="@dimen/global_padding"
                 android:text="获取验证码"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
         </LinearLayout>
 
         <TextView
@@ -116,7 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_bottom"
             android:layout_margin="@dimen/activity_horizontal_margin"
-            android:text="登陆" />
+            android:text="登陆"/>
 
     </RelativeLayout>
 

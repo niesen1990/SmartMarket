@@ -3,7 +3,6 @@ package com.cmbb.smartmarket.activity.market;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,19 +12,22 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cmbb.smartkids.recyclerview.adapter.RecyclerArrayAdapter;
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.UserAttentionModel;
+import com.cmbb.smartmarket.activity.home.model.TestModel;
+import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
 import com.cmbb.smartmarket.activity.market.adapter.DetailReplayAdapter;
 import com.cmbb.smartmarket.activity.user.ReportActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
-import com.cmbb.smartmarket.base.ResponseModel;
-import com.cmbb.smartmarket.network.OkHttp;
+import com.cmbb.smartmarket.image.ImageLoader;
+import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.utils.SocialUtils;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.umeng.socialize.UMShareAPI;
 
-import java.util.HashMap;
+import butterknife.BindView;
+import rx.Observer;
 
 /**
  * 项目名称：SmartMarket
@@ -35,23 +37,23 @@ import java.util.HashMap;
  */
 public class CommodityDetailActivity extends BaseRecyclerActivity {
     private static final String TAG = CommodityDetailActivity.class.getSimpleName();
-
-    private AppBarLayout abl;
-    private ImageView rollViewPager;
-    private TextView tvMessage;
-    private ImageView ivCollection;
-    private TextView tvShare;
-    private TextView tvBuy;
+    @BindView(R.id.roll_view_pager)
+    ImageView rollViewPager;
+    @BindView(R.id.tv_message)
+    TextView tvMessage;
+    @BindView(R.id.iv_collection)
+    ImageView ivCollection;
+    @BindView(R.id.tv_share)
+    TextView tvShare;
+    @BindView(R.id.tv_buy)
+    TextView tvBuy;
 
     protected void init() {
         rollViewPager = (ImageView) findViewById(R.id.roll_view_pager);
-        tvMessage = (TextView) findViewById(R.id.tv_message);
+        ImageLoader.loadUrlAndDiskCache(this, "http://smart.image.alimmdn.com/system/image/2016-04-18/file_50647_NTFjM2VmMjMtOTNiNC00MTI2LWJhMWMtOWFlZDc2MTg2MDU4", rollViewPager);
         tvMessage.setOnClickListener(this);
-        ivCollection = (ImageView) findViewById(R.id.iv_collection);
         ivCollection.setOnClickListener(this);
-        tvShare = (TextView) findViewById(R.id.tv_share);
         tvShare.setOnClickListener(this);
-        tvBuy = (TextView) findViewById(R.id.tv_buy);
         tvBuy.setOnClickListener(this);
     }
 
@@ -115,6 +117,7 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
                 break;
             case R.id.tv_buy:
                 // TODO: 16/4/28
+                BuyOrderActivity.newIntent(this);
                 break;
         }
     }
@@ -124,51 +127,51 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
 
     }
 
+    Observer<TestModel> mTestUserAttentionModelObserver = new Observer<TestModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e(TAG, e.toString());
+            mSmartRecyclerView.showError();
+            adapter.pauseMore();
+        }
+
+        @Override
+        public void onNext(TestModel testModel) {
+            if (pager == 0)
+                adapter.clear();
+            adapter.addAll(testModel.getData().getRows());
+        }
+    };
+
     @Override
     public void onLoadMore() {
         pager++;
-        HashMap<String, String> params = new HashMap<>();
-        params.put("pageNo", String.valueOf(pager));
-        params.put("numberOfPerPage", String.valueOf(pagerSize));
-        params.put("typeNum", String.valueOf(0));
-        params.put("token", BaseApplication.getToken());
-        OkHttp.post("smart/attention/getList", params, new ResponseModel<UserAttentionModel>() {
-
-            @Override
-            protected void onSuccess(UserAttentionModel result) {
-                adapter.addAll(result.getResponse().getData().getRows());
-            }
-
-            @Override
-            protected void onFailed() {
-                mSmartRecyclerView.showError();
-                adapter.pauseMore();
-            }
-        });
+        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        HashMap<String, String> params = new HashMap<>();
-        params.put("pageNo", String.valueOf(pager));
-        params.put("numberOfPerPage", String.valueOf(pagerSize));
-        params.put("typeNum", String.valueOf(0));
-        params.put("token", BaseApplication.getToken());
-        OkHttp.post("smart/attention/getList", params, new ResponseModel<UserAttentionModel>() {
+        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+    }
 
-            @Override
-            protected void onSuccess(UserAttentionModel result) {
-                adapter.clear();
-                adapter.addAll(result.getResponse().getData().getRows());
-            }
-
-            @Override
-            protected void onFailed() {
-                mSmartRecyclerView.showError();
-                adapter.pauseMore();
-            }
-        });
+    /**
+     * 设置参数
+     *
+     * @return params
+     */
+    protected TestRequestModel setParams() {
+        unSubscribe();
+        TestRequestModel testRequestModel = new TestRequestModel();
+        testRequestModel.setCmd("smart/attention/getList");
+        testRequestModel.setToken(BaseApplication.getToken());
+        testRequestModel.setParameters(new TestRequestModel.ParametersEntity(pager, pagerSize, 0));
+        return testRequestModel;
     }
 
     @Override

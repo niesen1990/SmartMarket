@@ -2,9 +2,9 @@ package com.cmbb.smartmarket.activity.message.holder;
 
 import android.view.ViewGroup;
 
-import com.cmbb.smartkids.recyclerview.adapter.BaseViewHolder;
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.UserAttentionModel;
+import com.cmbb.smartmarket.activity.home.model.TestModel;
+import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
 /**
  * 项目名称：LovelyBaby
@@ -12,14 +12,14 @@ import com.cmbb.smartmarket.activity.home.model.UserAttentionModel;
  * 创建人：javon
  * 创建时间：2015/8/24 14:25
  */
-public class MessageSystemItemHolder extends BaseViewHolder<UserAttentionModel.ResponseEntity.DataEntity.RowsEntity> {
+public class MessageSystemItemHolder extends BaseViewHolder<TestModel.DataEntity.RowsEntity> {
     private final String TAG = MessageSystemItemHolder.class.getSimpleName();
 
     public MessageSystemItemHolder(ViewGroup parent) {
         super(parent, R.layout.activity_message_system_list_item);
     }
 
-    public void setData(UserAttentionModel.ResponseEntity.DataEntity.RowsEntity row) {
+    public void setData(TestModel.DataEntity.RowsEntity row) {
 
     }
 }

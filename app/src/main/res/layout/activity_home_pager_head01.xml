@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
         android:id="@+id/head01"
@@ -19,7 +21,7 @@
             android:drawablePadding="@dimen/half_global_padding"
             android:drawableTop="@android:drawable/ic_menu_add"
             android:gravity="center"
-            android:text="@string/home_head_tuijian" />
+            android:text="@string/home_head_tuijian"/>
 
         <TextView
             android:id="@+id/tv_baobaoyongping"
@@ -29,7 +31,7 @@
             android:drawablePadding="@dimen/half_global_padding"
             android:drawableTop="@android:drawable/ic_menu_add"
             android:gravity="center"
-            android:text="@string/home_head_baobao" />
+            android:text="@string/home_head_baobao"/>
 
         <TextView
             android:id="@+id/tv_mamashangping"
@@ -39,7 +41,7 @@
             android:drawablePadding="@dimen/half_global_padding"
             android:drawableTop="@android:drawable/ic_menu_add"
             android:gravity="center"
-            android:text="@string/home_head_mama" />
+            android:text="@string/home_head_mama"/>
 
         <TextView
             android:id="@+id/tv_jujiashangping"
@@ -49,7 +51,7 @@
             android:drawablePadding="@dimen/half_global_padding"
             android:drawableTop="@android:drawable/ic_menu_add"
             android:gravity="center"
-            android:text="@string/home_head_jujia" />
+            android:text="@string/home_head_jujia"/>
 
     </LinearLayout>
 
@@ -68,7 +70,7 @@
             android:layout_height="48dp"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/ic_launcher"/>
 
 
         <TextView
@@ -84,7 +86,7 @@
             android:paddingTop="2dp"
             android:text="超赞"
             android:textColor="@color/colorPrimary"
-            android:textSize="12sp" />
+            android:textSize="12sp"/>
 
 
         <TextView
@@ -100,27 +102,19 @@
             android:paddingTop="2dp"
             android:text="最新"
             android:textColor="@color/colorPrimary"
-            android:textSize="12sp" />
+            android:textSize="12sp"/>
 
 
-        <TextView
-            android:id="@+id/tv_head_zan_content"
-            android:layout_width="match_parent"
+        <AdapterViewFlipper
+            android:id="@+id/adapterViewFlipper"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/tv_head_xin"
+            android:layout_alignParentRight="true"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_toRightOf="@+id/tv_head_zan"
-            android:lines="1"
-            android:text="骄傲节是的发健康的是的就发空间是发的" />
+            android:flipInterval="3000"
+            android:layout_toRightOf="@+id/tv_head_zan"/>
 
-        <TextView
-            android:id="@+id/tv_head_xin_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_head02"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_toRightOf="@+id/tv_head_xin"
-            android:lines="1"
-            android:text="骄傲节是的发健康的是的就发空间是发的" />
 
     </RelativeLayout>
 
@@ -135,7 +129,7 @@
             android:layout_height="1dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/tv_new_store_tag"
-            android:background="@color/darkgray" />
+            android:background="@color/darkgray"/>
 
         <TextView
             android:id="@+id/tv_new_store_tag"
@@ -146,14 +140,14 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:text="最新商品"
             android:textColor="@color/colorPrimary"
-            android:textStyle="bold" />
+            android:textStyle="bold"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/tv_new_store_tag"
-            android:background="@color/darkgray" />
+            android:background="@color/darkgray"/>
     </RelativeLayout>
 
 </RelativeLayout>

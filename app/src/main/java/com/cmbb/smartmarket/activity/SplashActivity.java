@@ -14,6 +14,7 @@ import com.cmbb.smartmarket.base.BaseActivity;
  * 创建时间：16/4/19 上午10:22
  */
 public class SplashActivity extends BaseActivity {
+
     @Override
     protected void init(Bundle savedInstanceState) {
         new Handler().postDelayed(new Runnable() {

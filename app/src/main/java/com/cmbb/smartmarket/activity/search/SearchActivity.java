@@ -9,10 +9,10 @@ import android.provider.SearchRecentSuggestions;
 import android.view.View;
 import android.widget.SearchView;
 
-import com.cmbb.smartkids.recyclerview.adapter.RecyclerArrayAdapter;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.log.Log;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 /**
  * 项目名称：SmartMarket

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.cmbb.smartmarket.widget.MengCoordinatorLayout
+    android:id="@+id/main_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/abl"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/line"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:background="@color/colorPrimary"
+                android:fitsSystemWindows="true"
+                app:layout_collapseMode="parallax">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_above="@+id/tv_finished_money"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:gravity="center"
+                    android:text="我的账户余额"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"/>
+
+
+                <TextView
+                    android:id="@+id/tv_finished_money"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="￥10000.00"
+                    android:textColor="@android:color/white"
+                    android:textSize="30sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tv_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_finished_money"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:gravity="center"
+                    android:text="账户明细"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"/>
+
+            </RelativeLayout>
+
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+    </android.support.design.widget.AppBarLayout>
+
+
+    <com.cmbb.smartmarket.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:id="@+id/rl_pre_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:orientation="horizontal"
+                android:padding="@dimen/global_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:gravity="center_vertical"
+                    android:text="预收款"/>
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_menu_help"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_balance_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_pre_payment"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:orientation="horizontal"
+                android:padding="@dimen/global_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:gravity="center_vertical"
+                    android:text="余额转出(提现)"/>
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_menu_help"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_deal_psw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_balance_out"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:orientation="horizontal"
+                android:padding="@dimen/global_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:gravity="center_vertical"
+                    android:text="设置交易密码"/>
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_menu_help"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_change_psw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_deal_psw"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:orientation="horizontal"
+                android:padding="@dimen/global_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:gravity="center_vertical"
+                    android:text="修改交易密码"/>
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_menu_help"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_balance_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_change_psw"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:orientation="horizontal"
+                android:padding="@dimen/global_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:gravity="center_vertical"
+                    android:text="设置提现账号"/>
+
+                <ImageView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@android:drawable/ic_menu_help"/>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </com.cmbb.smartmarket.widget.NestedScrollView>
+
+</com.cmbb.smartmarket.widget.MengCoordinatorLayout>

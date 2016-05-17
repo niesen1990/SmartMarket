@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar"/>
 
-    <android.support.v4.widget.NestedScrollView
+    <com.cmbb.smartmarket.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
@@ -28,7 +29,7 @@
                     android:id="@+id/iv_head"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/ic_launcher"/>
 
                 <TextView
                     android:id="@+id/tv_nick"
@@ -37,7 +38,7 @@
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="@dimen/half_global_padding"
                     android:layout_toRightOf="@+id/iv_head"
-                    android:text="niesen918" />
+                    android:text="未设置昵称"/>
 
                 <TextView
                     android:id="@+id/tv_sex"
@@ -48,7 +49,7 @@
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="@dimen/half_global_padding"
                     android:layout_toRightOf="@+id/iv_head"
-                    android:text="女" />
+                    android:text="性别"/>
 
                 <TextView
                     android:id="@+id/tv_line01"
@@ -60,7 +61,7 @@
                     android:layout_marginLeft="@dimen/global_padding"
                     android:layout_marginTop="2dp"
                     android:layout_toRightOf="@+id/tv_sex"
-                    android:background="@color/darkgray" />
+                    android:background="@color/darkgray"/>
 
                 <TextView
                     android:id="@+id/tv_address"
@@ -71,14 +72,14 @@
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="@dimen/half_global_padding"
                     android:layout_toRightOf="@+id/tv_line01"
-                    android:text="上海" />
+                    android:text="地址"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help" />
+                    android:src="@android:drawable/ic_menu_help"/>
 
             </RelativeLayout>
 
@@ -97,7 +98,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@android:drawable/ic_menu_add"
                     android:gravity="center_vertical"
-                    android:text="我的钱包" />
+                    android:text="我的钱包"/>
 
                 <ImageView
 
@@ -105,7 +106,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help" />
+                    android:src="@android:drawable/ic_menu_help"/>
 
             </RelativeLayout>
 
@@ -114,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/half_global_padding"
+                android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
                 android:padding="@dimen/global_padding">
@@ -124,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@android:drawable/ic_menu_add"
                     android:gravity="center_vertical"
-                    android:text="退款管理" />
+                    android:text="退款管理"/>
 
                 <ImageView
 
@@ -132,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help" />
+                    android:src="@android:drawable/ic_menu_help"/>
 
             </RelativeLayout>
 
@@ -141,7 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/half_global_padding"
+                android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
                 android:padding="@dimen/global_padding">
@@ -151,7 +152,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@android:drawable/ic_menu_add"
                     android:gravity="center_vertical"
-                    android:text="宝贝发布" />
+                    android:text="宝贝发布"/>
 
                 <ImageView
 
@@ -159,7 +160,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help" />
+                    android:src="@android:drawable/ic_menu_help"/>
 
             </RelativeLayout>
 
@@ -168,7 +169,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/half_global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
                 android:padding="@dimen/global_padding">
@@ -178,7 +178,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@android:drawable/ic_menu_add"
                     android:gravity="center_vertical"
-                    android:text="宝贝已售" />
+                    android:text="宝贝已售"/>
 
                 <ImageView
 
@@ -186,7 +186,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help" />
+                    android:src="@android:drawable/ic_menu_help"/>
 
             </RelativeLayout>
 
@@ -195,7 +195,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/half_global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
                 android:padding="@dimen/global_padding">
@@ -205,7 +204,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@android:drawable/ic_menu_add"
                     android:gravity="center_vertical"
-                    android:text="宝贝已购" />
+                    android:text="宝贝已购"/>
 
                 <ImageView
 
@@ -213,7 +212,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help" />
+                    android:src="@android:drawable/ic_menu_help"/>
 
             </RelativeLayout>
 
@@ -222,7 +221,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/half_global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
                 android:padding="@dimen/global_padding">
@@ -232,7 +230,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@android:drawable/ic_menu_add"
                     android:gravity="center_vertical"
-                    android:text="宝贝收藏" />
+                    android:text="宝贝收藏"/>
 
                 <ImageView
 
@@ -240,7 +238,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help" />
+                    android:src="@android:drawable/ic_menu_help"/>
 
             </RelativeLayout>
 
@@ -249,7 +247,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/half_global_padding"
+                android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
                 android:padding="@dimen/global_padding">
@@ -259,7 +257,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@android:drawable/ic_menu_add"
                     android:gravity="center_vertical"
-                    android:text="下架管理" />
+                    android:text="下架管理"/>
 
                 <ImageView
 
@@ -267,7 +265,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help" />
+                    android:src="@android:drawable/ic_menu_help"/>
 
             </RelativeLayout>
 
@@ -276,7 +274,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="@dimen/half_global_padding"
+                android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
                 android:padding="@dimen/global_padding">
@@ -286,7 +284,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@android:drawable/ic_menu_add"
                     android:gravity="center_vertical"
-                    android:text="地址管理" />
+                    android:text="地址管理"/>
 
                 <ImageView
 
@@ -294,13 +292,13 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help" />
+                    android:src="@android:drawable/ic_menu_help"/>
 
             </RelativeLayout>
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </com.cmbb.smartmarket.widget.NestedScrollView>
 
-    <include layout="@layout/home_bottom" />
+    <include layout="@layout/home_bottom"/>
 </RelativeLayout>

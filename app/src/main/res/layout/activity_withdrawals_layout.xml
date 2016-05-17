@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.user.InfoActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <include layout="@layout/toolbar"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <LinearLayout
+            android:id="@+id/ll01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/shape_white_stroke_no_corner"
+            android:orientation="horizontal"
+            android:padding="@dimen/global_padding">
+
+            <TextView
+                style="@style/TextAppearance.Smart.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="提现金额："/>
+
+
+            <EditText
+                android:id="@+id/et_money"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@null"
+                android:hint="本次最多可提现1000.00元"
+                android:maxLines="1"
+                android:textColor="@color/darkgray"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_tag"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll01"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:padding="@dimen/global_padding"
+            android:text="认证账号："
+            android:textColor="@color/darkgray"/>
+
+        <LinearLayout
+            android:id="@+id/ll02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_tag"
+            android:background="@drawable/shape_white_stroke_no_corner"
+            android:orientation="horizontal"
+            android:padding="@dimen/global_padding">
+
+            <TextView
+                style="@style/TextAppearance.Smart.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="支付宝账号："/>
+
+
+            <TextView
+                android:id="@+id/tv_account"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@null"
+                android:maxLines="1"
+                android:textColor="@color/darkgray"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll03"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll02"
+            android:background="@drawable/shape_white_stroke_no_corner"
+            android:orientation="horizontal"
+            android:padding="@dimen/global_padding">
+
+            <TextView
+                style="@style/TextAppearance.Smart.Medium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="认证姓名："/>
+
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@null"
+                android:maxLines="1"
+                android:textColor="@color/darkgray"
+                android:textSize="14sp"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_submit"
+            style="@style/Button.Smart.Normal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll03"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:text="提现"/>
+
+    </RelativeLayout>
+
+
+    <include layout="@layout/account_password"/>
+
+</android.support.design.widget.CoordinatorLayout>

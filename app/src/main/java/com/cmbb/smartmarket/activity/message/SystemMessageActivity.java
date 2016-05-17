@@ -4,16 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.cmbb.smartkids.recyclerview.adapter.RecyclerArrayAdapter;
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.UserAttentionModel;
+import com.cmbb.smartmarket.activity.home.model.TestModel;
+import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
 import com.cmbb.smartmarket.activity.message.adapter.MessageSystemAdapter;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
-import com.cmbb.smartmarket.base.ResponseModel;
-import com.cmbb.smartmarket.network.OkHttp;
+import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.widget.SpaceItemDecoration;
+import com.jude.easyrecyclerview.EasyRecyclerView;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
-import java.util.HashMap;
+import rx.Observer;
 
 /**
  * 项目名称：SmartMarket
@@ -34,6 +36,11 @@ public class SystemMessageActivity extends BaseRecyclerActivity {
     }
 
     @Override
+    protected void setSpaceDecoration(EasyRecyclerView recyclerView) {
+        recyclerView.addItemDecoration(new SpaceItemDecoration(0, 0, 0, getResources().getDimensionPixelOffset(R.dimen.global_padding)));
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.activity_message_system_layout;
     }
@@ -43,51 +50,50 @@ public class SystemMessageActivity extends BaseRecyclerActivity {
 
     }
 
+    Observer<TestModel> mTestUserAttentionModelObserver = new Observer<TestModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            mSmartRecyclerView.showError();
+            adapter.pauseMore();
+        }
+
+        @Override
+        public void onNext(TestModel testModel) {
+            if (pager == 0)
+                adapter.clear();
+            adapter.addAll(testModel.getData().getRows());
+        }
+    };
+
     @Override
     public void onLoadMore() {
         pager++;
-        HashMap<String, String> params = new HashMap<>();
-        params.put("pageNo", String.valueOf(pager));
-        params.put("numberOfPerPage", String.valueOf(pagerSize));
-        params.put("typeNum", String.valueOf(0));
-        params.put("token", BaseApplication.getToken());
-        OkHttp.post("smart/attention/getList", params, new ResponseModel<UserAttentionModel>() {
-
-            @Override
-            protected void onSuccess(UserAttentionModel result) {
-                adapter.addAll(result.getResponse().getData().getRows());
-            }
-
-            @Override
-            protected void onFailed() {
-                mSmartRecyclerView.showError();
-                adapter.pauseMore();
-            }
-        });
+        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        HashMap<String, String> params = new HashMap<>();
-        params.put("pageNo", String.valueOf(pager));
-        params.put("numberOfPerPage", String.valueOf(pagerSize));
-        params.put("typeNum", String.valueOf(0));
-        params.put("token", BaseApplication.getToken());
-        OkHttp.post("smart/attention/getList", params, new ResponseModel<UserAttentionModel>() {
+        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+    }
 
-            @Override
-            protected void onSuccess(UserAttentionModel result) {
-                adapter.clear();
-                adapter.addAll(result.getResponse().getData().getRows());
-            }
-
-            @Override
-            protected void onFailed() {
-                mSmartRecyclerView.showError();
-                adapter.pauseMore();
-            }
-        });
+    /**
+     * 设置参数
+     *
+     * @return params
+     */
+    protected TestRequestModel setParams() {
+        unSubscribe();
+        TestRequestModel testRequestModel = new TestRequestModel();
+        testRequestModel.setCmd("smart/attention/getList");
+        testRequestModel.setToken(BaseApplication.getToken());
+        testRequestModel.setParameters(new TestRequestModel.ParametersEntity(pager, pagerSize, 0));
+        return testRequestModel;
     }
 
     public static void newIntent(Context context) {

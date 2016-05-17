@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:padding="@dimen/global_padding">
+
+    <RelativeLayout
+        android:id="@+id/ll01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/global_padding">
+
+        <TextView
+            android:id="@+id/tv_code_tag"
+            style="@style/TextAppearance.Smart.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="订单编号："/>
+
+        <TextView
+            android:id="@+id/tv_code"
+            style="@style/TextAppearance.Smart.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/tv_code_tag"
+            android:text="19901304895294"/>
+
+        <TextView
+            android:id="@+id/tv_status"
+            style="@style/TextAppearance.Smart.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="等待卖家收货"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll01">
+
+        <ImageView
+            android:id="@+id/iv_image"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_toRightOf="@+id/iv_image"
+            android:maxLength="20"
+            android:text="贝亲护理套装"/>
+
+        <TextView
+            android:id="@+id/tv_new_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_image"
+            android:layout_marginBottom="@dimen/half_global_padding"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_toRightOf="@+id/iv_image"
+            android:gravity="center"
+            android:text="2999"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:id="@+id/tv_old_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_image"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="@dimen/half_global_padding"
+            android:layout_marginLeft="@dimen/global_padding"
+            android:layout_toRightOf="@+id/tv_new_price"
+            android:background="@drawable/shape_gray_single_line"
+            android:gravity="center"
+            android:text="3700"/>
+
+    </RelativeLayout>
+</RelativeLayout>
