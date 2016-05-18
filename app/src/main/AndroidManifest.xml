@@ -119,15 +119,19 @@
         <activity android:name=".activity.wallet.PickAccountActivity"/>
         <activity android:name=".activity.wallet.AddAccountActivity"/>
         <activity android:name=".activity.wallet.AddAccountPhoneActivity"/>
-        <activity android:name=".activity.wallet.WithdrawalsActivity"
+        <activity
+            android:name=".activity.wallet.WithdrawalsActivity"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".activity.wallet.DealPswActivity"/>
         <activity android:name=".activity.wallet.DealPswPhoneActivity"/>
         <activity android:name=".activity.user.RefundActivity"/>
         <activity android:name=".activity.address.AddressManagerActivity"/>
-        <activity android:name=".activity.address.AddAddressActivity"/>
+        <activity android:name=".activity.address.AddAndEditAddressActivity"/>
         <activity android:name=".activity.user.EvaluateListActivity"/>
         <activity android:name=".activity.user.EvaluateDetailActivity"/>
+        <activity android:name=".activity.user.BuyFinishedActivity"/>
+        <activity android:name=".activity.user.ApplyRefundActivity"
+            android:windowSoftInputMode="stateHidden"/>
 
         <activity
             android:name=".activity.market.CommodityDetailActivity"
@@ -140,17 +144,11 @@
             android:name="com.cmbb.smartmarket.db.UserProvider"
             android:authorities="com.cmbb.smartmarket.useraccount"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name="com.umeng.socialize.editorpage.ShareActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.UMDefault"/>
-        <activity
-            android:name=".wxapi.WXEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
 
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -206,6 +204,30 @@
             android:name=".activity.search.SearchRecentProvider"
             android:authorities="com.cmbb.smartmarket.search.recent"
             android:exported="false"/>
+
+        <!-- 支付宝 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"/>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"/>
+        <!-- 支付宝 -->
+        <!-- 微信回调activity -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+
+        <activity
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"/>
 
         <!--<service
             android:name="com.baidu.location.f"

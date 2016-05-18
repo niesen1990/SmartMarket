@@ -1,11 +1,23 @@
 package com.cmbb.smartmarket.activity.user;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.user.adapter.BuyFinishedAdapter;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderListRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
+import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
+import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.ApiInterface;
+import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.widget.SpaceItemDecoration;
+import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+
+import rx.Observer;
 
 /**
  * 项目名称：SmartMarket
@@ -21,8 +33,35 @@ public class BuyFinishedActivity extends BaseRecyclerActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-
+        setTitle("宝贝已购");
+        onRefresh();
     }
+
+    @Override
+    protected void setSpaceDecoration(EasyRecyclerView recyclerView) {
+        recyclerView.addItemDecoration(new SpaceItemDecoration(0, 0, 0, getResources().getDimensionPixelOffset(R.dimen.global_padding)));
+    }
+
+    Observer<MarketOrderListResponseModel> mMarketOrderListResponseModelObserver = new Observer<MarketOrderListResponseModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e(TAG, e.toString());
+        }
+
+        @Override
+        public void onNext(MarketOrderListResponseModel marketOrderListResponseModel) {
+            if (marketOrderListResponseModel != null) {
+                if (pager == 0)
+                    adapter.clear();
+                adapter.addAll(marketOrderListResponseModel.getData().getContent());
+            }
+        }
+    };
 
     @Override
     protected RecyclerArrayAdapter initAdapter() {
@@ -41,12 +80,33 @@ public class BuyFinishedActivity extends BaseRecyclerActivity {
 
     @Override
     public void onLoadMore() {
+        pager++;
+        subscription = HttpMethod.getInstance().marketOrderList(mMarketOrderListResponseModelObserver, setParams());
+    }
 
+    private MarketOrderListRequestModel setParams() {
+        unSubscribe();
+        MarketOrderListRequestModel marketOrderListRequestModel = new MarketOrderListRequestModel();
+        marketOrderListRequestModel.setCmd(ApiInterface.MarketOrderList);
+        marketOrderListRequestModel.setToken(BaseApplication.getToken());
+        MarketOrderListRequestModel.ParametersEntity parametersEntity = new MarketOrderListRequestModel.ParametersEntity();
+        parametersEntity.setPageNo(pager);
+        parametersEntity.setNumberOfPerPage(pagerSize);
+        parametersEntity.setOrderType("order");
+        parametersEntity.setSaleType("buy");
+        marketOrderListRequestModel.setParameters(parametersEntity);
+        return marketOrderListRequestModel;
     }
 
     @Override
     public void onRefresh() {
+        pager = 0;
+        subscription = HttpMethod.getInstance().marketOrderList(mMarketOrderListResponseModelObserver, setParams());
+    }
 
+    public static void newIntent(Context context) {
+        Intent intent = new Intent(context, BuyFinishedActivity.class);
+        context.startActivity(intent);
     }
 
 }

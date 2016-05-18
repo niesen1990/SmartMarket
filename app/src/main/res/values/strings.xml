@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">禾苗</string>
+    <string name="app_name">萌宝铺子</string>
     <string name="unknow_version">未知版本</string>
     <string name="os_version_code">OS版本号</string>
     <string name="os_version_name">OS版本名</string>
@@ -33,7 +33,12 @@
     <string name="tip_deal_psw"><![CDATA[请去“我的”->\"我的钱包”->\"设置交易密码\"]]></string>
     <string name="tip_add_account">仅支持绑定实名认证的支付宝账号，绑定账号仅供提现使用，绑定支付宝账号之后不能修改</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="menu_add">新增</string>
+    <string name="errcode_success" translatable="false">支付成功</string>
+    <string name="errcode_cancel" translatable="false">您已取消支付</string>
+    <string name="errcode_deny" translatable="false">发送被拒绝</string>
+    <string name="errcode_unknown" translatable="false">发送返回</string>
+    <string name="app_tip" translatable="false">提示</string>
+    <string name="pay_result_callback_msg" formatted="false" translatable="false">微信支付结果：%s</string>
+    <string name="title_payresult" translatable="false">支付结果</string>
+    <string name="menu_add">添加</string>
 </resources>

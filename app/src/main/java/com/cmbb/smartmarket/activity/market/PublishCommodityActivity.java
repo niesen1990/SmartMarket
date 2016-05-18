@@ -3,28 +3,36 @@ package com.cmbb.smartmarket.activity.market;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.mobileim.ui.multi.lightservice.MultiPickGalleryActivity;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.market.adapter.PublishItemAdapter;
+import com.cmbb.smartmarket.activity.market.model.CodeInfoListRequestModel;
+import com.cmbb.smartmarket.activity.market.model.CodeInfoListResponseModel;
 import com.cmbb.smartmarket.activity.market.model.CommodityPublishResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.utils.TDevice;
+import com.cmbb.smartmarket.widget.WheelView;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,11 +54,11 @@ public class PublishCommodityActivity extends BaseActivity {
     protected RecyclerArrayAdapter.ItemView footerItemView;
     private final int PIC_REQUEST_CODE = 1001;
     protected int imgCount = 5;
-
     ArrayList<String> imageUrls;
-
     @BindView(R.id.et_title)
     EditText etTitle;
+    @BindView(R.id.rl_type)
+    RelativeLayout rlType;
     @BindView(R.id.et_content)
     EditText etContent;
     @BindView(R.id.ll02)
@@ -67,6 +75,13 @@ public class PublishCommodityActivity extends BaseActivity {
     EditText tvFreight;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
+    @BindView(R.id.wv01)
+    WheelView wv01;
+    @BindView(R.id.wv02)
+    WheelView wv02;
+    @BindView(R.id.scroll)
+    LinearLayout scroll;
+    BottomSheetBehavior behavior;
 
     Observer<CommodityPublishResponseModel> mCommodityPublishResponseModelObserver = new Observer<CommodityPublishResponseModel>() {
         @Override
@@ -86,9 +101,63 @@ public class PublishCommodityActivity extends BaseActivity {
         }
     };
 
+    //地址请求
+    Observer<CodeInfoListResponseModel> mCodeInfoListResponseModelObserver = new Observer<CodeInfoListResponseModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            com.cmbb.smartmarket.log.Log.e(TAG, e.toString());
+        }
+
+        @Override
+        public void onNext(CodeInfoListResponseModel codeInfoListResponseModel) {
+            if (codeInfoListResponseModel == null)
+                return;
+        }
+    };
+
+    private static final String[] PLANETS = new String[]{"Mercury", "Venus", "Earth", "Mars", "Jupiter", "Uranus", "Neptune", "Pluto"};
+
+    WheelView.OnWheelViewListener mOnWheelViewListener01 = new WheelView.OnWheelViewListener() {
+        @Override
+        public void onSelected(int selectedIndex, String item) {
+            Log.d(TAG, "selectedIndex: " + selectedIndex + ", item: " + item);
+        }
+    };
+
     @Override
     protected void init(Bundle savedInstanceState) {
         setTitle("发布");
+        subscription = HttpMethod.getInstance().requestCodeInfoList(mCodeInfoListResponseModelObserver, setParams());
+        behavior = BottomSheetBehavior.from(scroll);
+        behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                Log.i(TAG, "onStateChanged = " + newState);
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+                Log.i(TAG, "onSlide = " + slideOffset);
+            }
+        });
+        wv01.setOffset(1);
+        wv01.setItems(Arrays.asList(PLANETS));
+        wv01.setOnWheelViewListener(mOnWheelViewListener01);
+
+        wv02.setOffset(1);
+        wv02.setItems(Arrays.asList(PLANETS));
+        wv02.setOnWheelViewListener(new WheelView.OnWheelViewListener() {
+            @Override
+            public void onSelected(int selectedIndex, String item) {
+
+                Log.d(TAG, "selectedIndex: " + selectedIndex + ", item: " + item);
+            }
+        });
         initRecyclerView();
         footerItemView = new RecyclerArrayAdapter.ItemView() {
             @Override
@@ -121,6 +190,7 @@ public class PublishCommodityActivity extends BaseActivity {
         };
         adapter.addFooter(footerItemView);
         tvSubmit.setOnClickListener(this);
+        rlType.setOnClickListener(this);
     }
 
     private void initRecyclerView() {
@@ -161,7 +231,18 @@ public class PublishCommodityActivity extends BaseActivity {
                 String productType = "1";
                 publishCommodity(title, content, currentPrice, originalPrice, freight, parentClassify, secondClassify, lontitude, latitude, province, city, district, address, productType, imageUrls);
                 break;
+            case R.id.rl_type:
+                behaviorStart(rlType);
+                break;
         }
+    }
+
+    protected CodeInfoListRequestModel setParams() {
+        unSubscribe();
+        CodeInfoListRequestModel codeInfoListRequestModel = new CodeInfoListRequestModel();
+        codeInfoListRequestModel.setCmd(BaseApplication.getToken());
+        codeInfoListRequestModel.setTypeCode("market_product_type");
+        return codeInfoListRequestModel;
     }
 
     @Override
@@ -219,6 +300,15 @@ public class PublishCommodityActivity extends BaseActivity {
         }
         showWaitingDialog();
         subscription = HttpMethod.getInstance().requestPublishCommodity(mCommodityPublishResponseModelObserver, params, files);
+    }
+
+    public void behaviorStart(View view) {
+        wv01.requestFocus();
+        if (behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        } else {
+            behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }
     }
 
     public static void newIntent(Context context) {

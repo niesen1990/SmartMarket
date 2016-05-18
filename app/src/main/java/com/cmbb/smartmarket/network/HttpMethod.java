@@ -22,6 +22,10 @@ import com.cmbb.smartmarket.activity.login.model.SecurityCodeResponseModel;
 import com.cmbb.smartmarket.activity.market.model.CodeInfoListRequestModel;
 import com.cmbb.smartmarket.activity.market.model.CodeInfoListResponseModel;
 import com.cmbb.smartmarket.activity.market.model.CommodityPublishResponseModel;
+import com.cmbb.smartmarket.activity.market.model.MarketOrderCommitRequestModel;
+import com.cmbb.smartmarket.activity.market.model.MarketOrderCommitResponseModel;
+import com.cmbb.smartmarket.activity.market.model.MarketOrderReserveRequestModel;
+import com.cmbb.smartmarket.activity.market.model.MarketOrderReserveResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductAskToBuySpotRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductAskToBuySpotResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductCollectRequestModel;
@@ -38,12 +42,20 @@ import com.cmbb.smartmarket.activity.market.model.ProductRecommendRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductRecommendResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplayResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplayRequestModel;
+import com.cmbb.smartmarket.activity.market.model.MarketOrderPayOrderRequestModel;
+import com.cmbb.smartmarket.activity.market.model.MarketOrderPayOrderResponseModel;
 import com.cmbb.smartmarket.activity.market.model.SystemDictListRequestModel;
 import com.cmbb.smartmarket.activity.market.model.SystemDictListResponseModel;
 import com.cmbb.smartmarket.activity.market.model.SystemTipoffsGetPageRequestModel;
 import com.cmbb.smartmarket.activity.market.model.SystemTipoffsGetPageResponseModel;
 import com.cmbb.smartmarket.activity.market.model.SystemTipoffsReportRequestModel;
 import com.cmbb.smartmarket.activity.market.model.SystemTipoffsReportResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderListRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundResponseModel;
+import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictRequestModel;
+import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictResponseModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateRequestModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateResponseModel;
 import com.cmbb.smartmarket.base.BaseApplication;
@@ -451,4 +463,87 @@ public class HttpMethod {
         return addSubscribe(observable, observer);
     }
 
+    /**
+     * 预览订单
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketOrderReserveDelete(Observer<MarketOrderReserveResponseModel> observer, MarketOrderReserveRequestModel retrofitRequestModel) {
+        Observable<MarketOrderReserveResponseModel> observable = mApiInterface
+                .marketOrderReserveRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketOrderReserveResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 提交订单
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketOrderCommitDelete(Observer<MarketOrderCommitResponseModel> observer, MarketOrderCommitRequestModel retrofitRequestModel) {
+        Observable<MarketOrderCommitResponseModel> observable = mApiInterface
+                .marketOrderCommitRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketOrderCommitResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 订单发起支付
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketOrderPayOrder(Observer<MarketOrderPayOrderResponseModel> observer, MarketOrderPayOrderRequestModel retrofitRequestModel) {
+        Observable<MarketOrderPayOrderResponseModel> observable = mApiInterface
+                .marketOrderPayOrderRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketOrderPayOrderResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 订单申请退款
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketOrderRefund(Observer<MarketOrderRefundResponseModel> observer, MarketOrderRefundRequestModel retrofitRequestModel) {
+        Observable<MarketOrderRefundResponseModel> observable = mApiInterface
+                .marketOrderRefundRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketOrderRefundResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 订单列表
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketOrderList(Observer<MarketOrderListResponseModel> observer, MarketOrderListRequestModel retrofitRequestModel) {
+        Observable<MarketOrderListResponseModel> observable = mApiInterface
+                .marketOrderListRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketOrderListResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 服务列表查询字典
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription systemGetMultipleDict(Observer<SystemGetMultipleDictResponseModel> observer, SystemGetMultipleDictRequestModel retrofitRequestModel) {
+        Observable<SystemGetMultipleDictResponseModel> observable = mApiInterface
+                .systemGetMultipleDictRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<SystemGetMultipleDictResponseModel>());
+        return addSubscribe(observable, observer);
+    }
 }

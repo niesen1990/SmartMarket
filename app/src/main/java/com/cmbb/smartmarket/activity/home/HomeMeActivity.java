@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.address.AddressManagerActivity;
+import com.cmbb.smartmarket.activity.user.BuyFinishedActivity;
 import com.cmbb.smartmarket.activity.user.InfoActivity;
 import com.cmbb.smartmarket.activity.user.MeCollectionActivity;
 import com.cmbb.smartmarket.activity.user.RefundActivity;
@@ -108,6 +109,7 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
             case R.id.rl_selled:
                 break;
             case R.id.rl_buy:
+                BuyFinishedActivity.newIntent(this);
                 break;
             case R.id.rl_collection:
                 MeCollectionActivity.newIntent(this);
@@ -117,7 +119,6 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
                 break;
             case R.id.rl_address:
                 AddressManagerActivity.newIntent(this);
-                //                PublishCommodityActivity.newIntent(this);
                 break;
         }
     }

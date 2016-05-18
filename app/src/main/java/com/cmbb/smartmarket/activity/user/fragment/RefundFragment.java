@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
-import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
 import com.cmbb.smartmarket.activity.user.adapter.RefundAdapter;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderListRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerFragment;
+import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.widget.SpaceItemDecoration;
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -66,7 +67,7 @@ public class RefundFragment extends BaseRecyclerFragment {
 
     }
 
-    Observer<TestModel> mTestUserAttentionModelObserver = new Observer<TestModel>() {
+    Observer<MarketOrderListResponseModel> mMarketOrderListResponseModelObserver = new Observer<MarketOrderListResponseModel>() {
         @Override
         public void onCompleted() {
 
@@ -79,36 +80,41 @@ public class RefundFragment extends BaseRecyclerFragment {
         }
 
         @Override
-        public void onNext(TestModel testModel) {
+        public void onNext(MarketOrderListResponseModel marketOrderListResponseModel) {
             if (pager == 0)
                 adapter.clear();
-            adapter.addAll(testModel.getData().getRows());
+            adapter.addAll(marketOrderListResponseModel.getData().getContent());
         }
     };
 
     @Override
     public void onLoadMore() {
         pager++;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+        HttpMethod.getInstance().marketOrderList(mMarketOrderListResponseModelObserver, setParams());
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+        HttpMethod.getInstance().marketOrderList(mMarketOrderListResponseModelObserver, setParams());
     }
 
-    /**
-     * 设置参数
-     *
-     * @return params
-     */
-    protected TestRequestModel setParams() {
-        unSubscribe();
-        TestRequestModel testRequestModel = new TestRequestModel();
-        testRequestModel.setCmd("smart/attention/getList");
-        testRequestModel.setToken(BaseApplication.getToken());
-        testRequestModel.setParameters(new TestRequestModel.ParametersEntity(pager, pagerSize, 0));
-        return testRequestModel;
+    private MarketOrderListRequestModel setParams() {
+        MarketOrderListRequestModel marketOrderListRequestModel = new MarketOrderListRequestModel();
+        marketOrderListRequestModel.setCmd(ApiInterface.MarketOrderList);
+        marketOrderListRequestModel.setToken(BaseApplication.getToken());
+        MarketOrderListRequestModel.ParametersEntity paramsEntity = new MarketOrderListRequestModel.ParametersEntity();
+        paramsEntity.setOrderType("refund");
+        switch (position) {
+            case 0:
+                paramsEntity.setSaleType("sell");
+                break;
+            case 1:
+                paramsEntity.setSaleType("buy");
+                break;
+        }
+        marketOrderListRequestModel.setParameters(new MarketOrderListRequestModel.ParametersEntity());
+        return marketOrderListRequestModel;
     }
+
 }

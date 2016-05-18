@@ -1,4 +1,4 @@
-package com.cmbb.smartmarket.activity.address.model;
+package com.cmbb.smartmarket.activity.market.model;
 
 import com.cmbb.smartmarket.network.RetrofitRequestModel;
 
@@ -6,15 +6,15 @@ import com.cmbb.smartmarket.network.RetrofitRequestModel;
  * 项目名称：SmartMarket
  * 类描述：
  * 创建人：N.Sun
- * 创建时间：16/5/17 上午11:25
+ * 创建时间：16/5/18 上午10:43
  * 修改人：N.Sun
- * 修改时间：16/5/17 上午11:25
+ * 修改时间：16/5/18 上午10:43
  * 修改备注：
  */
-public class UserAddressDetailRequestModel extends RetrofitRequestModel {
+public class MarketOrderReserveRequestModel extends RetrofitRequestModel {
 
     /**
-     * id : 61
+     * productId : 9
      */
 
     private ParametersEntity parameters;
@@ -28,18 +28,18 @@ public class UserAddressDetailRequestModel extends RetrofitRequestModel {
     }
 
     public static class ParametersEntity {
-        private int id;
+        private int productId;
 
-        public ParametersEntity(int id) {
-            this.id = id;
+        public ParametersEntity(int productId) {
+            this.productId = productId;
         }
 
-        public int getId() {
-            return id;
+        public int getProductId() {
+            return productId;
         }
 
-        public void setId(int id) {
-            this.id = id;
+        public void setProductId(int productId) {
+            this.productId = productId;
         }
     }
 }

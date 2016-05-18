@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.widget.Toast;
@@ -43,20 +45,20 @@ import okhttp3.OkHttpClient;
  * 创建人：N.Sun
  * 创建时间：16/4/14 上午11:35
  */
-public class BaseApplication extends Application {
+public class BaseApplication extends MultiDexApplication {
 
     public static PushAgent mPushAgent;
     public static Application context;
-    public static String token = "MzYxNGQ0MTUtNWUyYi00OWQ1LTlkZGMtNTQ3OWI0ZjI1ZjA4";
+    public static String token = "ZDRjZDAxNWItMDIwNi00YTNjLTkyMDgtYmM5MmI3NWM4YzM5";
 
     @Override
     public void onCreate() {
+        MultiDex.install(this);
         super.onCreate();
         context = this;
         initLog();
         insideApplicationOnCreate();
-        if (insideApplicationOnCreate())
-            return;//todo 如果在":TCMSSevice"进程中，无需进行openIM和app业务的初始化，以节省内存
+        if (insideApplicationOnCreate()) return;//todo 如果在":TCMSSevice"进程中，无需进行openIM和app业务的初始化，以节省内存
         initIM();
         initSharePreference();
         initUmengAnalytics();
@@ -66,7 +68,7 @@ public class BaseApplication extends Application {
         initBroadcastReceiver();
 
         //
-        setToken(SPCache.getString(Constants.API_TOKEN,""));
+        //setToken(SPCache.getString(Constants.API_TOKEN, ""));
 
     }
 

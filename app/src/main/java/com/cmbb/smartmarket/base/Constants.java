@@ -13,4 +13,5 @@ public class Constants {
     public static final String IM_USER_ID = "im_user_id";
     public static final String IM_USER_PASSWORD = "im_user_password";
     public static final String API_TOKEN = "api_token";
+    public final static String APP_ID = "wx_app_id";
 }

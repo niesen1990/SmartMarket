@@ -3,8 +3,8 @@ package com.cmbb.smartmarket.activity.home.adapter;
 import android.content.Context;
 import android.view.ViewGroup;
 
+import com.cmbb.smartmarket.activity.address.model.UserAddressGetPageResponseModel;
 import com.cmbb.smartmarket.activity.home.holder.ShopItemHolder;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -14,7 +14,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  * 创建人：javon
  * 创建时间：2015/8/24 13:31
  */
-public class HomeShopAdapter extends RecyclerArrayAdapter<TestModel.DataEntity.RowsEntity> {
+public class HomeShopAdapter extends RecyclerArrayAdapter<UserAddressGetPageResponseModel.DataEntity.RowsEntity> {
 
     public HomeShopAdapter(Context context) {
         super(context);

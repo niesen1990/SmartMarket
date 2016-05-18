@@ -5,12 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.address.model.UserAddressGetPageRequestModel;
+import com.cmbb.smartmarket.activity.address.model.UserAddressGetPageResponseModel;
 import com.cmbb.smartmarket.activity.home.adapter.HomeShopAdapter;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
-import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
 import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.widget.SpaceItemDecoration;
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -56,7 +57,7 @@ public class HomeShopActivity extends BaseHomeActivity {
         CommodityDetailActivity.newIntent(this, "1");
     }
 
-    Observer<TestModel> mTestUserAttentionModelObserver = new Observer<TestModel>() {
+    Observer<UserAddressGetPageResponseModel> mTestUserAttentionModelObserver = new Observer<UserAddressGetPageResponseModel>() {
         @Override
         public void onCompleted() {
 
@@ -64,29 +65,29 @@ public class HomeShopActivity extends BaseHomeActivity {
 
         @Override
         public void onError(Throwable e) {
-            Log.e(TAG, e.toString());
             mSmartRecyclerView.showError();
             adapter.pauseMore();
         }
 
         @Override
-        public void onNext(TestModel testModel) {
+        public void onNext(UserAddressGetPageResponseModel userAddressGetPageResponseModel) {
             if (pager == 0)
                 adapter.clear();
-            adapter.addAll(testModel.getData().getRows());
+            Log.i(TAG, userAddressGetPageResponseModel.toString());
+            adapter.addAll(userAddressGetPageResponseModel.getData().getRows());
         }
     };
 
     @Override
     public void onLoadMore() {
         pager++;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+        HttpMethod.getInstance().requestUserAddressGetPage(mTestUserAttentionModelObserver, setParams());
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+        HttpMethod.getInstance().requestUserAddressGetPage(mTestUserAttentionModelObserver, setParams());
     }
 
     /**
@@ -94,13 +95,13 @@ public class HomeShopActivity extends BaseHomeActivity {
      *
      * @return params
      */
-    protected TestRequestModel setParams() {
+    protected UserAddressGetPageRequestModel setParams() {
         unSubscribe();
-        TestRequestModel testRequestModel = new TestRequestModel();
-        testRequestModel.setCmd("smart/attention/getList");
-        testRequestModel.setToken(BaseApplication.getToken());
-        testRequestModel.setParameters(new TestRequestModel.ParametersEntity(pager, pagerSize, 0));
-        return testRequestModel;
+        UserAddressGetPageRequestModel userAddressGetPageRequestModel = new UserAddressGetPageRequestModel();
+        userAddressGetPageRequestModel.setCmd(ApiInterface.UserAddressGetPage);
+        userAddressGetPageRequestModel.setToken(BaseApplication.getToken());
+        userAddressGetPageRequestModel.setParameters(new UserAddressGetPageRequestModel.ParametersEntity(pager, pagerSize));
+        return userAddressGetPageRequestModel;
     }
 
     public static void newIntent(Context context) {

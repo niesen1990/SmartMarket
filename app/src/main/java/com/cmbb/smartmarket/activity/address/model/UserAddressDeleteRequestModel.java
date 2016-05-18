@@ -30,6 +30,10 @@ public class UserAddressDeleteRequestModel extends RetrofitRequestModel {
     public static class ParametersEntity {
         private int id;
 
+        public ParametersEntity(int id) {
+            this.id = id;
+        }
+
         public int getId() {
             return id;
         }

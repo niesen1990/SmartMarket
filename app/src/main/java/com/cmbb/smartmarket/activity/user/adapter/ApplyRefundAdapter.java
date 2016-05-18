@@ -3,8 +3,8 @@ package com.cmbb.smartmarket.activity.user.adapter;
 import android.content.Context;
 import android.view.ViewGroup;
 
-import com.cmbb.smartmarket.activity.user.holder.RefundItemHolder;
-import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
+import com.cmbb.smartmarket.activity.user.holder.ApplyRefundItemHolder;
+import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictResponseModel;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -14,14 +14,14 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  * 创建人：javon
  * 创建时间：2015/8/24 13:31
  */
-public class RefundAdapter extends RecyclerArrayAdapter<MarketOrderListResponseModel.DataEntity.ContentEntity> {
+public class ApplyRefundAdapter extends RecyclerArrayAdapter<SystemGetMultipleDictResponseModel.DataEntity.RefundReasonEntity> {
 
-    public RefundAdapter(Context context) {
+    public ApplyRefundAdapter(Context context) {
         super(context);
     }
 
     @Override
     public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-        return new RefundItemHolder(parent);
+        return new ApplyRefundItemHolder(parent);
     }
 }

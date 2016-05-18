@@ -3,7 +3,7 @@ package com.cmbb.smartmarket.activity.home.holder;
 import android.view.ViewGroup;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
+import com.cmbb.smartmarket.activity.address.model.UserAddressGetPageResponseModel;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
 /**
@@ -12,14 +12,14 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
  * 创建人：javon
  * 创建时间：2015/8/24 14:25
  */
-public class ShopItemHolder extends BaseViewHolder<TestModel.DataEntity.RowsEntity> {
+public class ShopItemHolder extends BaseViewHolder<UserAddressGetPageResponseModel.DataEntity.RowsEntity> {
     private final String TAG = ShopItemHolder.class.getSimpleName();
 
     public ShopItemHolder(ViewGroup parent) {
         super(parent, R.layout.activity_home_shop_list_item);
     }
 
-    public void setData(TestModel.DataEntity.RowsEntity row) {
+    public void setData(UserAddressGetPageResponseModel.DataEntity.RowsEntity row) {
 
     }
 }

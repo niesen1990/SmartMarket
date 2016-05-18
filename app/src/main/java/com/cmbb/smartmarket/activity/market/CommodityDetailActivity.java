@@ -117,7 +117,7 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
                 break;
             case R.id.tv_buy:
                 // TODO: 16/4/28
-                BuyOrderActivity.newIntent(this);
+                BuyOrderActivity.newIntent(this, 12);
                 break;
         }
     }

@@ -1,6 +1,5 @@
 package com.cmbb.smartmarket.activity.address;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +11,8 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.address.model.UserAddressDetailRequestModel;
+import com.cmbb.smartmarket.activity.address.model.UserAddressDetailResponseModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSaveRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSaveResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
@@ -32,8 +33,8 @@ import rx.Observer;
  * 修改时间：16/5/6 下午2:13
  * 修改备注：
  */
-public class AddAddressActivity extends BaseActivity {
-    private static final String TAG = AddAddressActivity.class.getSimpleName();
+public class AddAndEditAddressActivity extends BaseActivity {
+    private static final String TAG = AddAndEditAddressActivity.class.getSimpleName();
 
     @BindView(R.id.ll01)
     LinearLayout ll01;
@@ -62,6 +63,8 @@ public class AddAddressActivity extends BaseActivity {
 
     int isDefault = 0;
 
+    int id = -1;
+
     @Override
     protected void init(Bundle savedInstanceState) {
         setTitle("添加地址");
@@ -76,7 +79,48 @@ public class AddAddressActivity extends BaseActivity {
                 }
             }
         });
+        id = getIntent().getIntExtra("id", -1);
+        if (id != -1) {
+            showWaitingDialog();
+            unSubscribe();
+            UserAddressDetailRequestModel userAddressDetailRequestModel = new UserAddressDetailRequestModel();
+            userAddressDetailRequestModel.setToken(BaseApplication.getToken());
+            userAddressDetailRequestModel.setCmd(ApiInterface.UserAddressDetail);
+            userAddressDetailRequestModel.setParameters(new UserAddressDetailRequestModel.ParametersEntity(id));
+            subscription = HttpMethod.getInstance().requestUserAddressDetail(mUserAddressDetailResponseModelObserver, userAddressDetailRequestModel);
+        }
     }
+
+    Observer<UserAddressDetailResponseModel> mUserAddressDetailResponseModelObserver = new Observer<UserAddressDetailResponseModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            hideWaitingDialog();
+            Log.e(TAG, e.toString());
+        }
+
+        @Override
+        public void onNext(UserAddressDetailResponseModel userAddressDetailResponseModel) {
+            hideWaitingDialog();
+            //更新UI
+            etName.setText(userAddressDetailResponseModel.getData().getReceiveName());
+            etPhone.setText(userAddressDetailResponseModel.getData().getReceivePhone());
+            etAddressDetail.setText(userAddressDetailResponseModel.getData().getAddress());
+            etZipCode.setText(userAddressDetailResponseModel.getData().getPostCode());
+            switch (userAddressDetailResponseModel.getData().getIsDefault()) {
+                case 0:
+                    switchDefault.setChecked(false);
+                    break;
+                case 1:
+                    switchDefault.setChecked(true);
+                    break;
+            }
+        }
+    };
 
     Observer<UserAddressSaveResponseModel> mUserAddressSaveResponseModelObserver = new Observer<UserAddressSaveResponseModel>() {
         @Override
@@ -94,6 +138,8 @@ public class AddAddressActivity extends BaseActivity {
         public void onNext(UserAddressSaveResponseModel userAddressSaveResponseModel) {
             hideWaitingDialog();
             showToast(userAddressSaveResponseModel.getMsg());
+            setResult(RESULT_OK);
+            finish();
         }
     };
 
@@ -126,6 +172,9 @@ public class AddAddressActivity extends BaseActivity {
                 parametersEntity.setCity("310100");
                 parametersEntity.setDistrict("310110");
                 parametersEntity.setIsDefault(isDefault);
+                if (id != -1) {
+                    parametersEntity.setId(id + "");
+                }
                 requestModel.setParameters(parametersEntity);
                 subscription = HttpMethod.getInstance().requestUserAddressSave(mUserAddressSaveResponseModelObserver, requestModel);
                 break;
@@ -137,8 +186,14 @@ public class AddAddressActivity extends BaseActivity {
         return R.layout.activity_add_address_layout;
     }
 
-    public static void newIntent(Context context) {
-        Intent intent = new Intent(context, AddAddressActivity.class);
-        context.startActivity(intent);
+    public static void newIntent(BaseActivity context, int requestCode) {
+        Intent intent = new Intent(context, AddAndEditAddressActivity.class);
+        context.startActivityForResult(intent, requestCode);
+    }
+
+    public static void newIntent(BaseActivity context, int id, int requestCode) {
+        Intent intent = new Intent(context, AddAndEditAddressActivity.class);
+        intent.putExtra("id", id);
+        context.startActivityForResult(intent, requestCode);
     }
 }

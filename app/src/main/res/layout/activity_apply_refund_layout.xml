@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.user.InfoActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <include layout="@layout/toolbar"/>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <com.cmbb.smartmarket.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/global_padding">
+
+            <LinearLayout
+                android:id="@+id/ll01"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/global_padding"
+                android:background="@drawable/shape_white_stroke_corner_dark"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/global_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/colorPrimary"/>
+
+                <TextView
+                    style="@style/TextAppearance.Smart.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="申请服务"/>
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="仅退款"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll02"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/global_padding"
+                android:background="@drawable/shape_white_stroke_corner_dark"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/global_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/colorPrimary"/>
+
+                <TextView
+                    style="@style/TextAppearance.Smart.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="退款原因"/>
+
+                <TextView
+                    android:id="@+id/tv_choice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="请选择退款原因"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/global_padding"
+                android:background="@drawable/shape_white_stroke_corner_dark"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/global_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*"
+                    android:textColor="@color/colorPrimary"/>
+
+                <TextView
+                    style="@style/TextAppearance.Smart.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="退款金额"/>
+
+                <TextView
+                    android:id="@+id/tv_money"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:text="￥55.00"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_enclosure"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/half_global_padding"
+                android:text="(最多55.00元，含发货邮费6.00元)"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="@dimen/global_padding"
+                android:background="@drawable/shape_white_stroke_corner_dark"
+                android:gravity="top"
+                android:orientation="horizontal"
+                android:padding="@dimen/global_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="*"
+                    android:textColor="@color/colorPrimary"/>
+
+                <TextView
+                    style="@style/TextAppearance.Smart.Medium"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="退款说明"/>
+
+                <EditText
+                    android:id="@+id/et_reason"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@color/line"
+                    android:gravity="top"
+                    android:hint="最多200字"
+                    android:maxLength="200"
+                    android:padding="@dimen/half_global_padding"
+                    android:textColor="@color/darkgray"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_submit"
+                style="@style/Button.Smart.Normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="提交"/>
+
+        </LinearLayout>
+
+
+    </com.cmbb.smartmarket.widget.NestedScrollView>
+
+
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/behaviorRecyclerView01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+        app:layout_empty="@layout/view_empty"
+        app:layout_progress="@layout/view_progress"
+        app:scrollbarStyle="insideOverlay"/>
+
+
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/behaviorRecyclerView02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior"
+        app:layout_empty="@layout/view_empty"
+        app:layout_progress="@layout/view_progress"
+        app:scrollbarStyle="insideOverlay"/>
+
+</android.support.design.widget.CoordinatorLayout>
