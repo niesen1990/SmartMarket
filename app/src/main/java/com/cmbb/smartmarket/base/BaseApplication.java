@@ -58,7 +58,8 @@ public class BaseApplication extends MultiDexApplication {
         context = this;
         initLog();
         insideApplicationOnCreate();
-        if (insideApplicationOnCreate()) return;//todo 如果在":TCMSSevice"进程中，无需进行openIM和app业务的初始化，以节省内存
+        if (insideApplicationOnCreate())
+            return;//todo 如果在":TCMSSevice"进程中，无需进行openIM和app业务的初始化，以节省内存
         initIM();
         initSharePreference();
         initUmengAnalytics();
@@ -66,10 +67,8 @@ public class BaseApplication extends MultiDexApplication {
         initOkHttp();
         initShare();
         initBroadcastReceiver();
-
         //
-        //setToken(SPCache.getString(Constants.API_TOKEN, ""));
-
+        setToken(SPCache.getString(Constants.API_TOKEN, ""));
     }
 
     private void initBroadcastReceiver() {

@@ -20,6 +20,7 @@ import com.cmbb.smartmarket.activity.address.AddressManagerActivity;
 import com.cmbb.smartmarket.activity.user.BuyFinishedActivity;
 import com.cmbb.smartmarket.activity.user.InfoActivity;
 import com.cmbb.smartmarket.activity.user.MeCollectionActivity;
+import com.cmbb.smartmarket.activity.user.PublishListActivity;
 import com.cmbb.smartmarket.activity.user.RefundActivity;
 import com.cmbb.smartmarket.activity.user.SettingActivity;
 import com.cmbb.smartmarket.activity.user.UserCenterActivity;
@@ -105,6 +106,7 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
                 RefundActivity.newIntent(this);
                 break;
             case R.id.rl_publish:
+                PublishListActivity.newIntent(this);
                 break;
             case R.id.rl_selled:
                 break;

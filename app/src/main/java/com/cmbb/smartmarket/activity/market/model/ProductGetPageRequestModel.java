@@ -31,6 +31,21 @@ public class ProductGetPageRequestModel extends RetrofitRequestModel {
     public static class ParametersEntity {
         private int numberOfPerPage;
         private int pageNo;
+        private int type;
+
+        public ParametersEntity(int numberOfPerPage, int pageNo, int type) {
+            this.numberOfPerPage = numberOfPerPage;
+            this.pageNo = pageNo;
+            this.type = type;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
 
         public int getNumberOfPerPage() {
             return numberOfPerPage;

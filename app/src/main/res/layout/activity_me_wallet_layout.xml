@@ -109,13 +109,16 @@
                     android:gravity="center_vertical"
                     android:text="预收款"/>
 
-                <ImageView
 
+                <TextView
+                    android:id="@+id/tv_prePayment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help"/>
+                    android:layout_marginRight="@dimen/global_padding"
+                    android:gravity="center_vertical"
+                    android:text="￥500"/>
 
             </RelativeLayout>
 

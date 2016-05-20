@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_content"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.home.HomeMessageActivity">
+<RelativeLayout android:id="@+id/main_content"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".activity.home.HomeMessageActivity">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar"/>
 
     <com.cmbb.smartmarket.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                         android:id="@+id/tv_sys"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@drawable/ic_message_system"/>
 
                     <TextView
                         android:id="@+id/tv_message_sys_count"
@@ -44,9 +44,9 @@
                         android:layout_gravity="right"
                         android:background="@drawable/shape_color_circle"
                         android:gravity="center"
-                        tools:text="99"
                         android:textColor="@android:color/white"
-                        android:textSize="9sp" />
+                        android:textSize="9sp"
+                        tools:text="99"/>
                 </FrameLayout>
 
                 <TextView
@@ -56,7 +56,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl"
                     android:text="系统消息"
-                    android:textColor="@color/dimgray" />
+                    android:textColor="@color/dimgray"/>
 
                 <TextView
                     android:id="@+id/tv_sys_content"
@@ -68,7 +68,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl"
                     android:text="您没有新的系统消息"
-                    android:textColor="@color/darkgray" />
+                    android:textColor="@color/darkgray"/>
 
                 <TextView
                     android:id="@+id/tv_sys_time"
@@ -79,7 +79,7 @@
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
                     android:text="16/03/21"
-                    android:textColor="@color/darkgray" />
+                    android:textColor="@color/darkgray"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -98,7 +98,7 @@
                         android:id="@+id/tv_store"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@drawable/ic_message_goods"/>
 
                     <TextView
                         android:id="@+id/tv_message_store_count"
@@ -107,9 +107,9 @@
                         android:layout_gravity="right"
                         android:background="@drawable/shape_color_circle"
                         android:gravity="center"
-                        tools:text="99"
                         android:textColor="@android:color/white"
-                        android:textSize="9sp" />
+                        android:textSize="9sp"
+                        tools:text="99"/>
                 </FrameLayout>
 
                 <TextView
@@ -119,7 +119,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl_store"
                     android:text="商品回复"
-                    android:textColor="@color/dimgray" />
+                    android:textColor="@color/dimgray"/>
 
                 <TextView
                     android:id="@+id/tv_store_content"
@@ -131,7 +131,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl_store"
                     android:text="您没有新的系统消息"
-                    android:textColor="@color/darkgray" />
+                    android:textColor="@color/darkgray"/>
 
                 <TextView
                     android:id="@+id/tv_store_time"
@@ -142,7 +142,7 @@
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
                     android:text="16/03/21"
-                    android:textColor="@color/darkgray" />
+                    android:textColor="@color/darkgray"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -161,7 +161,7 @@
                         android:id="@+id/tv_order"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@drawable/ic_message_order"/>
 
                     <TextView
                         android:id="@+id/tv_message_order_count"
@@ -170,9 +170,9 @@
                         android:layout_gravity="right"
                         android:background="@drawable/shape_color_circle"
                         android:gravity="center"
-                        tools:text="99"
                         android:textColor="@android:color/white"
-                        android:textSize="9sp" />
+                        android:textSize="9sp"
+                        tools:text="99"/>
                 </FrameLayout>
 
                 <TextView
@@ -182,7 +182,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl_order"
                     android:text="订单动态"
-                    android:textColor="@color/dimgray" />
+                    android:textColor="@color/dimgray"/>
 
                 <TextView
                     android:id="@+id/tv_order_content"
@@ -194,7 +194,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl_order"
                     android:text="您没有新的系统消息"
-                    android:textColor="@color/darkgray" />
+                    android:textColor="@color/darkgray"/>
 
                 <TextView
                     android:id="@+id/tv_order_time"
@@ -205,7 +205,7 @@
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
                     android:text="16/03/21"
-                    android:textColor="@color/darkgray" />
+                    android:textColor="@color/darkgray"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -224,7 +224,7 @@
                         android:id="@+id/tv_chat"
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@mipmap/ic_launcher" />
+                        android:src="@drawable/ic_message_chat"/>
 
                     <TextView
                         android:id="@+id/tv_message_chat_count"
@@ -233,9 +233,9 @@
                         android:layout_gravity="right"
                         android:background="@drawable/shape_color_circle"
                         android:gravity="center"
-                        tools:text="99"
                         android:textColor="@android:color/white"
-                        android:textSize="9sp" />
+                        android:textSize="9sp"
+                        tools:text="99"/>
                 </FrameLayout>
 
                 <TextView
@@ -245,7 +245,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl_chat"
                     android:text="即时聊天"
-                    android:textColor="@color/dimgray" />
+                    android:textColor="@color/dimgray"/>
 
                 <TextView
                     android:id="@+id/tv_chat_content"
@@ -257,7 +257,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl_chat"
                     android:text="您没有新的系统消息"
-                    android:textColor="@color/darkgray" />
+                    android:textColor="@color/darkgray"/>
 
                 <TextView
                     android:id="@+id/tv_chat_time"
@@ -268,13 +268,13 @@
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
                     android:text="16/03/21"
-                    android:textColor="@color/darkgray" />
+                    android:textColor="@color/darkgray"/>
             </RelativeLayout>
 
         </LinearLayout>
     </com.cmbb.smartmarket.widget.NestedScrollView>
 
-    <include layout="@layout/home_bottom" />
+    <include layout="@layout/home_bottom"/>
 
 
 </RelativeLayout>

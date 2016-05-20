@@ -41,7 +41,7 @@ public class MeCollectionActivity extends BaseRecyclerActivity {
 
     @Override
     public void onItemClick(int position) {
-        CommodityDetailActivity.newIntent(this, "1");
+        CommodityDetailActivity.newIntent(this, 1);
     }
 
     Observer<TestModel> mTestUserAttentionModelObserver = new Observer<TestModel>() {

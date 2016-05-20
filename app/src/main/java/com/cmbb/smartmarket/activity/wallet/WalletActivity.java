@@ -8,9 +8,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountIndexRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountIndexResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
+import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.ApiInterface;
+import com.cmbb.smartmarket.network.HttpMethod;
 
 import butterknife.BindView;
+import rx.Observer;
 
 /**
  * 项目名称：SmartMarket
@@ -23,8 +30,12 @@ import butterknife.BindView;
  */
 public class WalletActivity extends BaseActivity {
 
+    private static final String TAG = WalletActivity.class.getSimpleName();
+
     @BindView(R.id.tv_finished_money)
     TextView tvFinishedMoney;
+    @BindView(R.id.tv_prePayment)
+    TextView tvPrePayment;
     @BindView(R.id.tv_detail)
     TextView tvDetail;
     @BindView(R.id.rl_pre_payment)
@@ -38,9 +49,41 @@ public class WalletActivity extends BaseActivity {
     @BindView(R.id.rl_balance_account)
     RelativeLayout rlBalanceAccount;
 
+    Observer<WalletAccountIndexResponseModel> mWalletAccountIndexResponseModelObserver = new Observer<WalletAccountIndexResponseModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            hideWaitingDialog();
+            Log.e(TAG, e.toString());
+        }
+
+        @Override
+        public void onNext(WalletAccountIndexResponseModel walletAccountIndexResponseModel) {
+            hideWaitingDialog();
+            if (walletAccountIndexResponseModel == null)
+                return;
+            //更新UI
+            tvFinishedMoney.setText("￥" + walletAccountIndexResponseModel.getData().getBalance());
+            tvPrePayment.setText("￥" + walletAccountIndexResponseModel.getData().getPrePayment());
+        }
+    };
+
     @Override
     protected void init(Bundle savedInstanceState) {
         initView();
+        showWaitingDialog();
+        subscription = HttpMethod.getInstance().walletAccountIndexRequest(mWalletAccountIndexResponseModelObserver, setIndexParams());
+    }
+
+    private WalletAccountIndexRequestModel setIndexParams() {
+        WalletAccountIndexRequestModel walletAccountIndexRequestModel = new WalletAccountIndexRequestModel();
+        walletAccountIndexRequestModel.setCmd(ApiInterface.WalletAccountIndex);
+        walletAccountIndexRequestModel.setToken(BaseApplication.getToken());
+        return walletAccountIndexRequestModel;
     }
 
     private void initView() {

@@ -30,6 +30,10 @@ public class ProductDetailRequestModel extends RetrofitRequestModel {
     public static class ParametersEntity {
         private int productId;
 
+        public ParametersEntity(int productId) {
+            this.productId = productId;
+        }
+
         public int getProductId() {
             return productId;
         }

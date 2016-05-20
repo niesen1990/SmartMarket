@@ -104,6 +104,8 @@ public class RefundFragment extends BaseRecyclerFragment {
         marketOrderListRequestModel.setCmd(ApiInterface.MarketOrderList);
         marketOrderListRequestModel.setToken(BaseApplication.getToken());
         MarketOrderListRequestModel.ParametersEntity paramsEntity = new MarketOrderListRequestModel.ParametersEntity();
+        paramsEntity.setPageNo(pager);
+        paramsEntity.setNumberOfPerPage(pagerSize);
         paramsEntity.setOrderType("refund");
         switch (position) {
             case 0:
@@ -113,7 +115,7 @@ public class RefundFragment extends BaseRecyclerFragment {
                 paramsEntity.setSaleType("buy");
                 break;
         }
-        marketOrderListRequestModel.setParameters(new MarketOrderListRequestModel.ParametersEntity());
+        marketOrderListRequestModel.setParameters(paramsEntity);
         return marketOrderListRequestModel;
     }
 

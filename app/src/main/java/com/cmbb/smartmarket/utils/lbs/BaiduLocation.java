@@ -6,7 +6,10 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.Poi;
 import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.base.Constants;
 import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.utils.SPCache;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -17,6 +20,8 @@ import java.util.List;
  * 创建时间：16/4/25 上午10:53
  */
 public class BaiduLocation {
+    private static final String TAG = BaiduLocation.class.getSimpleName();
+
     private static BaiduLocation ourInstance = new BaiduLocation();
 
     public LocationClient mLocationClient = null;
@@ -30,7 +35,6 @@ public class BaiduLocation {
         return mLocationClient;
     }
 
-
     private BaiduLocation() {
         mLocationClient = new LocationClient(BaseApplication.getContext());     //声明LocationClient类
         mLocationClient.registerLocationListener(myListener);
@@ -41,7 +45,7 @@ public class BaiduLocation {
         LocationClientOption option = new LocationClientOption();
         option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);//可选，默认高精度，设置定位模式，高精度，低功耗，仅设备
         option.setCoorType("bd09ll");//可选，默认gcj02，设置返回的定位结果坐标系
-        int span = 1000;
+        int span = 1000 * 10;
         option.setScanSpan(span);//可选，默认0，即仅定位一次，设置发起定位请求的间隔需要大于等于1000ms才是有效的
         option.setIsNeedAddress(true);//可选，设置是否需要地址信息，默认不需要
         option.setOpenGps(true);//可选，默认false,设置是否使用gps
@@ -59,6 +63,20 @@ public class BaiduLocation {
         @Override
         public void onReceiveLocation(BDLocation location) {
             //Receive Location
+            Location locationAddress = new Location();
+            locationAddress.setAddress(location.getAddress().address);
+            locationAddress.setCity(location.getAddress().city);
+            locationAddress.setCityCode(location.getAddress().cityCode);
+            locationAddress.setCountry(location.getAddress().country);
+            locationAddress.setCountryCode(location.getAddress().countryCode);
+            locationAddress.setDistrict(location.getAddress().district);
+            locationAddress.setProvince(location.getAddress().province);
+            locationAddress.setLatitude(location.getLatitude() + "");
+            locationAddress.setLontitude(location.getLongitude() + "");
+            locationAddress.setStreet(location.getAddress().street);
+            locationAddress.setStreetNumber(location.getAddress().streetNumber);
+            SPCache.putString(Constants.LOCATION, new Gson().toJson(locationAddress));
+
             StringBuffer sb = new StringBuffer(256);
             sb.append("time : ");
             sb.append(location.getTime());
@@ -117,7 +135,6 @@ public class BaiduLocation {
                 }
             }
             Log.i("BaiduLocationApiDem", sb.toString());
-            mLocationClient.stop();
         }
     }
 }

@@ -39,6 +39,17 @@ public class ImageLoader {
                 .into(imageView);
     }
 
+    public static void loadCenterCropCache(Context context, String url, ImageView imageView) {
+        Glide.with(context)
+                .load(url)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .placeholder(R.color.line)
+                .error(R.color.darkgray)
+                .crossFade()
+                .centerCrop()
+                .into(imageView);
+    }
+
     public static void loadUrlAndDiskCache(Context context, String url, ImageView imageView, BitmapTransformation bitmapTransformation) {
         Glide.with(context)
                 .load(url)

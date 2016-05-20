@@ -40,7 +40,7 @@ public class RefundActivity extends BaseActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_refund_layout;
+        return R.layout.activity_tab_fragment_layout;
     }
 
     public static void newIntent(Context context) {

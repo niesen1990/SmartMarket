@@ -8,7 +8,6 @@ import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.address.model.UserAddressGetPageRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressGetPageResponseModel;
 import com.cmbb.smartmarket.activity.home.adapter.HomeShopAdapter;
-import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
@@ -54,7 +53,7 @@ public class HomeShopActivity extends BaseHomeActivity {
 
     @Override
     public void onItemClick(int position) {
-        CommodityDetailActivity.newIntent(this, "1");
+//        CommodityDetailActivity.newIntent(this, ((HomeShopAdapter)adapter).getItem(position).getId());
     }
 
     Observer<UserAddressGetPageResponseModel> mTestUserAttentionModelObserver = new Observer<UserAddressGetPageResponseModel>() {

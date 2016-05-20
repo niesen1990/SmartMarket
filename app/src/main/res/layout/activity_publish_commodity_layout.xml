@@ -19,7 +19,8 @@
     <com.cmbb.smartmarket.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar">
+        android:layout_below="@+id/toolbar"
+        android:layout_marginTop="?attr/actionBarSize">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -228,25 +229,54 @@
         </RelativeLayout>
     </com.cmbb.smartmarket.widget.NestedScrollView>
 
+
     <LinearLayout
         android:id="@+id/scroll"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:gravity="center"
-        android:clipToPadding="true"
-        android:orientation="horizontal"
+        android:layout_height="200dp"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:orientation="vertical"
         app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
-        <com.cmbb.smartmarket.widget.WheelView
-            android:id="@+id/wv01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_white_stroke_no_corner"
+            android:padding="@dimen/global_padding">
 
-        <com.cmbb.smartmarket.widget.WheelView
-            android:id="@+id/wv02"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tv_cancel"
+                style="@style/TextAppearance.Smart.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消"/>
+
+            <TextView
+                android:id="@+id/tv_confirm"
+                style="@style/TextAppearance.Smart.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="确定"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.aigestudio.wheelpicker.view.WheelStraightPicker
+                android:id="@+id/wv01"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <com.aigestudio.wheelpicker.view.WheelStraightPicker
+                android:id="@+id/wv02"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>

@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/UmengPushSDK/UmengPushSDK.iml" filepath="$PROJECT_DIR$/UmengPushSDK/UmengPushSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/UmengShare/UmengShare.iml" filepath="$PROJECT_DIR$/UmengShare/UmengShare.iml" />
       <module fileurl="file://$PROJECT_DIR$/WXIM/WXIM.iml" filepath="$PROJECT_DIR$/WXIM/WXIM.iml" />
+      <module fileurl="file://$PROJECT_DIR$/WheelPicker/WheelPicker.iml" filepath="$PROJECT_DIR$/WheelPicker/WheelPicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

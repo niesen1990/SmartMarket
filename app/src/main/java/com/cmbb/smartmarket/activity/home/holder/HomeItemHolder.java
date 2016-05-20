@@ -1,6 +1,7 @@
 package com.cmbb.smartmarket.activity.home.holder;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -8,8 +9,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductGetPageResponseModel;
+import com.cmbb.smartmarket.image.CircleTransform;
 import com.cmbb.smartmarket.image.ImageLoader;
+import com.cmbb.smartmarket.utils.date.JTimeTransform;
+import com.cmbb.smartmarket.utils.date.RecentDateFormat;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
 /**
@@ -18,7 +22,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
  * 创建人：javon
  * 创建时间：2015/8/24 14:25
  */
-public class HomeItemHolder extends BaseViewHolder<TestModel.DataEntity.RowsEntity> {
+public class HomeItemHolder extends BaseViewHolder<ProductGetPageResponseModel.DataEntity.ContentEntity> {
     private final String TAG = HomeItemHolder.class.getSimpleName();
     private ImageView ivHead;
     private ImageView iv01;
@@ -58,9 +62,44 @@ public class HomeItemHolder extends BaseViewHolder<TestModel.DataEntity.RowsEnti
         tvWatch = $(R.id.tv_watch);
     }
 
-    public void setData(TestModel.DataEntity.RowsEntity row) {
-        ImageLoader.loadUrlAndDiskCache(mContext, "http://smart.image.alimmdn.com/system/image/2016-04-18/file_50647_NTFjM2VmMjMtOTNiNC00MTI2LWJhMWMtOWFlZDc2MTg2MDU4", iv01);
-        ImageLoader.loadUrlAndDiskCache(mContext, "http://smart.image.alimmdn.com/system/image/2016-04-18/file_50647_NTFjM2VmMjMtOTNiNC00MTI2LWJhMWMtOWFlZDc2MTg2MDU4", iv02);
-        ImageLoader.loadUrlAndDiskCache(mContext, "http://smart.image.alimmdn.com/system/image/2016-04-18/file_50647_NTFjM2VmMjMtOTNiNC00MTI2LWJhMWMtOWFlZDc2MTg2MDU4", iv03);
+    public void setData(ProductGetPageResponseModel.DataEntity.ContentEntity row) {
+
+        ImageLoader.loadUrlAndDiskCache(mContext, row.getPublicUser().getUserImg(), ivHead, new CircleTransform(mContext));
+        tvNick.setText(row.getPublicUser().getNickName());
+        tvTime.setText(new JTimeTransform(row.getPublicDate()).toString(new RecentDateFormat()));
+        tvContent.setText(row.getContent());
+        tvNewPrice.setText("￥" + row.getCurrentPrice());
+        tvOldPrice.setText("￥" + row.getOriginalPrice());
+        tvAddress.setText(row.getAddress());
+        tvMessage.setText(row.getReplyNumber() + "");
+        tvWatch.setText(row.getBrowseNumber() + "");
+        if (row.getProductImageList() == null || row.getProductImageList().size() == 0) {
+            llImages.setVisibility(View.GONE);
+        } else {
+            llImages.setVisibility(View.VISIBLE);
+            switch (row.getProductImageList().size()) {
+                case 1:
+                    ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(0).getLocation(), iv01);
+                    iv01.setVisibility(View.VISIBLE);
+                    iv02.setVisibility(View.INVISIBLE);
+                    iv03.setVisibility(View.INVISIBLE);
+                    break;
+                case 2:
+                    ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(0).getLocation(), iv01);
+                    ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(1).getLocation(), iv02);
+                    iv01.setVisibility(View.VISIBLE);
+                    iv02.setVisibility(View.VISIBLE);
+                    iv03.setVisibility(View.INVISIBLE);
+                    break;
+                case 3:
+                    iv01.setVisibility(View.VISIBLE);
+                    iv02.setVisibility(View.VISIBLE);
+                    iv03.setVisibility(View.VISIBLE);
+                    ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(0).getLocation(), iv01);
+                    ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(1).getLocation(), iv02);
+                    ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(2).getLocation(), iv03);
+                    break;
+            }
+        }
     }
 }

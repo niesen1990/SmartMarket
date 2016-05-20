@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/shape_white_stroke_no_corner"
-    android:padding="@dimen/global_padding">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:padding="@dimen/global_padding">
 
 
     <ImageView
@@ -13,7 +13,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:src="@mipmap/ic_launcher" />
+        android:src="@mipmap/ic_launcher"/>
 
     <TextView
         android:id="@+id/tv_nick"
@@ -21,22 +21,23 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/iv_head"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/half_global_padding"
+        android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/iv_head"
         android:layout_toRightOf="@+id/iv_head"
-        android:text="niesen918" />
+        android:text="niesen918"/>
 
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/iv_head"
-        android:layout_marginBottom="@dimen/half_global_padding"
+        android:layout_marginBottom="2dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_toEndOf="@+id/iv_head"
         android:layout_toRightOf="@+id/iv_head"
         android:text="5小时之前"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textColor="@color/darkgray"
+        android:textSize="12sp"/>
 
     <LinearLayout
         android:id="@+id/ll_images"
@@ -51,7 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="1"
-            android:src="@color/line" />
+            android:src="@color/line"/>
 
         <ImageView
             android:id="@+id/iv02"
@@ -60,14 +61,14 @@
             android:layout_marginLeft="@dimen/half_global_padding"
             android:layout_marginRight="@dimen/half_global_padding"
             android:layout_weight="1"
-            android:src="@color/line" />
+            android:src="@color/line"/>
 
         <ImageView
             android:id="@+id/iv03"
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="1"
-            android:src="@color/line" />
+            android:src="@color/line"/>
 
     </LinearLayout>
 
@@ -78,7 +79,7 @@
         android:layout_below="@+id/ll_images"
         android:layout_marginTop="@dimen/half_global_padding"
         android:maxLines="2"
-        android:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分" />
+        android:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
 
     <RelativeLayout
         android:id="@+id/rl_content"
@@ -95,7 +96,7 @@
             android:gravity="center"
             android:text="2999"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/tv_old_price"
@@ -106,7 +107,7 @@
             android:layout_toRightOf="@+id/tv_new_price"
             android:background="@drawable/shape_gray_single_line"
             android:gravity="center"
-            android:text="3700" />
+            android:text="3700"/>
 
     </RelativeLayout>
 
@@ -126,7 +127,7 @@
             android:gravity="center"
             android:text="来自上海市 虹口区 大连路"
             android:textColor="@color/address"
-            android:textSize="10sp" />
+            android:textSize="10sp"/>
 
         <TextView
             android:id="@+id/tv_message"
@@ -137,7 +138,7 @@
             android:drawableLeft="@android:drawable/ic_menu_add"
             android:gravity="center"
             android:text="40"
-            android:textSize="10sp" />
+            android:textSize="10sp"/>
 
         <TextView
             android:id="@+id/tv_watch"
@@ -149,7 +150,7 @@
             android:drawableLeft="@android:drawable/ic_menu_add"
             android:gravity="center"
             android:text="140"
-            android:textSize="10sp" />
+            android:textSize="10sp"/>
 
     </RelativeLayout>
 

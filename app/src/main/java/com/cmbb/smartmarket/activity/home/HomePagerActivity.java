@@ -17,15 +17,17 @@ import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.home.adapter.BannerAdapter;
 import com.cmbb.smartmarket.activity.home.adapter.HomeAdapter;
 import com.cmbb.smartmarket.activity.home.adapter.ViewFlipperAdapter;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
-import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
 import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
+import com.cmbb.smartmarket.activity.market.model.ProductGetPageRequestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductGetPageResponseModel;
 import com.cmbb.smartmarket.activity.message.PictureCompressThread;
 import com.cmbb.smartmarket.activity.search.SearchActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.utils.TDevice;
+import com.cmbb.smartmarket.utils.lbs.BaiduLocation;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.rollviewpager.PointHintView;
 import com.jude.rollviewpager.RollPagerView;
@@ -96,6 +98,13 @@ public class HomePagerActivity extends BaseHomeActivity {
         //                Intent intent = IMHelper.getInstance().getIMKit().getChattingActivityIntent(target, IMHelper.getAppKey());
         //                startActivity(intent);
 
+        BaiduLocation.getInstance().getLocationClient().start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        BaiduLocation.getInstance().getLocationClient().stop();
     }
 
     @Override
@@ -147,10 +156,10 @@ public class HomePagerActivity extends BaseHomeActivity {
 
     @Override
     public void onItemClick(int position) {
-        CommodityDetailActivity.newIntent(this, "12");
+        CommodityDetailActivity.newIntent(this, ((HomeAdapter)adapter).getItem(position).getId());
     }
 
-    Observer<TestModel> mTestUserAttentionModelObserver = new Observer<TestModel>() {
+    Observer<ProductGetPageResponseModel> mProductGetPageResponseModelObserver = new Observer<ProductGetPageResponseModel>() {
         @Override
         public void onCompleted() {
 
@@ -164,27 +173,27 @@ public class HomePagerActivity extends BaseHomeActivity {
         }
 
         @Override
-        public void onNext(TestModel testModel) {
+        public void onNext(ProductGetPageResponseModel productGetPageResponseModel) {
             if (pager == 0) {
                 adapter.clear();
-                adapterViewFlipper.stopFlipping();
-                mViewFlipperAdapter.updateEntities(testModel.getData().getRows());
-                adapterViewFlipper.startFlipping();
+                //                adapterViewFlipper.stopFlipping();
+                //                mViewFlipperAdapter.updateEntities(productGetPageResponseModel.getData().getContent());
+                //                adapterViewFlipper.startFlipping();
             }
-            adapter.addAll(testModel.getData().getRows());
+            adapter.addAll(productGetPageResponseModel.getData().getContent());
         }
     };
 
     @Override
     public void onLoadMore() {
         pager++;
-        subscription = HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+        subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+        HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
     }
 
     /**
@@ -192,13 +201,13 @@ public class HomePagerActivity extends BaseHomeActivity {
      *
      * @return params
      */
-    protected TestRequestModel setParams() {
+    protected ProductGetPageRequestModel setParams() {
         unSubscribe();
-        TestRequestModel testRequestModel = new TestRequestModel();
-        testRequestModel.setCmd("smart/attention/getList");
-        testRequestModel.setToken(BaseApplication.getToken());
-        testRequestModel.setParameters(new TestRequestModel.ParametersEntity(pager, pagerSize, 0));
-        return testRequestModel;
+        ProductGetPageRequestModel productGetPageRequestModel = new ProductGetPageRequestModel();
+        productGetPageRequestModel.setToken(BaseApplication.getToken());
+        productGetPageRequestModel.setCmd(ApiInterface.ProductGetPage);
+        productGetPageRequestModel.setParameters(new ProductGetPageRequestModel.ParametersEntity(pagerSize, pager, 0));
+        return productGetPageRequestModel;
     }
 
     @Override

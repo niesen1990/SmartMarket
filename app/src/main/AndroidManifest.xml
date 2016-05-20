@@ -91,7 +91,9 @@
 
         <activity android:name=".activity.user.ReportActivity"/>
         <activity android:name=".activity.user.MeCollectionActivity"/>
-        <activity android:name=".activity.market.PublishCommodityActivity"/>
+        <activity
+            android:name=".activity.market.PublishCommodityActivity"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activity.market.BuyOrderActivity"/>
         <activity android:name=".activity.market.PayActivity"/>
         <activity
@@ -130,7 +132,9 @@
         <activity android:name=".activity.user.EvaluateListActivity"/>
         <activity android:name=".activity.user.EvaluateDetailActivity"/>
         <activity android:name=".activity.user.BuyFinishedActivity"/>
-        <activity android:name=".activity.user.ApplyRefundActivity"
+        <activity android:name=".activity.user.PublishListActivity"/>
+        <activity
+            android:name=".activity.user.ApplyRefundActivity"
             android:windowSoftInputMode="stateHidden"/>
 
         <activity
@@ -229,13 +233,13 @@
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"/>
 
-        <!--<service
+        <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" />
+            android:process=":remote"/>
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="imNTzF1pejxCEfgr22OG7CdArby8mRrn" />-->
+            android:value="imNTzF1pejxCEfgr22OG7CdArby8mRrn"/>
     </application>
 
 </manifest>

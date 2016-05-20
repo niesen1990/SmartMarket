@@ -24,6 +24,8 @@ import com.cmbb.smartmarket.activity.market.model.CodeInfoListResponseModel;
 import com.cmbb.smartmarket.activity.market.model.CommodityPublishResponseModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderCommitRequestModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderCommitResponseModel;
+import com.cmbb.smartmarket.activity.market.model.MarketOrderPayOrderRequestModel;
+import com.cmbb.smartmarket.activity.market.model.MarketOrderPayOrderResponseModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderReserveRequestModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderReserveResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductAskToBuySpotRequestModel;
@@ -32,18 +34,20 @@ import com.cmbb.smartmarket.activity.market.model.ProductCollectRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductCollectResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteReplyRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteReplyResponseModel;
-import com.cmbb.smartmarket.activity.market.model.ProductDetailResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDetailRequestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductDetailResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductGetPageNeedRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductGetPageNeedResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductGetPageRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductGetPageResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductRecommendRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductRecommendResponseModel;
-import com.cmbb.smartmarket.activity.market.model.ProductReplayResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplayRequestModel;
-import com.cmbb.smartmarket.activity.market.model.MarketOrderPayOrderRequestModel;
-import com.cmbb.smartmarket.activity.market.model.MarketOrderPayOrderResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ProductReplayResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ProductReplyListRequestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductReplyListResponseModel;
+import com.cmbb.smartmarket.activity.market.model.SystemCodeInfoGetAllRequest;
+import com.cmbb.smartmarket.activity.market.model.SystemCodeInfoGetAllResponseModel;
 import com.cmbb.smartmarket.activity.market.model.SystemDictListRequestModel;
 import com.cmbb.smartmarket.activity.market.model.SystemDictListResponseModel;
 import com.cmbb.smartmarket.activity.market.model.SystemTipoffsGetPageRequestModel;
@@ -54,10 +58,22 @@ import com.cmbb.smartmarket.activity.user.model.MarketOrderListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictRequestModel;
 import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictResponseModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateRequestModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindalipaySmsRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindalipaySmsResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountGetCashRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountGetCashResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountIndexRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountIndexResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordResponseModel;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRetrofitModel;
 import com.cmbb.smartmarket.base.Constants;
@@ -240,6 +256,20 @@ public class HttpMethod {
     }
 
     /**
+     * 商品字典分类All
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription systemCodeInfoGetAllRequest(Observer<SystemCodeInfoGetAllResponseModel> observer, SystemCodeInfoGetAllRequest retrofitRequestModel) {
+        Observable<SystemCodeInfoGetAllResponseModel> observable = mApiInterface
+                .systemCodeInfoGetAllRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<SystemCodeInfoGetAllResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
      * 获取产品详情
      *
      * @param observer
@@ -264,6 +294,20 @@ public class HttpMethod {
         Observable<ProductReplayResponseModel> observable = mApiInterface
                 .productReplayRequest(retrofitRequestModel)
                 .map(new HttpResultFunc<ProductReplayResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 商品回复列表
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription productReplyListRequest(Observer<ProductReplyListResponseModel> observer, ProductReplyListRequestModel retrofitRequestModel) {
+        Observable<ProductReplyListResponseModel> observable = mApiInterface
+                .productReplyListRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<ProductReplyListResponseModel>());
         return addSubscribe(observable, observer);
     }
 
@@ -544,6 +588,92 @@ public class HttpMethod {
         Observable<SystemGetMultipleDictResponseModel> observable = mApiInterface
                 .systemGetMultipleDictRequest(retrofitRequestModel)
                 .map(new HttpResultFunc<SystemGetMultipleDictResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 钱包首页
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription walletAccountIndexRequest(Observer<WalletAccountIndexResponseModel> observer, WalletAccountIndexRequestModel retrofitRequestModel) {
+        Observable<WalletAccountIndexResponseModel> observable = mApiInterface
+                .walletAccountIndexRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<WalletAccountIndexResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 设置交易密码
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription walletAccountSetPasswordRequest(Observer<WalletAccountSetPasswordResponseModel> observer, WalletAccountSetPasswordRequestModel retrofitRequestModel) {
+        Observable<WalletAccountSetPasswordResponseModel> observable = mApiInterface
+                .walletAccountSetPasswordRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<WalletAccountSetPasswordResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 验证交易密码
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription walletAccountValiatePayPasswordRequest(Observer<WalletAccountValiatePayPasswordResponseModel> observer, WalletAccountValiatePayPasswordRequestModel retrofitRequestModel) {
+        Observable<WalletAccountValiatePayPasswordResponseModel> observable = mApiInterface
+                .walletAccountValiatePayPasswordRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<WalletAccountValiatePayPasswordResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 绑定支付宝账号发送的手机验证码
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription walletAccountBindalipaySmsRequest(Observer<WalletAccountBindalipaySmsResponseModel> observer, WalletAccountBindalipaySmsRequestModel retrofitRequestModel) {
+        Observable<WalletAccountBindalipaySmsResponseModel> observable = mApiInterface
+                .walletAccountBindalipaySmsRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<WalletAccountBindalipaySmsResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 提现
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription walletAccountGetCashRequest(Observer<WalletAccountGetCashResponseModel> observer, WalletAccountGetCashRequestModel retrofitRequestModel) {
+        Observable<WalletAccountGetCashResponseModel> observable = mApiInterface
+                .walletAccountGetCashRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<WalletAccountGetCashResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+
+
+    /**
+     * 宝贝发布列表
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription myselfProductPublicListRequest(Observer<MyselfProductPublicListResponseModel> observer, MyselfProductPublicListRequestModel retrofitRequestModel) {
+        Observable<MyselfProductPublicListResponseModel> observable = mApiInterface
+                .myselfProductPublicListRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<MyselfProductPublicListResponseModel>());
         return addSubscribe(observable, observer);
     }
 }

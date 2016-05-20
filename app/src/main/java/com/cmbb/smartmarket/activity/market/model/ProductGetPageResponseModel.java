@@ -166,13 +166,51 @@ public class ProductGetPageResponseModel {
         }
 
         public static class ContentEntity {
+
+            /**
+             * id : 52
+             * title : 很重要
+             * introduce :
+             * content : 经济
+             * originalPrice : 6.0
+             * currentPrice : 6.0
+             * freight : 6.0
+             * priceDesc :
+             * parentClassify : JJYP
+             * parentClassifyText :
+             * secondClassify :
+             * secondClassifyText :
+             * thirdClassify :
+             * thirdClassifyText :
+             * lontitude :
+             * latitude :
+             * province :
+             * city :
+             * district :
+             * address :
+             * productType : 0
+             * productStatus : 0
+             * productStatusText : 上架
+             * isResolve : 1
+             * resolveDate :
+             * browseNumber : 0
+             * replyNumber : 0
+             * shareNumber : 0
+             * isRecommoned : 1
+             * publicDate : 2016-05-19 19:35:27
+             * publicUser : {"id":5,"mbpUserId":101033,"loginAccount":"13818155072","nickName":"共产党","sex":1,"province":"","provinceText":"","city":"","cityText":"","introduce":"?????","userImg":"http://smart-test.image.alimmdn.com/market/user/image/2016-05-16/YTk3MzI1MjgtZGM0NS00YmUwLTk1NTItNzMwMTk2ZDAwNjYx","imgWidth":2148,"imgHeight":2148,"userLevel":0,"appVersion":"","device":"","deviceImei":""}
+             * productImageList : [{"imageHeight":"","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-05-19/NzQ2YThmYmUtNjliMy00ZGRmLTg1YjItYjc2ZjQ3ZTUxNjFj","imageWidth":""}]
+             * isCollect : 1
+             * isSpot : 1
+             */
+
             private int id;
             private String title;
             private String introduce;
             private String content;
-            private int originalPrice;
-            private int currentPrice;
-            private int freight;
+            private double originalPrice;
+            private double currentPrice;
+            private double freight;
             private String priceDesc;
             private String parentClassify;
             private String parentClassifyText;
@@ -180,7 +218,7 @@ public class ProductGetPageResponseModel {
             private String secondClassifyText;
             private String thirdClassify;
             private String thirdClassifyText;
-            private int lontitude;
+            private String lontitude;
             private String latitude;
             private String province;
             private String city;
@@ -196,30 +234,36 @@ public class ProductGetPageResponseModel {
             private int shareNumber;
             private int isRecommoned;
             private String publicDate;
-            private String publicUserDto;
+            /**
+             * id : 5
+             * mbpUserId : 101033
+             * loginAccount : 13818155072
+             * nickName : 共产党
+             * sex : 1
+             * province :
+             * provinceText :
+             * city :
+             * cityText :
+             * introduce : ?????
+             * userImg : http://smart-test.image.alimmdn.com/market/user/image/2016-05-16/YTk3MzI1MjgtZGM0NS00YmUwLTk1NTItNzMwMTk2ZDAwNjYx
+             * imgWidth : 2148
+             * imgHeight : 2148
+             * userLevel : 0
+             * appVersion :
+             * device :
+             * deviceImei :
+             */
+
+            private PublicUserEntity publicUser;
             private int isCollect;
             private int isSpot;
             /**
              * imageHeight :
-             * location : http://smart-test.image.alimmdn.com/market/product/image/2016-04-29/imageList_NzYxNzI2YjgtOTg3Yy00NTlmLTgwM2YtM2FmNmY0Yjc4NjRl
+             * location : http://smart-test.image.alimmdn.com/market/product/image/2016-05-19/NzQ2YThmYmUtNjliMy00ZGRmLTg1YjItYjc2ZjQ3ZTUxNjFj
              * imageWidth :
              */
 
             private List<ProductImageListEntity> productImageList;
-            /**
-             * id : 2
-             * productId : 1
-             * repUserId : 3
-             * contents : 回复@mywaystay:便宜点喽
-             * type : 0
-             * resolveProductId : 1
-             * isRecommoned : 0
-             * recommonedProductImageList :
-             * createDate : 2016-05-05 15:17:51
-             * createUser : {"id":3,"mbpUserId":108074,"loginAccount":"18221507236","nickName":"mywaystay","sex":"","province":310000,"provinceText":"","city":310104,"cityText":"","introduce":"","userImg":"http://smart.image.alimmdn.com/app/test/2015-12-8/C6BDAD0C-A958-428A-8287-745234FE9253","imgWidth":"","imgHeight":"","userLevel":0,"appVersion":"","device":"","deviceImei":""}
-             */
-
-            private List<ProductRelysListEntity> productRelysList;
 
             public int getId() {
                 return id;
@@ -253,27 +297,27 @@ public class ProductGetPageResponseModel {
                 this.content = content;
             }
 
-            public int getOriginalPrice() {
+            public double getOriginalPrice() {
                 return originalPrice;
             }
 
-            public void setOriginalPrice(int originalPrice) {
+            public void setOriginalPrice(double originalPrice) {
                 this.originalPrice = originalPrice;
             }
 
-            public int getCurrentPrice() {
+            public double getCurrentPrice() {
                 return currentPrice;
             }
 
-            public void setCurrentPrice(int currentPrice) {
+            public void setCurrentPrice(double currentPrice) {
                 this.currentPrice = currentPrice;
             }
 
-            public int getFreight() {
+            public double getFreight() {
                 return freight;
             }
 
-            public void setFreight(int freight) {
+            public void setFreight(double freight) {
                 this.freight = freight;
             }
 
@@ -333,11 +377,11 @@ public class ProductGetPageResponseModel {
                 this.thirdClassifyText = thirdClassifyText;
             }
 
-            public int getLontitude() {
+            public String getLontitude() {
                 return lontitude;
             }
 
-            public void setLontitude(int lontitude) {
+            public void setLontitude(String lontitude) {
                 this.lontitude = lontitude;
             }
 
@@ -461,12 +505,12 @@ public class ProductGetPageResponseModel {
                 this.publicDate = publicDate;
             }
 
-            public String getPublicUserDto() {
-                return publicUserDto;
+            public PublicUserEntity getPublicUser() {
+                return publicUser;
             }
 
-            public void setPublicUserDto(String publicUserDto) {
-                this.publicUserDto = publicUserDto;
+            public void setPublicUser(PublicUserEntity publicUser) {
+                this.publicUser = publicUser;
             }
 
             public int getIsCollect() {
@@ -493,12 +537,160 @@ public class ProductGetPageResponseModel {
                 this.productImageList = productImageList;
             }
 
-            public List<ProductRelysListEntity> getProductRelysList() {
-                return productRelysList;
-            }
+            public static class PublicUserEntity {
+                private int id;
+                private int mbpUserId;
+                private String loginAccount;
+                private String nickName;
+                private int sex;
+                private String province;
+                private String provinceText;
+                private String city;
+                private String cityText;
+                private String introduce;
+                private String userImg;
+                private int imgWidth;
+                private int imgHeight;
+                private int userLevel;
+                private String appVersion;
+                private String device;
+                private String deviceImei;
 
-            public void setProductRelysList(List<ProductRelysListEntity> productRelysList) {
-                this.productRelysList = productRelysList;
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public int getMbpUserId() {
+                    return mbpUserId;
+                }
+
+                public void setMbpUserId(int mbpUserId) {
+                    this.mbpUserId = mbpUserId;
+                }
+
+                public String getLoginAccount() {
+                    return loginAccount;
+                }
+
+                public void setLoginAccount(String loginAccount) {
+                    this.loginAccount = loginAccount;
+                }
+
+                public String getNickName() {
+                    return nickName;
+                }
+
+                public void setNickName(String nickName) {
+                    this.nickName = nickName;
+                }
+
+                public int getSex() {
+                    return sex;
+                }
+
+                public void setSex(int sex) {
+                    this.sex = sex;
+                }
+
+                public String getProvince() {
+                    return province;
+                }
+
+                public void setProvince(String province) {
+                    this.province = province;
+                }
+
+                public String getProvinceText() {
+                    return provinceText;
+                }
+
+                public void setProvinceText(String provinceText) {
+                    this.provinceText = provinceText;
+                }
+
+                public String getCity() {
+                    return city;
+                }
+
+                public void setCity(String city) {
+                    this.city = city;
+                }
+
+                public String getCityText() {
+                    return cityText;
+                }
+
+                public void setCityText(String cityText) {
+                    this.cityText = cityText;
+                }
+
+                public String getIntroduce() {
+                    return introduce;
+                }
+
+                public void setIntroduce(String introduce) {
+                    this.introduce = introduce;
+                }
+
+                public String getUserImg() {
+                    return userImg;
+                }
+
+                public void setUserImg(String userImg) {
+                    this.userImg = userImg;
+                }
+
+                public int getImgWidth() {
+                    return imgWidth;
+                }
+
+                public void setImgWidth(int imgWidth) {
+                    this.imgWidth = imgWidth;
+                }
+
+                public int getImgHeight() {
+                    return imgHeight;
+                }
+
+                public void setImgHeight(int imgHeight) {
+                    this.imgHeight = imgHeight;
+                }
+
+                public int getUserLevel() {
+                    return userLevel;
+                }
+
+                public void setUserLevel(int userLevel) {
+                    this.userLevel = userLevel;
+                }
+
+                public String getAppVersion() {
+                    return appVersion;
+                }
+
+                public void setAppVersion(String appVersion) {
+                    this.appVersion = appVersion;
+                }
+
+                public String getDevice() {
+                    return device;
+                }
+
+                public void setDevice(String device) {
+                    this.device = device;
+                }
+
+                public String getDeviceImei() {
+                    return deviceImei;
+                }
+
+                public void setDeviceImei(String deviceImei) {
+                    this.deviceImei = deviceImei;
+                }
             }
 
             public static class ProductImageListEntity {
@@ -528,275 +720,6 @@ public class ProductGetPageResponseModel {
 
                 public void setImageWidth(String imageWidth) {
                     this.imageWidth = imageWidth;
-                }
-            }
-
-            public static class ProductRelysListEntity {
-                private int id;
-                private int productId;
-                private int repUserId;
-                private String contents;
-                private int type;
-                private int resolveProductId;
-                private int isRecommoned;
-                private String recommonedProductImageList;
-                private String createDate;
-                /**
-                 * id : 3
-                 * mbpUserId : 108074
-                 * loginAccount : 18221507236
-                 * nickName : mywaystay
-                 * sex :
-                 * province : 310000
-                 * provinceText :
-                 * city : 310104
-                 * cityText :
-                 * introduce :
-                 * userImg : http://smart.image.alimmdn.com/app/test/2015-12-8/C6BDAD0C-A958-428A-8287-745234FE9253
-                 * imgWidth :
-                 * imgHeight :
-                 * userLevel : 0
-                 * appVersion :
-                 * device :
-                 * deviceImei :
-                 */
-
-                private CreateUserEntity createUser;
-
-                public int getId() {
-                    return id;
-                }
-
-                public void setId(int id) {
-                    this.id = id;
-                }
-
-                public int getProductId() {
-                    return productId;
-                }
-
-                public void setProductId(int productId) {
-                    this.productId = productId;
-                }
-
-                public int getRepUserId() {
-                    return repUserId;
-                }
-
-                public void setRepUserId(int repUserId) {
-                    this.repUserId = repUserId;
-                }
-
-                public String getContents() {
-                    return contents;
-                }
-
-                public void setContents(String contents) {
-                    this.contents = contents;
-                }
-
-                public int getType() {
-                    return type;
-                }
-
-                public void setType(int type) {
-                    this.type = type;
-                }
-
-                public int getResolveProductId() {
-                    return resolveProductId;
-                }
-
-                public void setResolveProductId(int resolveProductId) {
-                    this.resolveProductId = resolveProductId;
-                }
-
-                public int getIsRecommoned() {
-                    return isRecommoned;
-                }
-
-                public void setIsRecommoned(int isRecommoned) {
-                    this.isRecommoned = isRecommoned;
-                }
-
-                public String getRecommonedProductImageList() {
-                    return recommonedProductImageList;
-                }
-
-                public void setRecommonedProductImageList(String recommonedProductImageList) {
-                    this.recommonedProductImageList = recommonedProductImageList;
-                }
-
-                public String getCreateDate() {
-                    return createDate;
-                }
-
-                public void setCreateDate(String createDate) {
-                    this.createDate = createDate;
-                }
-
-                public CreateUserEntity getCreateUser() {
-                    return createUser;
-                }
-
-                public void setCreateUser(CreateUserEntity createUser) {
-                    this.createUser = createUser;
-                }
-
-                public static class CreateUserEntity {
-                    private int id;
-                    private int mbpUserId;
-                    private String loginAccount;
-                    private String nickName;
-                    private String sex;
-                    private int province;
-                    private String provinceText;
-                    private int city;
-                    private String cityText;
-                    private String introduce;
-                    private String userImg;
-                    private String imgWidth;
-                    private String imgHeight;
-                    private int userLevel;
-                    private String appVersion;
-                    private String device;
-                    private String deviceImei;
-
-                    public int getId() {
-                        return id;
-                    }
-
-                    public void setId(int id) {
-                        this.id = id;
-                    }
-
-                    public int getMbpUserId() {
-                        return mbpUserId;
-                    }
-
-                    public void setMbpUserId(int mbpUserId) {
-                        this.mbpUserId = mbpUserId;
-                    }
-
-                    public String getLoginAccount() {
-                        return loginAccount;
-                    }
-
-                    public void setLoginAccount(String loginAccount) {
-                        this.loginAccount = loginAccount;
-                    }
-
-                    public String getNickName() {
-                        return nickName;
-                    }
-
-                    public void setNickName(String nickName) {
-                        this.nickName = nickName;
-                    }
-
-                    public String getSex() {
-                        return sex;
-                    }
-
-                    public void setSex(String sex) {
-                        this.sex = sex;
-                    }
-
-                    public int getProvince() {
-                        return province;
-                    }
-
-                    public void setProvince(int province) {
-                        this.province = province;
-                    }
-
-                    public String getProvinceText() {
-                        return provinceText;
-                    }
-
-                    public void setProvinceText(String provinceText) {
-                        this.provinceText = provinceText;
-                    }
-
-                    public int getCity() {
-                        return city;
-                    }
-
-                    public void setCity(int city) {
-                        this.city = city;
-                    }
-
-                    public String getCityText() {
-                        return cityText;
-                    }
-
-                    public void setCityText(String cityText) {
-                        this.cityText = cityText;
-                    }
-
-                    public String getIntroduce() {
-                        return introduce;
-                    }
-
-                    public void setIntroduce(String introduce) {
-                        this.introduce = introduce;
-                    }
-
-                    public String getUserImg() {
-                        return userImg;
-                    }
-
-                    public void setUserImg(String userImg) {
-                        this.userImg = userImg;
-                    }
-
-                    public String getImgWidth() {
-                        return imgWidth;
-                    }
-
-                    public void setImgWidth(String imgWidth) {
-                        this.imgWidth = imgWidth;
-                    }
-
-                    public String getImgHeight() {
-                        return imgHeight;
-                    }
-
-                    public void setImgHeight(String imgHeight) {
-                        this.imgHeight = imgHeight;
-                    }
-
-                    public int getUserLevel() {
-                        return userLevel;
-                    }
-
-                    public void setUserLevel(int userLevel) {
-                        this.userLevel = userLevel;
-                    }
-
-                    public String getAppVersion() {
-                        return appVersion;
-                    }
-
-                    public void setAppVersion(String appVersion) {
-                        this.appVersion = appVersion;
-                    }
-
-                    public String getDevice() {
-                        return device;
-                    }
-
-                    public void setDevice(String device) {
-                        this.device = device;
-                    }
-
-                    public String getDeviceImei() {
-                        return deviceImei;
-                    }
-
-                    public void setDeviceImei(String deviceImei) {
-                        this.deviceImei = deviceImei;
-                    }
                 }
             }
         }

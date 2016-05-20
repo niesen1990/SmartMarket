@@ -41,6 +41,10 @@ import com.cmbb.smartmarket.activity.market.model.ProductRecommendRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductRecommendResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplayRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplayResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ProductReplyListRequestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductReplyListResponseModel;
+import com.cmbb.smartmarket.activity.market.model.SystemCodeInfoGetAllRequest;
+import com.cmbb.smartmarket.activity.market.model.SystemCodeInfoGetAllResponseModel;
 import com.cmbb.smartmarket.activity.market.model.SystemDictListRequestModel;
 import com.cmbb.smartmarket.activity.market.model.SystemDictListResponseModel;
 import com.cmbb.smartmarket.activity.market.model.SystemTipoffsGetPageRequestModel;
@@ -51,10 +55,22 @@ import com.cmbb.smartmarket.activity.user.model.MarketOrderListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictRequestModel;
 import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictResponseModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateRequestModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindalipaySmsRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindalipaySmsResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountGetCashRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountGetCashResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountIndexRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountIndexResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordResponseModel;
 import com.cmbb.smartmarket.base.BaseRetrofitModel;
 
 import java.util.List;
@@ -107,7 +123,7 @@ public interface ApiInterface {
 
     @Multipart
     @POST("http://erpuat.mengbp.com:8094/wine-market-rest/product/public/")
-    Observable<BaseRetrofitModel<CommodityPublishResponseModel>> publishCommodityRequest(@PartMap Map<String, RequestBody> params, @Part("imageList") List<RequestBody> files);
+    Observable<BaseRetrofitModel<CommodityPublishResponseModel>> publishCommodityRequest(@PartMap Map<String, RequestBody> params, @Part("imageList\"; filename=\"" + "imageName" + "\"") List<RequestBody> files);
 
     @Headers("Content-Type: application/json")
     @POST(HOST)
@@ -115,6 +131,13 @@ public interface ApiInterface {
 
     // 商品字典分类
     String CodeInfoList = "system/codeInfoList";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<SystemCodeInfoGetAllResponseModel>> systemCodeInfoGetAllRequest(@Body SystemCodeInfoGetAllRequest retrofitRequestModel);
+
+    // 商品字典分类All
+    String SystemCodeInfoGetAll = "system/codeInfo/getAll";
 
     @Multipart
     @POST("http://erpuat.mengbp.com:8094/wine-market-rest/product/public/edit/")
@@ -133,6 +156,14 @@ public interface ApiInterface {
 
     // 商品回复
     String ProductReply = "product/reply";
+
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<ProductReplyListResponseModel>> productReplyListRequest(@Body ProductReplyListRequestModel retrofitRequestModel);
+
+    // 商品回复列表
+    String ProductReplyList = "product/reply/list";
 
     @Headers("Content-Type: application/json")
     @POST(HOST)
@@ -274,5 +305,56 @@ public interface ApiInterface {
     // 服务列表查询字典
     String SystemGetMultipleDict = "system/getMultipleDict";
 
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<WalletAccountIndexResponseModel>> walletAccountIndexRequest(@Body WalletAccountIndexRequestModel retrofitRequestModel);
+
+    // 钱包首页
+    String WalletAccountIndex = "wallet/account/index";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<WalletAccountSetPasswordResponseModel>> walletAccountSetPasswordRequest(@Body WalletAccountSetPasswordRequestModel retrofitRequestModel);
+
+    // 设置交易密码
+    String WalletAccountSetPassword = "wallet/account/setPassword";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<WalletAccountValiatePayPasswordResponseModel>> walletAccountValiatePayPasswordRequest(@Body WalletAccountValiatePayPasswordRequestModel retrofitRequestModel);
+
+    // 验证交易密码
+    String WalletAccountValiatePayPassword = "wallet/account/valiatePayPassword";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<WalletAccountBindalipaySmsResponseModel>> walletAccountBindalipaySmsRequest(@Body WalletAccountBindalipaySmsRequestModel retrofitRequestModel);
+
+    // 绑定支付宝账号发送的手机验证码
+    String WalletAccountBindalipaySms = "wallet/account/bindalipay/sms";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<WalletAccountBindalipaySmsResponseModel>> walletAccountBindlistRequest(@Body WalletAccountBindalipaySmsRequestModel retrofitRequestModel);
+
+    // 绑定支付宝账号发送的手机验证码
+    String WalletAccountBindlist = "wallet/account/bindlist";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<WalletAccountGetCashResponseModel>> walletAccountGetCashRequest(@Body WalletAccountGetCashRequestModel retrofitRequestModel);
+
+    // 提现
+    String WalletAccountGetCash = "wallet/account/getCash";
+
+    /* *******************************我的***********************************/
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MyselfProductPublicListResponseModel>> myselfProductPublicListRequest(@Body MyselfProductPublicListRequestModel retrofitRequestModel);
+
+    // 宝贝发布列表
+    String MyselfProductPublicList = "myself/productPublic/list";
+
+    /* *******************************我的***********************************/
 
 }
