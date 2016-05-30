@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar"/>
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/toolbar"
+        android:layout_margin="@dimen/global_padding"
+        android:background="@drawable/shape_white_stroke_corner_dark"
+        android:gravity="top"
+        android:hint="意见内容"
+        android:padding="@dimen/global_padding"
+        android:textSize="14sp"/>
+
+    <TextView
+        android:id="@+id/tv_submit"
+        style="@style/Button.Smart.Normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_content"
+        android:layout_margin="@dimen/global_padding"
+        android:text="提交"/>
+
+</RelativeLayout>

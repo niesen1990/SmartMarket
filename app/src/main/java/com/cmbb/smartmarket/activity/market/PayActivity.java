@@ -70,7 +70,7 @@ public class PayActivity extends BaseRecyclerActivity {
         public void onNext(MarketOrderPayOrderResponseModel marketOrderPayOrderResponseModel) {
             hideWaitingDialog();
             mMarketOrderPayOrderResponseModel = marketOrderPayOrderResponseModel;
-            Log.e(TAG, "paymentData : " + marketOrderPayOrderResponseModel.getPayTypes().get(payWay).getPaymentData());//打印支付数据
+            Log.e(TAG, "paymentData : " + marketOrderPayOrderResponseModel.getData().getPayTypes().get(payWay).getPaymentData());//打印支付数据
         }
     };
 
@@ -120,6 +120,7 @@ public class PayActivity extends BaseRecyclerActivity {
     protected void initView(Bundle savedInstanceState) {
         setTitle("确认支付");
         tvSubmit.setOnClickListener(this);
+        tvWhole.setText("￥" + getIntent().getDoubleExtra("money", 0));
         onRefresh();
     }
 
@@ -161,7 +162,7 @@ public class PayActivity extends BaseRecyclerActivity {
                 // 构造PayTask 对象
                 PayTask alipay = new PayTask(PayActivity.this);
                 // 调用支付接口，获取支付结果
-                String result = alipay.pay(mMarketOrderPayOrderResponseModel.getPayTypes().get(payWay).getPaymentData(), true);
+                String result = alipay.pay(mMarketOrderPayOrderResponseModel.getData().getPayTypes().get(payWay).getPaymentData(), true);
                 Message msg = new Message();
                 msg.what = SDK_PAY_FLAG;
                 msg.obj = result;
@@ -228,9 +229,10 @@ public class PayActivity extends BaseRecyclerActivity {
         subscription = HttpMethod.getInstance().marketOrderPayOrder(mSmartServicesPayOrderResponseModelObserver, setParams());
     }
 
-    public static void newIntent(Context context, String orderCode) {
+    public static void newIntent(Context context, String orderCode, double money) {
         Intent intent = new Intent(context, PayActivity.class);
         intent.putExtra("orderCode", orderCode);
+        intent.putExtra("money", money);
         context.startActivity(intent);
     }
 }

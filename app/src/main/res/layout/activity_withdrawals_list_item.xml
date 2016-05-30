@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_white_stroke_no_corner"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
     android:padding="@dimen/global_padding">
 
-    <TextView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="支付宝账号："/>
+    <ImageView
+        android:id="@+id/tv_zhifubao"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@android:drawable/ic_menu_add"/>
 
-
     <TextView
-        android:id="@+id/tv_account"
-        android:layout_width="0dp"
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/global_padding"
         android:layout_marginRight="@dimen/global_padding"
-        android:layout_weight="2"
+        android:layout_toRightOf="@+id/tv_zhifubao"
+        android:maxLines="1"
+        android:text="魅族"/>
+
+    <TextView
+        android:id="@+id/tv_account"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_zhifubao"
+        android:layout_marginBottom="2dp"
+        android:layout_marginLeft="@dimen/global_padding"
+        android:layout_marginRight="@dimen/global_padding"
+        android:layout_toRightOf="@+id/tv_zhifubao"
         android:maxLines="1"
         android:text="niesen918@163.com"
         android:textColor="@color/address"/>
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/iv_checked"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0.4"
-        android:src="@android:drawable/ic_menu_add"/>
+        android:layout_alignParentRight="true"
+        android:src="@android:drawable/ic_menu_add"/>-->
 
-</LinearLayout>
+</RelativeLayout>

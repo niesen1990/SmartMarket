@@ -49,7 +49,8 @@ public class BaseApplication extends MultiDexApplication {
 
     public static PushAgent mPushAgent;
     public static Application context;
-    public static String token = "ZDRjZDAxNWItMDIwNi00YTNjLTkyMDgtYmM5MmI3NWM4YzM5";
+    public static String token = "";
+    public static int userId;
 
     @Override
     public void onCreate() {
@@ -57,7 +58,6 @@ public class BaseApplication extends MultiDexApplication {
         super.onCreate();
         context = this;
         initLog();
-        insideApplicationOnCreate();
         if (insideApplicationOnCreate())
             return;//todo 如果在":TCMSSevice"进程中，无需进行openIM和app业务的初始化，以节省内存
         initIM();
@@ -69,6 +69,7 @@ public class BaseApplication extends MultiDexApplication {
         initBroadcastReceiver();
         //
         setToken(SPCache.getString(Constants.API_TOKEN, ""));
+        setUserId(SPCache.getInt(Constants.API_USER_ID, -1));
     }
 
     private void initBroadcastReceiver() {
@@ -103,6 +104,14 @@ public class BaseApplication extends MultiDexApplication {
         //人人 appid appkey appsecret
         PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
         // qq qzone appid appkey
+    }
+
+    public static int getUserId() {
+        return userId;
+    }
+
+    public static void setUserId(int userId) {
+        BaseApplication.userId = userId;
     }
 
     public static String getToken() {

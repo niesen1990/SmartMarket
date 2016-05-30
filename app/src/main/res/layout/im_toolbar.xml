@@ -12,9 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:layout_centerVertical="true"
-        android:drawableLeft="@drawable/aliwx_common_back_btn_bg"
+        android:drawableLeft="@drawable/ic_back"
         android:gravity="left"
-        android:text="返回"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 

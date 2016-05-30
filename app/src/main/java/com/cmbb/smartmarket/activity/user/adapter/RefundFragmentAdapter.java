@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.cmbb.smartmarket.activity.user.fragment.RefundFragment;
+import com.cmbb.smartmarket.log.Log;
 
 /**
  * 项目名称：SmartMarket
@@ -18,6 +19,7 @@ import com.cmbb.smartmarket.activity.user.fragment.RefundFragment;
  */
 public class RefundFragmentAdapter extends FragmentStatePagerAdapter {
 
+    private static final String TAG = RefundFragmentAdapter.class.getSimpleName();
     final int PAGE_COUNT = 2;
     private String tabTitles[] = new String[]{"出售", "购买"};
     private Context context;
@@ -29,6 +31,7 @@ public class RefundFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        Log.e(TAG, position + "");
         return RefundFragment.newInstance(position);
     }
 

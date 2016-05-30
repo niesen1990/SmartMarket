@@ -158,6 +158,7 @@ public class MarketOrderReserveResponseModel {
         private String createDate;
         private String process;
 
+
         public int getId() {
             return id;
         }
@@ -405,12 +406,8 @@ public class MarketOrderReserveResponseModel {
             private String secondClassifyText;
             private String thirdClassify;
             private String thirdClassifyText;
-            private String lontitude;
-            private String latitude;
-            private String province;
-            private String city;
-            private String district;
-            private String address;
+            private int locationId;
+            private UserLocationEntity userLocation;
             private String type;
             private String status;
             private String statusText;
@@ -452,6 +449,22 @@ public class MarketOrderReserveResponseModel {
              */
 
             private List<ProductImageListEntity> productImageList;
+
+            public int getLocationId() {
+                return locationId;
+            }
+
+            public void setLocationId(int locationId) {
+                this.locationId = locationId;
+            }
+
+            public UserLocationEntity getUserLocation() {
+                return userLocation;
+            }
+
+            public void setUserLocation(UserLocationEntity userLocation) {
+                this.userLocation = userLocation;
+            }
 
             public int getId() {
                 return id;
@@ -563,54 +576,6 @@ public class MarketOrderReserveResponseModel {
 
             public void setThirdClassifyText(String thirdClassifyText) {
                 this.thirdClassifyText = thirdClassifyText;
-            }
-
-            public String getLontitude() {
-                return lontitude;
-            }
-
-            public void setLontitude(String lontitude) {
-                this.lontitude = lontitude;
-            }
-
-            public String getLatitude() {
-                return latitude;
-            }
-
-            public void setLatitude(String latitude) {
-                this.latitude = latitude;
-            }
-
-            public String getProvince() {
-                return province;
-            }
-
-            public void setProvince(String province) {
-                this.province = province;
-            }
-
-            public String getCity() {
-                return city;
-            }
-
-            public void setCity(String city) {
-                this.city = city;
-            }
-
-            public String getDistrict() {
-                return district;
-            }
-
-            public void setDistrict(String district) {
-                this.district = district;
-            }
-
-            public String getAddress() {
-                return address;
-            }
-
-            public void setAddress(String address) {
-                this.address = address;
             }
 
             public String getType() {
@@ -751,6 +716,15 @@ public class MarketOrderReserveResponseModel {
                 private String appVersion;
                 private String device;
                 private String deviceImei;
+                private String imUserId;
+
+                public String getImUserId() {
+                    return imUserId;
+                }
+
+                public void setImUserId(String imUserId) {
+                    this.imUserId = imUserId;
+                }
 
                 public int getId() {
                     return id;
@@ -889,10 +863,127 @@ public class MarketOrderReserveResponseModel {
                 }
             }
 
+            public static class UserLocationEntity{
+
+                /**
+                 * id : 4
+                 * country : 中国
+                 * countryCode : 0
+                 * province : 上海市
+                 * city : 上海市
+                 * cityCode : 289
+                 * district : 杨浦区
+                 * street : 飞虹路
+                 * streetNumber : 568弄-20
+                 * address : 中国上海市杨浦区飞虹路568弄-20
+                 */
+
+                private int id;
+                private String country;
+                private String countryCode;
+                private String province;
+                private String city;
+                private String cityCode;
+                private String district;
+                private String street;
+                private String streetNumber;
+                private String address;
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public String getCountry() {
+                    return country;
+                }
+
+                public void setCountry(String country) {
+                    this.country = country;
+                }
+
+                public String getCountryCode() {
+                    return countryCode;
+                }
+
+                public void setCountryCode(String countryCode) {
+                    this.countryCode = countryCode;
+                }
+
+                public String getProvince() {
+                    return province;
+                }
+
+                public void setProvince(String province) {
+                    this.province = province;
+                }
+
+                public String getCity() {
+                    return city;
+                }
+
+                public void setCity(String city) {
+                    this.city = city;
+                }
+
+                public String getCityCode() {
+                    return cityCode;
+                }
+
+                public void setCityCode(String cityCode) {
+                    this.cityCode = cityCode;
+                }
+
+                public String getDistrict() {
+                    return district;
+                }
+
+                public void setDistrict(String district) {
+                    this.district = district;
+                }
+
+                public String getStreet() {
+                    return street;
+                }
+
+                public void setStreet(String street) {
+                    this.street = street;
+                }
+
+                public String getStreetNumber() {
+                    return streetNumber;
+                }
+
+                public void setStreetNumber(String streetNumber) {
+                    this.streetNumber = streetNumber;
+                }
+
+                public String getAddress() {
+                    return address;
+                }
+
+                public void setAddress(String address) {
+                    this.address = address;
+                }
+            }
+
+
             public static class ProductImageListEntity {
                 private String imageHeight;
                 private String location;
                 private String imageWidth;
+                private String businessNumber;
+
+                public String getBusinessNumber() {
+                    return businessNumber;
+                }
+
+                public void setBusinessNumber(String businessNumber) {
+                    this.businessNumber = businessNumber;
+                }
 
                 public String getImageHeight() {
                     return imageHeight;

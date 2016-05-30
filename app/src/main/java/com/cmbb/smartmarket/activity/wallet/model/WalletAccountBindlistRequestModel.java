@@ -11,6 +11,6 @@ import com.cmbb.smartmarket.network.RetrofitRequestModel;
  * 修改时间：16/5/19 上午10:46
  * 修改备注：
  */
-public class WalletAccountBindlistRequestModel extends RetrofitRequestModel {
+public class WalletAccountBindListRequestModel extends RetrofitRequestModel {
 
 }

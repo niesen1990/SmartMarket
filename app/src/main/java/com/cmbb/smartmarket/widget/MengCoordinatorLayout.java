@@ -15,6 +15,16 @@ public class MengCoordinatorLayout extends CoordinatorLayout {
 
     private boolean allowForScrool = true;
 
+    private OnResizeListener mListener;
+
+    public OnResizeListener getResizeListener() {
+        return mListener;
+    }
+
+    public void setResizeListener(OnResizeListener listener) {
+        mListener = listener;
+    }
+
     public boolean isAllowForScrool() {
         return allowForScrool;
     }
@@ -22,7 +32,6 @@ public class MengCoordinatorLayout extends CoordinatorLayout {
     public void setAllowForScrool(boolean allowForScrool) {
         this.allowForScrool = allowForScrool;
     }
-
 
     public MengCoordinatorLayout(Context context) {
         super(context);
@@ -39,5 +48,17 @@ public class MengCoordinatorLayout extends CoordinatorLayout {
     @Override
     public boolean onStartNestedScroll(View child, View target, int nestedScrollAxes) {
         return allowForScrool && super.onStartNestedScroll(child, target, nestedScrollAxes);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        if (mListener != null) {
+            mListener.OnResize(w, h, oldw, oldh);
+        }
+    }
+
+    public interface OnResizeListener {
+        void OnResize(int w, int h, int oldw, int oldh);
     }
 }

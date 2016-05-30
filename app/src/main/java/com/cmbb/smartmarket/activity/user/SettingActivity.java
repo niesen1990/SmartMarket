@@ -23,7 +23,7 @@ import butterknife.BindView;
  * 创建人：N.Sun
  * 创建时间：16/4/26 下午7:41
  */
-public class SettingActivity extends BaseActivity{
+public class SettingActivity extends BaseActivity {
 
     @BindView(R.id.rl_about)
     RelativeLayout rlAbout;
@@ -61,6 +61,7 @@ public class SettingActivity extends BaseActivity{
 
                 break;
             case R.id.rl_suggestion:
+                SuggestionActivity.newIntent(this);
                 break;
             case R.id.rl_rule:
 
@@ -72,6 +73,7 @@ public class SettingActivity extends BaseActivity{
                 // TODO: 16/4/27
                 LoginActivity.newIntent(this);
                 IMHelper.getInstance().logoutIM(new IWxCallback() {
+
                     @Override
                     public void onSuccess(Object... objects) {
                         showToast("登出成功");

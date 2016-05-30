@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.cmbb.smartmarket.widget.MengCoordinatorLayout
+    android:id="@+id/root"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -49,28 +51,59 @@
         android:layout_height="match_parent"
         android:layout_marginBottom="48dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_empty="@layout/view_empty"
         app:layout_progress="@layout/view_progress"
         app:scrollbarStyle="insideOverlay"/>
 
-    <LinearLayout
+
+    <RelativeLayout
+        android:id="@+id/scroll"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_gravity="bottom"
+        android:background="@drawable/shape_white_stroke_no_corner">
+
+
+        <EditText
+            android:id="@+id/tv_send_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/tv_send"
+            android:gravity="left"
+            android:hint="回复@xxx"
+            android:imeOptions="actionDone"
+            android:padding="@dimen/activity_vertical_margin"
+            android:textColor="@color/darkgray"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/global_padding"
+            android:layout_marginRight="@dimen/global_padding"
+            android:background="@android:drawable/ic_menu_upload"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
         android:background="@drawable/shape_white_stroke_no_corner"
-        android:elevation="1dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
         <TextView
             android:id="@+id/tv_message"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableLeft="@android:drawable/ic_menu_add"
+            android:drawableLeft="@drawable/ic_message"
             android:gravity="center"
             android:paddingLeft="@dimen/global_padding"
             android:paddingRight="@dimen/global_padding"
-            android:text="2"/>
+            tools:text="2"/>
 
         <ImageView
             android:id="@+id/iv_collection"
@@ -80,7 +113,7 @@
             android:gravity="center"
             android:paddingLeft="@dimen/global_padding"
             android:paddingRight="@dimen/global_padding"
-            android:src="@android:drawable/ic_menu_add"
+            android:src="@drawable/ic_collection"
             android:text=""/>
 
         <TextView
@@ -88,7 +121,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1.2"
-            android:drawableLeft="@android:drawable/ic_menu_share"
+            android:drawableLeft="@drawable/ic_share"
             android:gravity="center"
             android:paddingLeft="@dimen/global_padding"
             android:paddingRight="@dimen/global_padding"
@@ -104,6 +137,5 @@
             android:text="我要买"
             android:textColor="@android:color/white"/>
     </LinearLayout>
-
 
 </com.cmbb.smartmarket.widget.MengCoordinatorLayout>

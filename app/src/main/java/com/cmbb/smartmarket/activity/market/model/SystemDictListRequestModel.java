@@ -30,6 +30,10 @@ public class SystemDictListRequestModel extends RetrofitRequestModel {
     public static class ParametersEntity {
         private String typeCode;
 
+        public ParametersEntity(String typeCode) {
+            this.typeCode = typeCode;
+        }
+
         public String getTypeCode() {
             return typeCode;
         }

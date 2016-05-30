@@ -1,7 +1,5 @@
 package com.cmbb.smartmarket.utils.date;
 
-import com.cmbb.smartmarket.log.Log;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -39,7 +37,6 @@ public class JTimeTransform {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             Date date = sdf.parse(timestamp);
-            Log.e("Date", "Date = " + date.toString());
             currentTime.setTime(date);
         } catch (ParseException e) {
             e.printStackTrace();

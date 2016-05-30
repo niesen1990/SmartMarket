@@ -106,18 +106,21 @@ public class LoginActivity extends BaseActivity {
             values.put(DBContent.DBUser.USER_CITY_ID, loginResponseModel.getData().getCity());
             values.put(DBContent.DBUser.USER_LEVEL, loginResponseModel.getData().getUserLevel());
             values.put(DBContent.DBUser.USER_INTRODUCE, loginResponseModel.getData().getIntroduce());
+            if (loginResponseModel.getData().getImUserId() != null)
+                values.put(DBContent.DBUser.IM_USER_ID, loginResponseModel.getData().getImUserId());
             getContentResolver().insert(DBContent.DBUser.CONTENT_URI, values);
             BaseApplication.setToken(loginResponseModel.getData().getLoginToken());
             SPCache.putString(Constants.API_TOKEN, loginResponseModel.getData().getLoginToken());
+            SPCache.putInt(Constants.API_USER_ID, loginResponseModel.getData().getId());
             //阿里旺旺
-            IMHelper.getInstance().loginIM("niesen918", "123456", new IWxCallback() {
+            IMHelper.getInstance().loginIM(loginResponseModel.getData().getImUserId(), loginResponseModel.getData().getId() + "_" + loginResponseModel.getData().getLoginAccount(), new IWxCallback() {
                 @Override
                 public void onSuccess(Object... objects) {
                     showToast("IM 登陆成功");
                     showToast(loginResponseModel.getMsg());
                     hideWaitingDialog();
-                    IMPrefsTools.setStringPrefs(LoginActivity.this, Constants.IM_USER_ID, "niesen918");
-                    IMPrefsTools.setStringPrefs(LoginActivity.this, Constants.IM_USER_PASSWORD, "123456");
+                    IMPrefsTools.setStringPrefs(LoginActivity.this, Constants.IM_USER_ID, loginResponseModel.getData().getImUserId());
+                    IMPrefsTools.setStringPrefs(LoginActivity.this, Constants.IM_USER_PASSWORD, loginResponseModel.getData().getId() + "_" + loginResponseModel.getData().getLoginAccount());
                     finish();
                 }
 
@@ -137,7 +140,7 @@ public class LoginActivity extends BaseActivity {
     Observer<SecurityCodeResponseModel> mSecurityCodeResponseModelObserver = new Observer<SecurityCodeResponseModel>() {
         @Override
         public void onCompleted() {
-
+            hideWaitingDialog();
         }
 
         @Override
@@ -148,7 +151,6 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         public void onNext(SecurityCodeResponseModel securityCodeResponseModel) {
-            hideWaitingDialog();
             showToast(securityCodeResponseModel.getMsg());
         }
     };

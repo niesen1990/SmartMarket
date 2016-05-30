@@ -2,7 +2,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <include layout="@layout/toolbar"/>
 
@@ -19,7 +20,7 @@
             android:id="@+id/iv_image"
             android:layout_width="108dp"
             android:layout_height="108dp"
-            android:src="@mipmap/ic_launcher"/>
+            tools:src="@mipmap/ic_launcher"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -31,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
-                android:text="贝亲超级套装"/>
+                tools:text="贝亲超级套装"/>
 
             <RelativeLayout
                 android:id="@+id/rl_price"
@@ -45,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="2999"
+                    tools:text="2999"
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"/>
 
@@ -58,7 +59,7 @@
                     android:layout_toRightOf="@+id/tv_new_price"
                     android:background="@drawable/shape_gray_single_line"
                     android:gravity="center"
-                    android:text="3700"/>
+                    tools:text="3700"/>
 
             </RelativeLayout>
 
@@ -68,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_price"
                 android:layout_marginTop="@dimen/global_padding"
-                android:text="上海黄浦区"/>
+                tools:text="上海黄浦区"/>
 
             <TextView
                 android:id="@+id/tv_line"
@@ -88,7 +89,7 @@
                 android:layout_below="@+id/rl_price"
                 android:layout_marginTop="@dimen/global_padding"
                 android:layout_toRightOf="@+id/tv_line"
-                android:text="在线交易"/>
+                tools:text="在线交易"/>
 
         </RelativeLayout>
     </LinearLayout>
@@ -121,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@+id/iv_right"
                 android:maxLines="1"
-                android:text="习近平 18888888888"/>
+                tools:text="习近平 18888888888"/>
 
 
             <TextView
@@ -132,7 +133,7 @@
                 android:layout_toLeftOf="@+id/iv_right"
                 android:gravity="right"
                 android:maxLines="2"
-                android:text="上海市黄浦区 XXXX路 xxx室 XXX号"/>
+                tools:text="上海市黄浦区 XXXX路 xxx室 XXX号"/>
 
 
             <ImageView
@@ -172,7 +173,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="￥6.00"
+                tools:text="￥6.00"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"/>
         </RelativeLayout>
@@ -195,7 +196,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:text="￥55.00"
+                tools:text="￥55.00"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"/>
         </RelativeLayout>

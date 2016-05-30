@@ -49,8 +49,7 @@ public class IMHelper {
     /**
      * IM app_key
      */
-    //    private static String APP_KEY = "23357748";
-    private static String APP_KEY = "23348470";
+    private static String APP_KEY = "23369408";
     private YWIMKit mIMKit;
     private YWLoginState autoLoginState = YWLoginState.idle;//登陆状态
     private YWConnectionListenerImpl mYWConnectionListenerImpl = new YWConnectionListenerImpl();

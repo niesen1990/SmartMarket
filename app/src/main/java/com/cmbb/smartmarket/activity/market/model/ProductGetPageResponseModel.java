@@ -218,12 +218,6 @@ public class ProductGetPageResponseModel {
             private String secondClassifyText;
             private String thirdClassify;
             private String thirdClassifyText;
-            private String lontitude;
-            private String latitude;
-            private String province;
-            private String city;
-            private String district;
-            private String address;
             private int productType;
             private int productStatus;
             private String productStatusText;
@@ -255,15 +249,19 @@ public class ProductGetPageResponseModel {
              */
 
             private PublicUserEntity publicUser;
+            private UserLocationEntity userLocation;
             private int isCollect;
             private int isSpot;
-            /**
-             * imageHeight :
-             * location : http://smart-test.image.alimmdn.com/market/product/image/2016-05-19/NzQ2YThmYmUtNjliMy00ZGRmLTg1YjItYjc2ZjQ3ZTUxNjFj
-             * imageWidth :
-             */
 
             private List<ProductImageListEntity> productImageList;
+
+            public UserLocationEntity getUserLocation() {
+                return userLocation;
+            }
+
+            public void setUserLocation(UserLocationEntity userLocation) {
+                this.userLocation = userLocation;
+            }
 
             public int getId() {
                 return id;
@@ -377,53 +375,7 @@ public class ProductGetPageResponseModel {
                 this.thirdClassifyText = thirdClassifyText;
             }
 
-            public String getLontitude() {
-                return lontitude;
-            }
 
-            public void setLontitude(String lontitude) {
-                this.lontitude = lontitude;
-            }
-
-            public String getLatitude() {
-                return latitude;
-            }
-
-            public void setLatitude(String latitude) {
-                this.latitude = latitude;
-            }
-
-            public String getProvince() {
-                return province;
-            }
-
-            public void setProvince(String province) {
-                this.province = province;
-            }
-
-            public String getCity() {
-                return city;
-            }
-
-            public void setCity(String city) {
-                this.city = city;
-            }
-
-            public String getDistrict() {
-                return district;
-            }
-
-            public void setDistrict(String district) {
-                this.district = district;
-            }
-
-            public String getAddress() {
-                return address;
-            }
-
-            public void setAddress(String address) {
-                this.address = address;
-            }
 
             public int getProductType() {
                 return productType;
@@ -693,8 +645,112 @@ public class ProductGetPageResponseModel {
                 }
             }
 
+            public static class UserLocationEntity{
+
+
+                private int id;
+                private String country;
+                private String countryCode;
+                private String province;
+                private String city;
+                private String cityCode;
+                private String district;
+                private String street;
+                private String streetNumber;
+                private String address;
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public String getCountry() {
+                    return country;
+                }
+
+                public void setCountry(String country) {
+                    this.country = country;
+                }
+
+                public String getCountryCode() {
+                    return countryCode;
+                }
+
+                public void setCountryCode(String countryCode) {
+                    this.countryCode = countryCode;
+                }
+
+                public String getProvince() {
+                    return province;
+                }
+
+                public void setProvince(String province) {
+                    this.province = province;
+                }
+
+                public String getCity() {
+                    return city;
+                }
+
+                public void setCity(String city) {
+                    this.city = city;
+                }
+
+                public String getCityCode() {
+                    return cityCode;
+                }
+
+                public void setCityCode(String cityCode) {
+                    this.cityCode = cityCode;
+                }
+
+                public String getDistrict() {
+                    return district;
+                }
+
+                public void setDistrict(String district) {
+                    this.district = district;
+                }
+
+                public String getStreet() {
+                    return street;
+                }
+
+                public void setStreet(String street) {
+                    this.street = street;
+                }
+
+                public String getStreetNumber() {
+                    return streetNumber;
+                }
+
+                public void setStreetNumber(String streetNumber) {
+                    this.streetNumber = streetNumber;
+                }
+
+                public String getAddress() {
+                    return address;
+                }
+
+                public void setAddress(String address) {
+                    this.address = address;
+                }
+            }
+
             public static class ProductImageListEntity {
+
+                /**
+                 * imageHeight :
+                 * businessNumber : 8a7c7f4754e714890154eb9b153000d1
+                 * location : http://smart-test.image.alimmdn.com/market/product/image/2016-05-26/OWQ4OGU5YTMtNzJlMi00YmRiLTlhMWMtMWE3NWE1N2U2NDlm
+                 * imageWidth :
+                 */
+
                 private String imageHeight;
+                private String businessNumber;
                 private String location;
                 private String imageWidth;
 
@@ -704,6 +760,14 @@ public class ProductGetPageResponseModel {
 
                 public void setImageHeight(String imageHeight) {
                     this.imageHeight = imageHeight;
+                }
+
+                public String getBusinessNumber() {
+                    return businessNumber;
+                }
+
+                public void setBusinessNumber(String businessNumber) {
+                    this.businessNumber = businessNumber;
                 }
 
                 public String getLocation() {

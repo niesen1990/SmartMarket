@@ -3,12 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:text="贝亲套装，贝亲套装，贝亲套装，贝亲套装，贝亲套装，"/>
+        tools:text="贝亲套装，贝亲套装，贝亲套装，贝亲套装，贝亲套装，"/>
 
 </LinearLayout>

@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.broadcast.ExitBroadcast;
-import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.widget.ProgressDialog;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
@@ -52,6 +51,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     private void intToolbar() {
         if (findViewById(R.id.toolbar) != null) {
             setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
+            ((Toolbar) (findViewById(R.id.toolbar))).setNavigationIcon(R.drawable.ic_back);
             toolbar = getSupportActionBar();
             assert toolbar != null;
             toolbar.setDisplayHomeAsUpEnabled(true);
@@ -124,14 +124,14 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
      *
      * @param message String
      */
-    protected void showToast(String message) {
+    public void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 
     /**
      * 显示加载中...
      */
-    protected void showWaitingDialog() {
+    public void showWaitingDialog() {
         if (_progressDialog == null) {
             _progressDialog = new ProgressDialog(this, R.style.ProgressBarWaiting);
             _progressDialog.setCanceledOnTouchOutside(false);
@@ -142,7 +142,7 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    protected void hideWaitingDialog() {
+    public void hideWaitingDialog() {
         if (_progressDialog != null && _progressDialog.isShowing()) {
             _progressDialog.dismiss();
             _progressDialog = null;

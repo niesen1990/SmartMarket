@@ -14,9 +14,11 @@ import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordReques
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.base.Constants;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.utils.SPCache;
 
 import butterknife.BindView;
 import rx.Observer;
@@ -65,6 +67,7 @@ public class DealPswActivity extends BaseActivity {
             if (walletAccountSetPasswordResponseModel == null)
                 return;
             showToast(walletAccountSetPasswordResponseModel.getMsg());
+            SPCache.putBoolean(Constants.HAS_WALLET_PSW, true);
             finish();
         }
     };

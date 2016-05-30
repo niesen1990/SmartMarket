@@ -30,6 +30,10 @@ public class ProductDeleteReplyRequestModel extends RetrofitRequestModel {
     public static class ParametersEntity {
         private int replyId;
 
+        public ParametersEntity(int replyId) {
+            this.replyId = replyId;
+        }
+
         public int getReplyId() {
             return replyId;
         }

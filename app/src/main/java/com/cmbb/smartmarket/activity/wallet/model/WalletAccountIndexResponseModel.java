@@ -15,6 +15,7 @@ public class WalletAccountIndexResponseModel{
      * userId : 2
      * balance : 20
      * prePayment : 0
+     * hasPassword : true
      * createDate : 2016-05-04 17:37:36
      * createUserId : 2
      * updateDate : 2016-05-05 17:30:41
@@ -23,7 +24,7 @@ public class WalletAccountIndexResponseModel{
 
     private DataEntity data;
     /**
-     * data : {"userId":2,"balance":20,"prePayment":0,"createDate":"2016-05-04 17:37:36","createUserId":2,"updateDate":"2016-05-05 17:30:41","updateUserId":2}
+     * data : {"userId":2,"balance":20,"prePayment":0,"hasPassword":true,"createDate":"2016-05-04 17:37:36","createUserId":2,"updateDate":"2016-05-05 17:30:41","updateUserId":2}
      * msg : 加载成功
      */
 
@@ -49,6 +50,7 @@ public class WalletAccountIndexResponseModel{
         private int userId;
         private int balance;
         private int prePayment;
+        private boolean hasPassword;
         private String createDate;
         private int createUserId;
         private String updateDate;
@@ -76,6 +78,14 @@ public class WalletAccountIndexResponseModel{
 
         public void setPrePayment(int prePayment) {
             this.prePayment = prePayment;
+        }
+
+        public boolean isHasPassword() {
+            return hasPassword;
+        }
+
+        public void setHasPassword(boolean hasPassword) {
+            this.hasPassword = hasPassword;
         }
 
         public String getCreateDate() {

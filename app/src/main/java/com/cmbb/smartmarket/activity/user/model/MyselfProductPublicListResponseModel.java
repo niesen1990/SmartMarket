@@ -1,5 +1,8 @@
 package com.cmbb.smartmarket.activity.user.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -168,7 +171,7 @@ public class MyselfProductPublicListResponseModel {
             this.content = content;
         }
 
-        public static class ContentEntity {
+        public static class ContentEntity implements Parcelable {
 
             /**
              * id : 52
@@ -237,6 +240,8 @@ public class MyselfProductPublicListResponseModel {
             private int shareNumber;
             private int isRecommoned;
             private String publicDate;
+            //add
+            private boolean checked;
             /**
              * id : 5
              * mbpUserId : 101033
@@ -260,11 +265,22 @@ public class MyselfProductPublicListResponseModel {
             private PublicUserEntity publicUser;
             private int isCollect;
             private int isSpot;
+
+            public boolean isChecked() {
+                return checked;
+            }
+
+            public void setChecked(boolean checked) {
+                this.checked = checked;
+            }
+
             /**
              * imageHeight :
              * location : http://smart-test.image.alimmdn.com/market/product/image/2016-05-19/NzQ2YThmYmUtNjliMy00ZGRmLTg1YjItYjc2ZjQ3ZTUxNjFj
              * imageWidth :
              */
+
+
 
             private List<ProductImageListEntity> productImageList;
 
@@ -540,7 +556,7 @@ public class MyselfProductPublicListResponseModel {
                 this.productImageList = productImageList;
             }
 
-            public static class PublicUserEntity {
+            public static class PublicUserEntity implements Parcelable {
                 private int id;
                 private int mbpUserId;
                 private String loginAccount;
@@ -694,12 +710,82 @@ public class MyselfProductPublicListResponseModel {
                 public void setDeviceImei(String deviceImei) {
                     this.deviceImei = deviceImei;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(this.id);
+                    dest.writeInt(this.mbpUserId);
+                    dest.writeString(this.loginAccount);
+                    dest.writeString(this.nickName);
+                    dest.writeInt(this.sex);
+                    dest.writeString(this.province);
+                    dest.writeString(this.provinceText);
+                    dest.writeString(this.city);
+                    dest.writeString(this.cityText);
+                    dest.writeString(this.introduce);
+                    dest.writeString(this.userImg);
+                    dest.writeInt(this.imgWidth);
+                    dest.writeInt(this.imgHeight);
+                    dest.writeInt(this.userLevel);
+                    dest.writeString(this.appVersion);
+                    dest.writeString(this.device);
+                    dest.writeString(this.deviceImei);
+                }
+
+                public PublicUserEntity() {
+                }
+
+                protected PublicUserEntity(Parcel in) {
+                    this.id = in.readInt();
+                    this.mbpUserId = in.readInt();
+                    this.loginAccount = in.readString();
+                    this.nickName = in.readString();
+                    this.sex = in.readInt();
+                    this.province = in.readString();
+                    this.provinceText = in.readString();
+                    this.city = in.readString();
+                    this.cityText = in.readString();
+                    this.introduce = in.readString();
+                    this.userImg = in.readString();
+                    this.imgWidth = in.readInt();
+                    this.imgHeight = in.readInt();
+                    this.userLevel = in.readInt();
+                    this.appVersion = in.readString();
+                    this.device = in.readString();
+                    this.deviceImei = in.readString();
+                }
+
+                public static final Parcelable.Creator<PublicUserEntity> CREATOR = new Parcelable.Creator<PublicUserEntity>() {
+                    @Override
+                    public PublicUserEntity createFromParcel(Parcel source) {
+                        return new PublicUserEntity(source);
+                    }
+
+                    @Override
+                    public PublicUserEntity[] newArray(int size) {
+                        return new PublicUserEntity[size];
+                    }
+                };
             }
 
-            public static class ProductImageListEntity {
+            public static class ProductImageListEntity implements Parcelable {
                 private String imageHeight;
                 private String location;
                 private String imageWidth;
+                private String businessNumber;
+
+                public String getBusinessNumber() {
+                    return businessNumber;
+                }
+
+                public void setBusinessNumber(String businessNumber) {
+                    this.businessNumber = businessNumber;
+                }
 
                 public String getImageHeight() {
                     return imageHeight;
@@ -724,7 +810,137 @@ public class MyselfProductPublicListResponseModel {
                 public void setImageWidth(String imageWidth) {
                     this.imageWidth = imageWidth;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(this.imageHeight);
+                    dest.writeString(this.location);
+                    dest.writeString(this.imageWidth);
+                    dest.writeString(this.businessNumber);
+                }
+
+                public ProductImageListEntity() {
+                }
+
+                protected ProductImageListEntity(Parcel in) {
+                    this.imageHeight = in.readString();
+                    this.location = in.readString();
+                    this.imageWidth = in.readString();
+                    this.businessNumber = in.readString();
+                }
+
+                public static final Parcelable.Creator<ProductImageListEntity> CREATOR = new Parcelable.Creator<ProductImageListEntity>() {
+                    @Override
+                    public ProductImageListEntity createFromParcel(Parcel source) {
+                        return new ProductImageListEntity(source);
+                    }
+
+                    @Override
+                    public ProductImageListEntity[] newArray(int size) {
+                        return new ProductImageListEntity[size];
+                    }
+                };
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.id);
+                dest.writeString(this.title);
+                dest.writeString(this.introduce);
+                dest.writeString(this.content);
+                dest.writeDouble(this.originalPrice);
+                dest.writeDouble(this.currentPrice);
+                dest.writeDouble(this.freight);
+                dest.writeString(this.priceDesc);
+                dest.writeString(this.parentClassify);
+                dest.writeString(this.parentClassifyText);
+                dest.writeString(this.secondClassify);
+                dest.writeString(this.secondClassifyText);
+                dest.writeString(this.thirdClassify);
+                dest.writeString(this.thirdClassifyText);
+                dest.writeString(this.lontitude);
+                dest.writeString(this.latitude);
+                dest.writeString(this.province);
+                dest.writeString(this.city);
+                dest.writeString(this.district);
+                dest.writeString(this.address);
+                dest.writeInt(this.productType);
+                dest.writeInt(this.productStatus);
+                dest.writeString(this.productStatusText);
+                dest.writeInt(this.isResolve);
+                dest.writeString(this.resolveDate);
+                dest.writeInt(this.browseNumber);
+                dest.writeInt(this.replyNumber);
+                dest.writeInt(this.shareNumber);
+                dest.writeInt(this.isRecommoned);
+                dest.writeString(this.publicDate);
+                dest.writeParcelable(this.publicUser, flags);
+                dest.writeInt(this.isCollect);
+                dest.writeInt(this.isSpot);
+                dest.writeTypedList(this.productImageList);
+            }
+
+            public ContentEntity() {
+            }
+
+            protected ContentEntity(Parcel in) {
+                this.id = in.readInt();
+                this.title = in.readString();
+                this.introduce = in.readString();
+                this.content = in.readString();
+                this.originalPrice = in.readDouble();
+                this.currentPrice = in.readDouble();
+                this.freight = in.readDouble();
+                this.priceDesc = in.readString();
+                this.parentClassify = in.readString();
+                this.parentClassifyText = in.readString();
+                this.secondClassify = in.readString();
+                this.secondClassifyText = in.readString();
+                this.thirdClassify = in.readString();
+                this.thirdClassifyText = in.readString();
+                this.lontitude = in.readString();
+                this.latitude = in.readString();
+                this.province = in.readString();
+                this.city = in.readString();
+                this.district = in.readString();
+                this.address = in.readString();
+                this.productType = in.readInt();
+                this.productStatus = in.readInt();
+                this.productStatusText = in.readString();
+                this.isResolve = in.readInt();
+                this.resolveDate = in.readString();
+                this.browseNumber = in.readInt();
+                this.replyNumber = in.readInt();
+                this.shareNumber = in.readInt();
+                this.isRecommoned = in.readInt();
+                this.publicDate = in.readString();
+                this.publicUser = in.readParcelable(PublicUserEntity.class.getClassLoader());
+                this.isCollect = in.readInt();
+                this.isSpot = in.readInt();
+                this.productImageList = in.createTypedArrayList(ProductImageListEntity.CREATOR);
+            }
+
+            public static final Parcelable.Creator<ContentEntity> CREATOR = new Parcelable.Creator<ContentEntity>() {
+                @Override
+                public ContentEntity createFromParcel(Parcel source) {
+                    return new ContentEntity(source);
+                }
+
+                @Override
+                public ContentEntity[] newArray(int size) {
+                    return new ContentEntity[size];
+                }
+            };
         }
     }
 }

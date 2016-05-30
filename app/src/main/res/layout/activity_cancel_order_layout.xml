@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar" />
+
+    <com.cmbb.smartmarket.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/global_padding"
+                android:layout_marginRight="@dimen/global_padding"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="请选择取消订单原因" />
+
+            <RadioGroup
+                android:id="@+id/rg_reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_reason"
+                android:layout_marginTop="@dimen/global_padding"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/global_padding"
+                android:paddingTop="@dimen/global_padding">
+
+                <RadioButton
+                    android:id="@+id/rb01"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/half_global_padding"
+                    android:layout_marginLeft="@dimen/global_padding"
+                    android:layout_marginRight="@dimen/global_padding"
+                    android:text="我不想买了"
+                    android:textColor="@color/dimgray" />
+
+                <RadioButton
+                    android:id="@+id/rb02"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/half_global_padding"
+                    android:layout_marginLeft="@dimen/global_padding"
+                    android:layout_marginRight="@dimen/global_padding"
+                    android:text="信息填写错误，重新拍"
+                    android:textColor="@color/dimgray" />
+
+                <RadioButton
+                    android:id="@+id/rb03"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/half_global_padding"
+                    android:layout_marginLeft="@dimen/global_padding"
+                    android:layout_marginRight="@dimen/global_padding"
+                    android:text="卖家缺货"
+                    android:textColor="@color/dimgray" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/activity_vertical_margin"
+                    android:background="@color/windowBackgroundColor" />
+
+                <RadioButton
+                    android:id="@+id/rb04"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/global_padding"
+                    android:layout_marginRight="@dimen/global_padding"
+                    android:text="其他原因"
+                    android:textColor="@color/dimgray" />
+
+            </RadioGroup>
+
+            <RelativeLayout
+                android:id="@+id/rl_reason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rg_reason"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:padding="@dimen/global_padding">
+
+                <EditText
+                    android:id="@+id/et_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:background="@drawable/shape_white_stroke_corner"
+                    android:gravity="top"
+                    android:hint="请输入取消订单的原因"
+                    android:padding="@dimen/global_padding"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_submit"
+                style="@style/Button.Smart.Normal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rl_reason"
+                android:layout_margin="@dimen/global_padding"
+                android:text="提交请求" />
+
+        </RelativeLayout>
+
+
+    </com.cmbb.smartmarket.widget.NestedScrollView>
+
+</RelativeLayout>

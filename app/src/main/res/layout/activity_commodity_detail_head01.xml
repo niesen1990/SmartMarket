@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
     <LinearLayout
@@ -32,7 +33,7 @@
                 android:paddingTop="2dp"
                 android:text="官方推荐"
                 android:textColor="@android:color/white"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/tv_title"
@@ -40,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/global_padding"
                 android:layout_weight="3"
-                android:text="贝亲新生婴儿清洁护肤礼品" />
+                tools:text="贝亲新生婴儿清洁护肤礼品"/>
 
             <TextView
                 android:id="@+id/tv_watch_count"
@@ -48,9 +49,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
                 android:layout_weight="1"
-                android:drawableLeft="@android:drawable/ic_menu_add"
+                android:drawableLeft="@drawable/ic_browse"
                 android:gravity="center"
-                android:text="2106" />
+                tools:text="2106"/>
 
         </LinearLayout>
 
@@ -65,10 +66,10 @@
                 android:id="@+id/tv_real_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥128"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="￥128"/>
 
             <TextView
                 android:id="@+id/tv_old_price"
@@ -78,8 +79,8 @@
                 android:layout_marginTop="3dp"
                 android:layout_toRightOf="@+id/tv_real_price"
                 android:background="@drawable/shape_gray_single_line"
-                android:text="￥128"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="￥128"/>
 
             <TextView
                 android:id="@+id/tv_freight"
@@ -88,8 +89,8 @@
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_marginTop="2dp"
                 android:layout_toRightOf="@+id/tv_old_price"
-                android:text="(已含运费)"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                tools:text="(已含运费)"/>
 
             <TextView
                 android:id="@+id/tv_introduce"
@@ -97,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_real_price"
                 android:layout_marginTop="@dimen/global_padding"
-                android:text="洗护全套，送宝宝的好礼品。（爽身粉）140g,洗发精200ml，沐浴露200ml, 论腐乳300ml" />
+                tools:text="洗护全套，送宝宝的好礼品。（爽身粉）140g,洗发精200ml，沐浴露200ml, 论腐乳300ml"/>
 
 
             <TextView
@@ -106,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_introduce"
                 android:layout_marginTop="@dimen/global_padding"
-                android:text="6小时以前" />
+                tools:text="6小时以前"/>
 
             <TextView
                 android:id="@+id/tv_line01"
@@ -114,7 +115,7 @@
                 android:layout_height="1dp"
                 android:layout_below="@+id/tv_time"
                 android:layout_marginTop="@dimen/half_global_padding"
-                android:background="@color/line" />
+                android:background="@color/line"/>
 
             <TextView
                 android:id="@+id/tv_address"
@@ -122,11 +123,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_line01"
                 android:layout_marginTop="@dimen/global_padding"
-                android:drawableLeft="@android:drawable/ic_menu_add"
+                android:drawableLeft="@drawable/ic_location"
                 android:gravity="center"
-                android:text="上海 | 杨浦区"
                 android:textColor="@color/address"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                tools:text="上海 | 杨浦区"/>
 
 
         </RelativeLayout>
@@ -143,9 +144,9 @@
 
         <ImageView
             android:id="@+id/iv_head"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@mipmap/ic_launcher" />
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            tools:src="@mipmap/ic_launcher"/>
 
         <TextView
             android:id="@+id/tv_nick"
@@ -154,7 +155,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_toRightOf="@+id/iv_head"
-            android:text="niesen918" />
+            tools:text="niesen918"/>
 
         <TextView
             android:id="@+id/tv_contact"
@@ -162,9 +163,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:drawableLeft="@android:drawable/ic_menu_add"
+            android:drawableLeft="@drawable/ic_contact"
             android:gravity="center"
-            android:text="联系卖家" />
+            android:text="联系卖家"/>
 
         <TextView
             android:id="@+id/tv_line"
@@ -177,7 +178,7 @@
             android:layout_marginRight="@dimen/global_padding"
             android:layout_marginTop="3dp"
             android:layout_toLeftOf="@+id/tv_contact"
-            android:background="@color/line" />
+            android:background="@color/line"/>
 
     </RelativeLayout>
 

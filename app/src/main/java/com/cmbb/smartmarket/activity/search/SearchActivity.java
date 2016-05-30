@@ -5,14 +5,25 @@ import android.app.SearchableInfo;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.SearchRecentSuggestions;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.SearchView;
 
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.search.adapter.SearchAdapter;
+import com.cmbb.smartmarket.activity.search.model.MarketHomeSearchRequestModel;
+import com.cmbb.smartmarket.activity.search.model.MarketHomeSearchResponseModel;
+import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.ApiInterface;
+import com.cmbb.smartmarket.network.HttpMethod;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+
+import rx.Observer;
 
 /**
  * 项目名称：SmartMarket
@@ -22,19 +33,70 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  */
 public class SearchActivity extends BaseRecyclerActivity {
 
-    private static final java.lang.String TAG = SearchActivity.class.getSimpleName();
+    private static final String TAG = SearchActivity.class.getSimpleName();
     private SearchView searchView;
+    private Handler mHandler = new Handler();
+    Observer<MarketHomeSearchResponseModel> mMarketHomeSearchRequestModelObserver = new Observer<MarketHomeSearchResponseModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onNext(MarketHomeSearchResponseModel marketHomeSearchResponseModel) {
+            if (marketHomeSearchResponseModel != null) {
+                adapter.clear();
+                adapter.addAll(marketHomeSearchResponseModel.getData().getContent());
+            }
+        }
+    };
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         initView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(final String newText) {
+                unSubscribe();
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        subscription = HttpMethod.getInstance().marketHomeSearch(mMarketHomeSearchRequestModelObserver, setSearchParams(newText));
+                    }
+                }, 500);
+                return true;
+            }
+        });
+    }
+
+    private MarketHomeSearchRequestModel setSearchParams(String newText) {
+        MarketHomeSearchRequestModel marketHomeSearchRequestModel = new MarketHomeSearchRequestModel();
+        marketHomeSearchRequestModel.setCmd(ApiInterface.MarketHomeSearch);
+        marketHomeSearchRequestModel.setToken(BaseApplication.getToken());
+        marketHomeSearchRequestModel.setParameters(new MarketHomeSearchRequestModel.ParametersEntity(newText, "0"));
+        return marketHomeSearchRequestModel;
+    }
+    @Override
+    protected RecyclerView.LayoutManager setLayoutManager() {
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        gridLayoutManager.setSpanSizeLookup(adapter.obtainGridSpanSizeLookUp(2));
+        return gridLayoutManager;
     }
 
     @Override
     protected RecyclerArrayAdapter initAdapter() {
-        return null;
+        return new SearchAdapter(this);
     }
-
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -52,7 +114,7 @@ public class SearchActivity extends BaseRecyclerActivity {
         searchView = (SearchView) findViewById(R.id.search_view);
         SearchManager mSearchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchableInfo info = mSearchManager.getSearchableInfo(getComponentName());
-        searchView.setSearchableInfo(info); //需要在Xml文件加下建立searchable.xml,搜索框配置文件
+        searchView.setSearchableInfo(info); // 需要在Xml文件加下建立searchable.xml,搜索框配置文件
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {

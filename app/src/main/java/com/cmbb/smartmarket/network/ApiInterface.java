@@ -10,6 +10,18 @@ import com.cmbb.smartmarket.activity.address.model.UserAddressSaveRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSaveResponseModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSetDefaultRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSetDefaultResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeGetAllCityListRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeGetAllCityListResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeGetHotCityListRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeGetHotCityListResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageGetTypeRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageGetTypeResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MyselfGetCountRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MyselfGetCountResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListResponseModel;
 import com.cmbb.smartmarket.activity.home.model.TestModel;
 import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
 import com.cmbb.smartmarket.activity.login.model.LoginRequestModel;
@@ -19,18 +31,24 @@ import com.cmbb.smartmarket.activity.login.model.SecurityCodeResponseModel;
 import com.cmbb.smartmarket.activity.market.model.CodeInfoListRequestModel;
 import com.cmbb.smartmarket.activity.market.model.CodeInfoListResponseModel;
 import com.cmbb.smartmarket.activity.market.model.CommodityPublishResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ImageDeleteResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ImageUploadResponseModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderCommitRequestModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderCommitResponseModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderPayOrderRequestModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderPayOrderResponseModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderReserveRequestModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderReserveResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ProductAskToBuyResolveRequestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductAskToBuyResolveResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductAskToBuySpotRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductAskToBuySpotResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductCollectRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductCollectResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteReplyRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteReplyResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ProductDeleteRequestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductDeleteResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDetailRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDetailResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductGetPageNeedRequestModel;
@@ -43,6 +61,7 @@ import com.cmbb.smartmarket.activity.market.model.ProductReplayRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplayResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplyListRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplyListResponseModel;
+import com.cmbb.smartmarket.activity.market.model.PublishEditResponseModel;
 import com.cmbb.smartmarket.activity.market.model.SystemCodeInfoGetAllRequest;
 import com.cmbb.smartmarket.activity.market.model.SystemCodeInfoGetAllResponseModel;
 import com.cmbb.smartmarket.activity.market.model.SystemDictListRequestModel;
@@ -51,22 +70,46 @@ import com.cmbb.smartmarket.activity.market.model.SystemTipoffsGetPageRequestMod
 import com.cmbb.smartmarket.activity.market.model.SystemTipoffsGetPageResponseModel;
 import com.cmbb.smartmarket.activity.market.model.SystemTipoffsReportRequestModel;
 import com.cmbb.smartmarket.activity.market.model.SystemTipoffsReportResponseModel;
+import com.cmbb.smartmarket.activity.search.model.MarketHomeSearchRequestModel;
+import com.cmbb.smartmarket.activity.search.model.MarketHomeSearchResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketEvaluateDetailRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketEvaluateDetailResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketEvaluateListRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketEvaluateListResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketEvaluateSaveRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketEvaluateSaveResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderCancelRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderCancelResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
-import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundRequestModel;
-import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerSendRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerSendResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MyselfFeedbackOpinionRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MyselfFeedbackOpinionResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictRequestModel;
 import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictResponseModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateRequestModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindListRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindListResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindalipayRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindalipayResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindalipaySmsRequestModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindalipaySmsResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountGetCashRequestModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountGetCashResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountIndexRequestModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountIndexResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordNextRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordNextResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordRequestModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordRequestModel;
@@ -92,8 +135,9 @@ import rx.Observable;
  * 创建时间：16/5/10 上午11:10
  */
 public interface ApiInterface {
-    //        String HOST = "http://192.168.100.109:8080/cgi/";
+    //            String HOST = "http://192.168.100.109:8080/cgi/";
     String HOST = "http://erpuat.mengbp.com:8094/wine-market-rest/cgi/";
+    //    String HOST = "http://192.168.100.61:8080/wine-market-rest/cgi/";
 
     @Headers("Content-Type: application/json")
     @POST("http://mengbaopai.smart-kids.com:82/wine-rest/cgi")
@@ -121,9 +165,15 @@ public interface ApiInterface {
     @POST("http://erpuat.mengbp.com:8094/wine-market-rest/market/user/userImg/")
     Observable<BaseRetrofitModel<UserInfoUpdateResponseModel>> uploadUserInfoImage(@PartMap Map<String, RequestBody> params);
 
+    //发布
     @Multipart
-    @POST("http://erpuat.mengbp.com:8094/wine-market-rest/product/public/")
-    Observable<BaseRetrofitModel<CommodityPublishResponseModel>> publishCommodityRequest(@PartMap Map<String, RequestBody> params, @Part("imageList\"; filename=\"" + "imageName" + "\"") List<RequestBody> files);
+    @POST("http://erpuat.mengbp.com:8094/wine-market-rest/product/v1.1/public")
+    Observable<BaseRetrofitModel<CommodityPublishResponseModel>> publishCommodityRequest(@PartMap Map<String, RequestBody> params);
+
+    //发布编辑
+    @Multipart
+    @POST("http://erpuat.mengbp.com:8094/wine-market-rest/product/v1.1/edit")
+    Observable<BaseRetrofitModel<PublishEditResponseModel>> publishEditRequest(@PartMap Map<String, RequestBody> params);
 
     @Headers("Content-Type: application/json")
     @POST(HOST)
@@ -157,13 +207,19 @@ public interface ApiInterface {
     // 商品回复
     String ProductReply = "product/reply";
 
-
     @Headers("Content-Type: application/json")
     @POST(HOST)
     Observable<BaseRetrofitModel<ProductReplyListResponseModel>> productReplyListRequest(@Body ProductReplyListRequestModel retrofitRequestModel);
 
     // 商品回复列表
     String ProductReplyList = "product/reply/list";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<ProductDeleteResponseModel>> productDeleteRequest(@Body ProductDeleteRequestModel retrofitRequestModel);
+
+    // 商品删除
+    String ProductDelete = "product/delete";
 
     @Headers("Content-Type: application/json")
     @POST(HOST)
@@ -192,6 +248,13 @@ public interface ApiInterface {
 
     // 求购列表筛选字典
     String SystemDictList = "system/dictList";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<ProductAskToBuyResolveResponseModel>> productAskToBuyResolve(@Body ProductAskToBuyResolveRequestModel retrofitRequestModel);
+
+    // 求购解决
+    String ProductAskToBuyResolve = "product/askToBuy/resolve";
 
     @Headers("Content-Type: application/json")
     @POST(HOST)
@@ -286,10 +349,10 @@ public interface ApiInterface {
 
     @Headers("Content-Type: application/json")
     @POST(HOST)
-    Observable<BaseRetrofitModel<MarketOrderRefundResponseModel>> marketOrderRefundRequest(@Body MarketOrderRefundRequestModel retrofitRequestModel);
+    Observable<BaseRetrofitModel<MarketOrderApplyRefundResponseModel>> marketOrderApplyRefund(@Body MarketOrderApplyRefundRequestModel retrofitRequestModel);
 
     // 订单申请退款
-    String MarketOrderRefund = "market/order/refund";
+    String MarketOrderApplyRefund = "market/order/applyRefund";
 
     @Headers("Content-Type: application/json")
     @POST(HOST)
@@ -335,10 +398,24 @@ public interface ApiInterface {
 
     @Headers("Content-Type: application/json")
     @POST(HOST)
-    Observable<BaseRetrofitModel<WalletAccountBindalipaySmsResponseModel>> walletAccountBindlistRequest(@Body WalletAccountBindalipaySmsRequestModel retrofitRequestModel);
+    Observable<BaseRetrofitModel<WalletAccountBindalipayResponseModel>> walletAccountBindalipay(@Body WalletAccountBindalipayRequestModel retrofitRequestModel);
 
-    // 绑定支付宝账号发送的手机验证码
-    String WalletAccountBindlist = "wallet/account/bindlist";
+    // 绑定支付宝账号
+    String WalletAccountBindalipay = "wallet/account/bindalipay";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<WalletAccountBindListResponseModel>> walletAccountBindListRequest(@Body WalletAccountBindListRequestModel retrofitRequestModel);
+
+    // 绑定的提现支付宝账号列表
+    String WalletAccountBindList = "wallet/account/bindlist";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<WalletAccountSetPasswordNextResponseModel>> walletAccountSetPasswordNextRequest(@Body WalletAccountSetPasswordNextRequestModel retrofitRequestModel);
+
+    // 修改交易密码下一步
+    String WalletAccountSetPasswordNext = "wallet/account/setPasswordNext";
 
     @Headers("Content-Type: application/json")
     @POST(HOST)
@@ -355,6 +432,126 @@ public interface ApiInterface {
     // 宝贝发布列表
     String MyselfProductPublicList = "myself/productPublic/list";
 
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MyselfGetCountResponseModel>> myselfGetCount(@Body MyselfGetCountRequestModel retrofitRequestModel);
+
+    // 宝贝发布列表
+    String MyselfGetCount = "myself/getCount";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MyselfProductCollectListResponseModel>> myselfProductCollectList(@Body MyselfProductCollectListRequestModel retrofitRequestModel);
+
+    // 宝贝收藏列表
+    String MyselfProductCollectList = "myself/productCollect/list";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MyselfFeedbackOpinionResponseModel>> myselfFeedbackOpinion(@Body MyselfFeedbackOpinionRequestModel retrofitRequestModel);
+
+    // 意见反馈
+    String MyselfFeedbackOpinion = "myself/feedback/opinion";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketCenterSelectProductListResponseModel>> marketCenterSelectProductList(@Body MarketCenterSelectProductListRequestModel retrofitRequestModel);
+
+    // 意见反馈
+    String MarketCenterSelectProductList = "market/center/selectProductList";
+
     /* *******************************我的***********************************/
+    /* *******************************首页***********************************/
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketHomeSaveLocationAddressResponseModel>> marketHomeSaveLocationAddressRequest(@Body MarketHomeSaveLocationAddressRequestModel retrofitRequestModel);
+
+    // 保存定位地址
+    String MarketHomeSaveLocationAddress = "market/home/saveLocationAddress";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketHomeGetAllCityListResponseModel>> marketHomeGetAllCityList(@Body MarketHomeGetAllCityListRequestModel retrofitRequestModel);
+
+    // 获取所有城市
+    String MarketHomeGetAllCityList = "market/home/getAllCityList";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketHomeGetHotCityListResponseModel>> marketHomeGetHotCityList(@Body MarketHomeGetHotCityListRequestModel retrofitRequestModel);
+
+    // 获取热门城市
+    String MarketHomeGetHotCityList = "market/home/getHotCityList";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketMessageGetTypeResponseModel>> marketMessageGetType(@Body MarketMessageGetTypeRequestModel retrofitRequestModel);
+
+    // 获取热门城市
+    String MarketMessageGetType = "market/message/getType";
+
+    /* *******************************首页***********************************/
+    /* *******************************搜索***********************************/
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketHomeSearchResponseModel>> marketHomeSearch(@Body MarketHomeSearchRequestModel retrofitRequestModel);
+
+    // 首页检索
+    String MarketHomeSearch = "market/home/search";
+
+    /* *******************************搜索***********************************/
+    /* ******************************* 图片上传***********************************/
+    @Multipart
+    @POST("http://erpuat.mengbp.com:8094/wine-market-rest/media/image/upload")
+    Observable<BaseRetrofitModel<ImageUploadResponseModel>> uploadImageWithProgress(@PartMap Map<String, RequestBody> params);
+
+    @Multipart
+    @POST("http://erpuat.mengbp.com:8094/wine-market-rest/media/image/delete")
+    Observable<BaseRetrofitModel<ImageDeleteResponseModel>> imageDelete(@PartMap Map<String, RequestBody> params);
+
+    /* *******************************图片上传***********************************/
+    /* *******************************订单**********************************/
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketOrderCancelResponseModel>> marketOrderCancel(@Body MarketOrderCancelRequestModel retrofitRequestModel);
+
+    // 意见反馈
+    String MarketOrderCancel = "market/order/cancel";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketEvaluateSaveResponseModel>> marketEvaluateSave(@Body MarketEvaluateSaveRequestModel retrofitRequestModel);
+
+    // 保存/追加评价
+    String MarketEvaluateSave = "market/evaluate/save";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketEvaluateListResponseModel>> marketEvaluateList(@Body MarketEvaluateListRequestModel retrofitRequestModel);
+
+    // 评价列表
+    String MarketEvaluateList = "market/evaluate/list";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketEvaluateDetailResponseModel>> marketEvaluateDetail(@Body MarketEvaluateDetailRequestModel retrofitRequestModel);
+
+    // 查看评价
+    String MarketEvaluateDetail = "market/evaluate/detail";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketOrderSellerSendResponseModel>> marketOrderSellerSend(@Body MarketOrderSellerSendRequestModel retrofitRequestModel);
+
+    // 卖家发货
+    String MarketOrderSellerSend = "market/order/sellerSend";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketOrderBuyerReceiveResponseModel>> marketOrderBuyerReceive(@Body MarketOrderBuyerReceiveRequestModel retrofitRequestModel);
+
+    // 买家确认收货
+    String MarketOrderBuyerReceive = "market/order/buyerReceive";
+    /* *******************************订单***********************************/
 
 }

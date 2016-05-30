@@ -13,6 +13,18 @@ import com.cmbb.smartmarket.activity.address.model.UserAddressSaveRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSaveResponseModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSetDefaultRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSetDefaultResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeGetAllCityListRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeGetAllCityListResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeGetHotCityListRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeGetHotCityListResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageGetTypeRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageGetTypeResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MyselfGetCountRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MyselfGetCountResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListResponseModel;
 import com.cmbb.smartmarket.activity.home.model.TestModel;
 import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
 import com.cmbb.smartmarket.activity.login.model.LoginRequestModel;
@@ -22,18 +34,24 @@ import com.cmbb.smartmarket.activity.login.model.SecurityCodeResponseModel;
 import com.cmbb.smartmarket.activity.market.model.CodeInfoListRequestModel;
 import com.cmbb.smartmarket.activity.market.model.CodeInfoListResponseModel;
 import com.cmbb.smartmarket.activity.market.model.CommodityPublishResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ImageDeleteResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ImageUploadResponseModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderCommitRequestModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderCommitResponseModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderPayOrderRequestModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderPayOrderResponseModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderReserveRequestModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderReserveResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ProductAskToBuyResolveRequestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductAskToBuyResolveResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductAskToBuySpotRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductAskToBuySpotResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductCollectRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductCollectResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteReplyRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteReplyResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ProductDeleteRequestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductDeleteResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDetailRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDetailResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductGetPageNeedRequestModel;
@@ -46,6 +64,7 @@ import com.cmbb.smartmarket.activity.market.model.ProductReplayRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplayResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplyListRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplyListResponseModel;
+import com.cmbb.smartmarket.activity.market.model.PublishEditResponseModel;
 import com.cmbb.smartmarket.activity.market.model.SystemCodeInfoGetAllRequest;
 import com.cmbb.smartmarket.activity.market.model.SystemCodeInfoGetAllResponseModel;
 import com.cmbb.smartmarket.activity.market.model.SystemDictListRequestModel;
@@ -54,22 +73,46 @@ import com.cmbb.smartmarket.activity.market.model.SystemTipoffsGetPageRequestMod
 import com.cmbb.smartmarket.activity.market.model.SystemTipoffsGetPageResponseModel;
 import com.cmbb.smartmarket.activity.market.model.SystemTipoffsReportRequestModel;
 import com.cmbb.smartmarket.activity.market.model.SystemTipoffsReportResponseModel;
+import com.cmbb.smartmarket.activity.search.model.MarketHomeSearchRequestModel;
+import com.cmbb.smartmarket.activity.search.model.MarketHomeSearchResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketEvaluateDetailRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketEvaluateDetailResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketEvaluateListRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketEvaluateListResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketEvaluateSaveRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketEvaluateSaveResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderCancelRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderCancelResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
-import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundRequestModel;
-import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerSendRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerSendResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MyselfFeedbackOpinionRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MyselfFeedbackOpinionResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictRequestModel;
 import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictResponseModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateRequestModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindListRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindListResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindalipayRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindalipayResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindalipaySmsRequestModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindalipaySmsResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountGetCashRequestModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountGetCashResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountIndexRequestModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountIndexResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordNextRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordNextResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordRequestModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordRequestModel;
@@ -78,7 +121,6 @@ import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRetrofitModel;
 import com.cmbb.smartmarket.base.Constants;
 
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -106,6 +148,7 @@ public class HttpMethod {
     private static HttpMethod ourInstance = new HttpMethod();
     private static final int DEFAULT_TIMEOUT = 15;
     private ApiInterface mApiInterface;
+    private OkHttpClient okHttpClient;
 
     public static HttpMethod getInstance() {
         return ourInstance;
@@ -114,7 +157,7 @@ public class HttpMethod {
     private HttpMethod() {
         SmartLogInterceptor interceptor = new SmartLogInterceptor();
         interceptor.setLevel(SmartLogInterceptor.Level.BODY);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
+        okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(interceptor)
                 .retryOnConnectionFailure(true)
                 .connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS)
@@ -234,10 +277,23 @@ public class HttpMethod {
      * @param observer
      * @return
      */
-    public Subscription requestPublishCommodity(Observer<CommodityPublishResponseModel> observer, Map<String, RequestBody> params, List<RequestBody> files) {
+    public Subscription requestPublishCommodity(Observer<CommodityPublishResponseModel> observer, Map<String, RequestBody> params) {
         Observable<CommodityPublishResponseModel> observable = mApiInterface
-                .publishCommodityRequest(params, files)
+                .publishCommodityRequest(params)
                 .map(new HttpResultFunc<CommodityPublishResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 发布/求购 编辑
+     *
+     * @param observer
+     * @return
+     */
+    public Subscription publishEditRequest(Observer<PublishEditResponseModel> observer, Map<String, RequestBody> params) {
+        Observable<PublishEditResponseModel> observable = mApiInterface
+                .publishEditRequest(params)
+                .map(new HttpResultFunc<PublishEditResponseModel>());
         return addSubscribe(observable, observer);
     }
 
@@ -294,6 +350,20 @@ public class HttpMethod {
         Observable<ProductReplayResponseModel> observable = mApiInterface
                 .productReplayRequest(retrofitRequestModel)
                 .map(new HttpResultFunc<ProductReplayResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 商品删除
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription productDeleteRequest(Observer<ProductDeleteResponseModel> observer, ProductDeleteRequestModel retrofitRequestModel) {
+        Observable<ProductDeleteResponseModel> observable = mApiInterface
+                .productDeleteRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<ProductDeleteResponseModel>());
         return addSubscribe(observable, observer);
     }
 
@@ -556,10 +626,10 @@ public class HttpMethod {
      * @param retrofitRequestModel
      * @return
      */
-    public Subscription marketOrderRefund(Observer<MarketOrderRefundResponseModel> observer, MarketOrderRefundRequestModel retrofitRequestModel) {
-        Observable<MarketOrderRefundResponseModel> observable = mApiInterface
-                .marketOrderRefundRequest(retrofitRequestModel)
-                .map(new HttpResultFunc<MarketOrderRefundResponseModel>());
+    public Subscription marketOrderApplyRefund(Observer<MarketOrderApplyRefundResponseModel> observer, MarketOrderApplyRefundRequestModel retrofitRequestModel) {
+        Observable<MarketOrderApplyRefundResponseModel> observable = mApiInterface
+                .marketOrderApplyRefund(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketOrderApplyRefundResponseModel>());
         return addSubscribe(observable, observer);
     }
 
@@ -634,6 +704,20 @@ public class HttpMethod {
     }
 
     /**
+     * 修改交易密码下一步
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription walletAccountSetPasswordNextRequest(Observer<WalletAccountSetPasswordNextResponseModel> observer, WalletAccountSetPasswordNextRequestModel retrofitRequestModel) {
+        Observable<WalletAccountSetPasswordNextResponseModel> observable = mApiInterface
+                .walletAccountSetPasswordNextRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<WalletAccountSetPasswordNextResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
      * 绑定支付宝账号发送的手机验证码
      *
      * @param observer
@@ -644,6 +728,34 @@ public class HttpMethod {
         Observable<WalletAccountBindalipaySmsResponseModel> observable = mApiInterface
                 .walletAccountBindalipaySmsRequest(retrofitRequestModel)
                 .map(new HttpResultFunc<WalletAccountBindalipaySmsResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 绑定支付宝账号
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription walletAccountBindalipay(Observer<WalletAccountBindalipayResponseModel> observer, WalletAccountBindalipayRequestModel retrofitRequestModel) {
+        Observable<WalletAccountBindalipayResponseModel> observable = mApiInterface
+                .walletAccountBindalipay(retrofitRequestModel)
+                .map(new HttpResultFunc<WalletAccountBindalipayResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 绑定的提现支付宝账号列表
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription walletAccountBindListRequest(Observer<WalletAccountBindListResponseModel> observer, WalletAccountBindListRequestModel retrofitRequestModel) {
+        Observable<WalletAccountBindListResponseModel> observable = mApiInterface
+                .walletAccountBindListRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<WalletAccountBindListResponseModel>());
         return addSubscribe(observable, observer);
     }
 
@@ -661,8 +773,6 @@ public class HttpMethod {
         return addSubscribe(observable, observer);
     }
 
-
-
     /**
      * 宝贝发布列表
      *
@@ -674,6 +784,271 @@ public class HttpMethod {
         Observable<MyselfProductPublicListResponseModel> observable = mApiInterface
                 .myselfProductPublicListRequest(retrofitRequestModel)
                 .map(new HttpResultFunc<MyselfProductPublicListResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 保存定位地址
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketHomeSaveLocationAddressRequest(Observer<MarketHomeSaveLocationAddressResponseModel> observer, MarketHomeSaveLocationAddressRequestModel retrofitRequestModel) {
+        Observable<MarketHomeSaveLocationAddressResponseModel> observable = mApiInterface
+                .marketHomeSaveLocationAddressRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketHomeSaveLocationAddressResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 获取所有城市
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    /*public Subscription marketHomeGetAllCityList(Observer<Object> observer, MarketHomeGetAllCityListRequestModel retrofitRequestModel, MarketHomeGetHotCityListRequestModel retrofitRequestModel2) {
+        Observable<MarketHomeGetAllCityListResponseModel> observable = mApiInterface
+                .marketHomeGetAllCityList(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketHomeGetAllCityListResponseModel>());
+        return mergeSubscribe(observable, observer, retrofitRequestModel2);
+    }*/
+
+    /**
+     * 获取热门城市
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketHomeGetHotCityList(Observer<Object> observer, MarketHomeGetHotCityListRequestModel retrofitRequestModel, MarketHomeGetAllCityListRequestModel retrofitRequestModel2) {
+        Observable<MarketHomeGetHotCityListResponseModel> observable = mApiInterface
+                .marketHomeGetHotCityList(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketHomeGetHotCityListResponseModel>());
+        return mergeSubscribe(observable, observer, retrofitRequestModel2);
+    }
+
+    /**
+     * 合并Observer
+     *
+     * @param o Observable<T>
+     * @param s Subscriber<T>
+     */
+    private Subscription mergeSubscribe(Observable o, Observer s, MarketHomeGetAllCityListRequestModel retrofitRequestModel) {
+        return o.mergeWith(mApiInterface.marketHomeGetAllCityList(retrofitRequestModel).map(new HttpResultFunc<MarketHomeGetAllCityListResponseModel>()))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s);
+    }
+
+    /**
+     * 获取消息数
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketMessageGetType(Observer<MarketMessageGetTypeResponseModel> observer, MarketMessageGetTypeRequestModel retrofitRequestModel) {
+        Observable<MarketMessageGetTypeResponseModel> observable = mApiInterface
+                .marketMessageGetType(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketMessageGetTypeResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 首页检索
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketHomeSearch(Observer<MarketHomeSearchResponseModel> observer, MarketHomeSearchRequestModel retrofitRequestModel) {
+        Observable<MarketHomeSearchResponseModel> observable = mApiInterface
+                .marketHomeSearch(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketHomeSearchResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 首页检索
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription myselfGetCount(Observer<MyselfGetCountResponseModel> observer, MyselfGetCountRequestModel retrofitRequestModel) {
+        Observable<MyselfGetCountResponseModel> observable = mApiInterface
+                .myselfGetCount(retrofitRequestModel)
+                .map(new HttpResultFunc<MyselfGetCountResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 宝贝收藏列表
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription myselfProductCollectList(Observer<MyselfProductCollectListResponseModel> observer, MyselfProductCollectListRequestModel retrofitRequestModel) {
+        Observable<MyselfProductCollectListResponseModel> observable = mApiInterface
+                .myselfProductCollectList(retrofitRequestModel)
+                .map(new HttpResultFunc<MyselfProductCollectListResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 意见反馈
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription myselfFeedbackOpinion(Observer<MyselfFeedbackOpinionResponseModel> observer, MyselfFeedbackOpinionRequestModel retrofitRequestModel) {
+        Observable<MyselfFeedbackOpinionResponseModel> observable = mApiInterface
+                .myselfFeedbackOpinion(retrofitRequestModel)
+                .map(new HttpResultFunc<MyselfFeedbackOpinionResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 获取在售/求购商品列表
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketCenterSelectProductList(Observer<MarketCenterSelectProductListResponseModel> observer, MarketCenterSelectProductListRequestModel retrofitRequestModel) {
+        Observable<MarketCenterSelectProductListResponseModel> observable = mApiInterface
+                .marketCenterSelectProductList(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketCenterSelectProductListResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 上传图片带进度条
+     *
+     * @param observer
+     * @return
+     */
+    public Subscription uploadImageWithProgress(Observer<ImageUploadResponseModel> observer, Map<String, RequestBody> params) {
+        Observable<ImageUploadResponseModel> observable = mApiInterface
+                .uploadImageWithProgress(params)
+                .map(new HttpResultFunc<ImageUploadResponseModel>());
+        observable.subscribeOn(Schedulers.io());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 上传图片带进度条
+     *
+     * @param observer
+     * @return
+     */
+    public Subscription imageDelete(Observer<ImageDeleteResponseModel> observer, Map<String, RequestBody> params) {
+        Observable<ImageDeleteResponseModel> observable = mApiInterface
+                .imageDelete(params)
+                .map(new HttpResultFunc<ImageDeleteResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 买家取消订单
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketOrderCancel(Observer<MarketOrderCancelResponseModel> observer, MarketOrderCancelRequestModel retrofitRequestModel) {
+        Observable<MarketOrderCancelResponseModel> observable = mApiInterface
+                .marketOrderCancel(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketOrderCancelResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 保存/追加评价
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketEvaluateSave(Observer<MarketEvaluateSaveResponseModel> observer, MarketEvaluateSaveRequestModel retrofitRequestModel) {
+        Observable<MarketEvaluateSaveResponseModel> observable = mApiInterface
+                .marketEvaluateSave(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketEvaluateSaveResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 评价列表
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketEvaluateList(Observer<MarketEvaluateListResponseModel> observer, MarketEvaluateListRequestModel retrofitRequestModel) {
+        Observable<MarketEvaluateListResponseModel> observable = mApiInterface
+                .marketEvaluateList(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketEvaluateListResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 查看评价 评价详情
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketEvaluateDetail(Observer<MarketEvaluateDetailResponseModel> observer, MarketEvaluateDetailRequestModel retrofitRequestModel) {
+        Observable<MarketEvaluateDetailResponseModel> observable = mApiInterface
+                .marketEvaluateDetail(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketEvaluateDetailResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 卖家发货
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketOrderSellerSend(Observer<MarketOrderSellerSendResponseModel> observer, MarketOrderSellerSendRequestModel retrofitRequestModel) {
+        Observable<MarketOrderSellerSendResponseModel> observable = mApiInterface
+                .marketOrderSellerSend(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketOrderSellerSendResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 买家确认收货
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketOrderBuyerReceive(Observer<MarketOrderBuyerReceiveResponseModel> observer, MarketOrderBuyerReceiveRequestModel retrofitRequestModel) {
+        Observable<MarketOrderBuyerReceiveResponseModel> observable = mApiInterface
+                .marketOrderBuyerReceive(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketOrderBuyerReceiveResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 求购解决
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription productAskToBuyResolve(Observer<ProductAskToBuyResolveResponseModel> observer, ProductAskToBuyResolveRequestModel retrofitRequestModel) {
+        Observable<ProductAskToBuyResolveResponseModel> observable = mApiInterface
+                .productAskToBuyResolve(retrofitRequestModel)
+                .map(new HttpResultFunc<ProductAskToBuyResolveResponseModel>());
         return addSubscribe(observable, observer);
     }
 }

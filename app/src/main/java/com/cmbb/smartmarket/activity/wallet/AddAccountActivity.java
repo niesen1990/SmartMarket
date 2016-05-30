@@ -3,6 +3,7 @@ package com.cmbb.smartmarket.activity.wallet;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -43,7 +44,16 @@ public class AddAccountActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_next:
-                AddAccountPhoneActivity.newIntent(this);
+                if (TextUtils.isEmpty(etAccount.getText().toString())) {
+                    showToast("请输入支付宝账号");
+                    return;
+                }
+                if (TextUtils.isEmpty(etName.getText().toString())) {
+                    showToast("请输入真实姓名");
+                    return;
+                }
+                AddAccountPhoneActivity.newIntent(this, etAccount.getText().toString(), etName.getText().toString());
+                finish();
                 break;
         }
 

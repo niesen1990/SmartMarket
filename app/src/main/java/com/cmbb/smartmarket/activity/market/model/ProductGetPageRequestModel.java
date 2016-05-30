@@ -1,5 +1,7 @@
 package com.cmbb.smartmarket.activity.market.model;
 
+import android.text.TextUtils;
+
 import com.cmbb.smartmarket.network.RetrofitRequestModel;
 
 /**
@@ -12,11 +14,6 @@ import com.cmbb.smartmarket.network.RetrofitRequestModel;
  * 修改备注：
  */
 public class ProductGetPageRequestModel extends RetrofitRequestModel {
-
-    /**
-     * numberOfPerPage : 5
-     * pageNo : 0
-     */
 
     private ParametersEntity parameters;
 
@@ -32,11 +29,36 @@ public class ProductGetPageRequestModel extends RetrofitRequestModel {
         private int numberOfPerPage;
         private int pageNo;
         private int type;
+        private String sortType;
+        private String isResolve;
 
-        public ParametersEntity(int numberOfPerPage, int pageNo, int type) {
+        public ParametersEntity(int numberOfPerPage, int pageNo, int type, String spinnerType, String value) {
             this.numberOfPerPage = numberOfPerPage;
             this.pageNo = pageNo;
             this.type = type;
+            if (TextUtils.isEmpty(spinnerType))
+                return;
+            if (spinnerType.equals("sortType")) {
+                this.sortType = value;
+            } else {
+                this.isResolve = value;
+            }
+        }
+
+        public String getSortType() {
+            return sortType;
+        }
+
+        public void setSortType(String sortType) {
+            this.sortType = sortType;
+        }
+
+        public String getIsResolve() {
+            return isResolve;
+        }
+
+        public void setIsResolve(String isResolve) {
+            this.isResolve = isResolve;
         }
 
         public int getType() {

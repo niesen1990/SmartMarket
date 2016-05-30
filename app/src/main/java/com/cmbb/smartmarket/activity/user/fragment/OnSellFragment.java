@@ -6,11 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
-import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
+import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
 import com.cmbb.smartmarket.activity.user.adapter.OnSellAdapter;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListResponseModel;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerFragment;
+import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -55,7 +57,7 @@ public class OnSellFragment extends BaseRecyclerFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_sell_refund;
+        return R.layout.fragment_user_center;
     }
 
     @Override
@@ -65,10 +67,10 @@ public class OnSellFragment extends BaseRecyclerFragment {
 
     @Override
     public void onItemClick(int position) {
-
+        CommodityDetailActivity.newIntent(getActivity(), ((OnSellAdapter) adapter).getItem(position).getId());
     }
 
-    Observer<TestModel> mTestUserAttentionModelObserver = new Observer<TestModel>() {
+    Observer<MarketCenterSelectProductListResponseModel> mMarketCenterSelectProductListResponseModelObserver = new Observer<MarketCenterSelectProductListResponseModel>() {
         @Override
         public void onCompleted() {
 
@@ -81,36 +83,31 @@ public class OnSellFragment extends BaseRecyclerFragment {
         }
 
         @Override
-        public void onNext(TestModel testModel) {
+        public void onNext(MarketCenterSelectProductListResponseModel marketCenterSelectProductListResponseModel) {
             if (pager == 0)
                 adapter.clear();
-            adapter.addAll(testModel.getData().getRows());
+            adapter.addAll(marketCenterSelectProductListResponseModel.getData().getContent());
         }
     };
 
     @Override
     public void onLoadMore() {
         pager++;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+        HttpMethod.getInstance().marketCenterSelectProductList(mMarketCenterSelectProductListResponseModelObserver, setParams());
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+        HttpMethod.getInstance().marketCenterSelectProductList(mMarketCenterSelectProductListResponseModelObserver, setParams());
     }
 
-    /**
-     * 设置参数
-     *
-     * @return params
-     */
-    protected TestRequestModel setParams() {
-        unSubscribe();
-        TestRequestModel testRequestModel = new TestRequestModel();
-        testRequestModel.setCmd("smart/attention/getList");
-        testRequestModel.setToken(BaseApplication.getToken());
-        testRequestModel.setParameters(new TestRequestModel.ParametersEntity(pager, pagerSize, 0));
-        return testRequestModel;
+    private MarketCenterSelectProductListRequestModel setParams() {
+        MarketCenterSelectProductListRequestModel marketCenterSelectProductListRequestModel = new MarketCenterSelectProductListRequestModel();
+        marketCenterSelectProductListRequestModel.setCmd(ApiInterface.MarketCenterSelectProductList);
+        marketCenterSelectProductListRequestModel.setToken(BaseApplication.getToken());
+        marketCenterSelectProductListRequestModel.setParameters(new MarketCenterSelectProductListRequestModel.ParametersEntity(0, pagerSize, pager));
+        return marketCenterSelectProductListRequestModel;
     }
+
 }

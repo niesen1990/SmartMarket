@@ -5,11 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
-import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
 import com.cmbb.smartmarket.activity.user.adapter.EvaluateListAdapter;
+import com.cmbb.smartmarket.activity.user.model.MarketEvaluateListRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketEvaluateListResponseModel;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
+import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -43,10 +44,10 @@ public class EvaluateListActivity extends BaseRecyclerActivity {
 
     @Override
     public void onItemClick(int position) {
-        EvaluateDetailActivity.newIntent(this);
+        EvaluateDetailActivity.newIntent(this, ((EvaluateListAdapter) adapter).getItem(position).getOrderId());
     }
 
-    Observer<TestModel> mTestModelObserver = new Observer<TestModel>() {
+    Observer<MarketEvaluateListResponseModel> mMarketEvaluateListResponseModelObserver = new Observer<MarketEvaluateListResponseModel>() {
         @Override
         public void onCompleted() {
 
@@ -59,32 +60,30 @@ public class EvaluateListActivity extends BaseRecyclerActivity {
         }
 
         @Override
-        public void onNext(TestModel testModel) {
+        public void onNext(MarketEvaluateListResponseModel marketEvaluateListResponseModel) {
             if (pager == 0)
                 adapter.clear();
-            adapter.addAll(testModel.getData().getRows());
+            adapter.addAll(marketEvaluateListResponseModel.getData().getContent());
         }
     };
 
     @Override
     public void onLoadMore() {
         pager++;
-        HttpMethod.getInstance().getTestData(mTestModelObserver, setParams());
+        HttpMethod.getInstance().marketEvaluateList(mMarketEvaluateListResponseModelObserver, setParams());
+    }
+
+    private MarketEvaluateListRequestModel setParams() {
+        MarketEvaluateListRequestModel marketEvaluateListRequestModel = new MarketEvaluateListRequestModel();
+        marketEvaluateListRequestModel.setCmd(ApiInterface.MarketEvaluateList);
+        marketEvaluateListRequestModel.setToken(BaseApplication.getToken());
+        return marketEvaluateListRequestModel;
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        HttpMethod.getInstance().getTestData(mTestModelObserver, setParams());
-    }
-
-    private TestRequestModel setParams() {
-        unSubscribe();
-        TestRequestModel testRequestModel = new TestRequestModel();
-        testRequestModel.setCmd("smart/attention/getList");
-        testRequestModel.setToken(BaseApplication.getToken());
-        testRequestModel.setParameters(new TestRequestModel.ParametersEntity(pager, pagerSize, 0));
-        return testRequestModel;
+        HttpMethod.getInstance().marketEvaluateList(mMarketEvaluateListResponseModelObserver, setParams());
     }
 
     public static void newIntent(Context context) {

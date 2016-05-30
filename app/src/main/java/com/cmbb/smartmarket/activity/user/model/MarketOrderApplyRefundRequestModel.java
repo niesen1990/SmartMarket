@@ -11,8 +11,7 @@ import com.cmbb.smartmarket.network.RetrofitRequestModel;
  * 修改时间：16/5/18 下午3:48
  * 修改备注：
  */
-public class MarketOrderRefundRequestModel extends RetrofitRequestModel {
-
+public class MarketOrderApplyRefundRequestModel extends RetrofitRequestModel {
 
     private ParametersEntity parameters;
 
@@ -25,24 +24,24 @@ public class MarketOrderRefundRequestModel extends RetrofitRequestModel {
     }
 
     public static class ParametersEntity {
-        private String orderCode;
+        private int id;
         private String refundServer;
         private String refundReason;
         private String refundMark;
 
-        public ParametersEntity(String orderCode, String refundServer, String refundReason, String refundMark) {
-            this.orderCode = orderCode;
+        public ParametersEntity(int id, String refundServer, String refundReason, String refundMark) {
+            this.id = id;
             this.refundServer = refundServer;
             this.refundReason = refundReason;
             this.refundMark = refundMark;
         }
 
-        public String getOrderCode() {
-            return orderCode;
+        public int getId() {
+            return id;
         }
 
-        public void setOrderCode(String orderCode) {
-            this.orderCode = orderCode;
+        public void setId(int id) {
+            this.id = id;
         }
 
         public String getRefundServer() {

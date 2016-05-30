@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import com.alibaba.mobileim.ui.multi.lightservice.MultiPickGalleryActivity;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.market.adapter.PublishItemAdapter;
 import com.cmbb.smartmarket.activity.market.model.CommodityPublishResponseModel;
+import com.cmbb.smartmarket.activity.market.model.PublishImageModel;
 import com.cmbb.smartmarket.activity.market.model.SystemCodeInfoGetAllRequest;
 import com.cmbb.smartmarket.activity.market.model.SystemCodeInfoGetAllResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
@@ -83,17 +86,16 @@ public class PublishCommodityActivity extends BaseActivity {
     TextView tvSubmit;
     @BindView(R.id.scroll)
     LinearLayout scroll;
-
     @BindView(R.id.wv01)
     WheelStraightPicker straightPicker;
     @BindView(R.id.wv02)
     WheelStraightPicker curvedPicker;
-
     BottomSheetBehavior behavior;
 
     SystemCodeInfoGetAllResponseModel mSystemCodeInfoGetAllResponseModel;//所有类别
     int classParent = 0;
     int classChild = 0;
+    String productType = "0";
 
     Observer<CommodityPublishResponseModel> mCommodityPublishResponseModelObserver = new Observer<CommodityPublishResponseModel>() {
         @Override
@@ -150,7 +152,59 @@ public class PublishCommodityActivity extends BaseActivity {
     @Override
     protected void init(Bundle savedInstanceState) {
         setTitle("发布");
+        productType = getIntent().getStringExtra("productType");
         showWaitingDialog();
+        tvOldPrice.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable edt) {
+                String temp = edt.toString();
+                int posDot = temp.indexOf(".");
+                if (posDot <= 0)
+                    return;
+                if (temp.length() - posDot - 1 > 2) {
+                    edt.delete(posDot + 3, posDot + 4);
+                }
+            }
+
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            }
+
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            }
+        });
+        tvNewPrice.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable edt) {
+                String temp = edt.toString();
+                int posDot = temp.indexOf(".");
+                if (posDot <= 0)
+                    return;
+                if (temp.length() - posDot - 1 > 2) {
+                    edt.delete(posDot + 3, posDot + 4);
+                }
+            }
+
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            }
+
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            }
+        });
+        tvFreight.addTextChangedListener(new TextWatcher() {
+            public void afterTextChanged(Editable edt) {
+                String temp = edt.toString();
+                int posDot = temp.indexOf(".");
+                if (posDot <= 0)
+                    return;
+                if (temp.length() - posDot - 1 > 2) {
+                    edt.delete(posDot + 3, posDot + 4);
+                }
+            }
+
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            }
+
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+            }
+        });
         subscription = HttpMethod.getInstance().systemCodeInfoGetAllRequest(mSystemCodeInfoGetAllResponseModelObserver, setParams());
         behavior = BottomSheetBehavior.from(scroll);
         initRecyclerView();
@@ -188,12 +242,14 @@ public class PublishCommodityActivity extends BaseActivity {
         rlType.setOnClickListener(this);
         tvCancel.setOnClickListener(this);
         tvConfirm.setOnClickListener(this);
+        if (productType.equals("1")) {
+            ll03.setVisibility(View.GONE);
+        }
     }
 
     AbstractWheelPicker.SimpleWheelChangeListener straightPickerListener = new AbstractWheelPicker.SimpleWheelChangeListener() {
         @Override
         public void onWheelSelected(int index, String data) {
-            Log.e("01", data);
             classParent = index;
             curvedStrings.clear();
             if (mSystemCodeInfoGetAllResponseModel.getData().get(index).getChildCodeInfoList() == null || mSystemCodeInfoGetAllResponseModel.getData().get(index).getChildCodeInfoList().size() == 0) {
@@ -273,13 +329,12 @@ public class PublishCommodityActivity extends BaseActivity {
                 String freight = tvFreight.getText().toString();
                 String parentClassify = mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getValue();
                 String secondClassify = mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getChildCodeInfoList() != null ? mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getChildCodeInfoList().get(classChild).getValue() : "";
-                String location = SPCache.getString(Constants.LOCATION, "");
-                Log.i(TAG, location);
-                if (TextUtils.isEmpty(location)) {
+                String locationJosnStr = SPCache.getString(Constants.LOCATION, "");
+                Log.i(TAG, locationJosnStr);
+                if (TextUtils.isEmpty(locationJosnStr)) {
                     showToast("您未开启定位功能，可能影响使用");
                 }
-                String productType = "0";
-                publishCommodity(title, content, currentPrice, originalPrice, freight, parentClassify, secondClassify, location, productType, imageUrls);
+                publishCommodity(title, content, currentPrice, originalPrice, freight, parentClassify, secondClassify, locationJosnStr, productType, imageUrls);
                 break;
             case R.id.rl_type:
                 if (mSystemCodeInfoGetAllResponseModel == null)
@@ -302,7 +357,36 @@ public class PublishCommodityActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == -1 && requestCode == PIC_REQUEST_CODE && data != null) {
             imageUrls = data.getStringArrayListExtra("result_list");
-            adapter.addAll(imageUrls);
+            if (imageUrls != null && imageUrls.size() > 0) {
+                List<PublishImageModel> publishImageModels = new ArrayList<>();
+                for (String url : imageUrls) {
+                    publishImageModels.add(new PublishImageModel(url, 0));
+                    /*HttpMethod.getInstance().uploadImageWithProgress(new Observer<ImageUploadResponseModel>() {
+                        @Override
+                        public void onCompleted() {
+
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            Log.e(TAG, e.toString());
+                        }
+
+                        @Override
+                        public void onNext(ImageUploadResponseModel imageUploadResponseModel) {
+                            Log.e(TAG, imageUploadResponseModel.toString());
+                        }
+                    }, setUploadParams(url), new CountingRequestBody.Listener() {
+                        @Override
+                        public void onRequestProgress(long bytesWritten, long contentLength) {
+                            Log.e(TAG, "bytesWritten = " + bytesWritten + " contentLength =  " + contentLength);
+                            int i = (int) (contentLength / 2048 / 5);
+
+                        }
+                    });*/
+                }
+                adapter.addAll(publishImageModels);
+            }
             if (imgCount != 0)
                 imgCount = imgCount - imageUrls.size();
         } else {
@@ -310,25 +394,36 @@ public class PublishCommodityActivity extends BaseActivity {
         }
     }
 
+    private Map<String, RequestBody> setUploadParams(String url) {
+        File file = new File(url);
+        Map<String, RequestBody> params = new HashMap<>();
+        params.put("token", RequestBody.create(MediaType.parse("text/plain"), BaseApplication.getToken()));
+        params.put("type", RequestBody.create(MediaType.parse("text/plain"), "1"));
+        params.put("imageList\"; filename=\"" + file.getName() + "\"", RequestBody.create(MediaType.parse("image/*"), file));
+        return params;
+    }
+
     private void publishCommodity(String title, String content, String currentPrice, String originalPrice, String freight, String parentClassify,
-                                  String secondClassify, String location, String productType, ArrayList<String> images) {
+                                  String secondClassify, String locationJosnStr, String productType, ArrayList<String> images) {
         Map<String, RequestBody> params = new HashMap<>();
         if (!TextUtils.isEmpty(title))
             params.put("title", RequestBody.create(MediaType.parse("multipart/form-data"), title));
         if (!TextUtils.isEmpty(content))
             params.put("content", RequestBody.create(MediaType.parse("multipart/form-data"), content));
-        if (!TextUtils.isEmpty(currentPrice))
-            params.put("currentPrice", RequestBody.create(MediaType.parse("multipart/form-data"), currentPrice));
-        if (!TextUtils.isEmpty(originalPrice))
-            params.put("originalPrice", RequestBody.create(MediaType.parse("multipart/form-data"), originalPrice));
-        if (!TextUtils.isEmpty(freight))
-            params.put("freight", RequestBody.create(MediaType.parse("multipart/form-data"), freight));
+        if (productType.equals("0")) {
+            if (!TextUtils.isEmpty(currentPrice))
+                params.put("currentPrice", RequestBody.create(MediaType.parse("multipart/form-data"), currentPrice));
+            if (!TextUtils.isEmpty(originalPrice))
+                params.put("originalPrice", RequestBody.create(MediaType.parse("multipart/form-data"), originalPrice));
+            if (!TextUtils.isEmpty(freight))
+                params.put("freight", RequestBody.create(MediaType.parse("multipart/form-data"), freight));
+        }
         if (!TextUtils.isEmpty(parentClassify))
             params.put("parentClassify", RequestBody.create(MediaType.parse("multipart/form-data"), parentClassify));
         if (!TextUtils.isEmpty(secondClassify))
             params.put("secondClassify", RequestBody.create(MediaType.parse("multipart/form-data"), secondClassify));
-        if (!TextUtils.isEmpty(location))
-            params.put("location", RequestBody.create(MediaType.parse("multipart/form-data"), location));
+        if (!TextUtils.isEmpty(locationJosnStr))
+            params.put("locationJosnStr", RequestBody.create(MediaType.parse("multipart/form-data"), locationJosnStr));
         if (!TextUtils.isEmpty(productType))
             params.put("productType", RequestBody.create(MediaType.parse("multipart/form-data"), productType));
         params.put("token", RequestBody.create(MediaType.parse("multipart/form-data"), BaseApplication.getToken()));
@@ -341,7 +436,7 @@ public class PublishCommodityActivity extends BaseActivity {
             }
         }
         showWaitingDialog();
-        subscription = HttpMethod.getInstance().requestPublishCommodity(mCommodityPublishResponseModelObserver, params, files);
+//        subscription = HttpMethod.getInstance().requestPublishCommodity(mCommodityPublishResponseModelObserver, params, files);
     }
 
     public void behaviorStart(View view) {
@@ -352,8 +447,9 @@ public class PublishCommodityActivity extends BaseActivity {
         }
     }
 
-    public static void newIntent(Context context) {
+    public static void newIntent(Context context, String productType) {
         Intent intent = new Intent(context, PublishCommodityActivity.class);
+        intent.putExtra("productType", productType);
         context.startActivity(intent);
     }
 }

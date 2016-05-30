@@ -159,7 +159,7 @@ public class ProductReplyListResponseModel  {
             private int repUserId;
             private String contents;
             private int type;
-            private int resolveProductId;
+            private int resolveProductId = -1;
             private int isRecommoned;
             private String createDate;
             /**

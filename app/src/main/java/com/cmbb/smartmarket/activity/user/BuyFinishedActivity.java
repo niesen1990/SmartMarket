@@ -85,7 +85,6 @@ public class BuyFinishedActivity extends BaseRecyclerActivity {
     }
 
     private MarketOrderListRequestModel setParams() {
-        unSubscribe();
         MarketOrderListRequestModel marketOrderListRequestModel = new MarketOrderListRequestModel();
         marketOrderListRequestModel.setCmd(ApiInterface.MarketOrderList);
         marketOrderListRequestModel.setToken(BaseApplication.getToken());
@@ -102,6 +101,14 @@ public class BuyFinishedActivity extends BaseRecyclerActivity {
     public void onRefresh() {
         pager = 0;
         subscription = HttpMethod.getInstance().marketOrderList(mMarketOrderListResponseModelObserver, setParams());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            onRefresh();
+        }
     }
 
     public static void newIntent(Context context) {

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar"/>
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_margin="@dimen/global_padding"
+        android:background="@drawable/shape_white_stroke_corner_dark"
+        android:gravity="top"
+        android:hint="评价字数限制在200以内"
+        android:padding="@dimen/global_padding"
+        android:textColor="@color/dimgray"
+        android:textSize="14sp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/global_padding">
+
+        <TextView
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="描述相符"/>
+
+
+        <RatingBar
+            android:id="@+id/ratingBar01"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:rating="1"
+            android:stepSize="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/global_padding">
+
+        <TextView
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="物流速度"/>
+
+
+        <RatingBar
+            android:id="@+id/ratingBar02"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:rating="1"
+            android:stepSize="1"/>
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_submit"
+        style="@style/Button.Smart.Normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/global_padding"
+        android:layout_marginRight="@dimen/global_padding"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:text="提交评价"/>
+
+</LinearLayout>

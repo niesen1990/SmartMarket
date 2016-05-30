@@ -56,7 +56,7 @@ public class PublishListItemHolder extends BaseViewHolder<MyselfProductPublicLis
         tvOldPrice.setText("￥" + row.getOriginalPrice());
         if (row.getProductImageList() == null || row.getProductImageList().size() == 0) {
             ll01.setVisibility(View.GONE);
-        } else {
+        } else if (0 < row.getProductImageList().size() && row.getProductImageList().size() <= 3) {
             ll01.setVisibility(View.VISIBLE);
             switch (row.getProductImageList().size()) {
                 case 1:
@@ -81,7 +81,21 @@ public class PublishListItemHolder extends BaseViewHolder<MyselfProductPublicLis
                     ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(2).getLocation(), tv03);
                     break;
             }
+        } else {
+            tv01.setVisibility(View.VISIBLE);
+            tv02.setVisibility(View.VISIBLE);
+            tv03.setVisibility(View.VISIBLE);
+            ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(0).getLocation(), tv01);
+            ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(1).getLocation(), tv02);
+            ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(2).getLocation(), tv03);
         }
+
+        tvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
     }
 }

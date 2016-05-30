@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 
 import com.alibaba.mobileim.YWChannel;
@@ -51,6 +53,8 @@ public class PictureCompressThread extends Thread {
     protected boolean mNeedRound = false;
     protected float mRoundPixels = 0.0F;
     private BaseAdvice baseAdviceUI;
+    private CompressCallback mCompressCallback;
+    private Handler mHandler = new Handler(Looper.myLooper());
 
     public PictureCompressThread setThumnailNeedRound(boolean mNeedRound) {
         this.mNeedRound = mNeedRound;
@@ -67,16 +71,18 @@ public class PictureCompressThread extends Thread {
         return this;
     }
 
-    public PictureCompressThread(List<String> picPaths, Context context) {
+    public PictureCompressThread(List<String> picPaths, Context context, CompressCallback compressCallback) {
         this.baseAdviceUI = AdviceObjectInitUtil.initAdvice(PointCutEnum.CHATTING_FRAGMENT_UI_POINTCUT, (Pointcut) null);
         this.init(picPaths, context);
+        this.mCompressCallback = compressCallback;
     }
 
     private void init(List<String> picPaths, Context context) {
         this.picPaths = picPaths;
         this.context = context;
         if (widthpixels == 0) {
-            widthpixels = context.getResources().getDisplayMetrics().widthPixels;
+            widthpixels = context.getResources().getDisplayMetrics().widthPixels * 3;
+            Log.e(TAG, " widthpixels = " + widthpixels);
             heightpixels = (int) ((float) context.getResources().getDisplayMetrics().heightPixels - 32.0F * context.getResources().getDisplayMetrics().density);
         }
 
@@ -84,35 +90,40 @@ public class PictureCompressThread extends Thread {
 
     public void run() {
         if (this.picPaths != null && !this.picPaths.isEmpty()) {
-            Iterator i$ = this.picPaths.iterator();
+            Iterator iterator = this.picPaths.iterator();
             while (true) {
-                while (true) {
-                    String pic;
-                    int fileSize;
-                    do {
-                        if (!i$.hasNext()) {
-                            return;
-                        }
-
-                        pic = (String) i$.next();
-                        fileSize = 0;
-                    } while (TextUtils.isEmpty(pic));
-
-                    File f = new File(pic);
-                    if (f.exists() && f.isFile()) {
-                        fileSize = (int) f.length();
-                    } else {
-                        WxLog.w("PicSendThread", "pic:" + pic + " is empty, pls check!");
+                String pic;
+                int fileSize;
+                //设置 pic 的值
+                do {
+                    if (!iterator.hasNext()) {
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                mCompressCallback.completed();
+                            }
+                        });
+                        return;
                     }
+                    pic = (String) iterator.next();
+                    fileSize = 0;
+                } while (TextUtils.isEmpty(pic));
 
-                    String originPath;
-                    if (pic.endsWith(".gif")) {
-                        originPath = StorageConstant.getFilePath() + File.separator + WXUtil.getMD5FileName(pic);
-                        FileUtils.copyFile(new File(pic), new File(originPath));
-                        BitmapFactory.Options ori1 = new BitmapFactory.Options();
-                        ori1.inJustDecodeBounds = true;
-                        BitmapFactory.decodeFile(pic, ori1);
-                        // TODO: 16/5/4 处理gif
+                File f = new File(pic);
+                if (f.exists() && f.isFile()) {
+                    fileSize = (int) f.length();
+                } else {
+                    WxLog.w("PicSendThread", "pic:" + pic + " is empty, pls check!");
+                }
+
+                String originPath;
+                if (pic.endsWith(".gif")) {
+                    originPath = StorageConstant.getFilePath() + File.separator + WXUtil.getMD5FileName(pic);
+                    FileUtils.copyFile(new File(pic), new File(originPath));
+                    BitmapFactory.Options ori1 = new BitmapFactory.Options();
+                    ori1.inJustDecodeBounds = true;
+                    BitmapFactory.decodeFile(pic, ori1);
+                    // TODO: 16/5/4 处理gif
                         /*final YWMessage origin1 = YWMessageChannel.createGifImageMessage(originPath, originPath, ori1.outWidth, ori1.outHeight, fileSize);
                         if (this.messageSender != null) {
                             this.mHandler.post(new Runnable() {
@@ -121,101 +132,109 @@ public class PictureCompressThread extends Thread {
                                 }
                             });
                         }*/
-                    } else {
-                        originPath = StorageConstant.getFilePath() + File.separator + WXUtil.getMD5FileName(pic);
-                        int ori = IMImageUtils.getOrientation(pic, this.context, (Uri) null);
-                        Bitmap origin = null;
-                        if (this.mNeedCompress) {
-                            origin = IMThumbnailUtils.compressFileAndRotateToBitmapThumb(pic, widthpixels, heightpixels, ori, originPath, true);
-                            if (origin == null) {
-                                continue;
-                            }
+                } else {
+                    originPath = StorageConstant.getFilePath() + File.separator + WXUtil.getMD5FileName(pic);
+                    int ori = IMImageUtils.getOrientation(pic, this.context, (Uri) null);
+                    Bitmap origin = null;
+                    if (this.mNeedCompress) {
+                        origin = IMThumbnailUtils.compressFileAndRotateToBitmapThumb(pic, widthpixels, heightpixels, ori, originPath, true);
+                        if (origin == null) {
+                            continue;
+                        }
 
-                            File compressedPath = new File(originPath);
-                            if (compressedPath.exists() && compressedPath.isFile()) {
-                                fileSize = (int) compressedPath.length();
-                            } else {
-                                WxLog.w("PicSendThread", "pic:" + pic + " is empty, pls check!");
-                            }
+                        File compressedPath = new File(originPath);
+                        if (compressedPath.exists() && compressedPath.isFile()) {
+                            fileSize = (int) compressedPath.length();
                         } else {
-                            if (fileSize == 0) {
-                                continue;
+                            WxLog.w("PicSendThread", "pic:" + pic + " is empty, pls check!");
+                        }
+                    } else {
+                        if (fileSize == 0) {
+                            continue;
+                        }
+
+                        origin = IMThumbnailUtils.compressFileAndRotateToBitmapThumb(pic, widthpixels, heightpixels, ori, originPath, false);
+                        if (origin == null) {
+                            WxLog.d("PicSendThread", " IMFileTools.decodeBitmap(pic) fail !TOO BIG ");
+                            continue;
+                        }
+
+                        f = new File(originPath);
+                        if (f.exists() && f.isFile()) {
+                            fileSize = (int) f.length();
+                            WxLog.d("PicSendThread@OriginalPic", "文件大小: " + WXFileTools.bytes2KOrM((long) fileSize) + "(" + fileSize + ")");
+                        }
+                    }
+
+                    String compressedPath1 = StorageConstant.getFilePath() + File.separator + WXUtil.getMD5FileName(pic) + "_comp";
+                    ImageMsgPacker imageMsgPacker = new ImageMsgPacker(YWChannel.getApplication());
+                    int mMaxHeight = imageMsgPacker.getMaxNeedServerToGiveThumnailHeight();
+                    int mMinWidth = imageMsgPacker.getMinWidth();
+                    int[] resizedDimension = IMThumbnailUtils.getResizedDimensionOfThumbnail(origin.getWidth(), origin.getHeight(), mMinWidth, mMaxHeight);
+                    Bitmap scalebBitmap = IMThumbnailUtils.getCropAndScaledBitmap(origin, resizedDimension[0], resizedDimension[1], resizedDimension[2], resizedDimension[3], false);
+                    if (scalebBitmap != null) {
+                        FileOutputStream out = null;
+
+                        try {
+                            out = new FileOutputStream(compressedPath1);
+                            if (out != null) {
+                                scalebBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
+                            }
+                        } catch (FileNotFoundException var27) {
+                            WxLog.w("PicSendThread", "run", var27);
+                        } finally {
+                            if (out != null) {
+                                try {
+                                    out.close();
+                                } catch (IOException var26) {
+                                    ;
+                                }
                             }
 
-                            origin = IMThumbnailUtils.compressFileAndRotateToBitmapThumb(pic, widthpixels, heightpixels, ori, originPath, false);
-                            if (origin == null) {
-                                WxLog.d("PicSendThread", " IMFileTools.decodeBitmap(pic) fail !TOO BIG ");
-                                continue;
-                            }
+                        }
 
-                            f = new File(originPath);
-                            if (f.exists() && f.isFile()) {
-                                fileSize = (int) f.length();
-                                WxLog.d("PicSendThread@OriginalPic", "文件大小: " + WXFileTools.bytes2KOrM((long) fileSize) + "(" + fileSize + ")");
+                        IMImageCache wxImageCache = IMImageCache.findOrCreateCache(this.context, StorageConstant.getFilePath());
+                        scalebBitmap = IMImageUtils.getAndCacheChattingBitmap(compressedPath1, scalebBitmap, this.mNeedRound, this.mRoundPixels, this.baseAdviceUI, wxImageCache, true);
+                        Rect oriRect = new Rect();
+                        oriRect.set(0, 0, origin.getWidth(), origin.getHeight());
+                        Rect compRect = new Rect();
+                        compRect.set(0, 0, scalebBitmap.getWidth(), scalebBitmap.getHeight());
+                        String imageType = "jpg";
+                        if (!TextUtils.isEmpty(originPath)) {
+                            File msg = new File(originPath);
+                            if (msg.exists() && msg.isFile()) {
+                                BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
+                                decodeOptions.inJustDecodeBounds = true;
+                                BitmapFactory.decodeFile(originPath, decodeOptions);
+                                if (decodeOptions != null && IMChannel.DEBUG.booleanValue()) {
+                                    WxLog.d("PicSendThread@OriginalPic", "send pic mimeType = " + decodeOptions.outMimeType);
+                                }
+
+                                if (decodeOptions != null && !TextUtils.isEmpty(decodeOptions.outMimeType) && (decodeOptions.outMimeType.contains("png") || decodeOptions.outMimeType.contains("PNG"))) {
+                                    imageType = "png";
+                                }
                             }
                         }
 
-                        String compressedPath1 = StorageConstant.getFilePath() + File.separator + WXUtil.getMD5FileName(pic) + "_comp";
-                        ImageMsgPacker imageMsgPacker = new ImageMsgPacker(YWChannel.getApplication());
-                        int mMaxHeight = imageMsgPacker.getMaxNeedServerToGiveThumnailHeight();
-                        int mMinWidth = imageMsgPacker.getMinWidth();
-                        int[] resizedDimension = IMThumbnailUtils.getResizedDimensionOfThumbnail(origin.getWidth(), origin.getHeight(), mMinWidth, mMaxHeight);
-                        Bitmap scalebBitmap = IMThumbnailUtils.getCropAndScaledBitmap(origin, resizedDimension[0], resizedDimension[1], resizedDimension[2], resizedDimension[3], false);
-                        if (scalebBitmap != null) {
-                            FileOutputStream out = null;
+                        Log.i(TAG, "originPath = " + originPath);
+                        Log.i(TAG, "compressedPath1 = " + compressedPath1);
+                        Log.i(TAG, "fileSize = " + fileSize);
+                        Log.i(TAG, "oriRect.width() = " + oriRect.width());
+                        Log.i(TAG, "oriRect.height() = " + oriRect.height());
+                        Log.i(TAG, "this.mNeedCompress = " + this.mNeedCompress);
 
-                            try {
-                                out = new FileOutputStream(compressedPath1);
-                                if (out != null) {
-                                    scalebBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-                                }
-                            } catch (FileNotFoundException var27) {
-                                WxLog.w("PicSendThread", "run", var27);
-                            } finally {
-                                if (out != null) {
-                                    try {
-                                        out.close();
-                                    } catch (IOException var26) {
-                                        ;
-                                    }
-                                }
+                        mCompressCallback.callback(originPath, compressedPath1);
 
-                            }
-
-                            IMImageCache wxImageCache = IMImageCache.findOrCreateCache(this.context, StorageConstant.getFilePath());
-                            scalebBitmap = IMImageUtils.getAndCacheChattingBitmap(compressedPath1, scalebBitmap, this.mNeedRound, this.mRoundPixels, this.baseAdviceUI, wxImageCache, true);
-                            Rect oriRect = new Rect();
-                            oriRect.set(0, 0, origin.getWidth(), origin.getHeight());
-                            Rect compRect = new Rect();
-                            compRect.set(0, 0, scalebBitmap.getWidth(), scalebBitmap.getHeight());
-                            String imageType = "jpg";
-                            if (!TextUtils.isEmpty(originPath)) {
-                                File msg = new File(originPath);
-                                if (msg.exists() && msg.isFile()) {
-                                    BitmapFactory.Options decodeOptions = new BitmapFactory.Options();
-                                    decodeOptions.inJustDecodeBounds = true;
-                                    BitmapFactory.decodeFile(originPath, decodeOptions);
-                                    if (decodeOptions != null && IMChannel.DEBUG.booleanValue()) {
-                                        WxLog.d("PicSendThread@OriginalPic", "send pic mimeType = " + decodeOptions.outMimeType);
-                                    }
-
-                                    if (decodeOptions != null && !TextUtils.isEmpty(decodeOptions.outMimeType) && (decodeOptions.outMimeType.contains("png") || decodeOptions.outMimeType.contains("PNG"))) {
-                                        imageType = "png";
-                                    }
-                                }
-                            }
-
-                            Log.i(TAG, "originPath = " + originPath);
-                            Log.i(TAG, "compressedPath1 = " + compressedPath1);
-                            Log.i(TAG, "oriRect.width() = " + oriRect.width());
-                            Log.i(TAG, "oriRect.height() = " + oriRect.height());
-                            Log.i(TAG, "this.mNeedCompress = " + this.mNeedCompress);
-
-                        }
                     }
                 }
             }
         }
+    }
+
+    public interface CompressCallback {
+        void callback(String originPath, String compressedPath);
+
+        void completed();
     }
 
 }

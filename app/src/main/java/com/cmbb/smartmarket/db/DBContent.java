@@ -24,6 +24,7 @@ public class DBContent implements BaseColumns {
         public static final String USER_INTRODUCE = "introduce";
         public static final String USER_LEVEL = "userLevel";
         public static final String USER_ID = "user_id";
+        public static final String IM_USER_ID = "im_user_Id";
         public static String SQL = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME + "( \n" +
                 _ID + " INTEGER PRIMARY KEY," + "\n" +
                 USER_TOKEN + TEXT_TYPE + "\n" +
@@ -34,6 +35,7 @@ public class DBContent implements BaseColumns {
                 USER_PROVINCE_ID + INTEGER_TYPE + "\n" +
                 USER_CITY_ID + INTEGER_TYPE + "\n" +
                 USER_PROVINCE + TEXT_TYPE + "\n" +
+                IM_USER_ID + TEXT_TYPE + "\n" +
                 USER_CITY + TEXT_TYPE + "\n" +
                 USER_ID + INTEGER_TYPE + "\n" +
                 USER_INTRODUCE + TEXT_TYPE + "\n" +

@@ -35,7 +35,7 @@ public class Location {
     private String street;
     private String streetNumber;
     private String latitude;
-    private String lontitude;
+    private String longitude;
 
     public String getAddress() {
         return address;
@@ -117,11 +117,11 @@ public class Location {
         this.latitude = latitude;
     }
 
-    public String getLontitude() {
-        return lontitude;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setLontitude(String lontitude) {
-        this.lontitude = lontitude;
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 }

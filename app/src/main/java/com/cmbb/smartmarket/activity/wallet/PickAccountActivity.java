@@ -1,17 +1,22 @@
 package com.cmbb.smartmarket.activity.wallet;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
-import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
 import com.cmbb.smartmarket.activity.wallet.adapter.WithdrawalsAdapter;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindListRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindListResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordResponseModel;
 import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.utils.DialogUtils;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -28,6 +33,7 @@ import rx.Observer;
  * 修改备注：
  */
 public class PickAccountActivity extends BaseAccountRecyclerActivity {
+    private static final String TAG = PickAccountActivity.class.getSimpleName();
     @BindView(R.id.tv_add_account)
     TextView tvAddAccount;
 
@@ -64,25 +70,56 @@ public class PickAccountActivity extends BaseAccountRecyclerActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_add_account:
-                /*DialogUtils.createAlertDialog(this, "提示", getString(R.string.tip_deal_psw), true, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        onBackPressed();
-                    }
-                });*/
-                AddAccountActivity.newIntent(this);
-//                showBottomSheet(tvAddAccount);
+                if (getIntent().getBooleanExtra("hasPsw", false)) {
+                    showBottomSheet();
+                } else {
+                    DialogUtils.createAlertDialog(this, "提示", getString(R.string.tip_deal_psw), true, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            onBackPressed();
+                        }
+                    });
+                }
                 break;
         }
     }
 
     @Override
-    public void onItemClick(int position) {
+    protected Observer<WalletAccountValiatePayPasswordResponseModel> getPswValiate() {
+        return new Observer<WalletAccountValiatePayPasswordResponseModel>() {
+            @Override
+            public void onCompleted() {
 
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.e(TAG, e.toString());
+                hideWaitingDialog();
+            }
+
+            @Override
+            public void onNext(WalletAccountValiatePayPasswordResponseModel walletAccountValiatePayPasswordResponseModel) {
+                hideWaitingDialog();
+                if (walletAccountValiatePayPasswordResponseModel != null) {
+                    showToast(walletAccountValiatePayPasswordResponseModel.getMsg());
+                    if (walletAccountValiatePayPasswordResponseModel.isData()) {
+                        AddAccountActivity.newIntent(PickAccountActivity.this);//密码验证成功
+                        finish();
+                    }
+                }
+            }
+        };
     }
 
+    @Override
+    public void onItemClick(int position) {
+        if (getIntent().getBooleanExtra("isClick", false)) {
+            WithdrawalsActivity.newIntent(this, ((WithdrawalsAdapter) adapter).getItem(position));
+        }
+    }
 
-    Observer<TestModel> mTestUserAttentionModelObserver = new Observer<TestModel>() {
+    Observer<WalletAccountBindListResponseModel> mWalletAccountBindListResponseModelObserver = new Observer<WalletAccountBindListResponseModel>() {
         @Override
         public void onCompleted() {
 
@@ -95,23 +132,21 @@ public class PickAccountActivity extends BaseAccountRecyclerActivity {
         }
 
         @Override
-        public void onNext(TestModel testModel) {
+        public void onNext(WalletAccountBindListResponseModel walletAccountBindListResponseModel) {
             if (pager == 0)
                 adapter.clear();
-            adapter.addAll(testModel.getData().getRows());
+            adapter.addAll(walletAccountBindListResponseModel.getData());
         }
     };
 
     @Override
     public void onLoadMore() {
-        pager++;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+        adapter.pauseMore();
     }
 
     @Override
     public void onRefresh() {
-        pager = 0;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+        HttpMethod.getInstance().walletAccountBindListRequest(mWalletAccountBindListResponseModelObserver, setParams());
     }
 
     /**
@@ -119,17 +154,18 @@ public class PickAccountActivity extends BaseAccountRecyclerActivity {
      *
      * @return params
      */
-    protected TestRequestModel setParams() {
+    protected WalletAccountBindListRequestModel setParams() {
         unSubscribe();
-        TestRequestModel testRequestModel = new TestRequestModel();
-        testRequestModel.setCmd("smart/attention/getList");
-        testRequestModel.setToken(BaseApplication.getToken());
-        testRequestModel.setParameters(new TestRequestModel.ParametersEntity(pager, pagerSize, 0));
-        return testRequestModel;
+        WalletAccountBindListRequestModel walletAccountBindListRequestModel = new WalletAccountBindListRequestModel();
+        walletAccountBindListRequestModel.setToken(BaseApplication.getToken());
+        walletAccountBindListRequestModel.setCmd(ApiInterface.WalletAccountBindList);
+        return walletAccountBindListRequestModel;
     }
 
-    public static void newIntent(Context context) {
+    public static void newIntent(Context context, boolean hasPsw, boolean isClick) {
         Intent intent = new Intent(context, PickAccountActivity.class);
+        intent.putExtra("hasPsw", hasPsw);
+        intent.putExtra("isClick", isClick);
         context.startActivity(intent);
     }
 }

@@ -1,10 +1,8 @@
-<FrameLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.user.fragment.RefundFragment">
+    android:layout_height="match_parent">
 
     <com.jude.easyrecyclerview.EasyRecyclerView
         android:id="@+id/recyclerView"
@@ -15,4 +13,38 @@
         app:layout_progress="@layout/view_progress"
         app:scrollbarStyle="insideOverlay"/>
 
-</FrameLayout>
+    <com.cmbb.smartmarket.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:elevation="5dp"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:gravity="center"
+                android:padding="@dimen/activity_vertical_margin"
+                android:text="删  除"/>
+
+            <TextView
+                android:id="@+id/tv_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:gravity="center"
+                android:padding="@dimen/activity_vertical_margin"
+                android:text="编  辑"/>
+
+        </LinearLayout>
+    </com.cmbb.smartmarket.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>

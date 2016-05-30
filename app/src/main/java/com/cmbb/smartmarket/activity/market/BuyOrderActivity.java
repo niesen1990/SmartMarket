@@ -3,6 +3,7 @@ package com.cmbb.smartmarket.activity.market;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,6 +18,7 @@ import com.cmbb.smartmarket.activity.market.model.MarketOrderReserveRequestModel
 import com.cmbb.smartmarket.activity.market.model.MarketOrderReserveResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
@@ -36,6 +38,7 @@ import rx.Observer;
 public class BuyOrderActivity extends BaseActivity {
 
     private static final String TAG = BuyOrderActivity.class.getSimpleName();
+
     @BindView(R.id.ll_head)
     LinearLayout llHead;
     @BindView(R.id.iv_image)
@@ -87,8 +90,25 @@ public class BuyOrderActivity extends BaseActivity {
 
         @Override
         public void onNext(MarketOrderReserveResponseModel marketOrderReserveResponseModel) {
-            mMarketOrderReserveResponseModel = marketOrderReserveResponseModel;
             hideWaitingDialog();
+
+            if (marketOrderReserveResponseModel != null) {
+                mMarketOrderReserveResponseModel = marketOrderReserveResponseModel;
+                //更新UI
+                if (marketOrderReserveResponseModel.getData().getProduct().getProductImageList() != null)
+                    ImageLoader.loadCenterCropCache(BuyOrderActivity.this, marketOrderReserveResponseModel.getData().getProduct().getProductImageList().get(0).getLocation(), ivImage);
+                tvTitle.setText(marketOrderReserveResponseModel.getData().getProduct().getTitle());
+                tvNewPrice.setText("￥" + marketOrderReserveResponseModel.getData().getProduct().getCurrentPrice());
+                tvOldPrice.setText("￥" + marketOrderReserveResponseModel.getData().getProduct().getOriginalPrice());
+                if (marketOrderReserveResponseModel.getData().getProduct().getUserLocation() != null)
+                    tvAddress.setText(marketOrderReserveResponseModel.getData().getProduct().getUserLocation().getCity() + marketOrderReserveResponseModel.getData().getProduct().getUserLocation().getDistrict());
+                //设置是否在线交易
+                // TODO: 16/5/23
+                tvName.setText(marketOrderReserveResponseModel.getData().getReceiveName() + " " + marketOrderReserveResponseModel.getData().getReceivePhone());
+                tvDetailAddress.setText(marketOrderReserveResponseModel.getData().getAddress());
+                tvExpress.setText("￥" + marketOrderReserveResponseModel.getData().getProduct().getFreight());
+                tvMoney.setText("￥" + (marketOrderReserveResponseModel.getData().getPrice() + marketOrderReserveResponseModel.getData().getFreight()));
+            }
         }
     };
 
@@ -100,14 +120,17 @@ public class BuyOrderActivity extends BaseActivity {
 
         @Override
         public void onError(Throwable e) {
+            hideWaitingDialog();
             Log.e(TAG, e.toString());
         }
 
         @Override
         public void onNext(MarketOrderCommitResponseModel marketOrderCommitResponseModel) {
             hideWaitingDialog();
-            if (marketOrderCommitResponseModel != null)
-                PayActivity.newIntent(BuyOrderActivity.this, marketOrderCommitResponseModel.getData().getOrderCode());
+            if (marketOrderCommitResponseModel != null){
+                PayActivity.newIntent(BuyOrderActivity.this, marketOrderCommitResponseModel.getData().getOrderCode(), mMarketOrderReserveResponseModel.getData().getPrice() + mMarketOrderReserveResponseModel.getData().getFreight());
+                finish();
+            }
         }
     };
 
@@ -144,6 +167,10 @@ public class BuyOrderActivity extends BaseActivity {
                 break;
             case R.id.tv_confirm:
                 showWaitingDialog();
+                if (TextUtils.isEmpty(mMarketOrderReserveResponseModel.getData().getReceiveName()) || TextUtils.isEmpty(mMarketOrderReserveResponseModel.getData().getAddress())) {
+                    showToast("请设置收获地址");
+                    return;
+                }
                 subscription = HttpMethod.getInstance().marketOrderCommitDelete(mMarketOrderCommitResponseModelObserver, setCommitParams());
                 break;
         }
@@ -154,7 +181,7 @@ public class BuyOrderActivity extends BaseActivity {
         marketOrderCommitRequestModel.setCmd(ApiInterface.MarketOrderCommit);
         marketOrderCommitRequestModel.setToken(BaseApplication.getToken());
         marketOrderCommitRequestModel.setParameters(new MarketOrderCommitRequestModel.ParametersEntity(productId,
-                mMarketOrderReserveResponseModel.getData().getPrice(),
+                mMarketOrderReserveResponseModel.getData().getPrice() + mMarketOrderReserveResponseModel.getData().getFreight(),
                 mMarketOrderReserveResponseModel.getData().getFreight(),
                 mMarketOrderReserveResponseModel.getData().getReceiveName(),
                 mMarketOrderReserveResponseModel.getData().getReceivePhone(),

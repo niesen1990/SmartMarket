@@ -17,21 +17,29 @@ import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.address.AddressManagerActivity;
+import com.cmbb.smartmarket.activity.home.model.MyselfGetCountRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MyselfGetCountResponseModel;
+import com.cmbb.smartmarket.activity.login.LoginActivity;
 import com.cmbb.smartmarket.activity.user.BuyFinishedActivity;
 import com.cmbb.smartmarket.activity.user.InfoActivity;
 import com.cmbb.smartmarket.activity.user.MeCollectionActivity;
 import com.cmbb.smartmarket.activity.user.PublishListActivity;
 import com.cmbb.smartmarket.activity.user.RefundActivity;
 import com.cmbb.smartmarket.activity.user.SettingActivity;
+import com.cmbb.smartmarket.activity.user.SoldFinishedActivity;
 import com.cmbb.smartmarket.activity.user.UserCenterActivity;
 import com.cmbb.smartmarket.activity.wallet.WalletActivity;
+import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.db.DBContent;
 import com.cmbb.smartmarket.image.CircleTransform;
 import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.ApiInterface;
+import com.cmbb.smartmarket.network.HttpMethod;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import butterknife.BindView;
+import rx.Observer;
 
 /**
  * 项目名称：SmartMarket
@@ -62,14 +70,51 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
     RelativeLayout rlPublish;
     @BindView(R.id.rl_selled)
     RelativeLayout rlSelled;
+    @BindView(R.id.rl_not_login)
+    RelativeLayout rlNotLogin;
     @BindView(R.id.rl_buy)
     RelativeLayout rlBuy;
+    @BindView(R.id.tv_login)
+    TextView tvLogin;
     @BindView(R.id.rl_collection)
     RelativeLayout rlCollection;
     @BindView(R.id.rl_off)
     RelativeLayout rlOff;
     @BindView(R.id.rl_address)
     RelativeLayout rlAddress;
+    @BindView(R.id.tv_publish_count)
+    TextView tvPublishCount;
+    @BindView(R.id.tv_sold_count)
+    TextView tvSoldCount;
+    @BindView(R.id.tv_buyed_count)
+    TextView tvBuyedCount;
+    @BindView(R.id.tv_collection_count)
+    TextView tvCollectionCount;
+
+    Observer<MyselfGetCountResponseModel> mMyselfGetCountResponseModelObserver = new Observer<MyselfGetCountResponseModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e(TAG, e.toString());
+            hideWaitingDialog();
+        }
+
+        @Override
+        public void onNext(MyselfGetCountResponseModel myselfGetCountResponseModel) {
+            hideWaitingDialog();
+            if (myselfGetCountResponseModel != null) {
+                // UI
+                tvPublishCount.setText("" + myselfGetCountResponseModel.getData().getProductPublicCount());
+                tvSoldCount.setText("" + myselfGetCountResponseModel.getData().getProductSoldCount());
+                tvBuyedCount.setText("" + myselfGetCountResponseModel.getData().getProductBoughtCount());
+                tvCollectionCount.setText("" + myselfGetCountResponseModel.getData().getProductCollectCount());
+            }
+        }
+    };
 
     protected void init() {
         tvMe.setSelected(true);
@@ -82,6 +127,7 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
         rlCollection.setOnClickListener(this);
         rlOff.setOnClickListener(this);
         rlAddress.setOnClickListener(this);
+        tvLogin.setOnClickListener(this);
     }
 
     @Override
@@ -90,6 +136,27 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
         setTitle("我的");
         init();
         getSupportLoaderManager().initLoader(0, null, this);
+        showWaitingDialog();
+        subscription = HttpMethod.getInstance().myselfGetCount(mMyselfGetCountResponseModelObserver, setCountParams());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (TextUtils.isEmpty(BaseApplication.getToken())) {
+            rlNotLogin.setVisibility(View.VISIBLE);
+            rlInfo.setVisibility(View.GONE);
+        } else {
+            rlNotLogin.setVisibility(View.GONE);
+            rlInfo.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private MyselfGetCountRequestModel setCountParams() {
+        MyselfGetCountRequestModel myselfGetCountRequestModel = new MyselfGetCountRequestModel();
+        myselfGetCountRequestModel.setCmd(ApiInterface.MyselfGetCount);
+        myselfGetCountRequestModel.setToken(BaseApplication.getToken());
+        return myselfGetCountRequestModel;
     }
 
     @Override
@@ -109,6 +176,7 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
                 PublishListActivity.newIntent(this);
                 break;
             case R.id.rl_selled:
+                SoldFinishedActivity.newIntent(this);
                 break;
             case R.id.rl_buy:
                 BuyFinishedActivity.newIntent(this);
@@ -121,6 +189,9 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
                 break;
             case R.id.rl_address:
                 AddressManagerActivity.newIntent(this);
+                break;
+            case R.id.tv_login:
+                LoginActivity.newIntent(this);
                 break;
         }
     }

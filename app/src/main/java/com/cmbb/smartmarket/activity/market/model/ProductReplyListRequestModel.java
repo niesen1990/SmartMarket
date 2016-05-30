@@ -30,15 +30,17 @@ public class ProductReplyListRequestModel extends RetrofitRequestModel {
     }
 
     public static class ParametersEntity {
-        private int productId;
-        private int numberOfPerPage;
-        private int pageNo;
 
-        public ParametersEntity(int productId, int numberOfPerPage, int pageNo) {
+        public ParametersEntity(int productId, int replyType, int numberOfPerPage, int pageNo) {
             this.productId = productId;
+            this.replyType = replyType;
             this.numberOfPerPage = numberOfPerPage;
             this.pageNo = pageNo;
         }
+        private int productId;
+        private int replyType;
+        private int numberOfPerPage;
+        private int pageNo;
 
         public int getProductId() {
             return productId;
@@ -46,6 +48,14 @@ public class ProductReplyListRequestModel extends RetrofitRequestModel {
 
         public void setProductId(int productId) {
             this.productId = productId;
+        }
+
+        public int getReplyType() {
+            return replyType;
+        }
+
+        public void setReplyType(int replyType) {
+            this.replyType = replyType;
         }
 
         public int getNumberOfPerPage() {

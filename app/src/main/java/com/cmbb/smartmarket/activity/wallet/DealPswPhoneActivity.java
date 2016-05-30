@@ -12,8 +12,8 @@ import android.widget.TextView;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.login.model.SecurityCodeRequestModel;
 import com.cmbb.smartmarket.activity.login.model.SecurityCodeResponseModel;
-import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordRequestModel;
-import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordNextRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordNextResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.log.Log;
@@ -51,7 +51,7 @@ public class DealPswPhoneActivity extends BaseActivity {
     @BindView(R.id.tv_next)
     TextView tvNext;
 
-    Observer<WalletAccountSetPasswordResponseModel> mWalletAccountSetPasswordResponseModelObserver = new Observer<WalletAccountSetPasswordResponseModel>() {
+    Observer<WalletAccountSetPasswordNextResponseModel> mWalletAccountSetPasswordNextResponseModelObserver = new Observer<WalletAccountSetPasswordNextResponseModel>() {
         @Override
         public void onCompleted() {
 
@@ -64,15 +64,17 @@ public class DealPswPhoneActivity extends BaseActivity {
         }
 
         @Override
-        public void onNext(WalletAccountSetPasswordResponseModel walletAccountSetPasswordResponseModel) {
+        public void onNext(WalletAccountSetPasswordNextResponseModel walletAccountSetPasswordNextResponseModel) {
             hideWaitingDialog();
-            if (walletAccountSetPasswordResponseModel == null)
+            if (walletAccountSetPasswordNextResponseModel == null)
                 return;
-            showToast(walletAccountSetPasswordResponseModel.getMsg());
+            showToast(walletAccountSetPasswordNextResponseModel.getMsg());
+            DealPswActivity.newIntent(DealPswPhoneActivity.this, "修改交易密码");
             finish();
         }
     };
 
+    //获取验证码
     Observer<SecurityCodeResponseModel> mSecurityCodeResponseModelObserver = new Observer<SecurityCodeResponseModel>() {
         @Override
         public void onCompleted() {
@@ -114,7 +116,9 @@ public class DealPswPhoneActivity extends BaseActivity {
                 if (!TextUtils.isEmpty(etPhone.getText().toString()) && !TextUtils.isEmpty(etCheck.getText().toString())) {
                     unSubscribe();
                     showWaitingDialog();
-                    subscription = HttpMethod.getInstance().walletAccountSetPasswordRequest(mWalletAccountSetPasswordResponseModelObserver, setParams());
+                    subscription = HttpMethod.getInstance().walletAccountSetPasswordNextRequest(mWalletAccountSetPasswordNextResponseModelObserver, setParams());
+                } else {
+                    showToast("请输入手机号码或者验证码");
                 }
                 break;
             case R.id.tv_check:
@@ -122,9 +126,10 @@ public class DealPswPhoneActivity extends BaseActivity {
                     unSubscribe();
                     showWaitingDialog();
                     subscription = HttpMethod.getInstance().requestSecurityCode(mSecurityCodeResponseModelObserver, setCheckParams());
+                } else {
+                    showToast("请输入手机号码");
                 }
                 break;
-
         }
     }
 
@@ -136,11 +141,11 @@ public class DealPswPhoneActivity extends BaseActivity {
         return securityCodeRequestModel;
     }
 
-    private WalletAccountSetPasswordRequestModel setParams() {
-        WalletAccountSetPasswordRequestModel walletAccountSetPasswordRequestModel = new WalletAccountSetPasswordRequestModel();
-        walletAccountSetPasswordRequestModel.setCmd(ApiInterface.WalletAccountSetPassword);
+    private WalletAccountSetPasswordNextRequestModel setParams() {
+        WalletAccountSetPasswordNextRequestModel walletAccountSetPasswordRequestModel = new WalletAccountSetPasswordNextRequestModel();
         walletAccountSetPasswordRequestModel.setToken(BaseApplication.getToken());
-//        walletAccountSetPasswordRequestModel.setParameters(new WalletAccountSetPasswordRequestModel.ParametersEntity(etPsw.getText().toString(), etPswConfirm.getText().toString()));
+        walletAccountSetPasswordRequestModel.setCmd(ApiInterface.WalletAccountSetPasswordNext);
+        walletAccountSetPasswordRequestModel.setParameters(new WalletAccountSetPasswordNextRequestModel.ParametersEntity(etPhone.getText().toString(), etCheck.getText().toString()));
         return walletAccountSetPasswordRequestModel;
     }
 

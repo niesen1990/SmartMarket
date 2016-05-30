@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/shape_white_stroke_no_corner"
-                android:padding="@dimen/global_padding">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white_stroke_no_corner"
+    android:padding="@dimen/global_padding">
 
 
     <ImageView
         android:id="@+id/iv_head"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/ic_head_default"/>
 
     <TextView
         android:id="@+id/tv_nick"
@@ -21,23 +23,21 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/iv_head"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="2dp"
         android:layout_toEndOf="@+id/iv_head"
         android:layout_toRightOf="@+id/iv_head"
-        android:text="niesen918"/>
+        tools:text="niesen918"/>
 
     <TextView
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/iv_head"
-        android:layout_marginBottom="2dp"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_toEndOf="@+id/iv_head"
         android:layout_toRightOf="@+id/iv_head"
-        android:text="5小时之前"
         android:textColor="@color/darkgray"
-        android:textSize="12sp"/>
+        android:textSize="12sp"
+        tools:text="5小时之前"/>
 
     <LinearLayout
         android:id="@+id/ll_images"
@@ -77,9 +77,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_images"
-        android:layout_marginTop="@dimen/half_global_padding"
+        android:layout_marginTop="@dimen/global_padding"
         android:maxLines="2"
-        android:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
+        tools:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
 
     <RelativeLayout
         android:id="@+id/rl_content"
@@ -94,9 +94,9 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@android:drawable/ic_menu_add"
             android:gravity="center"
-            android:text="2999"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            tools:text="2999"/>
 
         <TextView
             android:id="@+id/tv_old_price"
@@ -107,7 +107,7 @@
             android:layout_toRightOf="@+id/tv_new_price"
             android:background="@drawable/shape_gray_single_line"
             android:gravity="center"
-            android:text="3700"/>
+            tools:text="3700"/>
 
     </RelativeLayout>
 
@@ -123,11 +123,11 @@
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/ic_menu_add"
+            android:drawableLeft="@drawable/ic_location"
             android:gravity="center"
-            android:text="来自上海市 虹口区 大连路"
             android:textColor="@color/address"
-            android:textSize="10sp"/>
+            android:textSize="10sp"
+            tools:text="来自上海市 虹口区 大连路"/>
 
         <TextView
             android:id="@+id/tv_message"
@@ -135,10 +135,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:drawableLeft="@android:drawable/ic_menu_add"
+            android:drawableLeft="@drawable/ic_message"
             android:gravity="center"
-            android:text="40"
-            android:textSize="10sp"/>
+            android:textSize="10sp"
+            tools:text="40"/>
 
         <TextView
             android:id="@+id/tv_watch"
@@ -147,10 +147,10 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/global_padding"
             android:layout_toLeftOf="@+id/tv_message"
-            android:drawableLeft="@android:drawable/ic_menu_add"
+            android:drawableLeft="@drawable/ic_browse"
             android:gravity="center"
-            android:text="140"
-            android:textSize="10sp"/>
+            android:textSize="10sp"
+            tools:text="140"/>
 
     </RelativeLayout>
 

@@ -1,5 +1,6 @@
 package com.cmbb.smartmarket.base;
 
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,9 +19,10 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  * 修改时间：16/5/6 下午12:29
  * 修改备注：
  */
-public abstract class BaseRecyclerFragment extends BaseFragment implements RecyclerArrayAdapter.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, RecyclerArrayAdapter.OnItemClickListener {
+public abstract class BaseRecyclerFragment extends BaseFragment implements RecyclerArrayAdapter.OnLoadMoreListener, SwipeRefreshLayout.OnRefreshListener, RecyclerArrayAdapter.OnItemClickListener, AppBarLayout.OnOffsetChangedListener {
     protected RecyclerArrayAdapter adapter;
     protected EasyRecyclerView mSmartRecyclerView;
+    AppBarLayout appBarLayout;
     protected int pager = 0;
     protected int pagerSize = 10;
 
@@ -30,6 +32,8 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements Recyc
     }
 
     protected void initRecyclerView(View view) {
+        if (view.findViewById(R.id.abl) != null)
+            appBarLayout = (AppBarLayout) view.findViewById(R.id.abl);
         mSmartRecyclerView = (EasyRecyclerView) view.findViewById(R.id.recyclerView);
         if (mSmartRecyclerView == null)
             return;
@@ -61,4 +65,29 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements Recyc
     }
 
     protected abstract RecyclerArrayAdapter initAdapter();
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (appBarLayout != null)
+            appBarLayout.addOnOffsetChangedListener(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (appBarLayout != null)
+            appBarLayout.removeOnOffsetChangedListener(this);
+    }
+
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        if (mSmartRecyclerView == null)
+            return;
+        if (verticalOffset >= 0) {
+            mSmartRecyclerView.getSwipeToRefresh().setEnabled(true);
+        } else {
+            mSmartRecyclerView.getSwipeToRefresh().setEnabled(false);
+        }
+    }
 }

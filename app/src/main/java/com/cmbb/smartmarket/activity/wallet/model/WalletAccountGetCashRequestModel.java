@@ -40,6 +40,15 @@ public class WalletAccountGetCashRequestModel extends RetrofitRequestModel {
         private String phone;
         private String password;
 
+        public ParametersEntity(double businessBalance, String cardType, String cardUsername, String cardCode, String phone, String password) {
+            this.businessBalance = businessBalance;
+            this.cardType = cardType;
+            this.cardUsername = cardUsername;
+            this.cardCode = cardCode;
+            this.phone = phone;
+            this.password = password;
+        }
+
         public double getBusinessBalance() {
             return businessBalance;
         }

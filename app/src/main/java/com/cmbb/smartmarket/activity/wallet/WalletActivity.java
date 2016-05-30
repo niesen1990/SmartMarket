@@ -12,9 +12,11 @@ import com.cmbb.smartmarket.activity.wallet.model.WalletAccountIndexRequestModel
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountIndexResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.base.Constants;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.utils.SPCache;
 
 import butterknife.BindView;
 import rx.Observer;
@@ -69,6 +71,12 @@ public class WalletActivity extends BaseActivity {
             //更新UI
             tvFinishedMoney.setText("￥" + walletAccountIndexResponseModel.getData().getBalance());
             tvPrePayment.setText("￥" + walletAccountIndexResponseModel.getData().getPrePayment());
+            if (walletAccountIndexResponseModel.getData().isHasPassword()) {
+                rlDealPsw.setVisibility(View.GONE);
+                SPCache.putBoolean(Constants.HAS_WALLET_PSW, true);
+            } else {
+                rlDealPsw.setVisibility(View.VISIBLE);
+            }
         }
     };
 
@@ -106,7 +114,7 @@ public class WalletActivity extends BaseActivity {
             case R.id.rl_pre_payment:
                 break;
             case R.id.rl_balance_out:
-                PickAccountActivity.newIntent(this);
+                PickAccountActivity.newIntent(this, SPCache.getBoolean(Constants.HAS_WALLET_PSW, false), true);
                 break;
             case R.id.rl_deal_psw:
                 DealPswActivity.newIntent(this, "设置交易密码");
@@ -115,6 +123,7 @@ public class WalletActivity extends BaseActivity {
                 DealPswPhoneActivity.newIntent(this);
                 break;
             case R.id.rl_balance_account:
+                PickAccountActivity.newIntent(this, SPCache.getBoolean(Constants.HAS_WALLET_PSW, false), false);
                 break;
         }
     }

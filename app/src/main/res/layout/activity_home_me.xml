@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:layout_marginBottom="60dp">
+        android:layout_marginBottom="45dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -19,17 +19,53 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/rl_info"
+                android:id="@+id/rl_not_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:padding="@dimen/global_padding">
 
                 <ImageView
+                    android:id="@+id/iv_head_default"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:src="@drawable/ic_head_default"/>
+
+                <TextView
+                    android:id="@+id/tv_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_toRightOf="@+id/iv_head_default"
+                    android:text="未设置昵称"/>
+
+
+                <TextView
+                    android:id="@+id/tv_login"
+                    style="@style/Button.Smart.Normal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="马上登陆"/>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rl_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:padding="@dimen/global_padding"
+                android:visibility="gone">
+
+                <ImageView
                     android:id="@+id/iv_head"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:src="@drawable/ic_head_default"/>
 
                 <TextView
                     android:id="@+id/tv_nick"
@@ -154,8 +190,20 @@
                     android:gravity="center_vertical"
                     android:text="宝贝发布"/>
 
-                <ImageView
 
+                <TextView
+                    android:id="@+id/tv_publish_count"
+                    style="@style/TextAppearance.Smart.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/global_padding"
+                    android:layout_toLeftOf="@+id/iv_publish_right"
+                    android:gravity="center_vertical"
+                    android:text="0"/>
+
+                <ImageView
+                    android:id="@+id/iv_publish_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -180,8 +228,19 @@
                     android:gravity="center_vertical"
                     android:text="宝贝已售"/>
 
-                <ImageView
+                <TextView
+                    android:id="@+id/tv_sold_count"
+                    style="@style/TextAppearance.Smart.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/global_padding"
+                    android:layout_toLeftOf="@+id/iv_sold_right"
+                    android:gravity="center_vertical"
+                    android:text="0"/>
 
+                <ImageView
+                    android:id="@+id/iv_sold_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -206,8 +265,19 @@
                     android:gravity="center_vertical"
                     android:text="宝贝已购"/>
 
-                <ImageView
+                <TextView
+                    android:id="@+id/tv_buyed_count"
+                    style="@style/TextAppearance.Smart.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/global_padding"
+                    android:layout_toLeftOf="@+id/iv_buyed_right"
+                    android:gravity="center_vertical"
+                    android:text="0"/>
 
+                <ImageView
+                    android:id="@+id/iv_buyed_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -232,8 +302,19 @@
                     android:gravity="center_vertical"
                     android:text="宝贝收藏"/>
 
-                <ImageView
+                <TextView
+                    android:id="@+id/tv_collection_count"
+                    style="@style/TextAppearance.Smart.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/global_padding"
+                    android:layout_toLeftOf="@+id/iv_collection_right"
+                    android:gravity="center_vertical"
+                    android:text="0"/>
 
+                <ImageView
+                    android:id="@+id/iv_collection_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

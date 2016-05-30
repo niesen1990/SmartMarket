@@ -63,19 +63,19 @@ public class HomeItemHolder extends BaseViewHolder<ProductGetPageResponseModel.D
     }
 
     public void setData(ProductGetPageResponseModel.DataEntity.ContentEntity row) {
-
         ImageLoader.loadUrlAndDiskCache(mContext, row.getPublicUser().getUserImg(), ivHead, new CircleTransform(mContext));
         tvNick.setText(row.getPublicUser().getNickName());
         tvTime.setText(new JTimeTransform(row.getPublicDate()).toString(new RecentDateFormat()));
-        tvContent.setText(row.getContent());
+        tvContent.setText(row.getTitle());
         tvNewPrice.setText("￥" + row.getCurrentPrice());
         tvOldPrice.setText("￥" + row.getOriginalPrice());
-        tvAddress.setText(row.getAddress());
+        if(row.getUserLocation() != null)
+        tvAddress.setText(row.getUserLocation().getCity() + "  " + row.getUserLocation().getDistrict());
         tvMessage.setText(row.getReplyNumber() + "");
         tvWatch.setText(row.getBrowseNumber() + "");
         if (row.getProductImageList() == null || row.getProductImageList().size() == 0) {
             llImages.setVisibility(View.GONE);
-        } else {
+        } else if (0 < row.getProductImageList().size() && row.getProductImageList().size() <= 3) {
             llImages.setVisibility(View.VISIBLE);
             switch (row.getProductImageList().size()) {
                 case 1:
@@ -100,6 +100,13 @@ public class HomeItemHolder extends BaseViewHolder<ProductGetPageResponseModel.D
                     ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(2).getLocation(), iv03);
                     break;
             }
+        } else {
+            iv01.setVisibility(View.VISIBLE);
+            iv02.setVisibility(View.VISIBLE);
+            iv03.setVisibility(View.VISIBLE);
+            ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(0).getLocation(), iv01);
+            ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(1).getLocation(), iv02);
+            ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(2).getLocation(), iv03);
         }
     }
 }

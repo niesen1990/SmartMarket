@@ -14,14 +14,21 @@ import android.widget.TextView;
 import com.alibaba.mobileim.conversation.IYWConversationService;
 import com.alibaba.mobileim.conversation.IYWConversationUnreadChangeListener;
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageGetTypeRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageGetTypeResponseModel;
 import com.cmbb.smartmarket.activity.message.IMConversationActivity;
 import com.cmbb.smartmarket.activity.message.OrderMessageActivity;
 import com.cmbb.smartmarket.activity.message.StoreMessageActivity;
 import com.cmbb.smartmarket.activity.message.SystemMessageActivity;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
+import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.ApiInterface;
+import com.cmbb.smartmarket.network.HttpMethod;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import butterknife.BindView;
+import rx.Observer;
 
 /**
  * 项目名称：SmartMarket
@@ -30,6 +37,7 @@ import butterknife.BindView;
  * 创建时间：16/4/19 上午9:34
  */
 public class HomeMessageActivity extends BaseHomeActivity {
+    private static final String TAG = HomeMessageActivity.class.getSimpleName();
     @BindView(R.id.main_content)
     RelativeLayout mainContent;
     @BindView(R.id.rl_sys)
@@ -85,6 +93,32 @@ public class HomeMessageActivity extends BaseHomeActivity {
     private IYWConversationService mConversationService;
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
+    Observer<MarketMessageGetTypeResponseModel> mMarketMessageGetTypeResponseModelObserver = new Observer<MarketMessageGetTypeResponseModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e(TAG, e.toString());
+        }
+
+        @Override
+        public void onNext(MarketMessageGetTypeResponseModel marketMessageGetTypeResponseModel) {
+            if (marketMessageGetTypeResponseModel != null && marketMessageGetTypeResponseModel.getData().size() == 3) {
+                tvMessageSysCount.setText(marketMessageGetTypeResponseModel.getData().get(0).getNoticeCount());
+                tvSysContent.setText(marketMessageGetTypeResponseModel.getData().get(0).getNoticeContent());
+
+                tvMessageStoreCount.setText(marketMessageGetTypeResponseModel.getData().get(1).getNoticeCount());
+                tvStoreContent.setText(marketMessageGetTypeResponseModel.getData().get(1).getNoticeContent());
+
+                tvMessageOrderCount.setText(marketMessageGetTypeResponseModel.getData().get(2).getNoticeCount());
+                tvOrderContent.setText(marketMessageGetTypeResponseModel.getData().get(2).getNoticeContent());
+            }
+        }
+    };
+
     protected void init() {
         tvMessage.setSelected(true);
         mainContent = (RelativeLayout) findViewById(R.id.main_content);
@@ -101,6 +135,14 @@ public class HomeMessageActivity extends BaseHomeActivity {
         setTitle("消息");
         init();
         initListener();
+        subscription = HttpMethod.getInstance().marketMessageGetType(mMarketMessageGetTypeResponseModelObserver, setMessageParams());
+    }
+
+    private MarketMessageGetTypeRequestModel setMessageParams() {
+        MarketMessageGetTypeRequestModel marketMessageGetTypeRequestModel = new MarketMessageGetTypeRequestModel();
+        marketMessageGetTypeRequestModel.setCmd(ApiInterface.MarketMessageGetType);
+        marketMessageGetTypeRequestModel.setToken(BaseApplication.getToken());
+        return marketMessageGetTypeRequestModel;
     }
 
     private void initListener() {

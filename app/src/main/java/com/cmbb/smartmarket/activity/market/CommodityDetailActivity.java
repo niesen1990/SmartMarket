@@ -1,13 +1,19 @@
 package com.cmbb.smartmarket.activity.market;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomSheetBehavior;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -16,10 +22,15 @@ import android.widget.TextView;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.market.adapter.BannerDetailListAdapter;
 import com.cmbb.smartmarket.activity.market.adapter.DetailReplayAdapter;
+import com.cmbb.smartmarket.activity.market.model.ProductDeleteReplyRequestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductDeleteReplyResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDetailRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDetailResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ProductReplayRequestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductReplayResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplyListRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplyListResponseModel;
+import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.user.ReportActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
@@ -28,9 +39,11 @@ import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.utils.DialogUtils;
 import com.cmbb.smartmarket.utils.SocialUtils;
 import com.cmbb.smartmarket.utils.date.JTimeTransform;
 import com.cmbb.smartmarket.utils.date.RecentDateFormat;
+import com.cmbb.smartmarket.widget.MengCoordinatorLayout;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.rollviewpager.RollPagerView;
 import com.umeng.socialize.UMShareAPI;
@@ -46,6 +59,8 @@ import rx.Observer;
  */
 public class CommodityDetailActivity extends BaseRecyclerActivity {
     private static final String TAG = CommodityDetailActivity.class.getSimpleName();
+    @BindView(R.id.root)
+    MengCoordinatorLayout root;
     @BindView(R.id.roll_view_pager)
     RollPagerView rollViewPager;
     @BindView(R.id.tv_message)
@@ -56,6 +71,17 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
     TextView tvShare;
     @BindView(R.id.tv_buy)
     TextView tvBuy;
+    @BindView(R.id.scroll)
+    RelativeLayout scroll;
+
+    @BindView(R.id.tv_send)
+    TextView tvSend;
+    @BindView(R.id.tv_send_content)
+    EditText evSendContent;
+    @BindView(R.id.bottom)
+    LinearLayout bottom;
+
+    BottomSheetBehavior behaviorBottom;
 
     //HeadView
     private LinearLayout ll01;
@@ -76,6 +102,10 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
     private TextView tvLine;
     BannerDetailListAdapter mBannerDetailListAdapter;
     RecyclerArrayAdapter.ItemView headItemView;
+    int userId;
+    int replayId;
+    String imUserId;
+    String userNick;
     Observer<ProductDetailResponseModel> mProductDetailResponseModelObserver = new Observer<ProductDetailResponseModel>() {
         @Override
         public void onCompleted() {
@@ -90,18 +120,30 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
         @Override
         public void onNext(ProductDetailResponseModel productDetailResponseModel) {
             if (productDetailResponseModel != null) {
+                userId = productDetailResponseModel.getData().getPublicUser().getId();
+                userNick = productDetailResponseModel.getData().getPublicUser().getNickName();
+                if (productDetailResponseModel.getData().getPublicUser().getImUserId() != null)
+                    imUserId = productDetailResponseModel.getData().getPublicUser().getImUserId();
                 mBannerDetailListAdapter.updateList(productDetailResponseModel.getData().getProductImageList());
+                if (productDetailResponseModel.getData().getIsRecommoned() == 1) {
+                    tvTag.setVisibility(View.VISIBLE);
+                } else {
+                    tvTag.setVisibility(View.GONE);
+                }
                 tvTitle.setText(productDetailResponseModel.getData().getTitle());
                 tvWatchCount.setText(productDetailResponseModel.getData().getBrowseNumber() + "");
                 tvRealPrice.setText("￥" + productDetailResponseModel.getData().getCurrentPrice());
                 tvOldPrice.setText("￥" + productDetailResponseModel.getData().getOriginalPrice());
                 tvFreight.setText("运费：" + productDetailResponseModel.getData().getFreight());
-                tvIntroduce.setText(productDetailResponseModel.getData().getIntroduce());
+                tvIntroduce.setText(productDetailResponseModel.getData().getContent());
                 tvTime.setText(new JTimeTransform(productDetailResponseModel.getData().getPublicDate()).toString(new RecentDateFormat()));
-                tvAddress.setText(productDetailResponseModel.getData().getAddress());
+                if (productDetailResponseModel.getData().getUserLocation() != null)
+                    tvAddress.setText(productDetailResponseModel.getData().getUserLocation().getCity() + " | " + productDetailResponseModel.getData().getUserLocation().getDistrict());
                 ImageLoader.loadUrlAndDiskCache(CommodityDetailActivity.this, productDetailResponseModel.getData().getPublicUser().getUserImg(), ivHead, new CircleTransform(CommodityDetailActivity.this));
                 tvNick.setText(productDetailResponseModel.getData().getPublicUser().getNickName());
-
+                tvBuy.setText("我要买");
+                tvMessage.setText(productDetailResponseModel.getData().getReplyNumber() + "");
+                onRefresh();
             }
         }
     };
@@ -127,6 +169,51 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
         }
     };
 
+    Observer<ProductReplayResponseModel> mProductReplayResponseModelObserver = new Observer<ProductReplayResponseModel>() {
+        @Override
+        public void onCompleted() {
+            onRefresh();
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e(TAG, e.toString());
+            hideWaitingDialog();
+        }
+
+        @Override
+        public void onNext(ProductReplayResponseModel productReplayResponseModel) {
+            hideWaitingDialog();
+            showToast(productReplayResponseModel.getMsg());
+            evSendContent.setText("");
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(CommodityDetailActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+
+        }
+    };
+
+    //删除回复
+    Observer<ProductDeleteReplyResponseModel> mProductDeleteReplyResponseModelObserver = new Observer<ProductDeleteReplyResponseModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e(TAG, e.toString());
+            hideWaitingDialog();
+        }
+
+        @Override
+        public void onNext(ProductDeleteReplyResponseModel productDeleteReplyResponseModel) {
+            hideWaitingDialog();
+            if (productDeleteReplyResponseModel != null) {
+                showToast(productDeleteReplyResponseModel.getMsg());
+            }
+        }
+    };
+
     protected void init() {
         rollViewPager = (RollPagerView) findViewById(R.id.roll_view_pager);
         mBannerDetailListAdapter = new BannerDetailListAdapter();
@@ -140,6 +227,22 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         init();
+        tvSend.setOnClickListener(this);
+        behaviorBottom = BottomSheetBehavior.from(bottom);
+        behaviorBottom.setState(BottomSheetBehavior.STATE_EXPANDED);
+        behaviorBottom.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_DRAGGING) {
+                    behaviorBottom.setState(BottomSheetBehavior.STATE_EXPANDED);
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
         headItemView = new RecyclerArrayAdapter.ItemView() {
             @Override
             public View onCreateView(ViewGroup parent) {
@@ -161,6 +264,8 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
                 tvNick = (TextView) header.findViewById(R.id.tv_nick);
                 tvContact = (TextView) header.findViewById(R.id.tv_contact);
                 tvLine = (TextView) header.findViewById(R.id.tv_line);
+                //setOnclick
+                tvContact.setOnClickListener(CommodityDetailActivity.this);
                 return header;
             }
 
@@ -170,8 +275,30 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
             }
         };
         adapter.addHeader(headItemView);
+        adapter.setOnItemLongClickListener(new RecyclerArrayAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemClick(final int position) {
+                if (((DetailReplayAdapter) adapter).getItem(position).getCreateUser().getId() == BaseApplication.getUserId()) {
+                    DialogUtils.createAlertDialog(CommodityDetailActivity.this, "操作", "您确定要删除回复吗", true, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            subscription = HttpMethod.getInstance().requestProductDeleteReply(mProductDeleteReplyResponseModelObserver, setDeleteReplay(position));
+                        }
+                    });
+                }
+                return true;
+            }
+        });
         subscription = HttpMethod.getInstance().requestProductDetail(mProductDetailResponseModelObserver, setParams());
-        onRefresh();
+
+    }
+
+    private ProductDeleteReplyRequestModel setDeleteReplay(int position) {
+        ProductDeleteReplyRequestModel productDeleteReplyRequestModel = new ProductDeleteReplyRequestModel();
+        productDeleteReplyRequestModel.setCmd(ApiInterface.ProductDeleteReply);
+        productDeleteReplyRequestModel.setToken(BaseApplication.getToken());
+        productDeleteReplyRequestModel.setParameters(new ProductDeleteReplyRequestModel.ParametersEntity(((DetailReplayAdapter) adapter).getItem(position).getId()));
+        return productDeleteReplyRequestModel;
     }
 
     @Override
@@ -208,40 +335,78 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
                 SocialUtils.share(this, "http://smart.image.alimmdn.com/system/image/2016-04-18/file_50647_NTFjM2VmMjMtOTNiNC00MTI2LWJhMWMtOWFlZDc2MTg2MDU4", "魅族手机PRO6", "MEIZU design and make", "http://www.baidu.com");
                 break;
             case R.id.tv_message:
-                // TODO: 16/4/28  
+                // TODO: 16/4/28
+                replayId = userId;
+                evSendContent.setText("回复@" + userNick);
+                evSendContent.setFocusable(true);
+                evSendContent.setFocusableInTouchMode(true);
+                evSendContent.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
                 break;
             case R.id.iv_collection:
                 // TODO: 16/4/28  
                 break;
             case R.id.tv_buy:
                 // TODO: 16/4/28
-                BuyOrderActivity.newIntent(this, 12);
+                BuyOrderActivity.newIntent(this, getIntent().getIntExtra("id", -1));
+                break;
+            case R.id.tv_send:
+                if (TextUtils.isEmpty(evSendContent.getText().toString())) {
+                    showToast("请输入回复内容");
+                    return;
+                }
+                showWaitingDialog();
+                subscription = HttpMethod.getInstance().requestProductReplay(mProductReplayResponseModelObserver, setReplayParams());
+                break;
+            case R.id.tv_contact:
+                if (!TextUtils.isEmpty(imUserId)) {
+                    Intent intent = IMHelper.getInstance().getIMKit().getChattingActivityIntent(imUserId, IMHelper.getAppKey());
+                    startActivity(intent);
+                } else {
+                    Log.e(TAG, "IM ID 为空");
+                }
                 break;
         }
     }
 
+    private ProductReplayRequestModel setReplayParams() {
+        ProductReplayRequestModel productReplayRequestModel = new ProductReplayRequestModel();
+        productReplayRequestModel.setToken(BaseApplication.getToken());
+        productReplayRequestModel.setCmd(ApiInterface.ProductReply);
+        productReplayRequestModel.setParameters(new ProductReplayRequestModel.ParametersEntity(getIntent().getIntExtra("id", -1), replayId, "", 0, evSendContent.getText().toString()));
+        return productReplayRequestModel;
+    }
+
     @Override
     public void onItemClick(int position) {
-
+        replayId = ((DetailReplayAdapter) adapter).getItem(position).getCreateUser().getId();
+        Log.e(TAG, "replayId = " + replayId);
+        evSendContent.setHint("回复@" + ((DetailReplayAdapter) adapter).getItem(position).getCreateUser().getNickName());
+        evSendContent.setFocusable(true);
+        evSendContent.setFocusableInTouchMode(true);
+        evSendContent.requestFocus();
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
     }
 
     @Override
     public void onLoadMore() {
         pager++;
-        subscription = HttpMethod.getInstance().productReplyListRequest(mProductReplyListResponseModelObserver, setReplayListParams());
+        HttpMethod.getInstance().productReplyListRequest(mProductReplyListResponseModelObserver, setReplayListParams());
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        subscription = HttpMethod.getInstance().productReplyListRequest(mProductReplyListResponseModelObserver, setReplayListParams());
+        HttpMethod.getInstance().productReplyListRequest(mProductReplyListResponseModelObserver, setReplayListParams());
     }
 
     private ProductReplyListRequestModel setReplayListParams() {
         ProductReplyListRequestModel productReplyListRequestModel = new ProductReplyListRequestModel();
         productReplyListRequestModel.setToken(BaseApplication.getToken());
         productReplyListRequestModel.setCmd(ApiInterface.ProductReplyList);
-        productReplyListRequestModel.setParameters(new ProductReplyListRequestModel.ParametersEntity(getIntent().getIntExtra("id", -1), pagerSize, pager));
+        productReplyListRequestModel.setParameters(new ProductReplyListRequestModel.ParametersEntity(getIntent().getIntExtra("id", -1), 0, pagerSize, pager));
         return productReplyListRequestModel;
     }
 

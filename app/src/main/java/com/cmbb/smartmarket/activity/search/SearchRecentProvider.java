@@ -9,6 +9,7 @@ import android.content.SearchRecentSuggestionsProvider;
  * 创建时间：16/4/21 下午5:14
  */
 public class SearchRecentProvider extends SearchRecentSuggestionsProvider {
+
     public final static String AUTHORITY = "com.cmbb.smartmarket.search.recent";
     public final static int MODE = DATABASE_MODE_QUERIES;
 

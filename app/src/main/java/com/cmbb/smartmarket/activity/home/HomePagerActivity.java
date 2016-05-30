@@ -1,8 +1,11 @@
 package com.cmbb.smartmarket.activity.home;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,18 +14,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterViewFlipper;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.alibaba.wxlib.thread.priority.WxDefaultExecutor;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.home.adapter.BannerAdapter;
 import com.cmbb.smartmarket.activity.home.adapter.HomeAdapter;
 import com.cmbb.smartmarket.activity.home.adapter.ViewFlipperAdapter;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressResponseModel;
 import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
 import com.cmbb.smartmarket.activity.market.model.ProductGetPageRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductGetPageResponseModel;
-import com.cmbb.smartmarket.activity.message.PictureCompressThread;
 import com.cmbb.smartmarket.activity.search.SearchActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.base.Constants;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
@@ -34,6 +39,7 @@ import com.jude.rollviewpager.RollPagerView;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import rx.Observer;
 
 /**
@@ -45,14 +51,65 @@ import rx.Observer;
 public class HomePagerActivity extends BaseHomeActivity {
     private static final String TAG = HomePagerActivity.class.getSimpleName();
 
+    @BindView(R.id.tv_city)
+    TextView tvCity;
+
     AdapterViewFlipper adapterViewFlipper;
     RecyclerArrayAdapter.ItemView head;
     ViewFlipperAdapter mViewFlipperAdapter;
+    BroadcastReceiver locationReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            subscription = HttpMethod.getInstance().marketHomeSaveLocationAddressRequest(mMarketHomeSaveLocationAddressResponseModelObserver, setLocationParams(intent.getStringExtra("location")));
+        }
+    };
+    Observer<ProductGetPageResponseModel> mProductGetPageResponseModelObserver = new Observer<ProductGetPageResponseModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e(TAG, e.toString());
+            mSmartRecyclerView.showError();
+            adapter.pauseMore();
+        }
+
+        @Override
+        public void onNext(ProductGetPageResponseModel productGetPageResponseModel) {
+            if (pager == 0) {
+                adapter.clear();
+                //                adapterViewFlipper.stopFlipping();
+                //                mViewFlipperAdapter.updateEntities(productGetPageResponseModel.getData().getContent());
+                //                adapterViewFlipper.startFlipping();
+            }
+            adapter.addAll(productGetPageResponseModel.getData().getContent());
+        }
+    };
+
+    Observer<MarketHomeSaveLocationAddressResponseModel> mMarketHomeSaveLocationAddressResponseModelObserver = new Observer<MarketHomeSaveLocationAddressResponseModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e(TAG, e.toString());
+        }
+
+        @Override
+        public void onNext(MarketHomeSaveLocationAddressResponseModel marketHomeSaveLocationAddressResponseModel) {
+            Log.i(TAG, "location save = " + marketHomeSaveLocationAddressResponseModel.getMsg());
+        }
+    };
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         tvHome.setSelected(true);
         setTitle(getString(R.string.title_home_pager_title));
+        tvCity.setOnClickListener(this);
         getToolbar().setDisplayHomeAsUpEnabled(false);
         adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
             @Override
@@ -97,8 +154,13 @@ public class HomePagerActivity extends BaseHomeActivity {
         //                String target = "niesen714";// 消息接收者ID
         //                Intent intent = IMHelper.getInstance().getIMKit().getChattingActivityIntent(target, IMHelper.getAppKey());
         //                startActivity(intent);
-
         BaiduLocation.getInstance().getLocationClient().start();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(locationReceiver, new IntentFilter(Constants.INTENT_ACTION_LOCATION));
     }
 
     @Override
@@ -109,7 +171,6 @@ public class HomePagerActivity extends BaseHomeActivity {
 
     @Override
     protected RecyclerArrayAdapter initAdapter() {
-        Log.i(TAG, "initAdapter");
         return new HomeAdapter(this);
     }
 
@@ -150,39 +211,17 @@ public class HomePagerActivity extends BaseHomeActivity {
             case R.id.tv_jujiashangping:
                 HouseRecommendActivity.newIntent(this);
                 break;
+            case R.id.tv_city:
+                HomeAddressActivity.newIntent(this, 100);
+                break;
         }
 
     }
 
     @Override
     public void onItemClick(int position) {
-        CommodityDetailActivity.newIntent(this, ((HomeAdapter)adapter).getItem(position).getId());
+        CommodityDetailActivity.newIntent(this, ((HomeAdapter) adapter).getItem(position).getId());
     }
-
-    Observer<ProductGetPageResponseModel> mProductGetPageResponseModelObserver = new Observer<ProductGetPageResponseModel>() {
-        @Override
-        public void onCompleted() {
-
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            Log.e(TAG, e.toString());
-            mSmartRecyclerView.showError();
-            adapter.pauseMore();
-        }
-
-        @Override
-        public void onNext(ProductGetPageResponseModel productGetPageResponseModel) {
-            if (pager == 0) {
-                adapter.clear();
-                //                adapterViewFlipper.stopFlipping();
-                //                mViewFlipperAdapter.updateEntities(productGetPageResponseModel.getData().getContent());
-                //                adapterViewFlipper.startFlipping();
-            }
-            adapter.addAll(productGetPageResponseModel.getData().getContent());
-        }
-    };
 
     @Override
     public void onLoadMore() {
@@ -196,6 +235,14 @@ public class HomePagerActivity extends BaseHomeActivity {
         HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
     }
 
+    private MarketHomeSaveLocationAddressRequestModel setLocationParams(String locationJson) {
+        MarketHomeSaveLocationAddressRequestModel marketHomeSaveLocationAddressRequestModel = new MarketHomeSaveLocationAddressRequestModel();
+        marketHomeSaveLocationAddressRequestModel.setToken(BaseApplication.getToken());
+        marketHomeSaveLocationAddressRequestModel.setCmd(ApiInterface.MarketHomeSaveLocationAddress);
+        marketHomeSaveLocationAddressRequestModel.setParameters(new MarketHomeSaveLocationAddressRequestModel.ParametersEntity(locationJson));
+        return marketHomeSaveLocationAddressRequestModel;
+    }
+
     /**
      * 设置参数
      *
@@ -206,7 +253,7 @@ public class HomePagerActivity extends BaseHomeActivity {
         ProductGetPageRequestModel productGetPageRequestModel = new ProductGetPageRequestModel();
         productGetPageRequestModel.setToken(BaseApplication.getToken());
         productGetPageRequestModel.setCmd(ApiInterface.ProductGetPage);
-        productGetPageRequestModel.setParameters(new ProductGetPageRequestModel.ParametersEntity(pagerSize, pager, 0));
+        productGetPageRequestModel.setParameters(new ProductGetPageRequestModel.ParametersEntity(pagerSize, pager, 0, "", ""));
         return productGetPageRequestModel;
     }
 
@@ -218,7 +265,7 @@ public class HomePagerActivity extends BaseHomeActivity {
             for (String result : selectedList) {
                 Log.i(TAG, result);
             }
-            WxDefaultExecutor.getInstance().submitHttp((new PictureCompressThread(selectedList, this)).setNeedCompress(data.getBooleanExtra("need_compress", false)));
+            //            WxDefaultExecutor.getInstance().submitHttp((new PictureCompressThread(selectedList, this)).setNeedCompress(data.getBooleanExtra("need_compress", false)));
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

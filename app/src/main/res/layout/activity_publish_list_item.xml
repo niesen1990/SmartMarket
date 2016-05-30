@@ -42,9 +42,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll01"
-        android:paddingBottom="@dimen/global_padding"
-        android:paddingLeft="@dimen/global_padding"
-        android:paddingRight="@dimen/global_padding">
+        android:padding="@dimen/global_padding">
 
 
         <TextView
@@ -88,7 +86,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/rl02"
         android:background="@drawable/shape_white_stroke_no_corner"
-        android:padding="@dimen/global_padding">
+        android:padding="@dimen/global_padding"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/tv_delete"

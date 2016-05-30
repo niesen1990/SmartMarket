@@ -12,25 +12,26 @@ package com.cmbb.smartmarket.activity.login.model;
 public class LoginResponseModel {
 
     /**
-     * sex :
+     * sex : 1
      * provinceText :
      * introduce :
-     * imgWidth : 750
+     * imgWidth : 542
      * city : 110100
      * loginAccount : 15901718791
      * id : 1
-     * loginToken : MTcyNDgyZDktMGU2YS00Y2ZmLWE4ZmYtZWQ2ZWQwN2MzNGJj
-     * nickName : 逼格人
+     * loginToken : ZmFlYTI5M2QtZmU4OC00ZDBiLWI0MmEtNTZhNzUyMzFiZTlk
+     * nickName : 臻萌兔
      * userLevel : 0
      * province : 110000
+     * imUserId : ["15901718791"]
      * cityText :
-     * userImg : http://smart.image.alimmdn.com/app/test/2015-12-31/3C32D253-20EB-4AAB-B21E-20D02EB9B910
-     * imgHeight : 750
+     * userImg : http://smart-test.image.alimmdn.com/market/user/image/2016-05-13/ODUxNmNiNDctYjVlZC00N2JiLTljMzAtY2UwMDQxYWE4NjYx
+     * imgHeight : 408
      */
 
     private DataEntity data;
     /**
-     * data : {"sex":"","provinceText":"","introduce":"","imgWidth":750,"city":110100,"loginAccount":"15901718791","id":1,"loginToken":"MTcyNDgyZDktMGU2YS00Y2ZmLWE4ZmYtZWQ2ZWQwN2MzNGJj","nickName":"逼格人","userLevel":0,"province":110000,"cityText":"","userImg":"http://smart.image.alimmdn.com/app/test/2015-12-31/3C32D253-20EB-4AAB-B21E-20D02EB9B910","imgHeight":750}
+     * data : {"sex":1,"provinceText":"","introduce":"","imgWidth":542,"city":110100,"loginAccount":"15901718791","id":1,"loginToken":"ZmFlYTI5M2QtZmU4OC00ZDBiLWI0MmEtNTZhNzUyMzFiZTlk","nickName":"臻萌兔","userLevel":0,"province":110000,"imUserId":["15901718791"],"cityText":"","userImg":"http://smart-test.image.alimmdn.com/market/user/image/2016-05-13/ODUxNmNiNDctYjVlZC00N2JiLTljMzAtY2UwMDQxYWE4NjYx","imgHeight":408}
      * msg : 登录成功
      */
 
@@ -53,7 +54,7 @@ public class LoginResponseModel {
     }
 
     public static class DataEntity {
-        private String sex;
+        private int sex;
         private String provinceText;
         private String introduce;
         private int imgWidth;
@@ -67,12 +68,13 @@ public class LoginResponseModel {
         private String cityText;
         private String userImg;
         private int imgHeight;
+        private String imUserId;
 
-        public String getSex() {
+        public int getSex() {
             return sex;
         }
 
-        public void setSex(String sex) {
+        public void setSex(int sex) {
             this.sex = sex;
         }
 
@@ -178,6 +180,14 @@ public class LoginResponseModel {
 
         public void setImgHeight(int imgHeight) {
             this.imgHeight = imgHeight;
+        }
+
+        public String getImUserId() {
+            return imUserId;
+        }
+
+        public void setImUserId(String imUserId) {
+            this.imUserId = imUserId;
         }
     }
 }

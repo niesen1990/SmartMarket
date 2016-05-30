@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white_stroke_no_corner"
+    android:padding="@dimen/global_padding">
+
+
+    <TextView
+        android:id="@+id/tv_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/half_global_padding"
+        android:background="@drawable/shape_color_solid_corner"
+        android:gravity="center"
+        android:paddingBottom="2dp"
+        android:paddingLeft="@dimen/half_global_padding"
+        android:paddingRight="@dimen/half_global_padding"
+        android:paddingTop="2dp"
+        android:text="官方推荐"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"/>
+
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_tag"
+        android:layout_marginTop="@dimen/global_padding"
+        android:layout_toLeftOf="@+id/iv_good"
+        android:maxLines="2"
+        android:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
+
+    <ImageView
+        android:id="@+id/iv_good"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="@dimen/global_padding"
+        android:src="@mipmap/ic_launcher"/>
+
+</RelativeLayout>

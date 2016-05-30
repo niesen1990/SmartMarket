@@ -3,19 +3,12 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Umeng数据分析 start-->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_LOGS"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.GET_TASKS"/>
     <uses-permission android:name="android.permission.SET_DEBUG_APP"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
@@ -69,14 +62,13 @@
             android:name=".activity.home.HomeShopActivity"
             android:theme="@style/AppTheme.NoAnimation"/>
         <activity
-            android:name=".activity.home.HomePublishActivity"
-            android:theme="@style/AppTheme.NoAnimation"/>
-        <activity
             android:name=".activity.home.HomeMessageActivity"
             android:theme="@style/AppTheme.NoAnimation"/>
         <activity
             android:name=".activity.home.HomeMeActivity"
             android:theme="@style/AppTheme.NoAnimation"/>
+
+        <activity android:name=".activity.home.HomeAddressActivity"/>
 
         <activity
             android:name=".activity.search.SearchActivity"
@@ -93,6 +85,9 @@
         <activity android:name=".activity.user.MeCollectionActivity"/>
         <activity
             android:name=".activity.market.PublishCommodityActivity"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity
+            android:name=".activity.market.PublishActivity"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activity.market.BuyOrderActivity"/>
         <activity android:name=".activity.market.PayActivity"/>
@@ -118,7 +113,8 @@
             android:name=".activity.wallet.WalletActivity"
             android:theme="@style/AppTheme.v21"/>
         <activity android:name=".activity.wallet.BalanceDetailActivity"/>
-        <activity android:name=".activity.wallet.PickAccountActivity"/>
+        <activity android:name=".activity.wallet.PickAccountActivity"
+                  android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.wallet.AddAccountActivity"/>
         <activity android:name=".activity.wallet.AddAccountPhoneActivity"/>
         <activity
@@ -133,13 +129,24 @@
         <activity android:name=".activity.user.EvaluateDetailActivity"/>
         <activity android:name=".activity.user.BuyFinishedActivity"/>
         <activity android:name=".activity.user.PublishListActivity"/>
+        <activity android:name=".activity.user.SuggestionActivity"/>
+        <activity android:name=".activity.market.RecommendListActivity"/>
+        <activity android:name=".activity.user.CancelOrderActivity"/>
+        <activity android:name=".activity.user.ImmediateEvaluationActivity"/>
+        <activity android:name=".activity.user.SoldFinishedActivity"/>
+        <activity android:name=".activity.user.ExpressActivity"/>
         <activity
             android:name=".activity.user.ApplyRefundActivity"
             android:windowSoftInputMode="stateHidden"/>
 
         <activity
             android:name=".activity.market.CommodityDetailActivity"
-            android:theme="@style/AppTheme.v21"/>
+            android:theme="@style/AppTheme.v21"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name=".activity.market.NeedDetailActivity"
+            android:theme="@style/AppTheme.v21"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.message.SystemMessageActivity"/>
 
         <activity android:name=".activity.message.IMConversationActivity"/>
