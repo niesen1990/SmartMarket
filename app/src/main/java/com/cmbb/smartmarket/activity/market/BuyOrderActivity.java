@@ -107,7 +107,7 @@ public class BuyOrderActivity extends BaseActivity {
                 tvName.setText(marketOrderReserveResponseModel.getData().getReceiveName() + " " + marketOrderReserveResponseModel.getData().getReceivePhone());
                 tvDetailAddress.setText(marketOrderReserveResponseModel.getData().getAddress());
                 tvExpress.setText("￥" + marketOrderReserveResponseModel.getData().getProduct().getFreight());
-                tvMoney.setText("￥" + (marketOrderReserveResponseModel.getData().getPrice() + marketOrderReserveResponseModel.getData().getFreight()));
+                tvMoney.setText("￥" + marketOrderReserveResponseModel.getData().getPrice());
             }
         }
     };
@@ -128,7 +128,7 @@ public class BuyOrderActivity extends BaseActivity {
         public void onNext(MarketOrderCommitResponseModel marketOrderCommitResponseModel) {
             hideWaitingDialog();
             if (marketOrderCommitResponseModel != null){
-                PayActivity.newIntent(BuyOrderActivity.this, marketOrderCommitResponseModel.getData().getOrderCode(), mMarketOrderReserveResponseModel.getData().getPrice() + mMarketOrderReserveResponseModel.getData().getFreight());
+                PayActivity.newIntent(BuyOrderActivity.this, marketOrderCommitResponseModel.getData().getOrderCode(), mMarketOrderReserveResponseModel.getData().getPrice());
                 finish();
             }
         }
@@ -181,7 +181,7 @@ public class BuyOrderActivity extends BaseActivity {
         marketOrderCommitRequestModel.setCmd(ApiInterface.MarketOrderCommit);
         marketOrderCommitRequestModel.setToken(BaseApplication.getToken());
         marketOrderCommitRequestModel.setParameters(new MarketOrderCommitRequestModel.ParametersEntity(productId,
-                mMarketOrderReserveResponseModel.getData().getPrice() + mMarketOrderReserveResponseModel.getData().getFreight(),
+                mMarketOrderReserveResponseModel.getData().getPrice(),
                 mMarketOrderReserveResponseModel.getData().getFreight(),
                 mMarketOrderReserveResponseModel.getData().getReceiveName(),
                 mMarketOrderReserveResponseModel.getData().getReceivePhone(),

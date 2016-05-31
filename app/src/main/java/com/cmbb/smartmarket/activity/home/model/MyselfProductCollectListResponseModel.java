@@ -285,7 +285,7 @@ public class MyselfProductCollectListResponseModel {
                  * deviceImei :
                  */
 
-                private PublicUserDtoEntity publicUserDto;
+                private PublicUserEntity publicUser;
                 private int isCollect;
                 private int isSpot;
                 /**
@@ -536,12 +536,12 @@ public class MyselfProductCollectListResponseModel {
                     this.publicDate = publicDate;
                 }
 
-                public PublicUserDtoEntity getPublicUserDto() {
-                    return publicUserDto;
+                public PublicUserEntity getPublicUserDto() {
+                    return publicUser;
                 }
 
-                public void setPublicUserDto(PublicUserDtoEntity publicUserDto) {
-                    this.publicUserDto = publicUserDto;
+                public void setPublicUserDto(PublicUserEntity publicUserDto) {
+                    this.publicUser = publicUserDto;
                 }
 
                 public int getIsCollect() {
@@ -568,7 +568,7 @@ public class MyselfProductCollectListResponseModel {
                     this.productImageList = productImageList;
                 }
 
-                public static class PublicUserDtoEntity {
+                public static class PublicUserEntity {
                     private int id;
                     private int mbpUserId;
                     private String loginAccount;

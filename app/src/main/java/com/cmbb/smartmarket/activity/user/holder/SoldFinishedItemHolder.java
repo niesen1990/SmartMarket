@@ -98,7 +98,7 @@ public class SoldFinishedItemHolder extends BaseViewHolder<MarketOrderListRespon
             public void onClick(View v) {
                 switch (((TextView) v).getText().toString()) {
                     case "确认发货":
-                        ExpressActivity.newIntent(mContext, row.getId());
+                        ExpressActivity.newIntent(mContext, row.getId(), 0);
                         break;
                     case "提醒收货":
                         ImmediateEvaluationActivity.newIntent(mContext, row.getId());

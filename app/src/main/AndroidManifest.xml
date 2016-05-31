@@ -135,6 +135,10 @@
         <activity android:name=".activity.user.ImmediateEvaluationActivity"/>
         <activity android:name=".activity.user.SoldFinishedActivity"/>
         <activity android:name=".activity.user.ExpressActivity"/>
+        <activity android:name=".activity.user.CheckRejectActivity"/>
+        <activity android:name=".activity.user.CheckRefundActivity"/>
+        <activity android:name=".activity.user.RejectRefundReasonActivity"/>
+        <activity android:name=".activity.user.OrderDetailActivity"/>
         <activity
             android:name=".activity.user.ApplyRefundActivity"
             android:windowSoftInputMode="stateHidden"/>

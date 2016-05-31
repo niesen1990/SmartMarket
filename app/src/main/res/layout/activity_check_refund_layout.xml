@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar"/>
+
+
+    <LinearLayout
+        android:id="@+id/ll01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:layout_margin="@dimen/global_padding"
+        android:layout_marginTop="@dimen/global_padding"
+        android:background="@drawable/shape_white_stroke_corner_dark"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/global_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="申请服务"/>
+
+        <TextView
+            android:id="@+id/tv_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="仅退款"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll01"
+        android:layout_margin="@dimen/global_padding"
+        android:layout_marginTop="@dimen/global_padding"
+        android:background="@drawable/shape_white_stroke_corner_dark"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/global_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="退款原因"/>
+
+        <TextView
+            android:id="@+id/tv_reason"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="缺货"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll02"
+        android:layout_margin="@dimen/global_padding"
+        android:layout_marginTop="@dimen/global_padding"
+        android:background="@drawable/shape_white_stroke_corner_dark"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/global_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="退款金额"/>
+
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="￥55.00"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll04"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/ll03"
+        android:layout_margin="@dimen/global_padding"
+        android:layout_marginTop="@dimen/global_padding"
+        android:background="@drawable/shape_white_stroke_corner_dark"
+        android:orientation="horizontal"
+        android:padding="@dimen/global_padding">
+
+
+        <TextView
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="退款说明"/>
+
+        <EditText
+            android:id="@+id/tv_introduce"
+            android:layout_width="0dp"
+            android:layout_height="130dp"
+            android:layout_weight="3"
+            android:background="@color/line"
+            android:gravity="top"
+            android:padding="@dimen/global_padding"
+            android:textSize="14sp"
+            tools:text="200字以内"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_reject"
+            style="@style/Button.Smart.Circle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/darkgray"
+            android:text="拒绝"/>
+
+        <TextView
+            android:id="@+id/tv_agree"
+            style="@style/Button.Smart.Circle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="同意"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

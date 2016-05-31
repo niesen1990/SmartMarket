@@ -86,8 +86,14 @@ import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveRequestMo
 import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderCancelRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderCancelResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerReceiveRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerReceiveResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerSendRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerSendResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MyselfFeedbackOpinionRequestModel;
@@ -552,6 +558,34 @@ public interface ApiInterface {
 
     // 买家确认收货
     String MarketOrderBuyerReceive = "market/order/buyerReceive";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketOrderSellerSendResponseModel>> marketOrderBuyerSend(@Body MarketOrderSellerSendRequestModel retrofitRequestModel);
+
+    // 买家确认收货
+    String MarketOrderBuyerSend = "market/order/buyerSend";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketOrderRefundResponseModel>> marketOrderRefund(@Body MarketOrderRefundRequestModel retrofitRequestModel);
+
+    // 卖家审核退款
+    String MarketOrderRefund = "market/order/refund";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketOrderSellerReceiveResponseModel>> marketOrderSellerReceive(@Body MarketOrderSellerReceiveRequestModel retrofitRequestModel);
+
+    // 卖家确认收货
+    String MarketOrderSellerReceive = "market/order/sellerReceive";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketOrderDetailResponseModel>> marketOrderDetail(@Body MarketOrderDetailRequestModel retrofitRequestModel);
+
+    // 订单详情
+    String MarketOrderDetail = "market/order/detail";
     /* *******************************订单***********************************/
 
 }

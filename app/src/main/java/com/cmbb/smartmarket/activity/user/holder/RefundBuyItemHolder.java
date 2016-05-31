@@ -1,6 +1,5 @@
 package com.cmbb.smartmarket.activity.user.holder;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,12 @@ import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
+import com.cmbb.smartmarket.activity.user.ApplyRefundActivity;
+import com.cmbb.smartmarket.activity.user.CheckRejectActivity;
+import com.cmbb.smartmarket.activity.user.ExpressActivity;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
+import com.cmbb.smartmarket.activity.user.model.OrderRefundBuyStatus;
+import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.image.CircleTransform;
 import com.cmbb.smartmarket.image.ImageLoader;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
@@ -21,8 +25,8 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
  * 创建人：javon
  * 创建时间：2015/8/24 14:25
  */
-public class RefundItemHolder extends BaseViewHolder<MarketOrderListResponseModel.DataEntity.ContentEntity> {
-    private final String TAG = RefundItemHolder.class.getSimpleName();
+public class RefundBuyItemHolder extends BaseViewHolder<MarketOrderListResponseModel.DataEntity.ContentEntity> {
+    private final String TAG = RefundBuyItemHolder.class.getSimpleName();
 
     private RelativeLayout rl01;
     private TextView tvOrderTag;
@@ -38,12 +42,14 @@ public class RefundItemHolder extends BaseViewHolder<MarketOrderListResponseMode
     private TextView tvDealMoney;
     private TextView tvDealMoneyTag;
     private TextView tvContact;
-    private TextView tvDetail;
-    private Context mContext;
+    private TextView tvOperation01;
+    private TextView tvOperation02;
+    private TextView tvOperation03;
+    private BaseActivity mContext;
 
-    public RefundItemHolder(ViewGroup parent) {
+    public RefundBuyItemHolder(ViewGroup parent) {
         super(parent, R.layout.activity_refund_list_item);
-        mContext = parent.getContext();
+        mContext = (BaseActivity) parent.getContext();
         rl01 = $(R.id.rl01);
         tvOrderTag = $(R.id.tv_order_tag);
         tvOrder = $(R.id.tv_order);
@@ -58,20 +64,22 @@ public class RefundItemHolder extends BaseViewHolder<MarketOrderListResponseMode
         tvDealMoney = $(R.id.tv_deal_money);
         tvDealMoneyTag = $(R.id.tv_deal_money_tag);
         tvContact = $(R.id.tv_contact);
-        tvDetail = $(R.id.tv_detail);
+        tvOperation01 = $(R.id.tv_operation01);
+        tvOperation02 = $(R.id.tv_operation02);
+        tvOperation03 = $(R.id.tv_operation03);
     }
 
     public void setData(final MarketOrderListResponseModel.DataEntity.ContentEntity row) {
         if (row == null)
             return;
         tvOrder.setText(row.getOrderCode());
-        tvStatus.setText(row.getStatusName());
+        tvStatus.setText(row.getRefundStatusName());
         ImageLoader.loadUrlAndDiskCache(mContext, row.getProduct().getPublicUser().getUserImg(), ivImage, new CircleTransform(mContext));
         tvTitle.setText(row.getProduct().getTitle());
         tvNewPrice.setText("￥" + row.getProduct().getCurrentPrice());
         tvOldPrice.setText("￥" + row.getProduct().getOriginalPrice());
-        tvDealMoney.setText("￥" + (row.getPrice() + row.getFreight()));
-        tvRefundMoney.setText("￥" + (row.getPrice() + row.getFreight()));
+        tvDealMoney.setText("￥" + row.getPrice());
+        tvRefundMoney.setText("￥" + row.getPrice());
         tvContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,11 +87,31 @@ public class RefundItemHolder extends BaseViewHolder<MarketOrderListResponseMode
                 mContext.startActivity(intent);
             }
         });
-        tvDetail.setOnClickListener(new View.OnClickListener() {
+        String[] operations = OrderRefundBuyStatus.getStatus(row.getRefundStatus());
+        tvOperation01.setText(operations[0]);
+        tvOperation02.setText(operations[1]);
+        tvOperation03.setText(operations[2]);
+        tvOperation02.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 16/5/30   订单详情
-
+                switch (tvOperation02.getText().toString()) {
+                    case "拒绝原因":
+                        CheckRejectActivity.newIntent(mContext, row);
+                        break;
+                }
+            }
+        });
+        tvOperation03.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (tvOperation02.getText().toString()) {
+                    case "退货":
+                        ExpressActivity.newIntent(mContext, row.getId(), 1);
+                        break;
+                    case "重新申请退款":
+                        ApplyRefundActivity.newIntent(mContext, row);
+                        break;
+                }
             }
         });
     }

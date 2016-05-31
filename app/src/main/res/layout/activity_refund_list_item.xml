@@ -143,17 +143,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/global_padding"
-            android:drawableLeft="@android:drawable/ic_menu_add"
+            android:drawableLeft="@drawable/ic_contact"
             android:gravity="center"
             android:text="联系卖家"/>
 
         <TextView
-            android:id="@+id/tv_detail"
+            android:id="@+id/tv_operation03"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/global_padding"
+            android:paddingBottom="2dp"
+            android:paddingLeft="@dimen/half_global_padding"
+            android:paddingRight="@dimen/half_global_padding"
+            android:paddingTop="2dp"
+            android:text="查看订单"/>
+
+        <TextView
+            android:id="@+id/tv_operation02"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/global_padding"
+            android:layout_toLeftOf="@+id/tv_operation03"
+            android:paddingBottom="2dp"
+            android:paddingLeft="@dimen/half_global_padding"
+            android:paddingRight="@dimen/half_global_padding"
+            android:paddingTop="2dp"
+            android:text="查看订单"/>
+
+
+        <TextView
+            android:id="@+id/tv_operation01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/global_padding"
+            android:layout_toLeftOf="@+id/tv_operation02"
             android:paddingBottom="2dp"
             android:paddingLeft="@dimen/half_global_padding"
             android:paddingRight="@dimen/half_global_padding"

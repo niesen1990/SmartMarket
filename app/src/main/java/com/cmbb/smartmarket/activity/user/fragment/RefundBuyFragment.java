@@ -4,11 +4,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.user.adapter.RefundAdapter;
+import com.cmbb.smartmarket.activity.user.adapter.RefundBuyAdapter;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerFragment;
+import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.widget.SpaceItemDecoration;
@@ -17,16 +18,37 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import rx.Observer;
 
-public class RefundFragment extends BaseRecyclerFragment {
+public class RefundBuyFragment extends BaseRecyclerFragment {
     private static final String ARG_PARAM = "position";
+    private static final String TAG = RefundBuyFragment.class.getSimpleName();
     private int position;
 
-    public RefundFragment() {
-        // Required empty public constructor
+    Observer<MarketOrderListResponseModel> mMarketOrderListResponseModelObserver = new Observer<MarketOrderListResponseModel>() {
+        @Override
+        public void onCompleted() {
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e(TAG, e.toString());
+            mSmartRecyclerView.showError();
+            adapter.pauseMore();
+        }
+
+        @Override
+        public void onNext(MarketOrderListResponseModel marketOrderListResponseModel) {
+            Log.e(TAG, marketOrderListResponseModel.getMsg());
+            if (pager == 0)
+                adapter.clear();
+            adapter.addAll(marketOrderListResponseModel.getData().getContent());
+        }
+    };
+
+    public RefundBuyFragment() {
     }
 
-    public static RefundFragment newInstance(int position) {
-        RefundFragment fragment = new RefundFragment();
+    public static RefundBuyFragment newInstance(int position) {
+        RefundBuyFragment fragment = new RefundBuyFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM, position);
         fragment.setArguments(args);
@@ -59,7 +81,7 @@ public class RefundFragment extends BaseRecyclerFragment {
 
     @Override
     protected RecyclerArrayAdapter initAdapter() {
-        return new RefundAdapter(getActivity());
+        return new RefundBuyAdapter(getActivity());
     }
 
     @Override
@@ -67,36 +89,16 @@ public class RefundFragment extends BaseRecyclerFragment {
 
     }
 
-    Observer<MarketOrderListResponseModel> mMarketOrderListResponseModelObserver = new Observer<MarketOrderListResponseModel>() {
-        @Override
-        public void onCompleted() {
-
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            mSmartRecyclerView.showError();
-            adapter.pauseMore();
-        }
-
-        @Override
-        public void onNext(MarketOrderListResponseModel marketOrderListResponseModel) {
-            if (pager == 0)
-                adapter.clear();
-            adapter.addAll(marketOrderListResponseModel.getData().getContent());
-        }
-    };
-
     @Override
     public void onLoadMore() {
         pager++;
-        HttpMethod.getInstance().marketOrderList(mMarketOrderListResponseModelObserver, setParams());
+        subscription = HttpMethod.getInstance().marketOrderList(mMarketOrderListResponseModelObserver, setParams());
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        HttpMethod.getInstance().marketOrderList(mMarketOrderListResponseModelObserver, setParams());
+        subscription = HttpMethod.getInstance().marketOrderList(mMarketOrderListResponseModelObserver, setParams());
     }
 
     private MarketOrderListRequestModel setParams() {
@@ -107,14 +109,7 @@ public class RefundFragment extends BaseRecyclerFragment {
         paramsEntity.setPageNo(pager);
         paramsEntity.setNumberOfPerPage(pagerSize);
         paramsEntity.setOrderType("refund");
-        switch (position) {
-            case 0:
-                paramsEntity.setSaleType("sell");
-                break;
-            case 1:
-                paramsEntity.setSaleType("buy");
-                break;
-        }
+        paramsEntity.setSaleType("buy");
         marketOrderListRequestModel.setParameters(paramsEntity);
         return marketOrderListRequestModel;
     }

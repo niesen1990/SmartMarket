@@ -125,7 +125,7 @@ public class ApplyRefundActivity extends BaseActivity implements RecyclerArrayAd
         setTitle("申请退款");
         data = getIntent().getParcelableExtra("entity");
         //ui
-        tvMoney.setText("￥" + (data.getPrice() + data.getFreight()));
+        tvMoney.setText("￥" + data.getPrice());
         tvEnclosure.setText("（包含邮费" + data.getFreight() + "元）");
         ll01.setOnClickListener(this);
         ll02.setOnClickListener(this);

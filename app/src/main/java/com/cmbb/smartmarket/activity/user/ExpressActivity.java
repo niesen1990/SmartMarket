@@ -46,6 +46,7 @@ public class ExpressActivity extends BaseRecyclerActivity {
     EditText etCode;
 
     String express;
+    int tag;//0 : 卖家 ；1 ： 买家
 
     BottomSheetBehavior behavior;
     Observer<SystemDictListResponseModel> mSystemDictListResponseModelObserver = new Observer<SystemDictListResponseModel>() {
@@ -98,6 +99,7 @@ public class ExpressActivity extends BaseRecyclerActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         setTitle("物流信息");
+        tag = getIntent().getIntExtra("tag", -1);
         tvChoose.setOnClickListener(this);
         tvSubmit.setOnClickListener(this);
         behavior = BottomSheetBehavior.from(mSmartRecyclerView);
@@ -133,7 +135,14 @@ public class ExpressActivity extends BaseRecyclerActivity {
                     return;
                 }
                 showWaitingDialog();
-                subscription = HttpMethod.getInstance().marketOrderSellerSend(mMarketOrderSellerSendResponseModelObserver, setSendParams());
+                switch (tag) {
+                    case 0:
+                        subscription = HttpMethod.getInstance().marketOrderSellerSend(mMarketOrderSellerSendResponseModelObserver, setSendParams());
+                        break;
+                    case 1:
+                        subscription = HttpMethod.getInstance().marketOrderBuyerSend(mMarketOrderSellerSendResponseModelObserver, setSendParams());
+                        break;
+                }
                 break;
         }
     }
@@ -172,9 +181,10 @@ public class ExpressActivity extends BaseRecyclerActivity {
         return systemDictListRequestModel;
     }
 
-    public static void newIntent(BaseActivity context, int orderId) {
+    public static void newIntent(BaseActivity context, int orderId, int tag) {
         Intent intent = new Intent(context, ExpressActivity.class);
         intent.putExtra("orderId", orderId);
+        intent.putExtra("tag", tag);
         context.startActivityForResult(intent, 100);
     }
 }

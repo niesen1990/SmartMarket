@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar"/>
+
+
+    <TextView
+        android:id="@+id/tv_tag"
+        style="@style/TextAppearance.Smart.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:padding="@dimen/global_padding"
+        android:text="拒绝退款原因:"/>
+
+    <EditText
+        android:id="@+id/tv_reason"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/tv_tag"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:gravity="top"
+        android:hint="填写拒绝原因"
+        android:padding="@dimen/global_padding"
+        android:textSize="14sp"/>
+
+
+    <TextView
+        android:id="@+id/tv_apply"
+        style="@style/Button.Smart.Circle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="提  交"/>
+
+
+</RelativeLayout>

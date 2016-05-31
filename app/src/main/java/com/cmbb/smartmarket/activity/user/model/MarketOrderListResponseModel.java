@@ -95,7 +95,8 @@ public class MarketOrderListResponseModel  {
             private String address;
             private String cancelDate;
             private String cancelReason;
-            private int refundStatus;
+            private String refundStatus;
+            private String refundStatusName;
             private String refundDate;
             private String refundServer;
             private String refundReason;
@@ -107,6 +108,13 @@ public class MarketOrderListResponseModel  {
             private String createDate;
             private String process;
 
+            public String getRefundStatusName() {
+                return refundStatusName;
+            }
+
+            public void setRefundStatusName(String refundStatusName) {
+                this.refundStatusName = refundStatusName;
+            }
 
             public int getId() {
                 return id;
@@ -252,11 +260,11 @@ public class MarketOrderListResponseModel  {
                 this.cancelReason = cancelReason;
             }
 
-            public int getRefundStatus() {
+            public String getRefundStatus() {
                 return refundStatus;
             }
 
-            public void setRefundStatus(int refundStatus) {
+            public void setRefundStatus(String refundStatus) {
                 this.refundStatus = refundStatus;
             }
 
@@ -1298,7 +1306,8 @@ public class MarketOrderListResponseModel  {
                 dest.writeString(this.address);
                 dest.writeString(this.cancelDate);
                 dest.writeString(this.cancelReason);
-                dest.writeInt(this.refundStatus);
+                dest.writeString(this.refundStatus);
+                dest.writeString(this.refundStatusName);
                 dest.writeString(this.refundDate);
                 dest.writeString(this.refundServer);
                 dest.writeString(this.refundReason);
@@ -1333,7 +1342,8 @@ public class MarketOrderListResponseModel  {
                 this.address = in.readString();
                 this.cancelDate = in.readString();
                 this.cancelReason = in.readString();
-                this.refundStatus = in.readInt();
+                this.refundStatus = in.readString();
+                this.refundStatusName = in.readString();
                 this.refundDate = in.readString();
                 this.refundServer = in.readString();
                 this.refundReason = in.readString();

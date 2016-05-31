@@ -87,10 +87,16 @@ import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveRequestMo
 import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderCancelRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderCancelResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerReceiveRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerReceiveResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerSendRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerSendResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MyselfFeedbackOpinionRequestModel;
@@ -1025,6 +1031,20 @@ public class HttpMethod {
     }
 
     /**
+     * 买家发货
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketOrderBuyerSend(Observer<MarketOrderSellerSendResponseModel> observer, MarketOrderSellerSendRequestModel retrofitRequestModel) {
+        Observable<MarketOrderSellerSendResponseModel> observable = mApiInterface
+                .marketOrderSellerSend(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketOrderSellerSendResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
      * 买家确认收货
      *
      * @param observer
@@ -1049,6 +1069,48 @@ public class HttpMethod {
         Observable<ProductAskToBuyResolveResponseModel> observable = mApiInterface
                 .productAskToBuyResolve(retrofitRequestModel)
                 .map(new HttpResultFunc<ProductAskToBuyResolveResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 卖家审核退款
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketOrderRefund(Observer<MarketOrderRefundResponseModel> observer, MarketOrderRefundRequestModel retrofitRequestModel) {
+        Observable<MarketOrderRefundResponseModel> observable = mApiInterface
+                .marketOrderRefund(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketOrderRefundResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 卖家确认收货
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketOrderSellerReceive(Observer<MarketOrderSellerReceiveResponseModel> observer, MarketOrderSellerReceiveRequestModel retrofitRequestModel) {
+        Observable<MarketOrderSellerReceiveResponseModel> observable = mApiInterface
+                .marketOrderSellerReceive(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketOrderSellerReceiveResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 订单详情
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketOrderDetail(Observer<MarketOrderDetailResponseModel> observer, MarketOrderDetailRequestModel retrofitRequestModel) {
+        Observable<MarketOrderDetailResponseModel> observable = mApiInterface
+                .marketOrderDetail(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketOrderDetailResponseModel>());
         return addSubscribe(observable, observer);
     }
 }

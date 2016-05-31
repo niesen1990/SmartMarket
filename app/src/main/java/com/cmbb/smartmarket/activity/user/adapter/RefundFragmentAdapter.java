@@ -5,8 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.cmbb.smartmarket.activity.user.fragment.RefundFragment;
-import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.activity.user.fragment.RefundBuyFragment;
+import com.cmbb.smartmarket.activity.user.fragment.RefundSellFragment;
 
 /**
  * 项目名称：SmartMarket
@@ -31,8 +31,14 @@ public class RefundFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        Log.e(TAG, position + "");
-        return RefundFragment.newInstance(position);
+        switch (position) {
+            case 0:
+                return RefundSellFragment.newInstance(position);
+            case 1:
+                return RefundBuyFragment.newInstance(position);
+            default:
+                return RefundSellFragment.newInstance(position);
+        }
     }
 
     @Override

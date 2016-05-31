@@ -108,7 +108,7 @@ public class BuyFinishedItemHolder extends BaseViewHolder<MarketOrderListRespons
             public void onClick(View v) {
                 switch (((TextView) v).getText().toString()) {
                     case "立即支付":
-                        PayActivity.newIntent(mContext, row.getOrderCode(), row.getFreight() + row.getPrice());
+                        PayActivity.newIntent(mContext, row.getOrderCode(), row.getPrice());
                         break;
                     case "提醒发货":
                         break;
