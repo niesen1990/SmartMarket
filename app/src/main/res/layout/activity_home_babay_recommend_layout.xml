@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.home.HomePagerActivity">
+
+    <include layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:id="@+id/ll_choice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/global_padding"
+        android:paddingLeft="@dimen/half_global_padding"
+        android:paddingRight="@dimen/half_global_padding"
+        android:paddingTop="@dimen/global_padding">
+
+        <TextView
+            android:id="@+id/tv01"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_pull_down"
+            android:gravity="center"
+            android:text="城市"/>
+
+
+        <TextView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/global_padding"
+            android:layout_marginRight="@dimen/global_padding"
+            android:background="@color/line"
+            />
+
+        <TextView
+            android:id="@+id/tv02"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_pull_down"
+            android:gravity="center"
+            android:text="分类"/>
+
+        <TextView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/global_padding"
+            android:layout_marginRight="@dimen/global_padding"
+            android:background="@color/line"
+            />
+
+        <TextView
+            android:id="@+id/tv03"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_pull_down"
+            android:gravity="center"
+            android:text="价格"/>
+
+        <TextView
+            android:layout_width="2px"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/global_padding"
+            android:layout_marginRight="@dimen/global_padding"
+            android:background="@color/line"
+            />
+
+        <TextView
+            android:id="@+id/tv04"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/ic_pull_down"
+            android:gravity="center"
+            android:text="筛选"/>
+    </LinearLayout>
+
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/ll_choice"
+        app:layout_empty="@layout/view_empty"
+        app:layout_progress="@layout/view_progress"
+        app:scrollbarStyle="insideOverlay"/>
+
+</RelativeLayout>

@@ -85,6 +85,13 @@ public class RetrofitRequestModel {
         private String deviceVersion;
         private String deviceImei;
 
+        public DeviceInfoEntity(String device, String deviceMode, String deviceVersion, String deviceImei) {
+            this.device = device;
+            this.deviceMode = deviceMode;
+            this.deviceVersion = deviceVersion;
+            this.deviceImei = deviceImei;
+        }
+
         public String getDevice() {
             return device;
         }

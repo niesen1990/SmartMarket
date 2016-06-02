@@ -2,6 +2,7 @@ package com.cmbb.smartmarket.activity.user.holder;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -13,7 +14,7 @@ import com.cmbb.smartmarket.activity.market.PayActivity;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.user.ApplyRefundActivity;
 import com.cmbb.smartmarket.activity.user.CancelOrderActivity;
-import com.cmbb.smartmarket.activity.user.EvaluateDetailActivity;
+import com.cmbb.smartmarket.activity.user.CheckEvaluateActivity;
 import com.cmbb.smartmarket.activity.user.ImmediateEvaluationActivity;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveResponseModel;
@@ -21,6 +22,7 @@ import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.OrderBuyStatus;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
+import com.cmbb.smartmarket.base.Constants;
 import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
@@ -134,7 +136,7 @@ public class BuyFinishedItemHolder extends BaseViewHolder<MarketOrderListRespons
                                         if (marketOrderBuyerReceiveResponseModel == null)
                                             return;
                                         mContext.showToast(marketOrderBuyerReceiveResponseModel.getMsg());
-                                        mContext.onRefresh();
+                                        LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(Constants.INTENT_ACTION_REFRESH));
                                     }
                                 }, setConfirmExpressParams(row.getId()));
                             }
@@ -144,7 +146,7 @@ public class BuyFinishedItemHolder extends BaseViewHolder<MarketOrderListRespons
                         ImmediateEvaluationActivity.newIntent(mContext, row.getId());
                         break;
                     case "查看评价":
-                        EvaluateDetailActivity.newIntent(mContext, row.getId());
+                        CheckEvaluateActivity.newIntent(mContext, row.getId());
                         break;
                 }
             }

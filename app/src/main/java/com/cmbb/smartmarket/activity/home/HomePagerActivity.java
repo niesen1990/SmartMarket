@@ -20,6 +20,8 @@ import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.home.adapter.BannerAdapter;
 import com.cmbb.smartmarket.activity.home.adapter.HomeAdapter;
 import com.cmbb.smartmarket.activity.home.adapter.ViewFlipperAdapter;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeAdvertInfoRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeAdvertInfoResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressResponseModel;
 import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
@@ -57,6 +59,7 @@ public class HomePagerActivity extends BaseHomeActivity {
     AdapterViewFlipper adapterViewFlipper;
     RecyclerArrayAdapter.ItemView head;
     ViewFlipperAdapter mViewFlipperAdapter;
+    BannerAdapter mBannerAdapter;
     BroadcastReceiver locationReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -105,6 +108,25 @@ public class HomePagerActivity extends BaseHomeActivity {
         }
     };
 
+    Observer<MarketHomeAdvertInfoResponseModel> mMarketHomeAdvertInfoResponseModelObserver = new Observer<MarketHomeAdvertInfoResponseModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e(TAG, e.toString());
+        }
+
+        @Override
+        public void onNext(MarketHomeAdvertInfoResponseModel marketHomeAdvertInfoResponseModel) {
+            if (marketHomeAdvertInfoResponseModel == null)
+                return;
+            mBannerAdapter.updateList(marketHomeAdvertInfoResponseModel.getData());
+        }
+    };
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         tvHome.setSelected(true);
@@ -118,8 +140,9 @@ public class HomePagerActivity extends BaseHomeActivity {
                 header.setHintView(new PointHintView(HomePagerActivity.this));
                 header.setHintPadding(0, 0, 0, TDevice.dip2px(8, HomePagerActivity.this));
                 header.setPlayDelay(2000);
-                header.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.dip2px(163, HomePagerActivity.this)));
-                header.setAdapter(new BannerAdapter());
+                header.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.dip2px(120, HomePagerActivity.this)));
+                mBannerAdapter = new BannerAdapter(null);
+                header.setAdapter(mBannerAdapter);
                 return header;
             }
 
@@ -161,6 +184,12 @@ public class HomePagerActivity extends BaseHomeActivity {
     protected void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(locationReceiver, new IntentFilter(Constants.INTENT_ACTION_LOCATION));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(locationReceiver);
     }
 
     @Override
@@ -232,7 +261,16 @@ public class HomePagerActivity extends BaseHomeActivity {
     @Override
     public void onRefresh() {
         pager = 0;
-        HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
+        subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
+        HttpMethod.getInstance().marketHomeAdvertInfo(mMarketHomeAdvertInfoResponseModelObserver, setAdParams());
+    }
+
+    private MarketHomeAdvertInfoRequestModel setAdParams() {
+        MarketHomeAdvertInfoRequestModel marketHomeAdvertInfoRequestModel = new MarketHomeAdvertInfoRequestModel();
+        marketHomeAdvertInfoRequestModel.setCmd(ApiInterface.MarketHomeAdvertInfo);
+        marketHomeAdvertInfoRequestModel.setToken(BaseApplication.getToken());
+        marketHomeAdvertInfoRequestModel.setParameters(new MarketHomeAdvertInfoRequestModel.ParametersEntity("INDEX"));
+        return marketHomeAdvertInfoRequestModel;
     }
 
     private MarketHomeSaveLocationAddressRequestModel setLocationParams(String locationJson) {

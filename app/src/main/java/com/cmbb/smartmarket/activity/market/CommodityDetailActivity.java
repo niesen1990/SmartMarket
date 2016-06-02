@@ -66,7 +66,7 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
     @BindView(R.id.tv_message)
     TextView tvMessage;
     @BindView(R.id.iv_collection)
-    ImageView ivCollection;
+    TextView ivCollection;
     @BindView(R.id.tv_share)
     TextView tvShare;
     @BindView(R.id.tv_buy)
@@ -290,7 +290,6 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
             }
         });
         subscription = HttpMethod.getInstance().requestProductDetail(mProductDetailResponseModelObserver, setParams());
-
     }
 
     private ProductDeleteReplyRequestModel setDeleteReplay(int position) {
@@ -337,7 +336,7 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
             case R.id.tv_message:
                 // TODO: 16/4/28
                 replayId = userId;
-                evSendContent.setText("回复@" + userNick);
+                evSendContent.setHint("回复@" + userNick);
                 evSendContent.setFocusable(true);
                 evSendContent.setFocusableInTouchMode(true);
                 evSendContent.requestFocus();

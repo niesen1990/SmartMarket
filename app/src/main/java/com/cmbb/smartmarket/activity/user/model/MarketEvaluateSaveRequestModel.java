@@ -32,15 +32,30 @@ public class MarketEvaluateSaveRequestModel extends RetrofitRequestModel {
 
     public static class ParametersEntity {
         private int orderId;
-        private int expressSpeed;
-        private int productMatche;
+        private String expressSpeed;
+        private String productMatche;
         private String content;
+        private int parentId;
 
         public ParametersEntity(int orderId, int expressSpeed, int productMatche, String content) {
             this.orderId = orderId;
-            this.expressSpeed = expressSpeed;
-            this.productMatche = productMatche;
+            this.expressSpeed = String.valueOf(expressSpeed);
+            this.productMatche = String.valueOf(productMatche);
             this.content = content;
+        }
+
+        public ParametersEntity(int parentId, int orderId, String content) {
+            this.orderId = orderId;
+            this.parentId = parentId;
+            this.content = content;
+        }
+
+        public int getParentId() {
+            return parentId;
+        }
+
+        public void setParentId(int parentId) {
+            this.parentId = parentId;
         }
 
         public int getOrderId() {
@@ -51,19 +66,19 @@ public class MarketEvaluateSaveRequestModel extends RetrofitRequestModel {
             this.orderId = orderId;
         }
 
-        public int getExpressSpeed() {
+        public String getExpressSpeed() {
             return expressSpeed;
         }
 
-        public void setExpressSpeed(int expressSpeed) {
+        public void setExpressSpeed(String expressSpeed) {
             this.expressSpeed = expressSpeed;
         }
 
-        public int getProductMatche() {
+        public String getProductMatche() {
             return productMatche;
         }
 
-        public void setProductMatche(int productMatche) {
+        public void setProductMatche(String productMatche) {
             this.productMatche = productMatche;
         }
 

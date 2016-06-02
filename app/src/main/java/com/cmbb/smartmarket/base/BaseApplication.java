@@ -67,7 +67,6 @@ public class BaseApplication extends MultiDexApplication {
         initOkHttp();
         initShare();
         initBroadcastReceiver();
-        //
         setToken(SPCache.getString(Constants.API_TOKEN, ""));
         setUserId(SPCache.getInt(Constants.API_USER_ID, -1));
     }
@@ -79,6 +78,8 @@ public class BaseApplication extends MultiDexApplication {
                 Toast.makeText(BaseApplication.getContext(), intent.getStringExtra("err"), Toast.LENGTH_SHORT).show();
             }
         }, new IntentFilter(Constants.INTENT_ACTION_ERROR_INFRO));
+        // 注册推送别名注册器
+        LocalBroadcastManager.getInstance(this).registerReceiver(pushAliasReceiver, new IntentFilter(Constants.INTENT_ACTION_ALIAS));
     }
 
     private void initIM() {
@@ -134,8 +135,6 @@ public class BaseApplication extends MultiDexApplication {
      * 初始化OkHttp
      */
     private void initOkHttp() {
-        //OkHttpUtils.getInstance().debug("OkHttp").setConnectTimeout(15000, TimeUnit.MILLISECONDS);
-        //PicassoLoader.init(this);
         SmartLogInterceptor interceptor = new SmartLogInterceptor();
         interceptor.setLevel(SmartLogInterceptor.Level.BASIC);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -229,6 +228,29 @@ public class BaseApplication extends MultiDexApplication {
         };
         mPushAgent.setNotificationClickHandler(notificationClickHandler);
     }
+
+    /**
+     * 设置推送用户别名
+     */
+    private BroadcastReceiver pushAliasReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, final Intent intent) {
+            Log.e("Alias", "Alias 设置");
+            new Thread() {
+                @Override
+                public void run() {
+                    try {
+                        Log.e("Alias", "Alias 设置参数 ＝ " + intent.getStringExtra("umeng_id"));
+                        Log.e("Alias", "Alias 设置参数 ＝ " + intent.getStringExtra("umeng_type"));
+                        boolean flag = mPushAgent.addAlias(intent.getStringExtra("umeng_id"), intent.getStringExtra("umeng_type"));
+                        Log.e("Alias", "Alias 设置是否成功 ＝ " + flag);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }.start();
+        }
+    };
 
     private boolean insideApplicationOnCreate() {
         //必须的初始化

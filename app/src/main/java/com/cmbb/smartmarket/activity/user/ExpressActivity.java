@@ -20,6 +20,7 @@ import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import butterknife.BindView;
@@ -96,6 +97,20 @@ public class ExpressActivity extends BaseRecyclerActivity {
         return R.layout.activity_express_layout;
     }
 
+    protected void initRecyclerView() {
+        mSmartRecyclerView = (EasyRecyclerView) findViewById(R.id.recyclerView);
+        if (mSmartRecyclerView == null)
+            return;
+        adapter = initAdapter();
+        mSmartRecyclerView.setLayoutManager(setLayoutManager());
+        if (adapter == null)
+            return;
+        mSmartRecyclerView.setAdapterWithProgress(adapter);
+        setSpaceDecoration(mSmartRecyclerView);
+        adapter.setOnItemClickListener(this);
+        mSmartRecyclerView.setRefreshListener(this);
+    }
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         setTitle("物流信息");
@@ -114,7 +129,7 @@ public class ExpressActivity extends BaseRecyclerActivity {
     @Override
     public void onItemClick(int position) {
         express = ((ExpressListAdapter) adapter).getItem(position).getValue();
-        tvChoose.setText(express);
+        tvChoose.setText(((ExpressListAdapter) adapter).getItem(position).getName());
         behavior();
     }
 
@@ -137,20 +152,28 @@ public class ExpressActivity extends BaseRecyclerActivity {
                 showWaitingDialog();
                 switch (tag) {
                     case 0:
-                        subscription = HttpMethod.getInstance().marketOrderSellerSend(mMarketOrderSellerSendResponseModelObserver, setSendParams());
+                        subscription = HttpMethod.getInstance().marketOrderSellerSend(mMarketOrderSellerSendResponseModelObserver, setSendSellerParams());
                         break;
                     case 1:
-                        subscription = HttpMethod.getInstance().marketOrderBuyerSend(mMarketOrderSellerSendResponseModelObserver, setSendParams());
+                        subscription = HttpMethod.getInstance().marketOrderBuyerSend(mMarketOrderSellerSendResponseModelObserver, setSendBuyerParams());
                         break;
                 }
                 break;
         }
     }
 
-    private MarketOrderSellerSendRequestModel setSendParams() {
+    private MarketOrderSellerSendRequestModel setSendSellerParams() {
         MarketOrderSellerSendRequestModel marketOrderSellerSendRequestModel = new MarketOrderSellerSendRequestModel();
         marketOrderSellerSendRequestModel.setToken(BaseApplication.getToken());
         marketOrderSellerSendRequestModel.setCmd(ApiInterface.MarketOrderSellerSend);
+        marketOrderSellerSendRequestModel.setParameters(new MarketOrderSellerSendRequestModel.ParametersEntity(getIntent().getIntExtra("orderId", -1), express, etCode.getText().toString()));
+        return marketOrderSellerSendRequestModel;
+    }
+
+    private MarketOrderSellerSendRequestModel setSendBuyerParams() {
+        MarketOrderSellerSendRequestModel marketOrderSellerSendRequestModel = new MarketOrderSellerSendRequestModel();
+        marketOrderSellerSendRequestModel.setToken(BaseApplication.getToken());
+        marketOrderSellerSendRequestModel.setCmd(ApiInterface.MarketOrderBuyerSend);
         marketOrderSellerSendRequestModel.setParameters(new MarketOrderSellerSendRequestModel.ParametersEntity(getIntent().getIntExtra("orderId", -1), express, etCode.getText().toString()));
         return marketOrderSellerSendRequestModel;
     }

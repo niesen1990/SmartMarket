@@ -1,7 +1,12 @@
 package com.cmbb.smartmarket.base;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +28,12 @@ public abstract class BaseRecyclerActivity extends BaseActivity implements Recyc
     protected int pager = 0;
     protected int pagerSize = 10;
 
+    BroadcastReceiver refreshReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onRefresh();
+        }
+    };
 
     @Override
     protected void init(Bundle savedInstanceState) {
@@ -55,7 +66,6 @@ public abstract class BaseRecyclerActivity extends BaseActivity implements Recyc
     protected void setSpaceDecoration(EasyRecyclerView recyclerView) {
     }
 
-
     protected abstract void initView(Bundle savedInstanceState);
 
     protected abstract RecyclerArrayAdapter initAdapter();
@@ -63,6 +73,7 @@ public abstract class BaseRecyclerActivity extends BaseActivity implements Recyc
     @Override
     protected void onResume() {
         super.onResume();
+        LocalBroadcastManager.getInstance(this).registerReceiver(refreshReceiver, new IntentFilter(Constants.INTENT_ACTION_REFRESH));
         if (appBarLayout != null)
             appBarLayout.addOnOffsetChangedListener(this);
     }
@@ -70,6 +81,7 @@ public abstract class BaseRecyclerActivity extends BaseActivity implements Recyc
     @Override
     protected void onPause() {
         super.onPause();
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshReceiver);
         if (appBarLayout != null)
             appBarLayout.removeOnOffsetChangedListener(this);
     }

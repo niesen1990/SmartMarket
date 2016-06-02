@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:foreground="?android:attr/selectableItemBackground">
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground">
 
     <LinearLayout
         android:id="@+id/head01"
@@ -19,43 +20,43 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="@dimen/half_global_padding"
-            android:textSize="12sp"
             android:drawableTop="@drawable/ic_office_recommend"
             android:gravity="center"
-            android:text="@string/home_head_tuijian"/>
+            android:text="@string/home_head_tuijian"
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/tv_baobaoyongping"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="12sp"
             android:drawablePadding="@dimen/half_global_padding"
             android:drawableTop="@drawable/ic_baby_recommend"
             android:gravity="center"
-            android:text="@string/home_head_baobao"/>
+            android:text="@string/home_head_baobao"
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/tv_mamashangping"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="12sp"
             android:drawablePadding="@dimen/half_global_padding"
             android:drawableTop="@drawable/ic_mami_recommend"
             android:gravity="center"
-            android:text="@string/home_head_mama"/>
+            android:text="@string/home_head_mama"
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/tv_jujiashangping"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="12sp"
             android:drawablePadding="@dimen/half_global_padding"
             android:drawableTop="@drawable/ic_house_recommend"
             android:gravity="center"
-            android:text="@string/home_head_jujia"/>
+            android:text="@string/home_head_jujia"
+            android:textSize="12sp"/>
 
     </LinearLayout>
 
@@ -74,7 +75,7 @@
             android:layout_height="48dp"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/ic_home_qiugou"/>
 
 
         <TextView
@@ -116,8 +117,8 @@
             android:layout_alignBottom="@+id/tv_head_xin"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:flipInterval="3000"
-            android:layout_toRightOf="@+id/tv_head_zan"/>
+            android:layout_toRightOf="@+id/tv_head_zan"
+            android:flipInterval="3000"/>
 
 
     </RelativeLayout>

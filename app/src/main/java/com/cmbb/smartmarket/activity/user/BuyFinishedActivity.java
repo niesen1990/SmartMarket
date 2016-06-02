@@ -75,7 +75,7 @@ public class BuyFinishedActivity extends BaseRecyclerActivity {
 
     @Override
     public void onItemClick(int position) {
-        OrderDetailActivity.newIntent(this, ((BuyFinishedAdapter) adapter).getItem(position).getId(), "order");
+        OrderDetailBuyFinishedActivity.newIntent(this, ((BuyFinishedAdapter) adapter).getItem(position).getId(), "order");
     }
 
     @Override

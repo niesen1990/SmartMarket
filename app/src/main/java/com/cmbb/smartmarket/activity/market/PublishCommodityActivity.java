@@ -213,7 +213,7 @@ public class PublishCommodityActivity extends BaseActivity {
             public View onCreateView(ViewGroup parent) {
                 ImageView imageView = new ImageView(PublishCommodityActivity.this);
                 imageView.setId(R.id.tv_boy);
-                imageView.setImageResource(android.R.drawable.ic_menu_add);
+                imageView.setImageResource(R.drawable.ic_add);
                 imageView.setLayoutParams(new ViewGroup.LayoutParams(TDevice.dip2px(84, PublishCommodityActivity.this), TDevice.dip2px(84, PublishCommodityActivity.this)));
                 return imageView;
             }

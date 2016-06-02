@@ -14,7 +14,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:background="@drawable/shape_white_stroke_no_corner"
-        android:padding="@dimen/global_padding">
+        android:paddingBottom="@dimen/half_global_padding"
+        android:paddingLeft="@dimen/global_padding"
+        android:paddingRight="@dimen/global_padding"
+        android:paddingTop="@dimen/half_global_padding">
 
         <ImageView
             android:id="@+id/tv_head"
@@ -79,6 +82,7 @@
             android:layout_marginLeft="32dp"
             android:layout_toRightOf="@+id/iv_com"
             android:maxLines="1"
+            android:textSize="14sp"
             tools:text="￥55.00"/>
 
         <TextView
@@ -197,8 +201,33 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/ll_bottom"
         android:layout_below="@+id/recycler"
         app:layout_progress="@layout/view_progress"
         app:scrollbarStyle="insideOverlay"/>
+
+    <LinearLayout
+        android:id="@+id/ll_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_operation01"
+            style="@style/Button.Smart.Circle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/darkgray"/>
+
+        <TextView
+            android:id="@+id/tv_operation02"
+            style="@style/Button.Smart.Circle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
 
 </RelativeLayout>

@@ -30,6 +30,10 @@ public class MarketHomeAdvertInfoRequestModel extends RetrofitRequestModel {
     public static class ParametersEntity {
         private String adType;
 
+        public ParametersEntity(String adType) {
+            this.adType = adType;
+        }
+
         public String getAdType() {
             return adType;
         }

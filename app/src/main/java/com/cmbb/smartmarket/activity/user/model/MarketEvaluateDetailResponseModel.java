@@ -781,161 +781,6 @@ public class MarketEvaluateDetailResponseModel {
             }
         }
 
-        public static class EvaluateUserEntity {
-            private int id;
-            private int mbpUserId;
-            private String loginAccount;
-            private String nickName;
-            private int sex;
-            private int province;
-            private String provinceText;
-            private int city;
-            private String cityText;
-            private String introduce;
-            private String userImg;
-            private int imgWidth;
-            private int imgHeight;
-            private int userLevel;
-            private String appVersion;
-            private String device;
-            private String deviceImei;
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public int getMbpUserId() {
-                return mbpUserId;
-            }
-
-            public void setMbpUserId(int mbpUserId) {
-                this.mbpUserId = mbpUserId;
-            }
-
-            public String getLoginAccount() {
-                return loginAccount;
-            }
-
-            public void setLoginAccount(String loginAccount) {
-                this.loginAccount = loginAccount;
-            }
-
-            public String getNickName() {
-                return nickName;
-            }
-
-            public void setNickName(String nickName) {
-                this.nickName = nickName;
-            }
-
-            public int getSex() {
-                return sex;
-            }
-
-            public void setSex(int sex) {
-                this.sex = sex;
-            }
-
-            public int getProvince() {
-                return province;
-            }
-
-            public void setProvince(int province) {
-                this.province = province;
-            }
-
-            public String getProvinceText() {
-                return provinceText;
-            }
-
-            public void setProvinceText(String provinceText) {
-                this.provinceText = provinceText;
-            }
-
-            public int getCity() {
-                return city;
-            }
-
-            public void setCity(int city) {
-                this.city = city;
-            }
-
-            public String getCityText() {
-                return cityText;
-            }
-
-            public void setCityText(String cityText) {
-                this.cityText = cityText;
-            }
-
-            public String getIntroduce() {
-                return introduce;
-            }
-
-            public void setIntroduce(String introduce) {
-                this.introduce = introduce;
-            }
-
-            public String getUserImg() {
-                return userImg;
-            }
-
-            public void setUserImg(String userImg) {
-                this.userImg = userImg;
-            }
-
-            public int getImgWidth() {
-                return imgWidth;
-            }
-
-            public void setImgWidth(int imgWidth) {
-                this.imgWidth = imgWidth;
-            }
-
-            public int getImgHeight() {
-                return imgHeight;
-            }
-
-            public void setImgHeight(int imgHeight) {
-                this.imgHeight = imgHeight;
-            }
-
-            public int getUserLevel() {
-                return userLevel;
-            }
-
-            public void setUserLevel(int userLevel) {
-                this.userLevel = userLevel;
-            }
-
-            public String getAppVersion() {
-                return appVersion;
-            }
-
-            public void setAppVersion(String appVersion) {
-                this.appVersion = appVersion;
-            }
-
-            public String getDevice() {
-                return device;
-            }
-
-            public void setDevice(String device) {
-                this.device = device;
-            }
-
-            public String getDeviceImei() {
-                return deviceImei;
-            }
-
-            public void setDeviceImei(String deviceImei) {
-                this.deviceImei = deviceImei;
-            }
-        }
 
         public static class ChildEvaluateEntity {
             private int id;
@@ -1040,161 +885,194 @@ public class MarketEvaluateDetailResponseModel {
                 this.evaluateDate = evaluateDate;
             }
 
-            public static class EvaluateUserEntity {
-                private int id;
-                private int mbpUserId;
-                private String loginAccount;
-                private String nickName;
-                private Object sex;
-                private int province;
-                private String provinceText;
-                private int city;
-                private String cityText;
-                private String introduce;
-                private String userImg;
-                private String imgWidth;
-                private String imgHeight;
-                private int userLevel;
-                private String appVersion;
-                private String device;
-                private String deviceImei;
 
-                public int getId() {
-                    return id;
-                }
+        }
+    }
 
-                public void setId(int id) {
-                    this.id = id;
-                }
+    public static class EvaluateUserEntity {
 
-                public int getMbpUserId() {
-                    return mbpUserId;
-                }
+        /**
+         * id : 6
+         * mbpUserId : 100768
+         * imUserId : 15201921714
+         * loginAccount : 15201921714
+         * nickName : 库里
+         * sex : 1
+         * province :
+         * provinceText :
+         * city :
+         * cityText :
+         * introduce :
+         * userImg : http://smart.image.alimmdn.com/app/test/2016-1-25/image_08d10846139348919717a107c73c16ae
+         * imgWidth :
+         * imgHeight :
+         * userLevel : 0
+         * appVersion :
+         * device :
+         * deviceImei :
+         */
 
-                public void setMbpUserId(int mbpUserId) {
-                    this.mbpUserId = mbpUserId;
-                }
+        private int id;
+        private int mbpUserId;
+        private String imUserId;
+        private String loginAccount;
+        private String nickName;
+        private int sex;
+        private String province;
+        private String provinceText;
+        private String city;
+        private String cityText;
+        private String introduce;
+        private String userImg;
+        private String imgWidth;
+        private String imgHeight;
+        private int userLevel;
+        private String appVersion;
+        private String device;
+        private String deviceImei;
 
-                public String getLoginAccount() {
-                    return loginAccount;
-                }
+        public int getId() {
+            return id;
+        }
 
-                public void setLoginAccount(String loginAccount) {
-                    this.loginAccount = loginAccount;
-                }
+        public void setId(int id) {
+            this.id = id;
+        }
 
-                public String getNickName() {
-                    return nickName;
-                }
+        public int getMbpUserId() {
+            return mbpUserId;
+        }
 
-                public void setNickName(String nickName) {
-                    this.nickName = nickName;
-                }
+        public void setMbpUserId(int mbpUserId) {
+            this.mbpUserId = mbpUserId;
+        }
 
-                public Object getSex() {
-                    return sex;
-                }
+        public String getImUserId() {
+            return imUserId;
+        }
 
-                public void setSex(Object sex) {
-                    this.sex = sex;
-                }
+        public void setImUserId(String imUserId) {
+            this.imUserId = imUserId;
+        }
 
-                public int getProvince() {
-                    return province;
-                }
+        public String getLoginAccount() {
+            return loginAccount;
+        }
 
-                public void setProvince(int province) {
-                    this.province = province;
-                }
+        public void setLoginAccount(String loginAccount) {
+            this.loginAccount = loginAccount;
+        }
 
-                public String getProvinceText() {
-                    return provinceText;
-                }
+        public String getNickName() {
+            return nickName;
+        }
 
-                public void setProvinceText(String provinceText) {
-                    this.provinceText = provinceText;
-                }
+        public void setNickName(String nickName) {
+            this.nickName = nickName;
+        }
 
-                public int getCity() {
-                    return city;
-                }
+        public int getSex() {
+            return sex;
+        }
 
-                public void setCity(int city) {
-                    this.city = city;
-                }
+        public void setSex(int sex) {
+            this.sex = sex;
+        }
 
-                public String getCityText() {
-                    return cityText;
-                }
+        public String getProvince() {
+            return province;
+        }
 
-                public void setCityText(String cityText) {
-                    this.cityText = cityText;
-                }
+        public void setProvince(String province) {
+            this.province = province;
+        }
 
-                public String getIntroduce() {
-                    return introduce;
-                }
+        public String getProvinceText() {
+            return provinceText;
+        }
 
-                public void setIntroduce(String introduce) {
-                    this.introduce = introduce;
-                }
+        public void setProvinceText(String provinceText) {
+            this.provinceText = provinceText;
+        }
 
-                public String getUserImg() {
-                    return userImg;
-                }
+        public String getCity() {
+            return city;
+        }
 
-                public void setUserImg(String userImg) {
-                    this.userImg = userImg;
-                }
+        public void setCity(String city) {
+            this.city = city;
+        }
 
-                public String getImgWidth() {
-                    return imgWidth;
-                }
+        public String getCityText() {
+            return cityText;
+        }
 
-                public void setImgWidth(String imgWidth) {
-                    this.imgWidth = imgWidth;
-                }
+        public void setCityText(String cityText) {
+            this.cityText = cityText;
+        }
 
-                public String getImgHeight() {
-                    return imgHeight;
-                }
+        public String getIntroduce() {
+            return introduce;
+        }
 
-                public void setImgHeight(String imgHeight) {
-                    this.imgHeight = imgHeight;
-                }
+        public void setIntroduce(String introduce) {
+            this.introduce = introduce;
+        }
 
-                public int getUserLevel() {
-                    return userLevel;
-                }
+        public String getUserImg() {
+            return userImg;
+        }
 
-                public void setUserLevel(int userLevel) {
-                    this.userLevel = userLevel;
-                }
+        public void setUserImg(String userImg) {
+            this.userImg = userImg;
+        }
 
-                public String getAppVersion() {
-                    return appVersion;
-                }
+        public String getImgWidth() {
+            return imgWidth;
+        }
 
-                public void setAppVersion(String appVersion) {
-                    this.appVersion = appVersion;
-                }
+        public void setImgWidth(String imgWidth) {
+            this.imgWidth = imgWidth;
+        }
 
-                public String getDevice() {
-                    return device;
-                }
+        public String getImgHeight() {
+            return imgHeight;
+        }
 
-                public void setDevice(String device) {
-                    this.device = device;
-                }
+        public void setImgHeight(String imgHeight) {
+            this.imgHeight = imgHeight;
+        }
 
-                public String getDeviceImei() {
-                    return deviceImei;
-                }
+        public int getUserLevel() {
+            return userLevel;
+        }
 
-                public void setDeviceImei(String deviceImei) {
-                    this.deviceImei = deviceImei;
-                }
-            }
+        public void setUserLevel(int userLevel) {
+            this.userLevel = userLevel;
+        }
+
+        public String getAppVersion() {
+            return appVersion;
+        }
+
+        public void setAppVersion(String appVersion) {
+            this.appVersion = appVersion;
+        }
+
+        public String getDevice() {
+            return device;
+        }
+
+        public void setDevice(String device) {
+            this.device = device;
+        }
+
+        public String getDeviceImei() {
+            return deviceImei;
+        }
+
+        public void setDeviceImei(String deviceImei) {
+            this.deviceImei = deviceImei;
         }
     }
 }

@@ -1,10 +1,9 @@
 package com.cmbb.smartmarket.activity.user;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
@@ -14,9 +13,13 @@ import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailResponseModel;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
+import com.cmbb.smartmarket.image.CircleTransform;
+import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.utils.date.JTimeTransform;
+import com.cmbb.smartmarket.utils.date.RecentDateFormat;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -32,8 +35,8 @@ import rx.Observer;
  * 修改时间：16/5/31 下午1:17
  * 修改备注：
  */
-public class OrderDetailActivity extends BaseRecyclerActivity {
-    private static final String TAG = OrderDetailActivity.class.getSimpleName();
+public abstract class OrderDetailBaseActivity extends BaseRecyclerActivity {
+    private static final String TAG = OrderDetailBaseActivity.class.getSimpleName();
 
     @BindView(R.id.tv_head)
     ImageView tvHead;
@@ -59,6 +62,13 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
     TextView tvTime;
     @BindView(R.id.recycler)
     EasyRecyclerView recycler;
+
+    @BindView(R.id.ll_bottom)
+    LinearLayout llBottom;
+    @BindView(R.id.tv_operation01)
+    TextView tvOperation01;
+    @BindView(R.id.tv_operation02)
+    TextView tvOperation02;
     OrderDetailStatusListAdapter recyclerAdapter;
 
     Observer<MarketOrderDetailResponseModel> mMarketOrderDetailResponseModelObserver = new Observer<MarketOrderDetailResponseModel>() {
@@ -81,9 +91,29 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
             adapter.clear();
             recyclerAdapter.addAll(marketOrderDetailResponseModel.getData().getProcess());
             adapter.addAll(marketOrderDetailResponseModel.getData().getLogistics());
-            //
+            //更新UI
+            ImageLoader.loadUrlAndDiskCache(OrderDetailBaseActivity.this, marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getUserImg(), tvHead, new CircleTransform(OrderDetailBaseActivity.this));
+            if (marketOrderDetailResponseModel.getData().getProduct().getProductImageList() != null && marketOrderDetailResponseModel.getData().getProduct().getProductImageList().size() > 0)
+                ImageLoader.loadCenterCropCache(OrderDetailBaseActivity.this, marketOrderDetailResponseModel.getData().getProduct().getProductImageList().get(0).getLocation(), ivCom);
+            tvNick.setText(marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getNickName());
+            tvContact.setOnClickListener(OrderDetailBaseActivity.this);
+            tvTitle.setText(marketOrderDetailResponseModel.getData().getProduct().getTitle());
+            if (marketOrderDetailResponseModel.getData().getProduct().getFreight() == 0) {
+                tvPrice.setText("￥" + marketOrderDetailResponseModel.getData().getProduct().getCurrentPrice() + " ( 包快递费 ) ");
+            } else {
+                tvPrice.setText("￥" + (marketOrderDetailResponseModel.getData().getProduct().getCurrentPrice() + marketOrderDetailResponseModel.getData().getProduct().getFreight()) + " ( 含" + marketOrderDetailResponseModel.getData().getProduct().getFreight() + "元运费）");
+            }
+            tvReceiver.setText(marketOrderDetailResponseModel.getData().getReceiveName());
+            tvAddress.setText(marketOrderDetailResponseModel.getData().getAddress());
+            tvSellNick.setText(marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getNickName());
+            tvOrderCode.setText(marketOrderDetailResponseModel.getData().getOrderCode());
+            tvTime.setText(new JTimeTransform(marketOrderDetailResponseModel.getData().getPayDate()).toString(new RecentDateFormat()));
+
+            initBottomView(marketOrderDetailResponseModel);
         }
     };
+
+    protected abstract void initBottomView(MarketOrderDetailResponseModel response);
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -130,10 +160,4 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
         return marketOrderDetailRequestModel;
     }
 
-    public static void newIntent(Context context, int orderId, String orderType) {
-        Intent intent = new Intent(context, OrderDetailActivity.class);
-        intent.putExtra("orderId", orderId);
-        intent.putExtra("orderType", orderType);
-        context.startActivity(intent);
-    }
 }

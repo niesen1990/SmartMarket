@@ -115,7 +115,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help"/>
+                    android:src="@drawable/ic_right"/>
 
             </RelativeLayout>
 
@@ -127,7 +127,11 @@
                 android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:padding="@dimen/global_padding">
+                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingLeft="@dimen/global_padding"
+                android:paddingRight="@dimen/global_padding"
+                android:paddingTop="@dimen/half_global_padding"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -137,12 +141,11 @@
                     android:text="我的钱包"/>
 
                 <ImageView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help"/>
+                    android:src="@drawable/ic_right"/>
 
             </RelativeLayout>
 
@@ -154,7 +157,10 @@
                 android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:padding="@dimen/global_padding">
+                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingLeft="@dimen/global_padding"
+                android:paddingRight="@dimen/global_padding"
+                android:paddingTop="@dimen/half_global_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -169,7 +175,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help"/>
+                    android:src="@drawable/ic_right"/>
 
             </RelativeLayout>
 
@@ -181,7 +187,10 @@
                 android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:padding="@dimen/global_padding">
+                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingLeft="@dimen/global_padding"
+                android:paddingRight="@dimen/global_padding"
+                android:paddingTop="@dimen/half_global_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -200,7 +209,7 @@
                     android:layout_marginRight="@dimen/global_padding"
                     android:layout_toLeftOf="@+id/iv_publish_right"
                     android:gravity="center_vertical"
-                    android:text="0"/>
+                    android:text="-"/>
 
                 <ImageView
                     android:id="@+id/iv_publish_right"
@@ -208,7 +217,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help"/>
+                    android:src="@drawable/ic_right"/>
 
             </RelativeLayout>
 
@@ -219,7 +228,10 @@
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:padding="@dimen/global_padding">
+                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingLeft="@dimen/global_padding"
+                android:paddingRight="@dimen/global_padding"
+                android:paddingTop="@dimen/half_global_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -237,7 +249,7 @@
                     android:layout_marginRight="@dimen/global_padding"
                     android:layout_toLeftOf="@+id/iv_sold_right"
                     android:gravity="center_vertical"
-                    android:text="0"/>
+                    android:text="-"/>
 
                 <ImageView
                     android:id="@+id/iv_sold_right"
@@ -245,7 +257,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help"/>
+                    android:src="@drawable/ic_right"/>
 
             </RelativeLayout>
 
@@ -256,7 +268,10 @@
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:padding="@dimen/global_padding">
+                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingLeft="@dimen/global_padding"
+                android:paddingRight="@dimen/global_padding"
+                android:paddingTop="@dimen/half_global_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -274,7 +289,7 @@
                     android:layout_marginRight="@dimen/global_padding"
                     android:layout_toLeftOf="@+id/iv_buyed_right"
                     android:gravity="center_vertical"
-                    android:text="0"/>
+                    android:text="-"/>
 
                 <ImageView
                     android:id="@+id/iv_buyed_right"
@@ -282,7 +297,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help"/>
+                    android:src="@drawable/ic_right"/>
 
             </RelativeLayout>
 
@@ -293,7 +308,10 @@
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:padding="@dimen/global_padding">
+                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingLeft="@dimen/global_padding"
+                android:paddingRight="@dimen/global_padding"
+                android:paddingTop="@dimen/half_global_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -311,7 +329,7 @@
                     android:layout_marginRight="@dimen/global_padding"
                     android:layout_toLeftOf="@+id/iv_collection_right"
                     android:gravity="center_vertical"
-                    android:text="0"/>
+                    android:text="-"/>
 
                 <ImageView
                     android:id="@+id/iv_collection_right"
@@ -319,7 +337,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help"/>
+                    android:src="@drawable/ic_right"/>
 
             </RelativeLayout>
 
@@ -331,7 +349,10 @@
                 android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:padding="@dimen/global_padding">
+                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingLeft="@dimen/global_padding"
+                android:paddingRight="@dimen/global_padding"
+                android:paddingTop="@dimen/half_global_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -346,7 +367,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help"/>
+                    android:src="@drawable/ic_right"/>
 
             </RelativeLayout>
 
@@ -358,7 +379,10 @@
                 android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:padding="@dimen/global_padding">
+                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingLeft="@dimen/global_padding"
+                android:paddingRight="@dimen/global_padding"
+                android:paddingTop="@dimen/half_global_padding">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -373,7 +397,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help"/>
+                    android:src="@drawable/ic_right"/>
 
             </RelativeLayout>
 

@@ -83,9 +83,9 @@
             android:background="@null"/>
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@android:drawable/ic_menu_add"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_right"/>
     </LinearLayout>
 
     <LinearLayout

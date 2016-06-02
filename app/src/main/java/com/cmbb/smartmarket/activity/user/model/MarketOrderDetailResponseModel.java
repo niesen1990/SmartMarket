@@ -1,5 +1,8 @@
 package com.cmbb.smartmarket.activity.user.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -11,7 +14,7 @@ import java.util.List;
  * 修改时间：16/5/31 下午1:31
  * 修改备注：
  */
-public class MarketOrderDetailResponseModel {
+public class MarketOrderDetailResponseModel implements Parcelable {
 
     /**
      * id : 99
@@ -70,7 +73,7 @@ public class MarketOrderDetailResponseModel {
         this.msg = msg;
     }
 
-    public static class DataEntity {
+    public static class DataEntity implements Parcelable {
         private int id;
         /**
          * id : 159
@@ -402,7 +405,7 @@ public class MarketOrderDetailResponseModel {
             this.process = process;
         }
 
-        public static class ProductEntity {
+        public static class ProductEntity implements Parcelable {
             private int id;
             private String title;
             private String introduce;
@@ -702,7 +705,7 @@ public class MarketOrderDetailResponseModel {
                 this.productImageList = productImageList;
             }
 
-            public static class PublicUserEntity {
+            public static class PublicUserEntity implements Parcelable {
                 private int id;
                 private int mbpUserId;
                 private String imUserId;
@@ -865,9 +868,72 @@ public class MarketOrderDetailResponseModel {
                 public void setDeviceImei(String deviceImei) {
                     this.deviceImei = deviceImei;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(this.id);
+                    dest.writeInt(this.mbpUserId);
+                    dest.writeString(this.imUserId);
+                    dest.writeString(this.loginAccount);
+                    dest.writeString(this.nickName);
+                    dest.writeInt(this.sex);
+                    dest.writeString(this.province);
+                    dest.writeString(this.provinceText);
+                    dest.writeString(this.city);
+                    dest.writeString(this.cityText);
+                    dest.writeString(this.introduce);
+                    dest.writeString(this.userImg);
+                    dest.writeInt(this.imgWidth);
+                    dest.writeInt(this.imgHeight);
+                    dest.writeInt(this.userLevel);
+                    dest.writeString(this.appVersion);
+                    dest.writeString(this.device);
+                    dest.writeString(this.deviceImei);
+                }
+
+                public PublicUserEntity() {
+                }
+
+                protected PublicUserEntity(Parcel in) {
+                    this.id = in.readInt();
+                    this.mbpUserId = in.readInt();
+                    this.imUserId = in.readString();
+                    this.loginAccount = in.readString();
+                    this.nickName = in.readString();
+                    this.sex = in.readInt();
+                    this.province = in.readString();
+                    this.provinceText = in.readString();
+                    this.city = in.readString();
+                    this.cityText = in.readString();
+                    this.introduce = in.readString();
+                    this.userImg = in.readString();
+                    this.imgWidth = in.readInt();
+                    this.imgHeight = in.readInt();
+                    this.userLevel = in.readInt();
+                    this.appVersion = in.readString();
+                    this.device = in.readString();
+                    this.deviceImei = in.readString();
+                }
+
+                public static final Parcelable.Creator<PublicUserEntity> CREATOR = new Parcelable.Creator<PublicUserEntity>() {
+                    @Override
+                    public PublicUserEntity createFromParcel(Parcel source) {
+                        return new PublicUserEntity(source);
+                    }
+
+                    @Override
+                    public PublicUserEntity[] newArray(int size) {
+                        return new PublicUserEntity[size];
+                    }
+                };
             }
 
-            public static class ProductImageListEntity {
+            public static class ProductImageListEntity implements Parcelable {
                 private int imageHeight;
                 private String businessNumber;
                 private String location;
@@ -904,10 +970,132 @@ public class MarketOrderDetailResponseModel {
                 public void setImageWidth(int imageWidth) {
                     this.imageWidth = imageWidth;
                 }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(this.imageHeight);
+                    dest.writeString(this.businessNumber);
+                    dest.writeString(this.location);
+                    dest.writeInt(this.imageWidth);
+                }
+
+                public ProductImageListEntity() {
+                }
+
+                protected ProductImageListEntity(Parcel in) {
+                    this.imageHeight = in.readInt();
+                    this.businessNumber = in.readString();
+                    this.location = in.readString();
+                    this.imageWidth = in.readInt();
+                }
+
+                public static final Parcelable.Creator<ProductImageListEntity> CREATOR = new Parcelable.Creator<ProductImageListEntity>() {
+                    @Override
+                    public ProductImageListEntity createFromParcel(Parcel source) {
+                        return new ProductImageListEntity(source);
+                    }
+
+                    @Override
+                    public ProductImageListEntity[] newArray(int size) {
+                        return new ProductImageListEntity[size];
+                    }
+                };
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.id);
+                dest.writeString(this.title);
+                dest.writeString(this.introduce);
+                dest.writeString(this.content);
+                dest.writeDouble(this.originalPrice);
+                dest.writeDouble(this.currentPrice);
+                dest.writeDouble(this.freight);
+                dest.writeString(this.priceDesc);
+                dest.writeString(this.parentClassify);
+                dest.writeString(this.parentClassifyText);
+                dest.writeString(this.secondClassify);
+                dest.writeString(this.secondClassifyText);
+                dest.writeString(this.thirdClassify);
+                dest.writeString(this.thirdClassifyText);
+                dest.writeInt(this.locationId);
+                dest.writeString(this.type);
+                dest.writeString(this.status);
+                dest.writeString(this.statusText);
+                dest.writeInt(this.isResolve);
+                dest.writeString(this.resolveDate);
+                dest.writeInt(this.browseNumber);
+                dest.writeInt(this.replyNumber);
+                dest.writeInt(this.shareNumber);
+                dest.writeInt(this.isRecommoned);
+                dest.writeString(this.publicDate);
+                dest.writeInt(this.publicUserId);
+                dest.writeParcelable(this.publicUser, flags);
+                dest.writeInt(this.isCollect);
+                dest.writeInt(this.isSpot);
+                dest.writeTypedList(this.productImageList);
+            }
+
+            public ProductEntity() {
+            }
+
+            protected ProductEntity(Parcel in) {
+                this.id = in.readInt();
+                this.title = in.readString();
+                this.introduce = in.readString();
+                this.content = in.readString();
+                this.originalPrice = in.readDouble();
+                this.currentPrice = in.readDouble();
+                this.freight = in.readDouble();
+                this.priceDesc = in.readString();
+                this.parentClassify = in.readString();
+                this.parentClassifyText = in.readString();
+                this.secondClassify = in.readString();
+                this.secondClassifyText = in.readString();
+                this.thirdClassify = in.readString();
+                this.thirdClassifyText = in.readString();
+                this.locationId = in.readInt();
+                this.type = in.readString();
+                this.status = in.readString();
+                this.statusText = in.readString();
+                this.isResolve = in.readInt();
+                this.resolveDate = in.readString();
+                this.browseNumber = in.readInt();
+                this.replyNumber = in.readInt();
+                this.shareNumber = in.readInt();
+                this.isRecommoned = in.readInt();
+                this.publicDate = in.readString();
+                this.publicUserId = in.readInt();
+                this.publicUser = in.readParcelable(PublicUserEntity.class.getClassLoader());
+                this.isCollect = in.readInt();
+                this.isSpot = in.readInt();
+                this.productImageList = in.createTypedArrayList(ProductImageListEntity.CREATOR);
+            }
+
+            public static final Parcelable.Creator<ProductEntity> CREATOR = new Parcelable.Creator<ProductEntity>() {
+                @Override
+                public ProductEntity createFromParcel(Parcel source) {
+                    return new ProductEntity(source);
+                }
+
+                @Override
+                public ProductEntity[] newArray(int size) {
+                    return new ProductEntity[size];
+                }
+            };
         }
 
-        public static class BuyUserEntity {
+        public static class BuyUserEntity implements Parcelable {
             private int id;
             private int mbpUserId;
             private String imUserId;
@@ -1070,6 +1258,69 @@ public class MarketOrderDetailResponseModel {
             public void setDeviceImei(String deviceImei) {
                 this.deviceImei = deviceImei;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.id);
+                dest.writeInt(this.mbpUserId);
+                dest.writeString(this.imUserId);
+                dest.writeString(this.loginAccount);
+                dest.writeString(this.nickName);
+                dest.writeInt(this.sex);
+                dest.writeString(this.province);
+                dest.writeString(this.provinceText);
+                dest.writeString(this.city);
+                dest.writeString(this.cityText);
+                dest.writeString(this.introduce);
+                dest.writeString(this.userImg);
+                dest.writeString(this.imgWidth);
+                dest.writeString(this.imgHeight);
+                dest.writeInt(this.userLevel);
+                dest.writeString(this.appVersion);
+                dest.writeString(this.device);
+                dest.writeString(this.deviceImei);
+            }
+
+            public BuyUserEntity() {
+            }
+
+            protected BuyUserEntity(Parcel in) {
+                this.id = in.readInt();
+                this.mbpUserId = in.readInt();
+                this.imUserId = in.readString();
+                this.loginAccount = in.readString();
+                this.nickName = in.readString();
+                this.sex = in.readInt();
+                this.province = in.readString();
+                this.provinceText = in.readString();
+                this.city = in.readString();
+                this.cityText = in.readString();
+                this.introduce = in.readString();
+                this.userImg = in.readString();
+                this.imgWidth = in.readString();
+                this.imgHeight = in.readString();
+                this.userLevel = in.readInt();
+                this.appVersion = in.readString();
+                this.device = in.readString();
+                this.deviceImei = in.readString();
+            }
+
+            public static final Parcelable.Creator<BuyUserEntity> CREATOR = new Parcelable.Creator<BuyUserEntity>() {
+                @Override
+                public BuyUserEntity createFromParcel(Parcel source) {
+                    return new BuyUserEntity(source);
+                }
+
+                @Override
+                public BuyUserEntity[] newArray(int size) {
+                    return new BuyUserEntity[size];
+                }
+            };
         }
         private List<LogisticsEntity> logistics;
         public List<LogisticsEntity> getLogistics() {
@@ -1080,7 +1331,7 @@ public class MarketOrderDetailResponseModel {
             this.logistics = logistics;
         }
 
-        public static class LogisticsEntity {
+        public static class LogisticsEntity implements Parcelable {
             private String date;
             private String info;
 
@@ -1099,8 +1350,39 @@ public class MarketOrderDetailResponseModel {
             public void setInfo(String info) {
                 this.info = info;
             }
+
+            @Override
+            public int describeContents() {
+                return 0;
+            }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.date);
+                dest.writeString(this.info);
+            }
+
+            public LogisticsEntity() {
+            }
+
+            protected LogisticsEntity(Parcel in) {
+                this.date = in.readString();
+                this.info = in.readString();
+            }
+
+            public static final Parcelable.Creator<LogisticsEntity> CREATOR = new Parcelable.Creator<LogisticsEntity>() {
+                @Override
+                public LogisticsEntity createFromParcel(Parcel source) {
+                    return new LogisticsEntity(source);
+                }
+
+                @Override
+                public LogisticsEntity[] newArray(int size) {
+                    return new LogisticsEntity[size];
+                }
+            };
         }
-        public static class ProcessEntity {
+        public static class ProcessEntity implements Parcelable {
             private String statusDate;
             private String statusName;
             /**
@@ -1126,7 +1408,156 @@ public class MarketOrderDetailResponseModel {
                 this.statusName = statusName;
             }
 
+            @Override
+            public int describeContents() {
+                return 0;
+            }
 
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeString(this.statusDate);
+                dest.writeString(this.statusName);
+            }
+
+            public ProcessEntity() {
+            }
+
+            protected ProcessEntity(Parcel in) {
+                this.statusDate = in.readString();
+                this.statusName = in.readString();
+            }
+
+            public static final Parcelable.Creator<ProcessEntity> CREATOR = new Parcelable.Creator<ProcessEntity>() {
+                @Override
+                public ProcessEntity createFromParcel(Parcel source) {
+                    return new ProcessEntity(source);
+                }
+
+                @Override
+                public ProcessEntity[] newArray(int size) {
+                    return new ProcessEntity[size];
+                }
+            };
         }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeInt(this.id);
+            dest.writeParcelable(this.product, flags);
+            dest.writeParcelable(this.buyUser, flags);
+            dest.writeString(this.status);
+            dest.writeString(this.statusName);
+            dest.writeString(this.orderCode);
+            dest.writeString(this.phone);
+            dest.writeDouble(this.price);
+            dest.writeString(this.payDate);
+            dest.writeDouble(this.freight);
+            dest.writeString(this.express);
+            dest.writeString(this.expressNum);
+            dest.writeString(this.receiveName);
+            dest.writeString(this.receivePhone);
+            dest.writeString(this.postCode);
+            dest.writeString(this.address);
+            dest.writeString(this.cancelDate);
+            dest.writeString(this.cancelReason);
+            dest.writeString(this.refundStatus);
+            dest.writeString(this.refundStatusName);
+            dest.writeString(this.refundDate);
+            dest.writeString(this.refundServer);
+            dest.writeString(this.refundReason);
+            dest.writeString(this.refundMark);
+            dest.writeString(this.refundExpress);
+            dest.writeString(this.refundExpressNum);
+            dest.writeString(this.rejectDate);
+            dest.writeString(this.rejectReason);
+            dest.writeString(this.createDate);
+            dest.writeTypedList(this.process);
+            dest.writeTypedList(this.logistics);
+        }
+
+        public DataEntity() {
+        }
+
+        protected DataEntity(Parcel in) {
+            this.id = in.readInt();
+            this.product = in.readParcelable(ProductEntity.class.getClassLoader());
+            this.buyUser = in.readParcelable(BuyUserEntity.class.getClassLoader());
+            this.status = in.readString();
+            this.statusName = in.readString();
+            this.orderCode = in.readString();
+            this.phone = in.readString();
+            this.price = in.readDouble();
+            this.payDate = in.readString();
+            this.freight = in.readDouble();
+            this.express = in.readString();
+            this.expressNum = in.readString();
+            this.receiveName = in.readString();
+            this.receivePhone = in.readString();
+            this.postCode = in.readString();
+            this.address = in.readString();
+            this.cancelDate = in.readString();
+            this.cancelReason = in.readString();
+            this.refundStatus = in.readString();
+            this.refundStatusName = in.readString();
+            this.refundDate = in.readString();
+            this.refundServer = in.readString();
+            this.refundReason = in.readString();
+            this.refundMark = in.readString();
+            this.refundExpress = in.readString();
+            this.refundExpressNum = in.readString();
+            this.rejectDate = in.readString();
+            this.rejectReason = in.readString();
+            this.createDate = in.readString();
+            this.process = in.createTypedArrayList(ProcessEntity.CREATOR);
+            this.logistics = in.createTypedArrayList(LogisticsEntity.CREATOR);
+        }
+
+        public static final Parcelable.Creator<DataEntity> CREATOR = new Parcelable.Creator<DataEntity>() {
+            @Override
+            public DataEntity createFromParcel(Parcel source) {
+                return new DataEntity(source);
+            }
+
+            @Override
+            public DataEntity[] newArray(int size) {
+                return new DataEntity[size];
+            }
+        };
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(this.data, flags);
+        dest.writeString(this.msg);
+    }
+
+    public MarketOrderDetailResponseModel() {
+    }
+
+    protected MarketOrderDetailResponseModel(Parcel in) {
+        this.data = in.readParcelable(DataEntity.class.getClassLoader());
+        this.msg = in.readString();
+    }
+
+    public static final Parcelable.Creator<MarketOrderDetailResponseModel> CREATOR = new Parcelable.Creator<MarketOrderDetailResponseModel>() {
+        @Override
+        public MarketOrderDetailResponseModel createFromParcel(Parcel source) {
+            return new MarketOrderDetailResponseModel(source);
+        }
+
+        @Override
+        public MarketOrderDetailResponseModel[] newArray(int size) {
+            return new MarketOrderDetailResponseModel[size];
+        }
+    };
 }

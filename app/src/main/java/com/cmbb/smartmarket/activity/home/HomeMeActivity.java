@@ -21,13 +21,13 @@ import com.cmbb.smartmarket.activity.home.model.MyselfGetCountRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfGetCountResponseModel;
 import com.cmbb.smartmarket.activity.login.LoginActivity;
 import com.cmbb.smartmarket.activity.user.BuyFinishedActivity;
+import com.cmbb.smartmarket.activity.user.ExpressActivity;
 import com.cmbb.smartmarket.activity.user.InfoActivity;
 import com.cmbb.smartmarket.activity.user.MeCollectionActivity;
 import com.cmbb.smartmarket.activity.user.PublishListActivity;
 import com.cmbb.smartmarket.activity.user.RefundActivity;
 import com.cmbb.smartmarket.activity.user.SettingActivity;
 import com.cmbb.smartmarket.activity.user.SoldFinishedActivity;
-import com.cmbb.smartmarket.activity.user.UserCenterActivity;
 import com.cmbb.smartmarket.activity.wallet.WalletActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.db.DBContent;
@@ -136,8 +136,6 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
         setTitle("我的");
         init();
         getSupportLoaderManager().initLoader(0, null, this);
-        showWaitingDialog();
-        subscription = HttpMethod.getInstance().myselfGetCount(mMyselfGetCountResponseModelObserver, setCountParams());
     }
 
     @Override
@@ -150,6 +148,7 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
             rlNotLogin.setVisibility(View.GONE);
             rlInfo.setVisibility(View.VISIBLE);
         }
+        subscription = HttpMethod.getInstance().myselfGetCount(mMyselfGetCountResponseModelObserver, setCountParams());
     }
 
     private MyselfGetCountRequestModel setCountParams() {
@@ -185,7 +184,8 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
                 MeCollectionActivity.newIntent(this);
                 break;
             case R.id.rl_off:
-                UserCenterActivity.newIntent(this, 10);
+                //                UserCenterActivity.newIntent(this, 10);
+                ExpressActivity.newIntent(this, 12, 1);
                 break;
             case R.id.rl_address:
                 AddressManagerActivity.newIntent(this);

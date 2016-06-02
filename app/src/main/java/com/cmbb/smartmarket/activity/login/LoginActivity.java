@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -27,7 +28,9 @@ import com.cmbb.smartmarket.db.DBHelper;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.network.RetrofitRequestModel;
 import com.cmbb.smartmarket.utils.SPCache;
+import com.cmbb.smartmarket.utils.TDevice;
 
 import butterknife.BindView;
 import rx.Observer;
@@ -112,6 +115,11 @@ public class LoginActivity extends BaseActivity {
             BaseApplication.setToken(loginResponseModel.getData().getLoginToken());
             SPCache.putString(Constants.API_TOKEN, loginResponseModel.getData().getLoginToken());
             SPCache.putInt(Constants.API_USER_ID, loginResponseModel.getData().getId());
+            // 发送信息注册Alias
+            Intent intent = new Intent(Constants.INTENT_ACTION_ALIAS);
+            intent.putExtra("umeng_id", loginResponseModel.getData().getId() + "_" + TDevice.getDeviceId(LoginActivity.this));
+            intent.putExtra("umeng_type", "market");
+            LocalBroadcastManager.getInstance(LoginActivity.this).sendBroadcast(intent);
             //阿里旺旺
             IMHelper.getInstance().loginIM(loginResponseModel.getData().getImUserId(), loginResponseModel.getData().getId() + "_" + loginResponseModel.getData().getLoginAccount(), new IWxCallback() {
                 @Override
@@ -169,6 +177,8 @@ public class LoginActivity extends BaseActivity {
         showWaitingDialog();
         LoginRequestModel loginRequestModel = new LoginRequestModel();
         loginRequestModel.setCmd(ApiInterface.login);
+        loginRequestModel.setAppVersion("hm_android_" + TDevice.getVersionName());
+        loginRequestModel.setDeviceInfo(new RetrofitRequestModel.DeviceInfoEntity("ANDROID", android.os.Build.MODEL, android.os.Build.VERSION.RELEASE, TDevice.getDeviceId(this)));
         loginRequestModel.setParameters(new LoginRequestModel.ParametersEntity(etPhone.getText().toString().trim(), etCheck.getText().toString().trim()));
         subscription = HttpMethod.getInstance().requestLogin(mLoginResponseModelObserver, loginRequestModel);
     }

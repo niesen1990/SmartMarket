@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
-import com.cmbb.smartmarket.activity.user.EvaluateDetailActivity;
+import com.cmbb.smartmarket.activity.user.EvaluationForSellerActivity;
 import com.cmbb.smartmarket.activity.user.ExpressActivity;
 import com.cmbb.smartmarket.activity.user.ImmediateEvaluationActivity;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
@@ -83,14 +83,6 @@ public class SoldFinishedItemHolder extends BaseViewHolder<MarketOrderListRespon
         tvStatus01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*switch (((TextView) v).getText().toString()) {
-                    case "取消订单":
-                        CancelOrderActivity.newIntent(mContext, row.getId());
-                        break;
-                    case "申请退款":
-                        ApplyRefundActivity.newIntent(mContext, row);
-                        break;
-                }*/
             }
         });
         tvStatus02.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +96,7 @@ public class SoldFinishedItemHolder extends BaseViewHolder<MarketOrderListRespon
                         ImmediateEvaluationActivity.newIntent(mContext, row.getId());
                         break;
                     case "查看评价":
-                        EvaluateDetailActivity.newIntent(mContext, row.getId());
+                        EvaluationForSellerActivity.newIntent(mContext, row.getId());
                         break;
                 }
             }

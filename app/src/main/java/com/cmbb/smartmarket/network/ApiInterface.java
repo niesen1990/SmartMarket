@@ -10,10 +10,14 @@ import com.cmbb.smartmarket.activity.address.model.UserAddressSaveRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSaveResponseModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSetDefaultRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSetDefaultResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeAdvertInfoRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeAdvertInfoResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetAllCityListRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetAllCityListResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetHotCityListRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetHotCityListResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeRecommendationRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeRecommendationResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetTypeRequestModel;
@@ -141,9 +145,10 @@ import rx.Observable;
  * 创建时间：16/5/10 上午11:10
  */
 public interface ApiInterface {
-    //            String HOST = "http://192.168.100.109:8080/cgi/";
-    String HOST = "http://erpuat.mengbp.com:8094/wine-market-rest/cgi/";
-    //    String HOST = "http://192.168.100.61:8080/wine-market-rest/cgi/";
+    String Base = "http://erpuat.mengbp.com:8094/";
+    String HOST = Base + "wine-market-rest/cgi/";
+//        String Base = "http://192.168.100.64:8084/";
+//        String HOST = Base + "wine-market-rest/cgi/";
 
     @Headers("Content-Type: application/json")
     @POST("http://mengbaopai.smart-kids.com:82/wine-rest/cgi")
@@ -168,17 +173,17 @@ public interface ApiInterface {
     String UserInfoUpdate = "market/user/update";
 
     @Multipart
-    @POST("http://erpuat.mengbp.com:8094/wine-market-rest/market/user/userImg/")
+    @POST(Base + "wine-market-rest/market/user/userImg/")
     Observable<BaseRetrofitModel<UserInfoUpdateResponseModel>> uploadUserInfoImage(@PartMap Map<String, RequestBody> params);
 
     //发布
     @Multipart
-    @POST("http://erpuat.mengbp.com:8094/wine-market-rest/product/v1.1/public")
+    @POST(Base + "wine-market-rest/product/v1.1/public")
     Observable<BaseRetrofitModel<CommodityPublishResponseModel>> publishCommodityRequest(@PartMap Map<String, RequestBody> params);
 
     //发布编辑
     @Multipart
-    @POST("http://erpuat.mengbp.com:8094/wine-market-rest/product/v1.1/edit")
+    @POST(Base + "wine-market-rest/product/v1.1/edit")
     Observable<BaseRetrofitModel<PublishEditResponseModel>> publishEditRequest(@PartMap Map<String, RequestBody> params);
 
     @Headers("Content-Type: application/json")
@@ -496,6 +501,20 @@ public interface ApiInterface {
     // 获取热门城市
     String MarketMessageGetType = "market/message/getType";
 
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketHomeAdvertInfoResponseModel>> marketHomeAdvertInfo(@Body MarketHomeAdvertInfoRequestModel retrofitRequestModel);
+
+    // 获取广告位信息
+    String MarketHomeAdvertInfo = "market/home/advert/info";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketHomeRecommendationResponseModel>> marketHomeRecommendation(@Body MarketHomeRecommendationRequestModel retrofitRequestModel);
+
+    // 获取广告位信息
+    String MarketHomeRecommendation = "market/home/recommendation";
+
     /* *******************************首页***********************************/
     /* *******************************搜索***********************************/
     @Headers("Content-Type: application/json")
@@ -508,11 +527,11 @@ public interface ApiInterface {
     /* *******************************搜索***********************************/
     /* ******************************* 图片上传***********************************/
     @Multipart
-    @POST("http://erpuat.mengbp.com:8094/wine-market-rest/media/image/upload")
+    @POST(Base + "wine-market-rest/media/image/upload")
     Observable<BaseRetrofitModel<ImageUploadResponseModel>> uploadImageWithProgress(@PartMap Map<String, RequestBody> params);
 
     @Multipart
-    @POST("http://erpuat.mengbp.com:8094/wine-market-rest/media/image/delete")
+    @POST(Base + "wine-market-rest/media/image/delete")
     Observable<BaseRetrofitModel<ImageDeleteResponseModel>> imageDelete(@PartMap Map<String, RequestBody> params);
 
     /* *******************************图片上传***********************************/
@@ -563,7 +582,7 @@ public interface ApiInterface {
     @POST(HOST)
     Observable<BaseRetrofitModel<MarketOrderSellerSendResponseModel>> marketOrderBuyerSend(@Body MarketOrderSellerSendRequestModel retrofitRequestModel);
 
-    // 买家确认收货
+    // 买家发货（退货）
     String MarketOrderBuyerSend = "market/order/buyerSend";
 
     @Headers("Content-Type: application/json")

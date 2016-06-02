@@ -2,6 +2,7 @@ package com.cmbb.smartmarket.activity.user.holder;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -19,8 +20,9 @@ import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerReceiveRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerReceiveResponseModel;
 import com.cmbb.smartmarket.activity.user.model.OrderRefundSellStatus;
+import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
-import com.cmbb.smartmarket.base.BaseRecyclerActivity;
+import com.cmbb.smartmarket.base.Constants;
 import com.cmbb.smartmarket.image.CircleTransform;
 import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.log.Log;
@@ -57,11 +59,11 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
     private TextView tvOperation01;
     private TextView tvOperation02;
     private TextView tvOperation03;
-    private BaseRecyclerActivity mContext;
+    private BaseActivity mContext;
 
     public RefundSellItemHolder(ViewGroup parent) {
         super(parent, R.layout.activity_refund_list_item);
-        mContext = (BaseRecyclerActivity) parent.getContext();
+        mContext = (BaseActivity) parent.getContext();
         rl01 = $(R.id.rl01);
         tvOrderTag = $(R.id.tv_order_tag);
         tvOrder = $(R.id.tv_order);
@@ -126,7 +128,7 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
         tvOperation03.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (tvOperation02.getText().toString()) {
+                switch (tvOperation03.getText().toString()) {
                     case "同意":
                         DialogUtils.createAlertDialog(mContext, "警告", "您确定同意付款吗？", true, new DialogInterface.OnClickListener() {
                             @Override
@@ -149,7 +151,7 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
                                         if (marketOrderRefundResponseModel == null)
                                             return;
                                         mContext.showToast(marketOrderRefundResponseModel.getMsg());
-                                        mContext.onRefresh();
+                                        LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(Constants.INTENT_ACTION_REFRESH));
                                     }
                                 }, setAgreeParams(row));
                             }
@@ -180,7 +182,7 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
                                         if (marketOrderSellerReceiveResponseModel == null)
                                             return;
                                         mContext.showToast(marketOrderSellerReceiveResponseModel.getMsg());
-                                        mContext.onRefresh();
+                                        LocalBroadcastManager.getInstance(mContext).sendBroadcast(new Intent(Constants.INTENT_ACTION_REFRESH));
                                     }
                                 }, setReceiverParams(row.getId()));
                             }

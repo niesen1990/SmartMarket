@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
 
@@ -31,12 +32,17 @@ public class CheckRejectActivity extends BaseActivity {
     @BindView(R.id.tv_contact)
     TextView tvContact;
 
-    MarketOrderListResponseModel.DataEntity.ContentEntity dataEntity;
+    MarketOrderListResponseModel.DataEntity.ContentEntity data;
+    MarketOrderDetailResponseModel dataFormDetail;
 
     @Override
     protected void init(Bundle savedInstanceState) {
         setTitle("查看拒绝原因");
-        dataEntity = getIntent().getParcelableExtra("data");
+        if (getIntent().getParcelableExtra("entity") instanceof MarketOrderListResponseModel.DataEntity.ContentEntity) {
+            data = getIntent().getParcelableExtra("entity");
+        } else {
+            dataFormDetail = getIntent().getParcelableExtra("entity");
+        }
         tvApply.setOnClickListener(this);
         tvContact.setOnClickListener(this);
     }
@@ -46,7 +52,11 @@ public class CheckRejectActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_apply:
-                ApplyRefundActivity.newIntent(this, dataEntity);
+                if (data != null) {
+                    ApplyRefundActivity.newIntent(this, data);
+                } else {
+                    ApplyRefundActivity.newIntent(this, dataFormDetail);
+                }
                 break;
             case R.id.tv_contact:
                 // TODO: 16/5/31 联系客服
@@ -61,6 +71,12 @@ public class CheckRejectActivity extends BaseActivity {
     }
 
     public static void newIntent(Context context, MarketOrderListResponseModel.DataEntity.ContentEntity entity) {
+        Intent intent = new Intent(context, CheckRejectActivity.class);
+        intent.putExtra("data", entity);
+        context.startActivity(intent);
+    }
+
+    public static void newIntent(Context context, MarketOrderDetailResponseModel entity) {
         Intent intent = new Intent(context, CheckRejectActivity.class);
         intent.putExtra("data", entity);
         context.startActivity(intent);

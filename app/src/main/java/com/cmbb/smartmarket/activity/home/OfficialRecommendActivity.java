@@ -8,10 +8,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.home.adapter.HomeRecommendAdapter;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
-import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeRecommendationRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeRecommendationResponseModel;
+import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
+import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -52,10 +54,10 @@ public class OfficialRecommendActivity extends BaseRecyclerActivity {
 
     @Override
     public void onItemClick(int position) {
-
+        CommodityDetailActivity.newIntent(this, ((HomeRecommendAdapter) adapter).getItem(position).getId());
     }
 
-    Observer<TestModel> mTestUserAttentionModelObserver = new Observer<TestModel>() {
+    Observer<MarketHomeRecommendationResponseModel> mMarketHomeRecommendationResponseModelObserver = new Observer<MarketHomeRecommendationResponseModel>() {
         @Override
         public void onCompleted() {
 
@@ -68,37 +70,31 @@ public class OfficialRecommendActivity extends BaseRecyclerActivity {
         }
 
         @Override
-        public void onNext(TestModel testModel) {
+        public void onNext(MarketHomeRecommendationResponseModel marketHomeRecommendationResponseModel) {
             if (pager == 0)
                 adapter.clear();
-            adapter.addAll(testModel.getData().getRows());
+            adapter.addAll(marketHomeRecommendationResponseModel.getData().getContent());
         }
     };
 
     @Override
     public void onLoadMore() {
         pager++;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+        HttpMethod.getInstance().marketHomeRecommendation(mMarketHomeRecommendationResponseModelObserver, setParams());
+    }
+
+    private MarketHomeRecommendationRequestModel setParams() {
+        MarketHomeRecommendationRequestModel marketHomeRecommendationRequestModel = new MarketHomeRecommendationRequestModel();
+        marketHomeRecommendationRequestModel.setToken(BaseApplication.getToken());
+        marketHomeRecommendationRequestModel.setCmd(ApiInterface.MarketHomeRecommendation);
+        marketHomeRecommendationRequestModel.setParameters(new MarketHomeRecommendationRequestModel.ParametersEntity(1, 0, pagerSize, pager));
+        return marketHomeRecommendationRequestModel;
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
-    }
-
-    /**
-     * 设置参数
-     *
-     * @return params
-     */
-    protected TestRequestModel setParams() {
-        unSubscribe();
-        TestRequestModel testRequestModel = new TestRequestModel();
-        testRequestModel.setCmd("smart/attention/getList");
-        testRequestModel.setToken(BaseApplication.getToken());
-        testRequestModel.setParameters(new TestRequestModel.ParametersEntity(pager, pagerSize, 0));
-        return testRequestModel;
+        HttpMethod.getInstance().marketHomeRecommendation(mMarketHomeRecommendationResponseModelObserver, setParams());
     }
 
     public static void newIntent(Context context) {

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/toolbar"/>
+
+    <LinearLayout
+        android:id="@+id/ll01"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:padding="@dimen/global_padding">
+
+            <ImageView
+                android:id="@+id/iv_head"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_head_default"/>
+
+            <TextView
+                android:id="@+id/tv_from"
+                style="@style/TextAppearance.Smart.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_toRightOf="@+id/iv_head"
+                tools:text="买家昵称"/>
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                tools:text="5小时之前"/>
+
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_head"
+            android:padding="@dimen/global_padding"
+            tools:text="很好的卖家，谢谢你的理解和支持,欢迎下次再来。。。"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll01"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/global_padding">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="追评"/>
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="(1)"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll03"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll02"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:orientation="vertical"
+        android:padding="@dimen/global_padding">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_child_head"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_head_default"/>
+
+            <TextView
+                android:id="@+id/tv_nick"
+                style="@style/TextAppearance.Smart.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_toRightOf="@+id/iv_child_head"
+                android:text="买家昵称"/>
+
+            <TextView
+                android:id="@+id/tv_child_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                tools:text="5小时之前"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_child_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/global_padding"
+            tools:text="很好的卖家，谢谢你的理解和支持,欢迎下次再来。。。"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

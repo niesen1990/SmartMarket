@@ -48,8 +48,8 @@ public class WalletAccountIndexResponseModel{
 
     public static class DataEntity {
         private int userId;
-        private int balance;
-        private int prePayment;
+        private double balance;
+        private double prePayment;
         private boolean hasPassword;
         private String createDate;
         private int createUserId;
@@ -64,19 +64,19 @@ public class WalletAccountIndexResponseModel{
             this.userId = userId;
         }
 
-        public int getBalance() {
+        public double getBalance() {
             return balance;
         }
 
-        public void setBalance(int balance) {
+        public void setBalance(double balance) {
             this.balance = balance;
         }
 
-        public int getPrePayment() {
+        public double getPrePayment() {
             return prePayment;
         }
 
-        public void setPrePayment(int prePayment) {
+        public void setPrePayment(double prePayment) {
             this.prePayment = prePayment;
         }
 

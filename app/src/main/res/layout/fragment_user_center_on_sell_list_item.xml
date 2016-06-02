@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/shape_white_stroke_no_corner"
     android:foreground="?android:attr/selectableItemBackground"
     android:padding="@dimen/global_padding">
@@ -21,7 +22,7 @@
         android:layout_below="@+id/iv_pic"
         android:layout_marginTop="@dimen/half_global_padding"
         android:maxLines="1"
-        android:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
+        tools:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
 
     <RelativeLayout
         android:id="@+id/rl_content"
@@ -36,7 +37,7 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@android:drawable/ic_menu_add"
             android:gravity="center"
-            android:text="2999"
+            tools:text="2999"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"/>
 
@@ -49,7 +50,7 @@
             android:layout_toRightOf="@+id/tv_new_price"
             android:background="@drawable/shape_gray_single_line"
             android:gravity="center"
-            android:text="3700"/>
+            tools:text="3700"/>
 
     </RelativeLayout>
 
@@ -65,7 +66,7 @@
             android:id="@+id/tv_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:drawableLeft="@android:drawable/ic_menu_add"
+            android:drawableLeft="@drawable/ic_location"
             android:gravity="center"
             android:text="虹口区 大连路"
             android:textColor="@color/address"
@@ -78,7 +79,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:text="10小时前"
+            tools:text="10小时前"
             android:textSize="10sp"/>
 
     </RelativeLayout>

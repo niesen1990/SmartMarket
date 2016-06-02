@@ -7,15 +7,15 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.user.adapter.ApplyRefundAdapter;
-import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictRequestModel;
 import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
@@ -57,7 +57,7 @@ public class ApplyRefundActivity extends BaseActivity implements RecyclerArrayAd
     @BindView(R.id.tv_enclosure)
     TextView tvEnclosure;
     @BindView(R.id.et_reason)
-    EditText etReason;
+    TextView etReason;
     @BindView(R.id.behaviorRecyclerView01)
     EasyRecyclerView behaviorRecyclerView01;
     @BindView(R.id.behaviorRecyclerView02)
@@ -66,6 +66,7 @@ public class ApplyRefundActivity extends BaseActivity implements RecyclerArrayAd
     BottomSheetBehavior behavior02;
 
     MarketOrderListResponseModel.DataEntity.ContentEntity data;
+    MarketOrderDetailResponseModel dataFormDetail;
     ApplyRefundAdapter adapter01;
     ApplyRefundAdapter adapter02;
     SystemGetMultipleDictResponseModel mSystemGetMultipleDictResponseModel;
@@ -123,10 +124,16 @@ public class ApplyRefundActivity extends BaseActivity implements RecyclerArrayAd
     @Override
     protected void init(Bundle savedInstanceState) {
         setTitle("申请退款");
-        data = getIntent().getParcelableExtra("entity");
-        //ui
-        tvMoney.setText("￥" + data.getPrice());
-        tvEnclosure.setText("（包含邮费" + data.getFreight() + "元）");
+        if (getIntent().getParcelableExtra("entity") instanceof MarketOrderListResponseModel.DataEntity.ContentEntity) {
+            data = getIntent().getParcelableExtra("entity");
+            tvMoney.setText("￥" + data.getPrice());
+            tvEnclosure.setText("（包含邮费" + data.getFreight() + "元）");
+        } else {
+            dataFormDetail = getIntent().getParcelableExtra("entity");
+            tvMoney.setText("￥" + (dataFormDetail.getData().getProduct().getCurrentPrice() + dataFormDetail.getData().getProduct().getFreight()));
+            tvEnclosure.setText("（包含邮费" + dataFormDetail.getData().getProduct().getFreight() + "元）");
+        }
+
         ll01.setOnClickListener(this);
         ll02.setOnClickListener(this);
         tvSubmit.setOnClickListener(this);
@@ -182,7 +189,11 @@ public class ApplyRefundActivity extends BaseActivity implements RecyclerArrayAd
         MarketOrderApplyRefundRequestModel marketOrderApplyRefundRequestModel = new MarketOrderApplyRefundRequestModel();
         marketOrderApplyRefundRequestModel.setCmd(ApiInterface.MarketOrderApplyRefund);
         marketOrderApplyRefundRequestModel.setToken(BaseApplication.getToken());
-        marketOrderApplyRefundRequestModel.setParameters(new MarketOrderApplyRefundRequestModel.ParametersEntity(data.getId(), refundServer, refundReason, etReason.getText().toString()));
+        if (data != null) {
+            marketOrderApplyRefundRequestModel.setParameters(new MarketOrderApplyRefundRequestModel.ParametersEntity(data.getId(), refundServer, refundReason, etReason.getText().toString()));
+        } else {
+            marketOrderApplyRefundRequestModel.setParameters(new MarketOrderApplyRefundRequestModel.ParametersEntity(dataFormDetail.getData().getId(), refundServer, refundReason, etReason.getText().toString()));
+        }
         return marketOrderApplyRefundRequestModel;
     }
 
@@ -231,6 +242,12 @@ public class ApplyRefundActivity extends BaseActivity implements RecyclerArrayAd
     }
 
     public static void newIntent(Context context, MarketOrderListResponseModel.DataEntity.ContentEntity entity) {
+        Intent intent = new Intent(context, ApplyRefundActivity.class);
+        intent.putExtra("entity", entity);
+        context.startActivity(intent);
+    }
+
+    public static void newIntent(Context context, MarketOrderDetailResponseModel entity) {
         Intent intent = new Intent(context, ApplyRefundActivity.class);
         intent.putExtra("entity", entity);
         context.startActivity(intent);

@@ -104,7 +104,7 @@ public class RefundBuyItemHolder extends BaseViewHolder<MarketOrderListResponseM
         tvOperation03.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (tvOperation02.getText().toString()) {
+                switch (tvOperation03.getText().toString()) {
                     case "退货":
                         ExpressActivity.newIntent(mContext, row.getId(), 1);
                         break;

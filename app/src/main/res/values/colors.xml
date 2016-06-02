@@ -11,7 +11,8 @@
     <color name="backgray">#F5F5F5</color>
     <color name="line">#EEEEEE</color>
     <color name="user_center_bac">#24babc</color>
-    <color name="address">#2adfef</color>
+    <color name="address">#57BCFF</color>
+    <color name="half_transparent">#d0000000</color>
     <!--暗灰色 -->
     <color name="dimgray">#696969</color>
     <!--字体颜色-->

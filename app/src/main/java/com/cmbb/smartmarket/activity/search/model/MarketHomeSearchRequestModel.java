@@ -30,11 +30,31 @@ public class MarketHomeSearchRequestModel extends RetrofitRequestModel {
 
     public static class ParametersEntity {
         private String searchContent;
-        private String type;
+        private int type;
+        private int numberOfPerPage;
+        private int pageNo;
 
-        public ParametersEntity(String searchContent, String type) {
+        public ParametersEntity(String searchContent, int type, int numberOfPerPage, int pageNo) {
             this.searchContent = searchContent;
             this.type = type;
+            this.numberOfPerPage = numberOfPerPage;
+            this.pageNo = pageNo;
+        }
+
+        public int getNumberOfPerPage() {
+            return numberOfPerPage;
+        }
+
+        public void setNumberOfPerPage(int numberOfPerPage) {
+            this.numberOfPerPage = numberOfPerPage;
+        }
+
+        public int getPageNo() {
+            return pageNo;
+        }
+
+        public void setPageNo(int pageNo) {
+            this.pageNo = pageNo;
         }
 
         public String getSearchContent() {
@@ -45,11 +65,11 @@ public class MarketHomeSearchRequestModel extends RetrofitRequestModel {
             this.searchContent = searchContent;
         }
 
-        public String getType() {
+        public int getType() {
             return type;
         }
 
-        public void setType(String type) {
+        public void setType(int type) {
             this.type = type;
         }
     }

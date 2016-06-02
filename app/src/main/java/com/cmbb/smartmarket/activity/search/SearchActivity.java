@@ -10,9 +10,13 @@ import android.provider.SearchRecentSuggestions;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.SearchView;
+import android.widget.Spinner;
 
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
+import com.cmbb.smartmarket.activity.market.NeedDetailActivity;
 import com.cmbb.smartmarket.activity.search.adapter.SearchAdapter;
 import com.cmbb.smartmarket.activity.search.model.MarketHomeSearchRequestModel;
 import com.cmbb.smartmarket.activity.search.model.MarketHomeSearchResponseModel;
@@ -23,6 +27,7 @@ import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
+import butterknife.BindView;
 import rx.Observer;
 
 /**
@@ -32,9 +37,12 @@ import rx.Observer;
  * 创建时间：16/4/21 下午4:09
  */
 public class SearchActivity extends BaseRecyclerActivity {
-
     private static final String TAG = SearchActivity.class.getSimpleName();
-    private SearchView searchView;
+    @BindView(R.id.search_view)
+    SearchView searchView;
+    @BindView(R.id.sp_search)
+    Spinner spSearch;
+    int type;
     private Handler mHandler = new Handler();
     Observer<MarketHomeSearchResponseModel> mMarketHomeSearchRequestModelObserver = new Observer<MarketHomeSearchResponseModel>() {
         @Override
@@ -44,48 +52,35 @@ public class SearchActivity extends BaseRecyclerActivity {
 
         @Override
         public void onError(Throwable e) {
-
+            Log.e(TAG, e.toString());
         }
 
         @Override
         public void onNext(MarketHomeSearchResponseModel marketHomeSearchResponseModel) {
             if (marketHomeSearchResponseModel != null) {
-                adapter.clear();
+
+                if (pager == 0)
+                    adapter.clear();
                 adapter.addAll(marketHomeSearchResponseModel.getData().getContent());
             }
         }
     };
 
+    static String content;
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         initView();
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(final String newText) {
-                unSubscribe();
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        subscription = HttpMethod.getInstance().marketHomeSearch(mMarketHomeSearchRequestModelObserver, setSearchParams(newText));
-                    }
-                }, 500);
-                return true;
-            }
-        });
     }
 
     private MarketHomeSearchRequestModel setSearchParams(String newText) {
         MarketHomeSearchRequestModel marketHomeSearchRequestModel = new MarketHomeSearchRequestModel();
         marketHomeSearchRequestModel.setCmd(ApiInterface.MarketHomeSearch);
         marketHomeSearchRequestModel.setToken(BaseApplication.getToken());
-        marketHomeSearchRequestModel.setParameters(new MarketHomeSearchRequestModel.ParametersEntity(newText, "0"));
+        marketHomeSearchRequestModel.setParameters(new MarketHomeSearchRequestModel.ParametersEntity(newText, type, pagerSize, pager));
         return marketHomeSearchRequestModel;
     }
+
     @Override
     protected RecyclerView.LayoutManager setLayoutManager() {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
@@ -100,19 +95,25 @@ public class SearchActivity extends BaseRecyclerActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
         if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Log.i(TAG, query);
-            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(this, SearchRecentProvider.AUTHORITY, SearchRecentProvider.MODE);
+            searchView.setQuery(query, false);
+            SearchRecentSuggestions suggestions = new SearchRecentSuggestions(SearchActivity.this, SearchRecentProvider.AUTHORITY, SearchRecentProvider.MODE);
             suggestions.saveRecentQuery(query, null);
         }
     }
 
     protected void initView() {
         getToolbar().setDisplayHomeAsUpEnabled(false);
-        searchView = (SearchView) findViewById(R.id.search_view);
-        SearchManager mSearchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        int searchCloseButtonId = searchView.getContext().getResources().getIdentifier("android:id/search_close_btn", null, null);
+        this.searchView.findViewById(searchCloseButtonId).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.setQuery("", false);
+            }
+        });
+        final SearchManager mSearchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         SearchableInfo info = mSearchManager.getSearchableInfo(getComponentName());
         searchView.setSearchableInfo(info); // 需要在Xml文件加下建立searchable.xml,搜索框配置文件
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -124,16 +125,31 @@ public class SearchActivity extends BaseRecyclerActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                Log.i(TAG, newText);
-                return false;
+                unSubscribe();
+                content = newText;
+
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        subscription = HttpMethod.getInstance().marketHomeSearch(mMarketHomeSearchRequestModelObserver, setSearchParams(content));
+                    }
+                }, 500);
+                return true;
             }
         });
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
+        spSearch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Log.i(TAG, "setOnSearchClickListener");
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                type = position;
+                subscription = HttpMethod.getInstance().marketHomeSearch(mMarketHomeSearchRequestModelObserver, setSearchParams(content));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
+        mSmartRecyclerView.showEmpty();
     }
 
     /**
@@ -156,17 +172,29 @@ public class SearchActivity extends BaseRecyclerActivity {
 
     @Override
     public void onItemClick(int position) {
-
+        switch (type) {
+            case 0:
+                CommodityDetailActivity.newIntent(this, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
+                break;
+            case 1:
+                NeedDetailActivity.newIntent(this, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
+                break;
+            case 2:
+                CommodityDetailActivity.newIntent(this, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
+                break;
+        }
     }
 
     @Override
     public void onLoadMore() {
-
+        pager++;
+        subscription = HttpMethod.getInstance().marketHomeSearch(mMarketHomeSearchRequestModelObserver, setSearchParams(content));
     }
 
     @Override
     public void onRefresh() {
-
+        pager = 0;
+        subscription = HttpMethod.getInstance().marketHomeSearch(mMarketHomeSearchRequestModelObserver, setSearchParams(content));
     }
 
     public static void newIntent(Context context) {

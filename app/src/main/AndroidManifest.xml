@@ -110,11 +110,15 @@
         <activity android:name=".activity.message.StoreMessageActivity"/>
         <activity android:name=".activity.message.OrderMessageActivity"/>
         <activity
+            android:name=".activity.PublishOperationActivity"
+            android:theme="@style/AppTheme.FullScreen.Publish"/>
+        <activity
             android:name=".activity.wallet.WalletActivity"
             android:theme="@style/AppTheme.v21"/>
         <activity android:name=".activity.wallet.BalanceDetailActivity"/>
-        <activity android:name=".activity.wallet.PickAccountActivity"
-                  android:windowSoftInputMode="adjustResize|stateHidden"/>
+        <activity
+            android:name=".activity.wallet.PickAccountActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.wallet.AddAccountActivity"/>
         <activity android:name=".activity.wallet.AddAccountPhoneActivity"/>
         <activity
@@ -138,7 +142,12 @@
         <activity android:name=".activity.user.CheckRejectActivity"/>
         <activity android:name=".activity.user.CheckRefundActivity"/>
         <activity android:name=".activity.user.RejectRefundReasonActivity"/>
-        <activity android:name=".activity.user.OrderDetailActivity"/>
+        <activity android:name=".activity.user.OrderDetailBuyFinishedActivity"/>
+        <activity android:name=".activity.user.OrderDetailBuyRefundActivity"/>
+        <activity android:name=".activity.user.OrderDetailSellFinishedActivity"/>
+        <activity android:name=".activity.user.OrderDetailSellRefundActivity"/>
+        <activity android:name=".activity.user.CheckEvaluateActivity"/>
+        <activity android:name=".activity.user.EvaluationForSellerActivity"/>
         <activity
             android:name=".activity.user.ApplyRefundActivity"
             android:windowSoftInputMode="stateHidden"/>

@@ -17,13 +17,13 @@
 
         <TextView
             android:id="@+id/tv_city"
+            style="@style/Base.TextAppearance.AppCompat.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:layout_marginLeft="@dimen/global_padding"
             android:text="上海"
-            style="@style/Base.TextAppearance.AppCompat.Small"
-            android:textColor="@android:color/white"
-            android:layout_marginLeft="@dimen/global_padding"/>
+            android:textColor="@android:color/white"/>
 
         <TextView
             android:id="@+id/title"
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textColor="@android:color/white" />
+            android:textColor="@android:color/white"/>
 
     </android.support.v7.widget.Toolbar>
 
@@ -43,7 +43,6 @@
         android:layout_marginBottom="40dp"
         app:layout_progress="@layout/view_progress"
         app:scrollbarStyle="insideOverlay"/>
-
 
     <include layout="@layout/home_bottom"/>
 

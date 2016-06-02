@@ -105,7 +105,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:drawableLeft="@drawable/ic_wallet_pre"
                     android:gravity="center_vertical"
                     android:text="预收款"/>
 
@@ -135,17 +135,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:drawableLeft="@drawable/ic_wallet_cash"
                     android:gravity="center_vertical"
                     android:text="余额转出(提现)"/>
 
                 <ImageView
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help"/>
+                    android:src="@drawable/ic_right"/>
 
             </RelativeLayout>
 
@@ -162,7 +161,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:drawableLeft="@drawable/ic_wallet_set_psw"
                     android:gravity="center_vertical"
                     android:text="设置交易密码"/>
 
@@ -172,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help"/>
+                    android:src="@drawable/ic_right"/>
 
             </RelativeLayout>
 
@@ -189,7 +188,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:drawableLeft="@drawable/ic_wallet_modify_psw"
                     android:gravity="center_vertical"
                     android:text="修改交易密码"/>
 
@@ -199,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help"/>
+                    android:src="@drawable/ic_right"/>
 
             </RelativeLayout>
 
@@ -216,7 +215,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableLeft="@android:drawable/ic_menu_add"
+                    android:drawableLeft="@drawable/ic_wallet_setting"
                     android:gravity="center_vertical"
                     android:text="设置提现账号"/>
 
@@ -226,7 +225,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:src="@android:drawable/ic_menu_help"/>
+                    android:src="@drawable/ic_right"/>
 
             </RelativeLayout>
         </RelativeLayout>

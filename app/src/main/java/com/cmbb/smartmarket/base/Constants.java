@@ -10,7 +10,9 @@ import java.util.regex.Pattern;
  */
 public class Constants {
     public static final String INTENT_ACTION_EXIT_APP = "com.cmbb.smartmarket.exit";
+    public static final String INTENT_ACTION_ALIAS = "com.cmbb.smartmarket.alias";
     public static final String INTENT_ACTION_ERROR_INFRO = "com.cmbb.smartmarket.err";
+    public static final String INTENT_ACTION_REFRESH = "com.cmbb.smartmarket.refresh";
     public static final String INTENT_ACTION_LOCATION = "com.cmbb.smartmarket.location";
     public static final String AUTO_LOGIN_STATE_ACTION = "com.cmbb.smartmarket.autoLoginStateActionn";
     public static final String IM_USER_ID = "im_user_id";
@@ -55,4 +57,5 @@ public class Constants {
         String regex = "^[a-zA-Z]+$";
         return Pattern.matches(regex, str);
     }
+
 }

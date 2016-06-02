@@ -36,10 +36,8 @@ public class HomeAddressAdapter extends RecyclerArrayAdapter<Object> {
         if (getItem(position) instanceof String) {
             return TYPE_TAG;
         }else if (getItem(position) instanceof MarketHomeGetHotCityListResponseModel.DataEntity.HotCityEntity) {
-            Log.e("MarketHomeGetHotCityListResponseModel", "position = " + position);
             return TYPE_HOT;
         } else if (getItem(position) instanceof MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity) {
-            Log.e("MarketHomeGetAllCityListResponseModel", "position = " + position);
             return TYPE_ALL;
         }
         return TYPE_INVALID;

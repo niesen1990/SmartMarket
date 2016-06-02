@@ -13,10 +13,14 @@ import com.cmbb.smartmarket.activity.address.model.UserAddressSaveRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSaveResponseModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSetDefaultRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSetDefaultResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeAdvertInfoRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeAdvertInfoResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetAllCityListRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetAllCityListResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetHotCityListRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetHotCityListResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeRecommendationRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeRecommendationResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetTypeRequestModel;
@@ -1039,7 +1043,7 @@ public class HttpMethod {
      */
     public Subscription marketOrderBuyerSend(Observer<MarketOrderSellerSendResponseModel> observer, MarketOrderSellerSendRequestModel retrofitRequestModel) {
         Observable<MarketOrderSellerSendResponseModel> observable = mApiInterface
-                .marketOrderSellerSend(retrofitRequestModel)
+                .marketOrderBuyerSend(retrofitRequestModel)
                 .map(new HttpResultFunc<MarketOrderSellerSendResponseModel>());
         return addSubscribe(observable, observer);
     }
@@ -1111,6 +1115,34 @@ public class HttpMethod {
         Observable<MarketOrderDetailResponseModel> observable = mApiInterface
                 .marketOrderDetail(retrofitRequestModel)
                 .map(new HttpResultFunc<MarketOrderDetailResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 获取广告位信息
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketHomeAdvertInfo(Observer<MarketHomeAdvertInfoResponseModel> observer, MarketHomeAdvertInfoRequestModel retrofitRequestModel) {
+        Observable<MarketHomeAdvertInfoResponseModel> observable = mApiInterface
+                .marketHomeAdvertInfo(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketHomeAdvertInfoResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 官方推荐
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketHomeRecommendation(Observer<MarketHomeRecommendationResponseModel> observer, MarketHomeRecommendationRequestModel retrofitRequestModel) {
+        Observable<MarketHomeRecommendationResponseModel> observable = mApiInterface
+                .marketHomeRecommendation(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketHomeRecommendationResponseModel>());
         return addSubscribe(observable, observer);
     }
 }

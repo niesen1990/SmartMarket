@@ -15,6 +15,7 @@ import com.cmbb.smartmarket.activity.address.model.UserAddressDetailRequestModel
 import com.cmbb.smartmarket.activity.address.model.UserAddressDetailResponseModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSaveRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSaveResponseModel;
+import com.cmbb.smartmarket.activity.home.HomeAddressActivity;
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.log.Log;
@@ -69,6 +70,7 @@ public class AddAndEditAddressActivity extends BaseActivity {
     protected void init(Bundle savedInstanceState) {
         setTitle("添加地址");
         tvSubmit.setOnClickListener(this);
+        ll03.setOnClickListener(this);
         switchDefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -168,6 +170,7 @@ public class AddAndEditAddressActivity extends BaseActivity {
                 parametersEntity.setReceiveName(etName.getText().toString());
                 parametersEntity.setReceivePhone(etPhone.getText().toString());
                 parametersEntity.setAddress(etAddressDetail.getText().toString());
+                // TODO: 16/6/2  
                 parametersEntity.setProvince("310000");
                 parametersEntity.setCity("310100");
                 parametersEntity.setDistrict("310110");
@@ -177,6 +180,9 @@ public class AddAndEditAddressActivity extends BaseActivity {
                 }
                 requestModel.setParameters(parametersEntity);
                 subscription = HttpMethod.getInstance().requestUserAddressSave(mUserAddressSaveResponseModelObserver, requestModel);
+                break;
+            case R.id.ll03:
+                HomeAddressActivity.newIntent(this, 100);
                 break;
         }
     }
