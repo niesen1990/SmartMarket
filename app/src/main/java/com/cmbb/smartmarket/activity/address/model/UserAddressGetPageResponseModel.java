@@ -1,5 +1,8 @@
 package com.cmbb.smartmarket.activity.address.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -91,7 +94,7 @@ public class UserAddressGetPageResponseModel {
             this.rows = rows;
         }
 
-        public static class RowsEntity {
+        public static class RowsEntity implements Parcelable {
             private int id;
             private int userRelationId;
             private String receiveName;
@@ -256,28 +259,67 @@ public class UserAddressGetPageResponseModel {
             }
 
             @Override
-            public String toString() {
-                return "RowsEntity{" +
-                        "id=" + id +
-                        ", userRelationId=" + userRelationId +
-                        ", receiveName='" + receiveName + '\'' +
-                        ", receivePhone='" + receivePhone + '\'' +
-                        ", postCode='" + postCode + '\'' +
-                        ", province=" + province +
-                        ", city=" + city +
-                        ", district=" + district +
-                        ", address='" + address + '\'' +
-                        ", isDefault=" + isDefault +
-                        ", isDelete=" + isDelete +
-                        ", createDate='" + createDate + '\'' +
-                        ", createUserId=" + createUserId +
-                        ", updateDate='" + updateDate + '\'' +
-                        ", updateUserId=" + updateUserId +
-                        ", provinceText='" + provinceText + '\'' +
-                        ", cityText='" + cityText + '\'' +
-                        ", districtText='" + districtText + '\'' +
-                        '}';
+            public int describeContents() {
+                return 0;
             }
+
+            @Override
+            public void writeToParcel(Parcel dest, int flags) {
+                dest.writeInt(this.id);
+                dest.writeInt(this.userRelationId);
+                dest.writeString(this.receiveName);
+                dest.writeString(this.receivePhone);
+                dest.writeString(this.postCode);
+                dest.writeInt(this.province);
+                dest.writeInt(this.city);
+                dest.writeInt(this.district);
+                dest.writeString(this.address);
+                dest.writeInt(this.isDefault);
+                dest.writeInt(this.isDelete);
+                dest.writeString(this.createDate);
+                dest.writeInt(this.createUserId);
+                dest.writeString(this.updateDate);
+                dest.writeInt(this.updateUserId);
+                dest.writeString(this.provinceText);
+                dest.writeString(this.cityText);
+                dest.writeString(this.districtText);
+            }
+
+            public RowsEntity() {
+            }
+
+            protected RowsEntity(Parcel in) {
+                this.id = in.readInt();
+                this.userRelationId = in.readInt();
+                this.receiveName = in.readString();
+                this.receivePhone = in.readString();
+                this.postCode = in.readString();
+                this.province = in.readInt();
+                this.city = in.readInt();
+                this.district = in.readInt();
+                this.address = in.readString();
+                this.isDefault = in.readInt();
+                this.isDelete = in.readInt();
+                this.createDate = in.readString();
+                this.createUserId = in.readInt();
+                this.updateDate = in.readString();
+                this.updateUserId = in.readInt();
+                this.provinceText = in.readString();
+                this.cityText = in.readString();
+                this.districtText = in.readString();
+            }
+
+            public static final Parcelable.Creator<RowsEntity> CREATOR = new Parcelable.Creator<RowsEntity>() {
+                @Override
+                public RowsEntity createFromParcel(Parcel source) {
+                    return new RowsEntity(source);
+                }
+
+                @Override
+                public RowsEntity[] newArray(int size) {
+                    return new RowsEntity[size];
+                }
+            };
         }
 
         @Override

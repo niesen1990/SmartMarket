@@ -19,6 +19,7 @@
         android:layout_margin="@dimen/global_padding"
         android:background="@drawable/shape_white_stroke_corner"
         android:gravity="top"
+        android:textSize="14sp"
         android:padding="@dimen/global_padding"
         android:textColor="@color/dimgray"/>
 

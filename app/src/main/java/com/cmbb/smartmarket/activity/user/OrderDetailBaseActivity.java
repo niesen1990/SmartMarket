@@ -156,7 +156,7 @@ public abstract class OrderDetailBaseActivity extends BaseRecyclerActivity {
         MarketOrderDetailRequestModel marketOrderDetailRequestModel = new MarketOrderDetailRequestModel();
         marketOrderDetailRequestModel.setToken(BaseApplication.getToken());
         marketOrderDetailRequestModel.setCmd(ApiInterface.MarketOrderDetail);
-        marketOrderDetailRequestModel.setParameters(new MarketOrderDetailRequestModel.ParametersEntity(getIntent().getStringExtra("orderType"), getIntent().getIntExtra("orderId", -1)));
+        marketOrderDetailRequestModel.setParameters(new MarketOrderDetailRequestModel.ParametersEntity(getIntent().getIntExtra("orderId", -1)));
         return marketOrderDetailRequestModel;
     }
 

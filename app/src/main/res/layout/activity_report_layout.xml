@@ -55,18 +55,9 @@
                     android:text="政治敏感"
                     android:textColor="@color/dimgray" />
 
-                <RadioButton
-                    android:id="@+id/rb03"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/half_global_padding"
-                    android:layout_marginLeft="@dimen/global_padding"
-                    android:layout_marginRight="@dimen/global_padding"
-                    android:text="广告骚扰"
-                    android:textColor="@color/dimgray" />
 
                 <RadioButton
-                    android:id="@+id/rb004"
+                    android:id="@+id/rb03"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/half_global_padding"
@@ -81,7 +72,7 @@
                     android:background="@color/windowBackgroundColor" />
 
                 <RadioButton
-                    android:id="@+id/rb05"
+                    android:id="@+id/rb04"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/global_padding"

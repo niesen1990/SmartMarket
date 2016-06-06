@@ -41,7 +41,7 @@ public class DBContent implements BaseColumns {
                 USER_INTRODUCE + TEXT_TYPE + "\n" +
                 USER_LEVEL + " INTEGER" + "\n" +
                 " );";
-        public static final String DELETE_TABLE = "DROP TABLE IF EXISTS USER";
+        public static final String DELETE_TABLE = "DROP TABLE IF EXISTS UserAccount";
 
         public static final String AUTHORITY = "com.cmbb.smartmarket.useraccount";
 

@@ -3,6 +3,7 @@ package com.cmbb.smartmarket.activity.market;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.market.adapter.BannerDetailListAdapter;
 import com.cmbb.smartmarket.activity.market.adapter.DetailReplayAdapter;
+import com.cmbb.smartmarket.activity.market.model.ProductCollectRequestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductCollectResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteReplyRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteReplyResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDetailRequestModel;
@@ -104,8 +107,10 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
     RecyclerArrayAdapter.ItemView headItemView;
     int userId;
     int replayId;
+    int productId;
     String imUserId;
     String userNick;
+    int isCollection;
     Observer<ProductDetailResponseModel> mProductDetailResponseModelObserver = new Observer<ProductDetailResponseModel>() {
         @Override
         public void onCompleted() {
@@ -120,6 +125,8 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
         @Override
         public void onNext(ProductDetailResponseModel productDetailResponseModel) {
             if (productDetailResponseModel != null) {
+                productId = productDetailResponseModel.getData().getId();
+                isCollection = productDetailResponseModel.getData().getIsCollect();
                 userId = productDetailResponseModel.getData().getPublicUser().getId();
                 userNick = productDetailResponseModel.getData().getPublicUser().getNickName();
                 if (productDetailResponseModel.getData().getPublicUser().getImUserId() != null)
@@ -320,7 +327,7 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_report:
-                ReportActivity.newIntent(this);
+                ReportActivity.newIntent(this, productId);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -344,7 +351,39 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
                 imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
                 break;
             case R.id.iv_collection:
-                // TODO: 16/4/28  
+                // TODO: 16/4/28
+                HttpMethod.getInstance().requestProductCollect(new Observer<ProductCollectResponseModel>() {
+                    @Override
+                    public void onCompleted() {
+                        hideWaitingDialog();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(TAG, e.toString());
+                        hideWaitingDialog();
+                    }
+
+                    @Override
+                    public void onNext(ProductCollectResponseModel productCollectResponseModel) {
+                        if (productCollectResponseModel == null)
+                            return;
+                        showToast(productCollectResponseModel.getMsg());
+                        isCollection = isCollection == 0 ? 1 : 0;
+                        switch (isCollection) {
+                            case 0:
+                                Drawable drawable0 = getResources().getDrawable(R.drawable.ic_collection_normal);
+                                drawable0.setBounds(0, 0, drawable0.getMinimumWidth(), drawable0.getMinimumHeight());
+                                ivCollection.setCompoundDrawables(drawable0, null, null, null);
+                                break;
+                            case 1:
+                                Drawable drawable1 = getResources().getDrawable(R.drawable.ic_collected);
+                                drawable1.setBounds(0, 0, drawable1.getMinimumWidth(), drawable1.getMinimumHeight());
+                                ivCollection.setCompoundDrawables(drawable1, null, null, null);
+                                break;
+                        }
+                    }
+                }, setCollectionParams());
                 break;
             case R.id.tv_buy:
                 // TODO: 16/4/28
@@ -367,6 +406,14 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
                 }
                 break;
         }
+    }
+
+    private ProductCollectRequestModel setCollectionParams() {
+        ProductCollectRequestModel productCollectRequestModel = new ProductCollectRequestModel();
+        productCollectRequestModel.setCmd(ApiInterface.ProductCollect);
+        productCollectRequestModel.setToken(BaseApplication.getToken());
+        productCollectRequestModel.setParameters(new ProductCollectRequestModel.ParametersEntity(getIntent().getIntExtra("id", -1), isCollection == 0 ? 1 : 0));
+        return productCollectRequestModel;
     }
 
     private ProductReplayRequestModel setReplayParams() {

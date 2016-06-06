@@ -8,7 +8,6 @@ import com.cmbb.smartmarket.activity.home.holder.AddressHotItemHolder;
 import com.cmbb.smartmarket.activity.home.holder.AddressItemHolder;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetAllCityListResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetHotCityListResponseModel;
-import com.cmbb.smartmarket.log.Log;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -35,7 +34,7 @@ public class HomeAddressAdapter extends RecyclerArrayAdapter<Object> {
     public int getViewType(int position) {
         if (getItem(position) instanceof String) {
             return TYPE_TAG;
-        }else if (getItem(position) instanceof MarketHomeGetHotCityListResponseModel.DataEntity.HotCityEntity) {
+        } else if (getItem(position) instanceof MarketHomeGetHotCityListResponseModel.DataEntity.HotCityEntity) {
             return TYPE_HOT;
         } else if (getItem(position) instanceof MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity) {
             return TYPE_ALL;
@@ -53,7 +52,6 @@ public class HomeAddressAdapter extends RecyclerArrayAdapter<Object> {
             case TYPE_ALL:
                 return new AddressItemHolder(parent);
             default:
-                Log.e("TYPE_INVALID");
                 throw new InvalidParameterException();
         }
     }

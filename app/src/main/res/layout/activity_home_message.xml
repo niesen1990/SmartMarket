@@ -68,6 +68,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl"
                     android:text="您没有新的系统消息"
+                    android:textSize="12sp"
                     android:textColor="@color/darkgray"/>
 
                 <TextView
@@ -129,8 +130,9 @@
                     android:layout_marginBottom="3dp"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
+                    android:textSize="12sp"
                     android:layout_toRightOf="@+id/fl_store"
-                    android:text="您没有新的系统消息"
+                    android:text="您没有新的商品消息"
                     android:textColor="@color/darkgray"/>
 
                 <TextView
@@ -192,8 +194,10 @@
                     android:layout_marginBottom="3dp"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
+                    android:textSize="12sp"
+                    android:maxLines="1"
                     android:layout_toRightOf="@+id/fl_order"
-                    android:text="您没有新的系统消息"
+                    android:text="您没有新的订单消息"
                     android:textColor="@color/darkgray"/>
 
                 <TextView
@@ -255,8 +259,9 @@
                     android:layout_marginBottom="3dp"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
+                    android:textSize="12sp"
                     android:layout_toRightOf="@+id/fl_chat"
-                    android:text="您没有新的系统消息"
+                    android:text="您没有新的聊天消息"
                     android:textColor="@color/darkgray"/>
 
                 <TextView

@@ -22,6 +22,7 @@ import com.cmbb.smartmarket.utils.SPCache;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import rx.Observer;
@@ -41,6 +42,7 @@ public class HomeAddressActivity extends BaseRecyclerActivity {
     @BindView(R.id.et_content)
     EditText etContent;
     ArrayList<Object> cityAll = new ArrayList<>();
+    boolean needHotCity;
     Observer<Object> mMarketHomeGetAllCityListResponseModelObserver = new Observer<Object>() {
         @Override
         public void onCompleted() {
@@ -68,9 +70,34 @@ public class HomeAddressActivity extends BaseRecyclerActivity {
         }
     };
 
+    Observer<MarketHomeGetAllCityListResponseModel> mMarketHomeGetAllCityListResponseModelObserver2 = new Observer<MarketHomeGetAllCityListResponseModel>() {
+        @Override
+        public void onCompleted() {
+            adapter.clear();
+            adapter.addAll(cityAll);
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e(TAG, e.toString());
+        }
+
+        @Override
+        public void onNext(MarketHomeGetAllCityListResponseModel marketHomeGetAllCityListResponseModel) {
+            //处理数据
+            if (marketHomeGetAllCityListResponseModel == null)
+                return;
+            for (MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity allCityEntity : marketHomeGetAllCityListResponseModel.getData().getAllCity()) {
+                cityAll.add(allCityEntity.getName());
+                cityAll.addAll(allCityEntity.getArrays());
+            }
+        }
+    };
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         getToolbar().setDisplayHomeAsUpEnabled(false);
+        needHotCity = getIntent().getBooleanExtra("hotCity", false);
         cityAll.add(SPCache.getString(Constants.LOCATION_CITY, "您可能未开启定位权限"));
         etContent.addTextChangedListener(new TextWatcher() {
             @Override
@@ -83,14 +110,12 @@ public class HomeAddressActivity extends BaseRecyclerActivity {
                 if (cityAll == null || cityAll.size() == 0)
                     return;
                 String content = etContent.getText().toString();
-                ArrayList<MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity> cacheList = new ArrayList<MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity>();
+                List<Object> cacheList = new ArrayList<>();
                 if (Constants.regExpChinese(content)) {
                     //中文
                     for (Object o : cityAll) {
-                        if (o instanceof MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity) {
-                            if (((MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity) o).getName().contains(content)) {
-                                cacheList.add((MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity) o);
-                            }
+                        if (o instanceof MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity && ((MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity) o).getName().contains(content)) {
+                            cacheList.add(o);
                         }
                     }
                     adapter.clear();
@@ -99,10 +124,8 @@ public class HomeAddressActivity extends BaseRecyclerActivity {
                     //英文
                     content = content.toLowerCase();
                     for (Object o : cityAll) {
-                        if (o instanceof MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity) {
-                            if (((MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity) o).getPhoneticize().contains(content)) {
-                                cacheList.add((MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity) o);
-                            }
+                        if (o instanceof MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity && ((MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity) o).getPhoneticize().contains(content)) {
+                            cacheList.add(o);
                         }
                     }
                     adapter.clear();
@@ -133,10 +156,20 @@ public class HomeAddressActivity extends BaseRecyclerActivity {
 
     @Override
     public void onItemClick(int position) {
-        if (cityAll.get(position) instanceof MarketHomeGetHotCityListResponseModel.DataEntity.HotCityEntity) {
+        Intent intent = new Intent();
+        if (adapter.getItem(position) instanceof MarketHomeGetHotCityListResponseModel.DataEntity.HotCityEntity) {
             //热门城市点击
-        } else if (cityAll.get(position) instanceof MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity) {
+            intent.putExtra("city", ((MarketHomeGetHotCityListResponseModel.DataEntity.HotCityEntity) (adapter.getItem(position))).getName());
+            intent.putExtra("cityCode", ((MarketHomeGetHotCityListResponseModel.DataEntity.HotCityEntity) (adapter.getItem(position))).getTypeCode());
+            setResult(RESULT_OK, intent);
+            finish();
+
+        } else if (adapter.getItem(position) instanceof MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity) {
             // 普通城市点击
+            intent.putExtra("city", ((MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity) (adapter.getItem(position))).getName());
+            intent.putExtra("cityCode", ((MarketHomeGetAllCityListResponseModel.DataEntity.AllCityEntity.ArraysEntity) (adapter.getItem(position))).getCode());
+            setResult(RESULT_OK, intent);
+            finish();
         }
     }
 
@@ -147,7 +180,11 @@ public class HomeAddressActivity extends BaseRecyclerActivity {
 
     @Override
     public void onRefresh() {
-        subscription = HttpMethod.getInstance().marketHomeGetHotCityList(mMarketHomeGetAllCityListResponseModelObserver, setHotParams(), setAllCityParams());
+        if (needHotCity) {
+            subscription = HttpMethod.getInstance().marketHomeGetHotCityList(mMarketHomeGetAllCityListResponseModelObserver, setHotParams(), setAllCityParams());
+        } else {
+            subscription = HttpMethod.getInstance().marketHomeGetAllCityList(mMarketHomeGetAllCityListResponseModelObserver2, setAllCityParams());
+        }
     }
 
     private MarketHomeGetHotCityListRequestModel setHotParams() {
@@ -163,8 +200,9 @@ public class HomeAddressActivity extends BaseRecyclerActivity {
         return marketHomeGetAllCityListRequestModel;
     }
 
-    public static void newIntent(BaseActivity context, int requestCode) {
+    public static void newIntent(BaseActivity context, boolean hotCity, int requestCode) {
         Intent intent = new Intent(context, HomeAddressActivity.class);
+        intent.putExtra("hotCity", hotCity);
         context.startActivityForResult(intent, requestCode);
     }
 }

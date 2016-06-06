@@ -15,25 +15,42 @@ public class CodeInfoListRequestModel extends RetrofitRequestModel {
 
     /**
      * typeCode : market_product_type
-     * parentCode :
+     * parentCode : MMYP
      */
 
-    private String typeCode;
-    private String parentCode;
+    private ParametersEntity parameters;
 
-    public String getTypeCode() {
-        return typeCode;
+    public ParametersEntity getParameters() {
+        return parameters;
     }
 
-    public void setTypeCode(String typeCode) {
-        this.typeCode = typeCode;
+    public void setParameters(ParametersEntity parameters) {
+        this.parameters = parameters;
     }
 
-    public String getParentCode() {
-        return parentCode;
-    }
+    public static class ParametersEntity {
+        private String typeCode;
+        private String parentCode;
 
-    public void setParentCode(String parentCode) {
-        this.parentCode = parentCode;
+        public ParametersEntity(String typeCode, String parentCode) {
+            this.typeCode = typeCode;
+            this.parentCode = parentCode;
+        }
+
+        public String getTypeCode() {
+            return typeCode;
+        }
+
+        public void setTypeCode(String typeCode) {
+            this.typeCode = typeCode;
+        }
+
+        public String getParentCode() {
+            return parentCode;
+        }
+
+        public void setParentCode(String parentCode) {
+            this.parentCode = parentCode;
+        }
     }
 }

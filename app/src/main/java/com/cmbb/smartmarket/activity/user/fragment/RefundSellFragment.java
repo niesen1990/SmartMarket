@@ -87,7 +87,7 @@ public class RefundSellFragment extends BaseRecyclerFragment {
 
     @Override
     public void onItemClick(int position) {
-        OrderDetailSellRefundActivity.newIntent(getActivity(), ((RefundSellAdapter) adapter).getItem(position).getId(), "refund");
+        OrderDetailSellRefundActivity.newIntent(getActivity(), ((RefundSellAdapter) adapter).getItem(position).getId());
     }
 
     @Override

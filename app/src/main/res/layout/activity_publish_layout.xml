@@ -223,7 +223,7 @@
                         android:layout_height="84dp"
                         android:layout_margin="@dimen/half_global_padding"
                         android:background="@drawable/shape_white_stroke_no_corner"
-                        android:src="@android:drawable/ic_menu_add"/>
+                        android:src="@drawable/ic_add"/>
 
 
                 </LinearLayout>
@@ -236,11 +236,11 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ll02"
                 android:layout_margin="@dimen/global_padding"
-                android:drawableLeft="@android:drawable/ic_menu_add"
+                android:drawableLeft="@drawable/ic_location"
                 android:gravity="center_vertical"
-                android:text="上海 上海 杨浦区"
                 android:textColor="@color/address"
-                android:textSize="12sp"/>
+                android:textSize="12sp"
+                tools:text="上海 上海 杨浦区"/>
 
             <LinearLayout
                 android:id="@+id/ll03"
@@ -263,6 +263,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:background="@drawable/shape_white_stroke_no_corner"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:padding="@dimen/global_padding">
 
@@ -280,7 +281,7 @@
                             android:background="@android:color/white"
                             android:inputType="numberDecimal"
                             android:maxLines="1"
-                            android:text="6"/>
+                            android:text="0"/>
 
                         <TextView
                             android:layout_width="0dp"
@@ -296,6 +297,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="1"
                         android:background="@drawable/shape_white_stroke_no_corner"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:padding="@dimen/global_padding">
 
@@ -313,7 +315,7 @@
                             android:background="@android:color/white"
                             android:inputType="numberDecimal"
                             android:maxLines="1"
-                            android:text="6"/>
+                            android:text="0"/>
 
                         <TextView
                             android:layout_width="0dp"
@@ -329,6 +331,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/shape_white_stroke_no_corner"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal"
                     android:padding="@dimen/global_padding">
 
@@ -346,7 +349,7 @@
                         android:background="@android:color/white"
                         android:inputType="numberDecimal"
                         android:maxLines="1"
-                        android:text="6"/>
+                        android:text="0"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -368,17 +371,29 @@
                 android:padding="@dimen/global_padding">
 
                 <TextView
+                    android:id="@+id/tv_classfiy_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="分类"/>
 
 
+                <TextView
+                    android:id="@+id/tv_class"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/activity_vertical_margin"
+                    android:layout_toRightOf="@+id/tv_classfiy_tag"
+                    android:maxLines="1"
+                    android:text=""/>
+
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:src="@android:drawable/ic_menu_add"/>
+                    android:src="@drawable/ic_right"/>
             </RelativeLayout>
 
 

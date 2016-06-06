@@ -222,8 +222,7 @@ public class PayActivity extends BaseRecyclerActivity {
     @Override
     public void onRefresh() {
         adapter.clear();
-        adapter.add(new PayItemModel(R.mipmap.ic_launcher, "支付宝", "推荐支付宝用户使用"));
-        adapter.add(new PayItemModel(R.mipmap.ic_launcher, "微信支付", "推荐微信用户使用"));
+        adapter.add(new PayItemModel(R.drawable.ic_zhifubao, "支付宝", "推荐支付宝用户使用"));
         unSubscribe();
         showWaitingDialog();
         subscription = HttpMethod.getInstance().marketOrderPayOrder(mSmartServicesPayOrderResponseModelObserver, setParams());

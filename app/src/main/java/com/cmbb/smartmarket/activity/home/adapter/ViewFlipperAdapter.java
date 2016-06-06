@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductGetPageResponseModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +23,13 @@ import java.util.List;
  */
 public class ViewFlipperAdapter extends BaseAdapter {
 
-    private List<TestModel.DataEntity.RowsEntity> mRowsEntities;
+    private List<ProductGetPageResponseModel.DataEntity.ContentEntity> mRowsEntities;
 
     public ViewFlipperAdapter() {
         mRowsEntities = new ArrayList<>();
     }
 
-    public void updateEntities(List<TestModel.DataEntity.RowsEntity> rowsEntities) {
+    public void updateEntities(List<ProductGetPageResponseModel.DataEntity.ContentEntity> rowsEntities) {
         if (rowsEntities != null) {
             mRowsEntities.clear();
             mRowsEntities.addAll(rowsEntities);
@@ -43,7 +43,7 @@ public class ViewFlipperAdapter extends BaseAdapter {
     }
 
     @Override
-    public TestModel.DataEntity.RowsEntity getItem(int position) {
+    public ProductGetPageResponseModel.DataEntity.ContentEntity getItem(int position) {
         return mRowsEntities.get(position);
     }
 
@@ -64,8 +64,12 @@ public class ViewFlipperAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.tv_head_zan_content.setText(getItem(position).getUserNike());
-        holder.tv_head_xin_content.setText(getItem(position).getUserNike());
+        holder.tv_head_zan_content.setText(getItem(position).getTitle());
+        if (position + 1 == getCount()) {
+            holder.tv_head_xin_content.setText(getItem(0).getTitle());
+        } else {
+            holder.tv_head_xin_content.setText(getItem(position + 1).getTitle());
+        }
         return convertView;
     }
 

@@ -45,7 +45,6 @@ public class BuyFinishedActivity extends BaseRecyclerActivity {
     Observer<MarketOrderListResponseModel> mMarketOrderListResponseModelObserver = new Observer<MarketOrderListResponseModel>() {
         @Override
         public void onCompleted() {
-
         }
 
         @Override
@@ -75,7 +74,7 @@ public class BuyFinishedActivity extends BaseRecyclerActivity {
 
     @Override
     public void onItemClick(int position) {
-        OrderDetailBuyFinishedActivity.newIntent(this, ((BuyFinishedAdapter) adapter).getItem(position).getId(), "order");
+        OrderDetailBuyFinishedActivity.newIntent(this, ((BuyFinishedAdapter) adapter).getItem(position).getId());
     }
 
     @Override

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.alibaba.mobileim.channel.event.IWxCallback;
 import com.alibaba.mobileim.utility.IMPrefsTools;
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.home.HomePagerActivity;
 import com.cmbb.smartmarket.activity.login.model.LoginRequestModel;
 import com.cmbb.smartmarket.activity.login.model.LoginResponseModel;
 import com.cmbb.smartmarket.activity.login.model.SecurityCodeRequestModel;
@@ -31,6 +32,7 @@ import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.network.RetrofitRequestModel;
 import com.cmbb.smartmarket.utils.SPCache;
 import com.cmbb.smartmarket.utils.TDevice;
+import com.cmbb.smartmarket.utils.TimeCount;
 
 import butterknife.BindView;
 import rx.Observer;
@@ -55,12 +57,15 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.tv_login)
     TextView tvLogin;
     DBHelper dbHelper;
+    TimeCount timeCount;
 
     @Override
     protected void init(Bundle savedInstanceState) {
         dbHelper = new DBHelper(this);
         tvLogin.setOnClickListener(this);
         tvCheck.setOnClickListener(this);
+        timeCount = new TimeCount(60000, 1000, tvCheck);
+
     }
 
     @Override
@@ -109,10 +114,10 @@ public class LoginActivity extends BaseActivity {
             values.put(DBContent.DBUser.USER_CITY_ID, loginResponseModel.getData().getCity());
             values.put(DBContent.DBUser.USER_LEVEL, loginResponseModel.getData().getUserLevel());
             values.put(DBContent.DBUser.USER_INTRODUCE, loginResponseModel.getData().getIntroduce());
-            if (loginResponseModel.getData().getImUserId() != null)
-                values.put(DBContent.DBUser.IM_USER_ID, loginResponseModel.getData().getImUserId());
+            values.put(DBContent.DBUser.IM_USER_ID, loginResponseModel.getData().getImUserId());
             getContentResolver().insert(DBContent.DBUser.CONTENT_URI, values);
             BaseApplication.setToken(loginResponseModel.getData().getLoginToken());
+            BaseApplication.setUserId(loginResponseModel.getData().getId());
             SPCache.putString(Constants.API_TOKEN, loginResponseModel.getData().getLoginToken());
             SPCache.putInt(Constants.API_USER_ID, loginResponseModel.getData().getId());
             // 发送信息注册Alias
@@ -121,15 +126,15 @@ public class LoginActivity extends BaseActivity {
             intent.putExtra("umeng_type", "market");
             LocalBroadcastManager.getInstance(LoginActivity.this).sendBroadcast(intent);
             //阿里旺旺
-            IMHelper.getInstance().loginIM(loginResponseModel.getData().getImUserId(), loginResponseModel.getData().getId() + "_" + loginResponseModel.getData().getLoginAccount(), new IWxCallback() {
+            Log.i(TAG, loginResponseModel.getData().getImUserId());
+            Log.i(TAG, loginResponseModel.getData().getId() + "_" + loginResponseModel.getData().getImUserId());
+            IMHelper.getInstance().loginIM(loginResponseModel.getData().getImUserId(), loginResponseModel.getData().getId() + "_" + loginResponseModel.getData().getImUserId(), new IWxCallback() {
                 @Override
                 public void onSuccess(Object... objects) {
-                    showToast("IM 登陆成功");
-                    showToast(loginResponseModel.getMsg());
                     hideWaitingDialog();
                     IMPrefsTools.setStringPrefs(LoginActivity.this, Constants.IM_USER_ID, loginResponseModel.getData().getImUserId());
                     IMPrefsTools.setStringPrefs(LoginActivity.this, Constants.IM_USER_PASSWORD, loginResponseModel.getData().getId() + "_" + loginResponseModel.getData().getLoginAccount());
-                    finish();
+                    HomePagerActivity.newIntent(LoginActivity.this);
                 }
 
                 @Override
@@ -160,6 +165,7 @@ public class LoginActivity extends BaseActivity {
         @Override
         public void onNext(SecurityCodeResponseModel securityCodeResponseModel) {
             showToast(securityCodeResponseModel.getMsg());
+            timeCount.start();
         }
     };
 

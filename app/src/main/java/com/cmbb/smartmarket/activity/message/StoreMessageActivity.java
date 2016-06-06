@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
-import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageGetPageRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageGetPageResponseModel;
 import com.cmbb.smartmarket.activity.message.adapter.MessageStoreAdapter;
 import com.cmbb.smartmarket.base.BaseApplication;
-import com.cmbb.smartmarket.base.BaseRecyclerActivity;
+import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.widget.SpaceItemDecoration;
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -23,11 +23,12 @@ import rx.Observer;
  * 创建人：N.Sun
  * 创建时间：16/4/27 下午7:02
  */
-public class StoreMessageActivity extends BaseRecyclerActivity {
+public class StoreMessageActivity extends BaseMessageActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         setTitle("商品消息");
         onRefresh();
+        cancelMessage();
     }
 
     @Override
@@ -50,7 +51,7 @@ public class StoreMessageActivity extends BaseRecyclerActivity {
 
     }
 
-    Observer<TestModel> mTestUserAttentionModelObserver = new Observer<TestModel>() {
+    Observer<MarketMessageGetPageResponseModel> mMarketMessageGetPageResponseModelObserver = new Observer<MarketMessageGetPageResponseModel>() {
         @Override
         public void onCompleted() {
 
@@ -63,41 +64,37 @@ public class StoreMessageActivity extends BaseRecyclerActivity {
         }
 
         @Override
-        public void onNext(TestModel testModel) {
+        public void onNext(MarketMessageGetPageResponseModel marketMessageGetPageResponseModel) {
             if (pager == 0)
                 adapter.clear();
-            adapter.addAll(testModel.getData().getRows());
+            adapter.addAll(marketMessageGetPageResponseModel.getData().getContent());
         }
     };
+
 
     @Override
     public void onLoadMore() {
         pager++;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+        HttpMethod.getInstance().marketMessageGetPage(mMarketMessageGetPageResponseModelObserver, setParams());
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+        HttpMethod.getInstance().marketMessageGetPage(mMarketMessageGetPageResponseModelObserver, setParams());
     }
 
-    /**
-     * 设置参数
-     *
-     * @return params
-     */
-    protected TestRequestModel setParams() {
-        unSubscribe();
-        TestRequestModel testRequestModel = new TestRequestModel();
-        testRequestModel.setCmd("smart/attention/getList");
-        testRequestModel.setToken(BaseApplication.getToken());
-        testRequestModel.setParameters(new TestRequestModel.ParametersEntity(pager, pagerSize, 0));
-        return testRequestModel;
+    private MarketMessageGetPageRequestModel setParams() {
+        MarketMessageGetPageRequestModel marketMessageGetPageRequestModel = new MarketMessageGetPageRequestModel();
+        marketMessageGetPageRequestModel.setCmd(ApiInterface.MarketMessageGetPage);
+        marketMessageGetPageRequestModel.setToken(BaseApplication.getToken());
+        marketMessageGetPageRequestModel.setParameters(new MarketMessageGetPageRequestModel.ParametersEntity("product", pagerSize, pager));
+        return marketMessageGetPageRequestModel;
     }
 
-    public static void newIntent(Context context) {
+    public static void newIntent(Context context, int id) {
         Intent intent = new Intent(context, StoreMessageActivity.class);
+        intent.putExtra("id", id);
         context.startActivity(intent);
     }
 }

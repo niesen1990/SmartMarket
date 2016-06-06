@@ -1,7 +1,5 @@
 package com.cmbb.smartmarket.activity.user.model;
 
-import java.util.List;
-
 /**
  * 项目名称：SmartMarket
  * 类描述：
@@ -69,13 +67,13 @@ public class UserInfoUpdateResponseModel {
         private String cityText;
         private String userImg;
         private int imgHeight;
-        private List<String> imUserId;
+        private String imUserId;
 
-        public List<String> getImUserId() {
+        public String getImUserId() {
             return imUserId;
         }
 
-        public void setImUserId(List<String> imUserId) {
+        public void setImUserId(String imUserId) {
             this.imUserId = imUserId;
         }
 

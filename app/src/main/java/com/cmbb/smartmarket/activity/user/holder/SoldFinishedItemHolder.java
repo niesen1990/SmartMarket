@@ -11,12 +11,19 @@ import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.user.EvaluationForSellerActivity;
 import com.cmbb.smartmarket.activity.user.ExpressActivity;
-import com.cmbb.smartmarket.activity.user.ImmediateEvaluationActivity;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeResponseModel;
 import com.cmbb.smartmarket.activity.user.model.OrderSoldStatus;
 import com.cmbb.smartmarket.base.BaseActivity;
+import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.image.ImageLoader;
+import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.ApiInterface;
+import com.cmbb.smartmarket.network.HttpMethod;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
+
+import rx.Observer;
 
 /**
  * 项目名称：LovelyBaby
@@ -93,7 +100,25 @@ public class SoldFinishedItemHolder extends BaseViewHolder<MarketOrderListRespon
                         ExpressActivity.newIntent(mContext, row.getId(), 0);
                         break;
                     case "提醒收货":
-                        ImmediateEvaluationActivity.newIntent(mContext, row.getId());
+                        HttpMethod.getInstance().marketOrderNotice(new Observer<MarketOrderNoticeResponseModel>() {
+                            @Override
+                            public void onCompleted() {
+                                mContext.hideWaitingDialog();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                mContext.hideWaitingDialog();
+                                Log.e(TAG, e.toString());
+                            }
+
+                            @Override
+                            public void onNext(MarketOrderNoticeResponseModel marketOrderNoticeResponseModel) {
+                                if (marketOrderNoticeResponseModel == null)
+                                    return;
+                                mContext.showToast(marketOrderNoticeResponseModel.getMsg());
+                            }
+                        }, setNoticeParams(row.getId()));
                         break;
                     case "查看评价":
                         EvaluationForSellerActivity.newIntent(mContext, row.getId());
@@ -103,4 +128,11 @@ public class SoldFinishedItemHolder extends BaseViewHolder<MarketOrderListRespon
         });
     }
 
+    private MarketOrderNoticeRequestModel setNoticeParams(int orderId) {
+        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
+        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
+        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
+        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("order", "sell", orderId));
+        return marketOrderNoticeRequestModel;
+    }
 }

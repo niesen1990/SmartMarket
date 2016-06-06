@@ -23,11 +23,13 @@ public class UserCenterFragmentAdapter extends FragmentStatePagerAdapter {
     final int PAGE_COUNT = 2;
     private String tabTitles[] = new String[]{"在售商品", "求购商品"};
     private Context context;
+    private int userId;
 
     private BaseRecyclerFragment currentFragment;
 
-    public UserCenterFragmentAdapter(FragmentManager fm, Context context) {
+    public UserCenterFragmentAdapter(FragmentManager fm, Context context, int userId) {
         super(fm);
+        this.userId = userId;
         this.context = context;
     }
 
@@ -43,10 +45,10 @@ public class UserCenterFragmentAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                currentFragment = OnSellFragment.newInstance(0);
+                currentFragment = OnSellFragment.newInstance(userId);
                 break;
             case 1:
-                currentFragment = ForNeedFragment.newInstance(0);
+                currentFragment = ForNeedFragment.newInstance(userId);
                 break;
         }
         return currentFragment;

@@ -21,13 +21,13 @@ import com.cmbb.smartmarket.activity.home.model.MyselfGetCountRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfGetCountResponseModel;
 import com.cmbb.smartmarket.activity.login.LoginActivity;
 import com.cmbb.smartmarket.activity.user.BuyFinishedActivity;
-import com.cmbb.smartmarket.activity.user.ExpressActivity;
-import com.cmbb.smartmarket.activity.user.InfoActivity;
 import com.cmbb.smartmarket.activity.user.MeCollectionActivity;
+import com.cmbb.smartmarket.activity.user.OffManagerActivity;
 import com.cmbb.smartmarket.activity.user.PublishListActivity;
 import com.cmbb.smartmarket.activity.user.RefundActivity;
 import com.cmbb.smartmarket.activity.user.SettingActivity;
 import com.cmbb.smartmarket.activity.user.SoldFinishedActivity;
+import com.cmbb.smartmarket.activity.user.UserCenterActivity;
 import com.cmbb.smartmarket.activity.wallet.WalletActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.db.DBContent;
@@ -90,7 +90,7 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
     TextView tvBuyedCount;
     @BindView(R.id.tv_collection_count)
     TextView tvCollectionCount;
-
+    private int userId;
     Observer<MyselfGetCountResponseModel> mMyselfGetCountResponseModelObserver = new Observer<MyselfGetCountResponseModel>() {
         @Override
         public void onCompleted() {
@@ -136,6 +136,7 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
         setTitle("我的");
         init();
         getSupportLoaderManager().initLoader(0, null, this);
+        subscription = HttpMethod.getInstance().myselfGetCount(mMyselfGetCountResponseModelObserver, setCountParams());
     }
 
     @Override
@@ -148,7 +149,6 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
             rlNotLogin.setVisibility(View.GONE);
             rlInfo.setVisibility(View.VISIBLE);
         }
-        subscription = HttpMethod.getInstance().myselfGetCount(mMyselfGetCountResponseModelObserver, setCountParams());
     }
 
     private MyselfGetCountRequestModel setCountParams() {
@@ -166,7 +166,9 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
                 WalletActivity.newIntent(this);
                 break;
             case R.id.rl_info:
-                InfoActivity.newIntent(this);
+                if (userId == 0)
+                    return;
+                UserCenterActivity.newIntent(this, userId);
                 break;
             case R.id.rl_refund:
                 RefundActivity.newIntent(this);
@@ -184,8 +186,7 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
                 MeCollectionActivity.newIntent(this);
                 break;
             case R.id.rl_off:
-                //                UserCenterActivity.newIntent(this, 10);
-                ExpressActivity.newIntent(this, 12, 1);
+                OffManagerActivity.newIntent(this);
                 break;
             case R.id.rl_address:
                 AddressManagerActivity.newIntent(this);
@@ -246,6 +247,7 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         if (cursor != null && cursor.moveToFirst()) {
             Log.i(TAG, cursor.getString(cursor.getColumnIndex(DBContent.DBUser.USER_TOKEN)));
+            userId = cursor.getInt(cursor.getColumnIndex(DBContent.DBUser.USER_ID));
             String headImageUrl = cursor.getString(cursor.getColumnIndex(DBContent.DBUser.USER_HEAD_IMG));
             if (!TextUtils.isEmpty(headImageUrl))
                 ImageLoader.loadUrlAndDiskCache(this, headImageUrl, ivHead, new CircleTransform(this));

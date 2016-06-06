@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.address.AddressManagerActivity;
+import com.cmbb.smartmarket.activity.address.model.UserAddressGetPageResponseModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderCommitRequestModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderCommitResponseModel;
 import com.cmbb.smartmarket.activity.market.model.MarketOrderReserveRequestModel;
@@ -73,9 +74,10 @@ public class BuyOrderActivity extends BaseActivity {
     TextView tvConfirm;
 
     int productId;
-
+    String receiveNick;
+    String receivePhone;
+    String receiveAddress;
     MarketOrderReserveResponseModel mMarketOrderReserveResponseModel;
-
     Observer<MarketOrderReserveResponseModel> mMarketOrderReserveResponseModelObserver = new Observer<MarketOrderReserveResponseModel>() {
         @Override
         public void onCompleted() {
@@ -91,7 +93,6 @@ public class BuyOrderActivity extends BaseActivity {
         @Override
         public void onNext(MarketOrderReserveResponseModel marketOrderReserveResponseModel) {
             hideWaitingDialog();
-
             if (marketOrderReserveResponseModel != null) {
                 mMarketOrderReserveResponseModel = marketOrderReserveResponseModel;
                 //更新UI
@@ -104,6 +105,9 @@ public class BuyOrderActivity extends BaseActivity {
                     tvAddress.setText(marketOrderReserveResponseModel.getData().getProduct().getUserLocation().getCity() + marketOrderReserveResponseModel.getData().getProduct().getUserLocation().getDistrict());
                 //设置是否在线交易
                 // TODO: 16/5/23
+                receiveNick = marketOrderReserveResponseModel.getData().getReceiveName();
+                receivePhone = marketOrderReserveResponseModel.getData().getReceivePhone();
+                receiveAddress = marketOrderReserveResponseModel.getData().getAddress();
                 tvName.setText(marketOrderReserveResponseModel.getData().getReceiveName() + " " + marketOrderReserveResponseModel.getData().getReceivePhone());
                 tvDetailAddress.setText(marketOrderReserveResponseModel.getData().getAddress());
                 tvExpress.setText("￥" + marketOrderReserveResponseModel.getData().getProduct().getFreight());
@@ -127,7 +131,7 @@ public class BuyOrderActivity extends BaseActivity {
         @Override
         public void onNext(MarketOrderCommitResponseModel marketOrderCommitResponseModel) {
             hideWaitingDialog();
-            if (marketOrderCommitResponseModel != null){
+            if (marketOrderCommitResponseModel != null) {
                 PayActivity.newIntent(BuyOrderActivity.this, marketOrderCommitResponseModel.getData().getOrderCode(), mMarketOrderReserveResponseModel.getData().getPrice());
                 finish();
             }
@@ -163,7 +167,7 @@ public class BuyOrderActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.iv_right:
-                AddressManagerActivity.newIntent(this);
+                AddressManagerActivity.newIntent(this, 100);
                 break;
             case R.id.tv_confirm:
                 showWaitingDialog();
@@ -183,11 +187,24 @@ public class BuyOrderActivity extends BaseActivity {
         marketOrderCommitRequestModel.setParameters(new MarketOrderCommitRequestModel.ParametersEntity(productId,
                 mMarketOrderReserveResponseModel.getData().getPrice(),
                 mMarketOrderReserveResponseModel.getData().getFreight(),
-                mMarketOrderReserveResponseModel.getData().getReceiveName(),
-                mMarketOrderReserveResponseModel.getData().getReceivePhone(),
-                mMarketOrderReserveResponseModel.getData().getAddress(),
+                receiveNick,
+                receivePhone,
+                receiveAddress,
                 mMarketOrderReserveResponseModel.getData().getPostCode()));
         return marketOrderCommitRequestModel;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == RESULT_OK && data != null) {
+            UserAddressGetPageResponseModel.DataEntity.RowsEntity rowsEntity = data.getParcelableExtra("data");
+            receiveNick = rowsEntity.getReceiveName();
+            receivePhone = rowsEntity.getReceivePhone();
+            receiveAddress = rowsEntity.getProvince() + rowsEntity.getCity() + rowsEntity.getDistrict() + rowsEntity.getAddress();
+            tvName.setText(receiveNick + " " + receivePhone);
+            tvDetailAddress.setText(receiveAddress);
+        }
     }
 
     public static void newIntent(Context context, int productId) {

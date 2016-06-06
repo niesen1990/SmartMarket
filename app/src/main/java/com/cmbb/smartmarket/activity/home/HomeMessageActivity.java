@@ -3,16 +3,13 @@ package com.cmbb.smartmarket.activity.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.alibaba.mobileim.conversation.IYWConversationService;
-import com.alibaba.mobileim.conversation.IYWConversationUnreadChangeListener;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetTypeRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetTypeResponseModel;
@@ -20,7 +17,6 @@ import com.cmbb.smartmarket.activity.message.IMConversationActivity;
 import com.cmbb.smartmarket.activity.message.OrderMessageActivity;
 import com.cmbb.smartmarket.activity.message.StoreMessageActivity;
 import com.cmbb.smartmarket.activity.message.SystemMessageActivity;
-import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
@@ -89,10 +85,7 @@ public class HomeMessageActivity extends BaseHomeActivity {
     @BindView(R.id.tv_chat_time)
     TextView tvChatTime;
 
-    private IYWConversationUnreadChangeListener mConversationUnreadChangeListener;
-    private IYWConversationService mConversationService;
-    private Handler mHandler = new Handler(Looper.getMainLooper());
-
+    MarketMessageGetTypeResponseModel mMarketMessageGetTypeResponseModel;
     Observer<MarketMessageGetTypeResponseModel> mMarketMessageGetTypeResponseModelObserver = new Observer<MarketMessageGetTypeResponseModel>() {
         @Override
         public void onCompleted() {
@@ -106,15 +99,43 @@ public class HomeMessageActivity extends BaseHomeActivity {
 
         @Override
         public void onNext(MarketMessageGetTypeResponseModel marketMessageGetTypeResponseModel) {
+            mMarketMessageGetTypeResponseModel = marketMessageGetTypeResponseModel;
             if (marketMessageGetTypeResponseModel != null && marketMessageGetTypeResponseModel.getData().size() == 3) {
-                tvMessageSysCount.setText(marketMessageGetTypeResponseModel.getData().get(0).getNoticeCount());
-                tvSysContent.setText(marketMessageGetTypeResponseModel.getData().get(0).getNoticeContent());
+                for (MarketMessageGetTypeResponseModel.DataEntity dataEntity : marketMessageGetTypeResponseModel.getData()) {
+                    switch (dataEntity.getModual()) {
+                        case "system":
+                            if (dataEntity.getNoticeCount() == 0) {
+                                tvMessageSysCount.setVisibility(View.GONE);
+                            } else {
+                                tvMessageSysCount.setVisibility(View.VISIBLE);
+                                tvMessageSysCount.setText(dataEntity.getNoticeCount() + "");
+                            }
+                            if (!TextUtils.isEmpty(dataEntity.getNoticeContent()))
+                                tvSysContent.setText(dataEntity.getNoticeContent());
+                            break;
+                        case "order":
+                            if (dataEntity.getNoticeCount() == 0) {
+                                tvMessageOrderCount.setVisibility(View.GONE);
+                            } else {
+                                tvMessageOrderCount.setVisibility(View.VISIBLE);
+                                tvMessageOrderCount.setText(dataEntity.getNoticeCount() + "");
+                            }
+                            if (!TextUtils.isEmpty(dataEntity.getNoticeContent()))
+                                tvOrderContent.setText(dataEntity.getNoticeContent());
+                            break;
+                        case "product":
+                            if (dataEntity.getNoticeCount() == 0) {
+                                tvMessageStoreCount.setVisibility(View.GONE);
+                            } else {
+                                tvMessageStoreCount.setVisibility(View.VISIBLE);
+                                tvMessageStoreCount.setText(dataEntity.getNoticeCount() + "");
+                            }
+                            if (!TextUtils.isEmpty(dataEntity.getNoticeContent()))
+                                tvStoreContent.setText(dataEntity.getNoticeContent());
+                            break;
+                    }
+                }
 
-                tvMessageStoreCount.setText(marketMessageGetTypeResponseModel.getData().get(1).getNoticeCount());
-                tvStoreContent.setText(marketMessageGetTypeResponseModel.getData().get(1).getNoticeContent());
-
-                tvMessageOrderCount.setText(marketMessageGetTypeResponseModel.getData().get(2).getNoticeCount());
-                tvOrderContent.setText(marketMessageGetTypeResponseModel.getData().get(2).getNoticeContent());
             }
         }
     };
@@ -134,8 +155,21 @@ public class HomeMessageActivity extends BaseHomeActivity {
         getToolbar().setDisplayHomeAsUpEnabled(false);
         setTitle("消息");
         init();
-        initListener();
-        subscription = HttpMethod.getInstance().marketMessageGetType(mMarketMessageGetTypeResponseModelObserver, setMessageParams());
+    }
+
+    @Override
+    public void updateMessage(int unReadCount) {
+        super.updateMessage(unReadCount);
+        if (unReadCount > 0) {
+            tvMessageChatCount.setVisibility(View.VISIBLE);
+            if (unReadCount < 100) {
+                tvMessageChatCount.setText(unReadCount + "");
+            } else {
+                tvMessageChatCount.setText("99+");
+            }
+        } else {
+            tvMessageChatCount.setVisibility(View.INVISIBLE);
+        }
     }
 
     private MarketMessageGetTypeRequestModel setMessageParams() {
@@ -145,49 +179,10 @@ public class HomeMessageActivity extends BaseHomeActivity {
         return marketMessageGetTypeRequestModel;
     }
 
-    private void initListener() {
-        mConversationService = IMHelper.getInstance().getIMKit().getConversationService();
-        //初始化并添加会话变更监听
-        mConversationUnreadChangeListener = new IYWConversationUnreadChangeListener() {
-
-            //当未读数发生变化时会回调该方法，开发者可以在该方法中更新未读数
-            @Override
-            public void onUnreadChange() {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        //获取当前登录用户的所有未读数
-                        int unReadCount = mConversationService.getAllUnreadCount();
-                        if (unReadCount > 0) {
-                            tvMessageChatCount.setVisibility(View.VISIBLE);
-                            if (unReadCount < 100) {
-                                tvMessageChatCount.setText(unReadCount + "");
-                            } else {
-                                tvMessageChatCount.setText("99+");
-                            }
-                        } else {
-                            tvMessageChatCount.setVisibility(View.INVISIBLE);
-                        }
-                    }
-                });
-            }
-        };
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
-        //resume时需要检查全局未读消息数并做处理，因为离开此界面时删除了全局消息监听器
-        mConversationUnreadChangeListener.onUnreadChange();
-        //在Tab栏增加会话未读消息变化的全局监听器
-        mConversationService.addTotalUnreadChangeListener(mConversationUnreadChangeListener);
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        //在Tab栏删除会话未读消息变化的全局监听器
-        mConversationService.removeTotalUnreadChangeListener(mConversationUnreadChangeListener);
+        subscription = HttpMethod.getInstance().marketMessageGetType(mMarketMessageGetTypeResponseModelObserver, setMessageParams());
     }
 
     @Override
@@ -195,16 +190,41 @@ public class HomeMessageActivity extends BaseHomeActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.rl_sys:
-                SystemMessageActivity.newIntent(this);
+                if (mMarketMessageGetTypeResponseModel == null)
+                    return;
+                for (MarketMessageGetTypeResponseModel.DataEntity dataEntity : mMarketMessageGetTypeResponseModel.getData()) {
+                    switch (dataEntity.getModual()) {
+                        case "system":
+                            SystemMessageActivity.newIntent(this, dataEntity.getId());
+                            break;
+                    }
+                }
                 break;
             case R.id.rl_store:
-                StoreMessageActivity.newIntent(this);
+                if (mMarketMessageGetTypeResponseModel == null)
+                    return;
+                for (MarketMessageGetTypeResponseModel.DataEntity dataEntity : mMarketMessageGetTypeResponseModel.getData()) {
+                    switch (dataEntity.getModual()) {
+                        case "product":
+                            StoreMessageActivity.newIntent(this, dataEntity.getId());
+                            break;
+                    }
+                }
                 break;
             case R.id.rl_order:
-                OrderMessageActivity.newIntent(this);
+                if (mMarketMessageGetTypeResponseModel == null)
+                    return;
+                for (MarketMessageGetTypeResponseModel.DataEntity dataEntity : mMarketMessageGetTypeResponseModel.getData()) {
+                    switch (dataEntity.getModual()) {
+                        case "order":
+                            OrderMessageActivity.newIntent(this, dataEntity.getId());
+                            break;
+                    }
+                }
                 break;
             case R.id.rl_chat:
-                IMConversationActivity.newIntent(this);
+                if (mConversationUnreadChangeListener != null && mConversationService != null)
+                    IMConversationActivity.newIntent(this);
                 break;
         }
     }

@@ -14,16 +14,16 @@ import java.util.List;
 public class MarketMessageGetTypeResponseModel {
 
     /**
-     * data : [{"noticeContent":"官方测试消息","id":32277,"modual":"system","noticeCount":54},{"noticeContent":"商品回复消息","id":32278,"modual":"product","noticeCount":3},{"noticeContent":"订单动态消息","id":32279,"modual":"order","noticeCount":10}]
+     * data : [{"id":64771,"noticeContent":"","modual":"system","noticeCount":0}]
      * msg : 数据加载成功
      */
 
     private String msg;
     /**
-     * noticeContent : 官方测试消息
-     * id : 32277
+     * id : 64771
+     * noticeContent :
      * modual : system
-     * noticeCount : 54
+     * noticeCount : 0
      */
 
     private List<DataEntity> data;
@@ -45,18 +45,10 @@ public class MarketMessageGetTypeResponseModel {
     }
 
     public static class DataEntity {
-        private String noticeContent;
         private int id;
+        private String noticeContent;
         private String modual;
         private int noticeCount;
-
-        public String getNoticeContent() {
-            return noticeContent;
-        }
-
-        public void setNoticeContent(String noticeContent) {
-            this.noticeContent = noticeContent;
-        }
 
         public int getId() {
             return id;
@@ -64,6 +56,14 @@ public class MarketMessageGetTypeResponseModel {
 
         public void setId(int id) {
             this.id = id;
+        }
+
+        public String getNoticeContent() {
+            return noticeContent;
+        }
+
+        public void setNoticeContent(String noticeContent) {
+            this.noticeContent = noticeContent;
         }
 
         public String getModual() {

@@ -7,7 +7,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.MarketHomeRecommendationResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ProductGetPageResponseModel;
 import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.utils.date.JTimeTransform;
 import com.cmbb.smartmarket.utils.date.RecentDateFormat;
@@ -19,7 +19,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
  * 创建人：javon
  * 创建时间：2015/8/24 14:25
  */
-public class HomeRecommendItemHolder extends BaseViewHolder<MarketHomeRecommendationResponseModel.DataEntity.ContentEntity> {
+public class HomeRecommendItemHolder extends BaseViewHolder<ProductGetPageResponseModel.DataEntity.ContentEntity> {
     private final String TAG = HomeRecommendItemHolder.class.getSimpleName();
 
     private ImageView ivPic;
@@ -45,7 +45,7 @@ public class HomeRecommendItemHolder extends BaseViewHolder<MarketHomeRecommenda
         tvTime = $(R.id.tv_time);
     }
 
-    public void setData(MarketHomeRecommendationResponseModel.DataEntity.ContentEntity row) {
+    public void setData(ProductGetPageResponseModel.DataEntity.ContentEntity row) {
         if (row == null)
             return;
         if (row.getProductImageList() != null && row.getProductImageList().size() > 0)

@@ -49,7 +49,7 @@ import rx.Observer;
  */
 public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final java.lang.String TAG = InfoActivity.class.getSimpleName();
+    private static final String TAG = InfoActivity.class.getSimpleName();
     @BindView(R.id.rl_head)
     RelativeLayout rlHead;
     @BindView(R.id.rl_nick)
@@ -175,7 +175,7 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
                 File file = new File(Crop.getOutput(data).getPath());
                 Map<String, RequestBody> params = new HashMap<>();
                 params.put("token", RequestBody.create(MediaType.parse("text/plain"), BaseApplication.getToken()));
-                params.put("userImg\"; filename=\""+file.getName()+"\"", RequestBody.create(MediaType.parse("image/*"), file));
+                params.put("userImg\"; filename=\"" + file.getName() + "\"", RequestBody.create(MediaType.parse("image/*"), file));
                 subscription = HttpMethod.getInstance().requestUpdateInfoImage(mUserInfoUpdateResponseModelObserver, params);
             }
         } else {
@@ -259,7 +259,7 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
             values.put(DBContent.DBUser.USER_CITY_ID, userInfoUpdateResponseModel.getData().getCity());
             values.put(DBContent.DBUser.USER_LEVEL, userInfoUpdateResponseModel.getData().getUserLevel());
             values.put(DBContent.DBUser.USER_INTRODUCE, userInfoUpdateResponseModel.getData().getIntroduce());
-            values.put(DBContent.DBUser.IM_USER_ID, userInfoUpdateResponseModel.getData().getImUserId().get(0));
+            values.put(DBContent.DBUser.IM_USER_ID, userInfoUpdateResponseModel.getData().getImUserId());
             getContentResolver().update(DBContent.DBUser.CONTENT_URI, values, DBContent.DBUser.USER_ID + " = " + userInfoUpdateResponseModel.getData().getId(), null);
         }
     };

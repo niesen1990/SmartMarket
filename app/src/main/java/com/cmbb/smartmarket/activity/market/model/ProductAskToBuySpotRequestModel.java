@@ -27,6 +27,11 @@ public class ProductAskToBuySpotRequestModel extends RetrofitRequestModel {
         private int isSpot;
         private int productId;
 
+        public ParametersEntity(int isSpot, int productId) {
+            this.isSpot = isSpot;
+            this.productId = productId;
+        }
+
         public int getIsSpot() {
             return isSpot;
         }

@@ -74,6 +74,7 @@ public class ImageLoader {
                 .into(imageView);
     }
 
+
     public static void loadWithUploadListener(final Context context, final PublishImageModel row, final ImageView imageView, final ProgressBar progressBar) {
         Glide.with(context)
                 .load(row.getImageUrl())

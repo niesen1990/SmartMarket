@@ -19,6 +19,8 @@ import com.cmbb.smartmarket.activity.user.ImmediateEvaluationActivity;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeResponseModel;
 import com.cmbb.smartmarket.activity.user.model.OrderBuyStatus;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
@@ -113,6 +115,25 @@ public class BuyFinishedItemHolder extends BaseViewHolder<MarketOrderListRespons
                         PayActivity.newIntent(mContext, row.getOrderCode(), row.getPrice());
                         break;
                     case "提醒发货":
+                        HttpMethod.getInstance().marketOrderNotice(new Observer<MarketOrderNoticeResponseModel>() {
+                            @Override
+                            public void onCompleted() {
+                                mContext.hideWaitingDialog();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                mContext.hideWaitingDialog();
+                                Log.e(TAG, e.toString());
+                            }
+
+                            @Override
+                            public void onNext(MarketOrderNoticeResponseModel marketOrderNoticeResponseModel) {
+                                if (marketOrderNoticeResponseModel == null)
+                                    return;
+                                mContext.showToast(marketOrderNoticeResponseModel.getMsg());
+                            }
+                        }, setNoticeParams(row.getId()));
                         break;
                     case "确认收货":
                         DialogUtils.createAlertDialog(mContext, "操作提醒", "你确定收获了吗？", true, new DialogInterface.OnClickListener() {
@@ -153,6 +174,13 @@ public class BuyFinishedItemHolder extends BaseViewHolder<MarketOrderListRespons
         });
     }
 
+    private MarketOrderNoticeRequestModel setNoticeParams(int orderId) {
+        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
+        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
+        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
+        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("order", "buy", orderId));
+        return marketOrderNoticeRequestModel;
+    }
     private MarketOrderBuyerReceiveRequestModel setConfirmExpressParams(int orderId) {
         MarketOrderBuyerReceiveRequestModel marketOrderBuyerReceiveRequestModel = new MarketOrderBuyerReceiveRequestModel();
         marketOrderBuyerReceiveRequestModel.setToken(BaseApplication.getToken());

@@ -30,15 +30,26 @@ public class SystemTipoffsReportRequestModel extends RetrofitRequestModel {
     }
 
     public static class ParametersEntity {
-        private int reportContentType;
+        private String reportContentType;
         private int relateId;
         private String reportContent;
 
-        public int getReportContentType() {
+        public ParametersEntity(String reportContentType, int relateId, String reportContent) {
+            this.reportContentType = reportContentType;
+            this.relateId = relateId;
+            this.reportContent = reportContent;
+        }
+
+        public ParametersEntity(String reportContentType, int relateId) {
+            this.reportContentType = reportContentType;
+            this.relateId = relateId;
+        }
+
+        public String getReportContentType() {
             return reportContentType;
         }
 
-        public void setReportContentType(int reportContentType) {
+        public void setReportContentType(String reportContentType) {
             this.reportContentType = reportContentType;
         }
 

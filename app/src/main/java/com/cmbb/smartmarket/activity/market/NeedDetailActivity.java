@@ -3,6 +3,7 @@ package com.cmbb.smartmarket.activity.market;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
@@ -24,6 +25,8 @@ import com.cmbb.smartmarket.activity.market.adapter.BannerDetailListAdapter;
 import com.cmbb.smartmarket.activity.market.adapter.DetailReplayAdapter;
 import com.cmbb.smartmarket.activity.market.model.ProductAskToBuyResolveRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductAskToBuyResolveResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ProductAskToBuySpotRequestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductAskToBuySpotResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteReplyRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteReplyResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDetailRequestModel;
@@ -67,8 +70,8 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
     RollPagerView rollViewPager;
     @BindView(R.id.tv_message)
     TextView tvMessage;
-    @BindView(R.id.iv_collection)
-    ImageView ivCollection;
+    @BindView(R.id.iv_spot)
+    TextView ivSpot;
     @BindView(R.id.tv_share)
     TextView tvShare;
     @BindView(R.id.tv_buy)
@@ -97,8 +100,10 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
     RecyclerArrayAdapter.ItemView headItemView;
     int userId;
     int replayId;
+    int productId;
     String imUserId;
     String userNick;
+    int isSpot;
     Observer<ProductDetailResponseModel> mProductDetailResponseModelObserver = new Observer<ProductDetailResponseModel>() {
         @Override
         public void onCompleted() {
@@ -113,10 +118,12 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
         @Override
         public void onNext(ProductDetailResponseModel productDetailResponseModel) {
             if (productDetailResponseModel != null) {
+                productId = productDetailResponseModel.getData().getId();
                 userId = productDetailResponseModel.getData().getPublicUser().getId();
                 if (productDetailResponseModel.getData().getPublicUser().getImUserId() != null)
                     imUserId = productDetailResponseModel.getData().getPublicUser().getImUserId();
                 mBannerDetailListAdapter.updateList(productDetailResponseModel.getData().getProductImageList());
+                isSpot = productDetailResponseModel.getData().getIsSpot();
                 userNick = productDetailResponseModel.getData().getPublicUser().getNickName();
                 tvTitle.setText(productDetailResponseModel.getData().getTitle());
                 tvWatchCount.setText(productDetailResponseModel.getData().getBrowseNumber() + "");
@@ -130,7 +137,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                 } else {
                     tvBuy.setText("推荐给TA");
                 }
-                tvMessage.setText(productDetailResponseModel.getData().getBrowseNumber() + "");
+                tvMessage.setText(productDetailResponseModel.getData().getReplyNumber() + "");
                 onRefresh();
             }
         }
@@ -207,7 +214,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
         mBannerDetailListAdapter = new BannerDetailListAdapter();
         rollViewPager.setAdapter(mBannerDetailListAdapter);
         tvMessage.setOnClickListener(this);
-        ivCollection.setOnClickListener(this);
+        ivSpot.setOnClickListener(this);
         tvShare.setOnClickListener(this);
         tvBuy.setOnClickListener(this);
     }
@@ -290,7 +297,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_commodity_detail_layout;
+        return R.layout.activity_need_detail_layout;
     }
 
     @Override
@@ -303,7 +310,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_report:
-                ReportActivity.newIntent(this);
+                ReportActivity.newIntent(this, productId);
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -317,7 +324,6 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                 SocialUtils.share(this, "http://smart.image.alimmdn.com/system/image/2016-04-18/file_50647_NTFjM2VmMjMtOTNiNC00MTI2LWJhMWMtOWFlZDc2MTg2MDU4", "魅族手机PRO6", "MEIZU design and make", "http://www.baidu.com");
                 break;
             case R.id.tv_message:
-                // TODO: 16/4/28
                 replayId = userId;
                 evSendContent.setHint("回复@" + userNick);
                 evSendContent.setFocusable(true);
@@ -326,12 +332,42 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
                 break;
-            case R.id.iv_collection:
-                // TODO: 16/4/28  
+            case R.id.iv_spot:
+                HttpMethod.getInstance().requestProductAskToBuySpot(new Observer<ProductAskToBuySpotResponseModel>() {
+                    @Override
+                    public void onCompleted() {
+                        hideWaitingDialog();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        hideWaitingDialog();
+                        Log.e(TAG, e.toString());
+                    }
+
+                    @Override
+                    public void onNext(ProductAskToBuySpotResponseModel productAskToBuySpotResponseModel) {
+                        if (productAskToBuySpotResponseModel == null)
+                            return;
+                        showToast(productAskToBuySpotResponseModel.getMsg());
+                        isSpot = isSpot == 0 ? 1 : 0;
+                        switch (isSpot) {
+                            case 0:
+                                Drawable drawable0 = getResources().getDrawable(R.drawable.ic_great_gray);
+                                drawable0.setBounds(0, 0, drawable0.getMinimumWidth(), drawable0.getMinimumHeight());
+                                ivSpot.setCompoundDrawables(drawable0, null, null, null);
+                                break;
+                            case 1:
+                                Drawable drawable1 = getResources().getDrawable(R.drawable.ic_great_color);
+                                drawable1.setBounds(0, 0, drawable1.getMinimumWidth(), drawable1.getMinimumHeight());
+                                ivSpot.setCompoundDrawables(drawable1, null, null, null);
+                                break;
+                        }
+                    }
+                }, setSpotParams());
                 break;
             case R.id.tv_buy:
                 if (userId == BaseApplication.getUserId()) {
-                    // TODO: 16/5/26 确认解决
                     DialogUtils.createAlertDialog(this, "警告", "确认解决？", true, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -380,6 +416,14 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                 }
                 break;
         }
+    }
+
+    private ProductAskToBuySpotRequestModel setSpotParams() {
+        ProductAskToBuySpotRequestModel productAskToBuySpotRequestModel = new ProductAskToBuySpotRequestModel();
+        productAskToBuySpotRequestModel.setCmd(ApiInterface.ProductAskToBuySpot);
+        productAskToBuySpotRequestModel.setToken(BaseApplication.getToken());
+        productAskToBuySpotRequestModel.setParameters(new ProductAskToBuySpotRequestModel.ParametersEntity(isSpot == 0 ? 1 : 0, getIntent().getIntExtra("id", -1)));
+        return productAskToBuySpotRequestModel;
     }
 
     private ProductAskToBuyResolveRequestModel setAskResolveParams(int productId) {

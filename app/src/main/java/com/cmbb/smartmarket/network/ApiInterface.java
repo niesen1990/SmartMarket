@@ -1,5 +1,7 @@
 package com.cmbb.smartmarket.network;
 
+import com.cmbb.smartmarket.activity.address.model.ProvinceCityGetAllRequestModel;
+import com.cmbb.smartmarket.activity.address.model.ProvinceCityGetAllResponseModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressDeleteRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressDeleteResponseModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressDetailRequestModel;
@@ -16,12 +18,18 @@ import com.cmbb.smartmarket.activity.home.model.MarketHomeGetAllCityListRequestM
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetAllCityListResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetHotCityListRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetHotCityListResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeGetScreenRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeGetScreenResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeRecommendationRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeRecommendationResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageGetPageRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageGetPageResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetTypeRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetTypeResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageSetMessageTypeRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageSetMessageTypeResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfGetCountRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfGetCountResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListRequestModel;
@@ -76,6 +84,8 @@ import com.cmbb.smartmarket.activity.market.model.SystemTipoffsReportRequestMode
 import com.cmbb.smartmarket.activity.market.model.SystemTipoffsReportResponseModel;
 import com.cmbb.smartmarket.activity.search.model.MarketHomeSearchRequestModel;
 import com.cmbb.smartmarket.activity.search.model.MarketHomeSearchResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterPersonCenterInfoRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterPersonCenterInfoResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketEvaluateDetailRequestModel;
@@ -94,6 +104,8 @@ import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerReceiveRequestModel;
@@ -147,8 +159,8 @@ import rx.Observable;
 public interface ApiInterface {
     String Base = "http://erpuat.mengbp.com:8094/";
     String HOST = Base + "wine-market-rest/cgi/";
-//        String Base = "http://192.168.100.64:8084/";
-//        String HOST = Base + "wine-market-rest/cgi/";
+    //        String Base = "http://192.168.100.64:8084/";
+    //        String HOST = Base + "wine-market-rest/cgi/";
 
     @Headers("Content-Type: application/json")
     @POST("http://mengbaopai.smart-kids.com:82/wine-rest/cgi")
@@ -232,6 +244,7 @@ public interface ApiInterface {
     // 商品删除
     String ProductDelete = "product/delete";
 
+
     @Headers("Content-Type: application/json")
     @POST(HOST)
     Observable<BaseRetrofitModel<ProductDeleteReplyResponseModel>> productDeleteReplyRequest(@Body ProductDeleteReplyRequestModel retrofitRequestModel);
@@ -299,7 +312,7 @@ public interface ApiInterface {
     @POST(HOST)
     Observable<BaseRetrofitModel<SystemTipoffsReportResponseModel>> systemTipoffsReportRequest(@Body SystemTipoffsReportRequestModel retrofitRequestModel);
 
-    // 举报页面字典
+    // 举报
     String SystemTipoffsReport = "system/tipoffs/report";
 
     @Headers("Content-Type: application/json")
@@ -471,6 +484,13 @@ public interface ApiInterface {
     // 意见反馈
     String MarketCenterSelectProductList = "market/center/selectProductList";
 
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketCenterPersonCenterInfoResponseModel>> marketCenterPersonCenterInfo(@Body MarketCenterPersonCenterInfoRequestModel retrofitRequestModel);
+
+    // 获取个人中心基本信息
+    String MarketCenterPersonCenterInfo = "market/center/personCenterInfo";
+
     /* *******************************我的***********************************/
     /* *******************************首页***********************************/
     @Headers("Content-Type: application/json")
@@ -498,8 +518,22 @@ public interface ApiInterface {
     @POST(HOST)
     Observable<BaseRetrofitModel<MarketMessageGetTypeResponseModel>> marketMessageGetType(@Body MarketMessageGetTypeRequestModel retrofitRequestModel);
 
-    // 获取热门城市
+    //获取消息数
     String MarketMessageGetType = "market/message/getType";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketMessageGetPageResponseModel>> marketMessageGetPage(@Body MarketMessageGetPageRequestModel retrofitRequestModel);
+
+    //消息列表
+    String MarketMessageGetPage = "market/message/getPage";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketMessageSetMessageTypeResponseModel>> marketMessageSetMessageType(@Body MarketMessageSetMessageTypeRequestModel retrofitRequestModel);
+
+    //进入列表，消息数清0
+    String MarketMessageSetMessageType = "market/message/setMessageType";
 
     @Headers("Content-Type: application/json")
     @POST(HOST)
@@ -514,6 +548,13 @@ public interface ApiInterface {
 
     // 获取广告位信息
     String MarketHomeRecommendation = "market/home/recommendation";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketHomeGetScreenResponseModel>> marketHomeGetScreen(@Body MarketHomeGetScreenRequestModel retrofitRequestModel);
+
+    //筛选类型
+    String MarketHomeGetScreen = "market/home/getScreen";
 
     /* *******************************首页***********************************/
     /* *******************************搜索***********************************/
@@ -580,6 +621,13 @@ public interface ApiInterface {
 
     @Headers("Content-Type: application/json")
     @POST(HOST)
+    Observable<BaseRetrofitModel<MarketOrderNoticeResponseModel>> marketOrderNotice(@Body MarketOrderNoticeRequestModel retrofitRequestModel);
+
+    // 提醒发货/收货/退货
+    String MarketOrderNotice = "market/order/notice";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
     Observable<BaseRetrofitModel<MarketOrderSellerSendResponseModel>> marketOrderBuyerSend(@Body MarketOrderSellerSendRequestModel retrofitRequestModel);
 
     // 买家发货（退货）
@@ -605,6 +653,16 @@ public interface ApiInterface {
 
     // 订单详情
     String MarketOrderDetail = "market/order/detail";
+
     /* *******************************订单***********************************/
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<ProvinceCityGetAllResponseModel>> provinceCityGetAll(@Body ProvinceCityGetAllRequestModel retrofitRequestModel);
+
+    // 订单详情
+    String ProvinceCityGetAll = "provinceCity/getAll";
+
+
 
 }

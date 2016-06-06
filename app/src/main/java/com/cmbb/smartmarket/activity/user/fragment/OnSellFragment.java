@@ -19,17 +19,17 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import rx.Observer;
 
 public class OnSellFragment extends BaseRecyclerFragment {
-    private static final String ARG_PARAM = "position";
-    private int position;
+    private static final String ARG_PARAM = "userId";
+    private int userId;
 
     public OnSellFragment() {
         // Required empty public constructor
     }
 
-    public static OnSellFragment newInstance(int position) {
+    public static OnSellFragment newInstance(int userId) {
         OnSellFragment fragment = new OnSellFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_PARAM, position);
+        args.putInt(ARG_PARAM, userId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,7 +45,7 @@ public class OnSellFragment extends BaseRecyclerFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            position = getArguments().getInt(ARG_PARAM);
+            userId = getArguments().getInt(ARG_PARAM);
         }
     }
 
@@ -106,8 +106,7 @@ public class OnSellFragment extends BaseRecyclerFragment {
         MarketCenterSelectProductListRequestModel marketCenterSelectProductListRequestModel = new MarketCenterSelectProductListRequestModel();
         marketCenterSelectProductListRequestModel.setCmd(ApiInterface.MarketCenterSelectProductList);
         marketCenterSelectProductListRequestModel.setToken(BaseApplication.getToken());
-        marketCenterSelectProductListRequestModel.setParameters(new MarketCenterSelectProductListRequestModel.ParametersEntity(0, pagerSize, pager));
+        marketCenterSelectProductListRequestModel.setParameters(new MarketCenterSelectProductListRequestModel.ParametersEntity(0, userId, pagerSize, pager));
         return marketCenterSelectProductListRequestModel;
     }
-
 }

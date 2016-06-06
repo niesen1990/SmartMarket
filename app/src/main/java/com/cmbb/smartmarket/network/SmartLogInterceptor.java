@@ -29,16 +29,18 @@ import okio.BufferedSource;
  * 修改时间：16/5/10 下午3:23
  * 修改备注：
  */
-public class SmartLogInterceptor  implements Interceptor {
+public class SmartLogInterceptor implements Interceptor {
 
     private static final Charset UTF8 = Charset.forName("UTF-8");
 
     public enum Level {
-        /** No logs. */
+        /**
+         * No logs.
+         */
         NONE,
         /**
          * Logs request and response lines.
-         *
+         * <p>
          * <p>Example:
          * <pre>{@code
          * --> POST /greeting http/1.1 (3-byte body)
@@ -49,7 +51,7 @@ public class SmartLogInterceptor  implements Interceptor {
         BASIC,
         /**
          * Logs request and response lines and their respective headers.
-         *
+         * <p>
          * <p>Example:
          * <pre>{@code
          * --> POST /greeting http/1.1
@@ -67,7 +69,7 @@ public class SmartLogInterceptor  implements Interceptor {
         HEADERS,
         /**
          * Logs request and response lines and their respective headers and bodies (if present).
-         *
+         * <p>
          * <p>Example:
          * <pre>{@code
          * --> POST /greeting http/1.1
@@ -89,16 +91,17 @@ public class SmartLogInterceptor  implements Interceptor {
         BODY
     }
 
-
     public SmartLogInterceptor() {
     }
 
-
     private volatile Level level = Level.NONE;
 
-    /** Change the level at which this interceptor logs. */
+    /**
+     * Change the level at which this interceptor logs.
+     */
     public SmartLogInterceptor setLevel(Level level) {
-        if (level == null) throw new NullPointerException("level == null. Use Level.NONE instead.");
+        if (level == null)
+            throw new NullPointerException("level == null. Use Level.NONE instead.");
         this.level = level;
         return this;
     }
@@ -107,7 +110,8 @@ public class SmartLogInterceptor  implements Interceptor {
         return level;
     }
 
-    @Override public Response intercept(Chain chain) throws IOException {
+    @Override
+    public Response intercept(Chain chain) throws IOException {
         Level level = this.level;
 
         Request request = chain.request();
@@ -167,8 +171,7 @@ public class SmartLogInterceptor  implements Interceptor {
                 Log.d("");
                 Log.d(buffer.readString(charset));
 
-                Log.d("--> END " + request.method()
-                        + " (" + requestBody.contentLength() + "-byte body)");
+                Log.d("--> END " + request.method() + " (" + requestBody.contentLength() + "-byte body)");
             }
         }
 

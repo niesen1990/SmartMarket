@@ -6,8 +6,15 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailResponseModel;
-import com.cmbb.smartmarket.activity.user.model.OrderBuyStatus;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeResponseModel;
 import com.cmbb.smartmarket.activity.user.model.OrderRefundBuyStatus;
+import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.ApiInterface;
+import com.cmbb.smartmarket.network.HttpMethod;
+
+import rx.Observer;
 
 /**
  * 项目名称：SmartMarket
@@ -22,10 +29,9 @@ public class OrderDetailBuyRefundActivity extends OrderDetailBaseActivity {
 
     private static final String TAG = OrderDetailBuyRefundActivity.class.getSimpleName();
 
-    public static void newIntent(Context context, int orderId, String orderType) {
+    public static void newIntent(Context context, int orderId) {
         Intent intent = new Intent(context, OrderDetailBuyRefundActivity.class);
         intent.putExtra("orderId", orderId);
-        intent.putExtra("orderType", orderType);
         context.startActivity(intent);
     }
 
@@ -43,8 +49,8 @@ public class OrderDetailBuyRefundActivity extends OrderDetailBaseActivity {
         } else {
             tvOperation02.setVisibility(View.GONE);
         }
-        tvOperation01.setText(OrderBuyStatus.getStatus(response.getData().getStatus())[1]);
-        tvOperation02.setText(OrderBuyStatus.getStatus(response.getData().getStatus())[2]);
+        tvOperation01.setText(items[1]);
+        tvOperation02.setText(items[2]);
         tvOperation01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,9 +71,37 @@ public class OrderDetailBuyRefundActivity extends OrderDetailBaseActivity {
                     case "重新申请退款":
                         ApplyRefundActivity.newIntent(OrderDetailBuyRefundActivity.this, response);
                         break;
+                    case "提醒收货":
+                        HttpMethod.getInstance().marketOrderNotice(new Observer<MarketOrderNoticeResponseModel>() {
+                            @Override
+                            public void onCompleted() {
+                                hideWaitingDialog();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                hideWaitingDialog();
+                                Log.e(TAG, e.toString());
+                            }
+
+                            @Override
+                            public void onNext(MarketOrderNoticeResponseModel marketOrderNoticeResponseModel) {
+                                if (marketOrderNoticeResponseModel == null)
+                                    return;
+                                showToast(marketOrderNoticeResponseModel.getMsg());
+                            }
+                        }, setNoticeParams());
+                        break;
                 }
             }
         });
     }
 
+    private MarketOrderNoticeRequestModel setNoticeParams() {
+        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
+        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
+        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
+        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("refund", "buy", getIntent().getIntExtra("orderId", -1)));
+        return marketOrderNoticeRequestModel;
+    }
 }

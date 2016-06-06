@@ -7,7 +7,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeResponseModel;
 import com.cmbb.smartmarket.activity.user.model.OrderSoldStatus;
+import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.ApiInterface;
+import com.cmbb.smartmarket.network.HttpMethod;
+
+import rx.Observer;
 
 /**
  * 项目名称：SmartMarket
@@ -22,10 +30,9 @@ public class OrderDetailSellFinishedActivity extends OrderDetailBaseActivity {
 
     private static final String TAG = OrderDetailSellFinishedActivity.class.getSimpleName();
 
-    public static void newIntent(Context context, int orderId, String orderType) {
+    public static void newIntent(Context context, int orderId) {
         Intent intent = new Intent(context, OrderDetailSellFinishedActivity.class);
         intent.putExtra("orderId", orderId);
-        intent.putExtra("orderType", orderType);
         context.startActivity(intent);
     }
 
@@ -59,7 +66,26 @@ public class OrderDetailSellFinishedActivity extends OrderDetailBaseActivity {
                         ExpressActivity.newIntent(OrderDetailSellFinishedActivity.this, response.getData().getId(), 0);
                         break;
                     case "提醒收货":
-                        ImmediateEvaluationActivity.newIntent(OrderDetailSellFinishedActivity.this, response.getData().getId());
+                        showWaitingDialog();
+                        HttpMethod.getInstance().marketOrderNotice(new Observer<MarketOrderNoticeResponseModel>() {
+                            @Override
+                            public void onCompleted() {
+                                hideWaitingDialog();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                hideWaitingDialog();
+                                Log.e(TAG, e.toString());
+                            }
+
+                            @Override
+                            public void onNext(MarketOrderNoticeResponseModel marketOrderNoticeResponseModel) {
+                                if (marketOrderNoticeResponseModel == null)
+                                    return;
+                                showToast(marketOrderNoticeResponseModel.getMsg());
+                            }
+                        }, setNoticeParams());
                         break;
                     case "查看评价":
                         EvaluationForSellerActivity.newIntent(OrderDetailSellFinishedActivity.this, response.getData().getId());
@@ -67,5 +93,13 @@ public class OrderDetailSellFinishedActivity extends OrderDetailBaseActivity {
                 }
             }
         });
+    }
+
+    private MarketOrderNoticeRequestModel setNoticeParams() {
+        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
+        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
+        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
+        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("order", "sell", getIntent().getIntExtra("orderId", -1)));
+        return marketOrderNoticeRequestModel;
     }
 }

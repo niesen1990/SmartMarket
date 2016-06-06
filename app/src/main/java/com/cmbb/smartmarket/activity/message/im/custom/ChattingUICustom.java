@@ -19,6 +19,7 @@ import com.alibaba.mobileim.conversation.YWConversation;
 import com.alibaba.mobileim.conversation.YWConversationType;
 import com.alibaba.mobileim.conversation.YWMessage;
 import com.alibaba.mobileim.conversation.YWP2PConversationBody;
+import com.alibaba.mobileim.ui.WxChattingActvity;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
 
@@ -90,6 +91,7 @@ public class ChattingUICustom extends IMChattingPageUI {
         //TODO 重要：必须以该形式初始化view---［inflate(R.layout.**, new RelativeLayout(context),false)］------，以让inflater知道父布局的类型，否则布局**中的高度和宽度无效，均变为wrap_content
         View view = inflater.inflate(R.layout.im_toolbar, new Toolbar(context), false);
         TextView textView = (TextView) view.findViewById(R.id.title);
+        TextView back = (TextView) view.findViewById(R.id.back);
         String title = null;
         YWP2PConversationBody conversationBody = (YWP2PConversationBody) conversation.getConversationBody();
         if (!TextUtils.isEmpty(conversationBody.getContact().getShowName())) {
@@ -107,6 +109,13 @@ public class ChattingUICustom extends IMChattingPageUI {
             title = conversationBody.getContact().getUserId();
         }
         textView.setText(title);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((WxChattingActvity)context).onBackPressed();
+            }
+        });
         return view;
     }
 

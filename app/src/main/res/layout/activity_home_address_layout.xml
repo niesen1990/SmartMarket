@@ -21,12 +21,13 @@
             android:layout_marginBottom="@dimen/global_padding"
             android:layout_marginRight="@dimen/global_padding"
             android:layout_marginTop="@dimen/global_padding"
-            android:background="@drawable/shape_white_stroke_corner"
+            android:background="@null"
             android:gravity="center"
             android:hint="输入城市名或者首字母查询"
-            android:textColorHint="@color/darkgray"
-            android:textColor="@color/dimgray"
+            android:drawableLeft="@drawable/ic_search"
             android:padding="3dp"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
             android:textSize="14sp"/>
 
 

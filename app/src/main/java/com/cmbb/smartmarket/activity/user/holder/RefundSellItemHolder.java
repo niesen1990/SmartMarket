@@ -15,6 +15,8 @@ import com.cmbb.smartmarket.activity.user.CheckRefundActivity;
 import com.cmbb.smartmarket.activity.user.CheckRejectActivity;
 import com.cmbb.smartmarket.activity.user.RejectRefundReasonActivity;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerReceiveRequestModel;
@@ -159,6 +161,25 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
                         break;
                     case "提醒退货":
                         // TODO: 16/5/31
+                        HttpMethod.getInstance().marketOrderNotice(new Observer<MarketOrderNoticeResponseModel>() {
+                            @Override
+                            public void onCompleted() {
+                                mContext.hideWaitingDialog();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                mContext.hideWaitingDialog();
+                                Log.e(TAG, e.toString());
+                            }
+
+                            @Override
+                            public void onNext(MarketOrderNoticeResponseModel marketOrderNoticeResponseModel) {
+                                if (marketOrderNoticeResponseModel == null)
+                                    return;
+                                mContext.showToast(marketOrderNoticeResponseModel.getMsg());
+                            }
+                        }, setNoticeParams(row.getId()));
                         break;
                     case "确认收货":
                         DialogUtils.createAlertDialog(mContext, "警告", "确认收货了吗？", true, new DialogInterface.OnClickListener() {
@@ -194,6 +215,14 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
                 }
             }
         });
+    }
+
+    private MarketOrderNoticeRequestModel setNoticeParams(int orderId) {
+        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
+        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
+        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
+        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("refund", "sell", orderId));
+        return marketOrderNoticeRequestModel;
     }
 
     private MarketOrderSellerReceiveRequestModel setReceiverParams(int id) {

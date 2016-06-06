@@ -361,29 +361,6 @@ public class PublishCommodityActivity extends BaseActivity {
                 List<PublishImageModel> publishImageModels = new ArrayList<>();
                 for (String url : imageUrls) {
                     publishImageModels.add(new PublishImageModel(url, 0));
-                    /*HttpMethod.getInstance().uploadImageWithProgress(new Observer<ImageUploadResponseModel>() {
-                        @Override
-                        public void onCompleted() {
-
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-                            Log.e(TAG, e.toString());
-                        }
-
-                        @Override
-                        public void onNext(ImageUploadResponseModel imageUploadResponseModel) {
-                            Log.e(TAG, imageUploadResponseModel.toString());
-                        }
-                    }, setUploadParams(url), new CountingRequestBody.Listener() {
-                        @Override
-                        public void onRequestProgress(long bytesWritten, long contentLength) {
-                            Log.e(TAG, "bytesWritten = " + bytesWritten + " contentLength =  " + contentLength);
-                            int i = (int) (contentLength / 2048 / 5);
-
-                        }
-                    });*/
                 }
                 adapter.addAll(publishImageModels);
             }

@@ -2,6 +2,7 @@ package com.cmbb.smartmarket.activity.user;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -12,7 +13,13 @@ import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.login.LoginActivity;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.base.BaseActivity;
+import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.base.Constants;
+import com.cmbb.smartmarket.db.DBHelper;
+import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.utils.SPCache;
 import com.cmbb.smartmarket.utils.SocialUtils;
+import com.cmbb.smartmarket.utils.TDevice;
 import com.umeng.socialize.UMShareAPI;
 
 import butterknife.BindView;
@@ -27,6 +34,8 @@ public class SettingActivity extends BaseActivity {
 
     @BindView(R.id.rl_about)
     RelativeLayout rlAbout;
+    @BindView(R.id.rl_info)
+    RelativeLayout rlInfo;
     @BindView(R.id.rl_suggestion)
     RelativeLayout rlSuggestion;
     @BindView(R.id.rl_rule)
@@ -37,6 +46,7 @@ public class SettingActivity extends BaseActivity {
     RelativeLayout rlUpdate;
     @BindView(R.id.tv_logout)
     TextView tvLogout;
+    DBHelper dbHelper;
 
     protected void initView() {
         rlAbout.setOnClickListener(this);
@@ -45,6 +55,8 @@ public class SettingActivity extends BaseActivity {
         rlShare.setOnClickListener(this);
         tvLogout.setOnClickListener(this);
         rlUpdate.setOnClickListener(this);
+        rlInfo.setOnClickListener(this);
+        dbHelper = new DBHelper(this);
     }
 
     @Override
@@ -57,6 +69,9 @@ public class SettingActivity extends BaseActivity {
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
+            case R.id.rl_info:
+                InfoActivity.newIntent(this);
+                break;
             case R.id.rl_about:
 
                 break;
@@ -71,7 +86,7 @@ public class SettingActivity extends BaseActivity {
                 break;
             case R.id.tv_logout:
                 // TODO: 16/4/27
-                LoginActivity.newIntent(this);
+                showWaitingDialog();
                 IMHelper.getInstance().logoutIM(new IWxCallback() {
 
                     @Override
@@ -89,6 +104,36 @@ public class SettingActivity extends BaseActivity {
 
                     }
                 });
+                new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            boolean flag = BaseApplication.mPushAgent.removeAlias(SPCache.getInt(Constants.API_USER_ID, -1) + "_" + TDevice.getDeviceId(SettingActivity.this), "market");
+                            Log.e("Alias", "Alias remove = " + flag);
+                            Log.e("Alias", "Alias remove id = " + SPCache.getInt(Constants.API_USER_ID, -1));
+                            if (flag) {
+                                SPCache.clear();
+                                //删除表
+                                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                                dbHelper.delete(db);
+                                SPCache.clear();
+                                BaseApplication.setToken("");
+                                BaseApplication.setUserId(0);
+                                //关闭主页面
+                                Intent intent = new Intent(Constants.INTENT_ACTION_EXIT_APP);
+                                sendBroadcast(intent);
+                                hideWaitingDialog();
+                                LoginActivity.newIntent(SettingActivity.this);
+                                finish();
+                            } else {
+                                showToast("注销失败");
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }.start();
+
                 break;
             case R.id.rl_update:
 

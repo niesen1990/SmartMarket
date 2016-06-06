@@ -109,8 +109,10 @@
         <activity android:name=".activity.home.HouseRecommendActivity"/>
         <activity android:name=".activity.message.StoreMessageActivity"/>
         <activity android:name=".activity.message.OrderMessageActivity"/>
+        <activity android:name=".activity.user.OffManagerActivity"/>
+
         <activity
-            android:name=".activity.PublishOperationActivity"
+            android:name=".activity.home.HomeOperationActivity"
             android:theme="@style/AppTheme.FullScreen.Publish"/>
         <activity
             android:name=".activity.wallet.WalletActivity"
@@ -148,6 +150,7 @@
         <activity android:name=".activity.user.OrderDetailSellRefundActivity"/>
         <activity android:name=".activity.user.CheckEvaluateActivity"/>
         <activity android:name=".activity.user.EvaluationForSellerActivity"/>
+        <activity android:name=".activity.address.AddressPickActivity"/>
         <activity
             android:name=".activity.user.ApplyRefundActivity"
             android:windowSoftInputMode="stateHidden"/>
@@ -260,6 +263,9 @@
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="imNTzF1pejxCEfgr22OG7CdArby8mRrn"/>
+        <meta-data
+            android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
+            android:value="GlideModule" />
     </application>
 
 </manifest>

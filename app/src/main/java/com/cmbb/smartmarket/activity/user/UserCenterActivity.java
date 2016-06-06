@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -13,12 +14,24 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.user.adapter.UserCenterFragmentAdapter;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterPersonCenterInfoRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterPersonCenterInfoResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
+import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.image.BlurTransformation;
+import com.cmbb.smartmarket.image.CircleTransform;
+import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.ApiInterface;
+import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.widget.MengCoordinatorLayout;
 
 import butterknife.BindView;
+import rx.Observer;
 
 /**
  * 项目名称：SmartMarket
@@ -38,6 +51,8 @@ public class UserCenterActivity extends BaseActivity implements AppBarLayout.OnO
     RelativeLayout ivHomeMyself;
     @BindView(R.id.iv_head)
     ImageView ivHead;
+    @BindView(R.id.iv_bac)
+    ImageView ivBac;
     @BindView(R.id.tv_nick)
     TextView tvNick;
     @BindView(R.id.ratingBar)
@@ -72,16 +87,74 @@ public class UserCenterActivity extends BaseActivity implements AppBarLayout.OnO
     TabLayout tablayout;
     @BindView(R.id.viewpager)
     ViewPager viewpager;
+    @BindView(R.id.iv_contact)
+    ImageView ivContact;
 
     UserCenterFragmentAdapter mUserCenterFragmentAdapter;
 
+    int userId;
+    String imUserId;
+
+    Observer<MarketCenterPersonCenterInfoResponseModel> mMarketCenterPersonCenterInfoResponseModelObserver = new Observer<MarketCenterPersonCenterInfoResponseModel>() {
+        @Override
+        public void onCompleted() {
+            hideWaitingDialog();
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            hideWaitingDialog();
+            Log.e(TAG, e.toString());
+        }
+
+        @Override
+        public void onNext(MarketCenterPersonCenterInfoResponseModel marketCenterPersonCenterInfoResponseModel) {
+            if (marketCenterPersonCenterInfoResponseModel == null)
+                return;
+            imUserId = marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getImUserId();
+            //UI
+            Glide.with(UserCenterActivity.this)
+                    .load(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getUserImg())
+                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                    .placeholder(R.color.line)
+                    .error(R.color.darkgray)
+                    .crossFade()
+                    .centerCrop()
+                    .transform(new CircleTransform(UserCenterActivity.this))
+                    .into(ivHead);
+
+            Glide.with(UserCenterActivity.this)
+                    .load(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getUserImg())
+                    .crossFade()
+                    .centerCrop()
+                    .bitmapTransform(new BlurTransformation(UserCenterActivity.this, 50))
+                    .into(ivBac);
+            tvNick.setText(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getNickName());
+            ratingBar.setNumStars(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getUserLevel());
+            tvCollectionCount.setText(marketCenterPersonCenterInfoResponseModel.getData().getCollectCount() + "");
+            tvDealCount.setText(marketCenterPersonCenterInfoResponseModel.getData().getTradeCount() + "");
+            tvEvaluateCount.setText(marketCenterPersonCenterInfoResponseModel.getData().getEvaluteCount() + "");
+        }
+    };
+
     @Override
     protected void init(Bundle savedInstanceState) {
-        mUserCenterFragmentAdapter = new UserCenterFragmentAdapter(getSupportFragmentManager(), this);
+        userId = getIntent().getIntExtra("id", -1);
+        mUserCenterFragmentAdapter = new UserCenterFragmentAdapter(getSupportFragmentManager(), this, userId);
         viewpager.setAdapter(mUserCenterFragmentAdapter);
         tablayout.setupWithViewPager(viewpager);
         tablayout.setTabMode(TabLayout.MODE_FIXED);
         llEvaluate.setOnClickListener(this);
+        ivContact.setOnClickListener(this);
+        subscription = HttpMethod.getInstance().marketCenterPersonCenterInfo(mMarketCenterPersonCenterInfoResponseModelObserver, setParams());
+    }
+
+    private MarketCenterPersonCenterInfoRequestModel setParams() {
+        MarketCenterPersonCenterInfoRequestModel marketCenterPersonCenterInfoRequestModel = new MarketCenterPersonCenterInfoRequestModel();
+        marketCenterPersonCenterInfoRequestModel.setCmd(ApiInterface.MarketCenterPersonCenterInfo);
+        marketCenterPersonCenterInfoRequestModel.setToken(BaseApplication.getToken());
+        marketCenterPersonCenterInfoRequestModel.setParameters(new MarketCenterPersonCenterInfoRequestModel.ParametersEntity(userId));
+        return marketCenterPersonCenterInfoRequestModel;
     }
 
     @Override
@@ -95,6 +168,12 @@ public class UserCenterActivity extends BaseActivity implements AppBarLayout.OnO
         switch (v.getId()) {
             case R.id.ll_evaluate:
                 EvaluateListActivity.newIntent(this);
+                break;
+            case R.id.iv_contact:
+                if (TextUtils.isEmpty(imUserId))
+                    return;
+                Intent intent = IMHelper.getInstance().getIMKit().getChattingActivityIntent(imUserId, IMHelper.getAppKey());
+                startActivity(intent);
                 break;
         }
     }

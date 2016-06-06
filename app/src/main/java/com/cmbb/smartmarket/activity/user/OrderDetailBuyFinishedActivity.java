@@ -11,6 +11,8 @@ import com.cmbb.smartmarket.activity.market.PayActivity;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeResponseModel;
 import com.cmbb.smartmarket.activity.user.model.OrderBuyStatus;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.log.Log;
@@ -33,10 +35,9 @@ public class OrderDetailBuyFinishedActivity extends OrderDetailBaseActivity {
 
     private static final String TAG = OrderDetailBuyFinishedActivity.class.getSimpleName();
 
-    public static void newIntent(Context context, int orderId, String orderType) {
+    public static void newIntent(Context context, int orderId) {
         Intent intent = new Intent(context, OrderDetailBuyFinishedActivity.class);
         intent.putExtra("orderId", orderId);
-        intent.putExtra("orderType", orderType);
         context.startActivity(intent);
     }
 
@@ -77,6 +78,25 @@ public class OrderDetailBuyFinishedActivity extends OrderDetailBaseActivity {
                         PayActivity.newIntent(OrderDetailBuyFinishedActivity.this, response.getData().getOrderCode(), response.getData().getPrice());
                         break;
                     case "提醒发货":
+                        HttpMethod.getInstance().marketOrderNotice(new Observer<MarketOrderNoticeResponseModel>() {
+                            @Override
+                            public void onCompleted() {
+                                hideWaitingDialog();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                hideWaitingDialog();
+                                Log.e(TAG, e.toString());
+                            }
+
+                            @Override
+                            public void onNext(MarketOrderNoticeResponseModel marketOrderNoticeResponseModel) {
+                                if (marketOrderNoticeResponseModel == null)
+                                    return;
+                                showToast(marketOrderNoticeResponseModel.getMsg());
+                            }
+                        }, setNoticeParams());
                         break;
                     case "确认收货":
                         DialogUtils.createAlertDialog(OrderDetailBuyFinishedActivity.this, "操作提醒", "你确定收获了吗？", true, new DialogInterface.OnClickListener() {
@@ -114,6 +134,14 @@ public class OrderDetailBuyFinishedActivity extends OrderDetailBaseActivity {
                 }
             }
         });
+    }
+
+    private MarketOrderNoticeRequestModel setNoticeParams() {
+        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
+        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
+        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
+        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("order", "buy", getIntent().getIntExtra("orderId", -1)));
+        return marketOrderNoticeRequestModel;
     }
 
     private MarketOrderBuyerReceiveRequestModel setConfirmExpressParams(int orderId) {

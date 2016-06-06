@@ -29,20 +29,10 @@ public class MarketOrderDetailRequestModel extends RetrofitRequestModel {
     }
 
     public static class ParametersEntity {
-        private String orderType;
         private int id;
 
-        public ParametersEntity(String orderType, int id) {
-            this.orderType = orderType;
+        public ParametersEntity(int id) {
             this.id = id;
-        }
-
-        public String getOrderType() {
-            return orderType;
-        }
-
-        public void setOrderType(String orderType) {
-            this.orderType = orderType;
         }
 
         public int getId() {

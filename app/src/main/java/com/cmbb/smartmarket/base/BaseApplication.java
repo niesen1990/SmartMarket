@@ -16,9 +16,6 @@ import android.widget.Toast;
 
 import com.alibaba.mobileim.YWAPI;
 import com.alibaba.wxlib.util.SysUtil;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.integration.okhttp3.OkHttpUrlLoader;
-import com.bumptech.glide.load.model.GlideUrl;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.message.im.custom.CustomHelper;
@@ -34,7 +31,6 @@ import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
 import com.umeng.socialize.PlatformConfig;
 
-import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -64,7 +60,7 @@ public class BaseApplication extends MultiDexApplication {
         initSharePreference();
         initUmengAnalytics();
         initPushAgent();
-        initOkHttp();
+        //        initOkHttp();
         initShare();
         initBroadcastReceiver();
         setToken(SPCache.getString(Constants.API_TOKEN, ""));
@@ -142,7 +138,7 @@ public class BaseApplication extends MultiDexApplication {
                 .retryOnConnectionFailure(true)
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .build();
-        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(okHttpClient));
+        //        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(okHttpClient));
     }
 
     /**

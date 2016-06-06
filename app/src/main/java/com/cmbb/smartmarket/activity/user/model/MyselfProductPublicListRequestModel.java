@@ -33,11 +33,27 @@ public class MyselfProductPublicListRequestModel extends RetrofitRequestModel {
         private int type;
         private int numberOfPerPage;
         private int pageNo;
+        private String status;
 
         public ParametersEntity(int type, int numberOfPerPage, int pageNo) {
             this.type = type;
             this.numberOfPerPage = numberOfPerPage;
             this.pageNo = pageNo;
+        }
+
+        public ParametersEntity(int type, int numberOfPerPage, int pageNo, String status) {
+            this.type = type;
+            this.numberOfPerPage = numberOfPerPage;
+            this.pageNo = pageNo;
+            this.status = status;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
         }
 
         public int getType() {

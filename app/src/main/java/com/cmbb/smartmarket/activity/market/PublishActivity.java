@@ -1,6 +1,7 @@
 package com.cmbb.smartmarket.activity.market;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
@@ -22,6 +23,7 @@ import com.aigestudio.wheelpicker.core.AbstractWheelPicker;
 import com.aigestudio.wheelpicker.view.WheelStraightPicker;
 import com.alibaba.mobileim.ui.multi.lightservice.MultiPickGalleryActivity;
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.login.LoginActivity;
 import com.cmbb.smartmarket.activity.market.model.CommodityPublishResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ImageDeleteResponseModel;
 import com.cmbb.smartmarket.activity.market.model.PublishEditResponseModel;
@@ -35,7 +37,10 @@ import com.cmbb.smartmarket.base.Constants;
 import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.utils.DialogUtils;
 import com.cmbb.smartmarket.utils.SPCache;
+import com.cmbb.smartmarket.utils.lbs.Location;
+import com.google.gson.Gson;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -122,6 +127,8 @@ public class PublishActivity extends BaseActivity {
     LinearLayout scroll;
     @BindView(R.id.tv_cancel)
     TextView tvCancel;
+    @BindView(R.id.tv_class)
+    TextView tvClass;
     @BindView(R.id.tv_confirm)
     TextView tvConfirm;
     @BindView(R.id.add)
@@ -204,23 +211,47 @@ public class PublishActivity extends BaseActivity {
             if (systemCodeInfoGetAllResponseModel != null) {
                 mSystemCodeInfoGetAllResponseModel = systemCodeInfoGetAllResponseModel;
                 straightStrings.clear();
+                curvedStrings.clear();
+                // 第一组数据
                 for (SystemCodeInfoGetAllResponseModel.DataEntity dataEntity : systemCodeInfoGetAllResponseModel.getData()) {
                     straightStrings.add(dataEntity.getName());
                 }
                 straightPicker.setData(straightStrings);
                 straightPicker.setItemIndex(0);
+                // 第二组数据
+                for (SystemCodeInfoGetAllResponseModel.DataEntity.ChildCodeInfoListEntity childCodeInfoListEntity : systemCodeInfoGetAllResponseModel.getData().get(0).getChildCodeInfoList()) {
+                    curvedStrings.add(childCodeInfoListEntity.getName());
+                }
+                curvedPicker.setData(curvedStrings);
+                curvedPicker.setItemIndex(0);
             }
         }
     };
 
+    //分类数据
     private ArrayList<String> straightStrings = new ArrayList<>();
     private ArrayList<String> curvedStrings = new ArrayList<>();
+    Location location;
 
     @Override
     protected void init(Bundle savedInstanceState) {
         setTitle(getIntent().getStringExtra("title"));
+        if (TextUtils.isEmpty(BaseApplication.getToken())) {
+            DialogUtils.createAlertDialog(this, "警告", "您还没有登陆哦...", true, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    LoginActivity.newIntent(PublishActivity.this);
+                }
+            });
+        }
         productType = getIntent().getStringExtra("productType");
         goodModel = getIntent().getParcelableExtra("data");
+        if (!TextUtils.isEmpty(SPCache.getString(Constants.LOCATION, ""))) {
+            location = new Gson().fromJson(SPCache.getString(Constants.LOCATION, ""), Location.class);
+            tvAddress.setText(location.getCity() + " " + location.getDistrict());
+        } else {
+            tvAddress.setText("无法定位");
+        }
         showWaitingDialog();
         tvOldPrice.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable edt) {
@@ -296,9 +327,11 @@ public class PublishActivity extends BaseActivity {
             etContent.setText(goodModel.getContent());
             tvNewPrice.setText(goodModel.getCurrentPrice() + "");
             tvOldPrice.setText(goodModel.getOriginalPrice() + "");
+
             for (MyselfProductPublicListResponseModel.DataEntity.ContentEntity.ProductImageListEntity model : goodModel.getProductImageList()) {
                 publishImageModels.add(new PublishImageModel(model.getLocation(), 0, model.getBusinessNumber()));
             }
+            imageCount = imageCount - publishImageModels.size();
             imageControl(publishImageModels);
         }
     }
@@ -352,6 +385,7 @@ public class PublishActivity extends BaseActivity {
                 break;
             case R.id.tv_confirm:
                 behaviorStart(tvConfirm);
+                tvClass.setText(mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getName() + " - " + mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getChildCodeInfoList().get(classChild).getName());
                 break;
             case R.id.iv:
 
@@ -425,7 +459,7 @@ public class PublishActivity extends BaseActivity {
     protected SystemCodeInfoGetAllRequest setParams() {
         unSubscribe();
         SystemCodeInfoGetAllRequest systemCodeInfoGetAllRequest = new SystemCodeInfoGetAllRequest();
-        systemCodeInfoGetAllRequest.setToken(BaseApplication.getToken());
+        //        systemCodeInfoGetAllRequest.setToken(BaseApplication.getToken());
         systemCodeInfoGetAllRequest.setCmd(ApiInterface.SystemCodeInfoGetAll);
         systemCodeInfoGetAllRequest.setParameters(new SystemCodeInfoGetAllRequest.ParametersEntity("market_product_type", 2));
         return systemCodeInfoGetAllRequest;
@@ -506,7 +540,9 @@ public class PublishActivity extends BaseActivity {
                 }
             }
             params.put("businessNumber", RequestBody.create(MediaType.parse("text/plain"), businessNumberParam));
-            Log.e(TAG, "businessNumberParam = " + businessNumberParam);
+        } else if (productType.equals("0")) {
+            showToast("请上传商品图片");
+            return;
         }
         showWaitingDialog();
         subscription = HttpMethod.getInstance().requestPublishCommodity(mCommodityPublishResponseModelObserver, params);

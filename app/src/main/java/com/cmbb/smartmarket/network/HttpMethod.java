@@ -3,6 +3,8 @@ package com.cmbb.smartmarket.network;
 import android.content.Intent;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.cmbb.smartmarket.activity.address.model.ProvinceCityGetAllRequestModel;
+import com.cmbb.smartmarket.activity.address.model.ProvinceCityGetAllResponseModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressDeleteRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressDeleteResponseModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressDetailRequestModel;
@@ -19,18 +21,25 @@ import com.cmbb.smartmarket.activity.home.model.MarketHomeGetAllCityListRequestM
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetAllCityListResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetHotCityListRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetHotCityListResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeGetScreenRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketHomeGetScreenResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeRecommendationRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeRecommendationResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageGetPageRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageGetPageResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetTypeRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetTypeResponseModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageSetMessageTypeRequestModel;
+import com.cmbb.smartmarket.activity.home.model.MarketMessageSetMessageTypeResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfGetCountRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfGetCountResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListResponseModel;
 import com.cmbb.smartmarket.activity.home.model.TestModel;
 import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
+import com.cmbb.smartmarket.activity.login.LoginActivity;
 import com.cmbb.smartmarket.activity.login.model.LoginRequestModel;
 import com.cmbb.smartmarket.activity.login.model.LoginResponseModel;
 import com.cmbb.smartmarket.activity.login.model.SecurityCodeRequestModel;
@@ -79,6 +88,8 @@ import com.cmbb.smartmarket.activity.market.model.SystemTipoffsReportRequestMode
 import com.cmbb.smartmarket.activity.market.model.SystemTipoffsReportResponseModel;
 import com.cmbb.smartmarket.activity.search.model.MarketHomeSearchRequestModel;
 import com.cmbb.smartmarket.activity.search.model.MarketHomeSearchResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterPersonCenterInfoRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterPersonCenterInfoResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketEvaluateDetailRequestModel;
@@ -97,6 +108,8 @@ import com.cmbb.smartmarket.activity.user.model.MarketOrderListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerReceiveRequestModel;
@@ -208,6 +221,10 @@ public class HttpMethod {
                 Intent intent = new Intent(Constants.INTENT_ACTION_ERROR_INFRO);
                 intent.putExtra("err", httpResult.getError().getErrorInfo());
                 LocalBroadcastManager.getInstance(BaseApplication.getContext()).sendBroadcast(intent);
+                //重新登陆
+                if (httpResult.getError().getErrorCode() == 14 || httpResult.getError().getErrorCode() == 15) {
+                    LoginActivity.newIntent(BaseApplication.getContext());
+                }
                 throw new ApiException(httpResult.getError().getErrorInfo());
             }
             return httpResult.getResponse();
@@ -510,7 +527,7 @@ public class HttpMethod {
      * @param retrofitRequestModel
      * @return
      */
-    public Subscription requestSystemTipoffsGetPage(Observer<SystemTipoffsReportResponseModel> observer, SystemTipoffsReportRequestModel retrofitRequestModel) {
+    public Subscription systemTipoffsReportRequest(Observer<SystemTipoffsReportResponseModel> observer, SystemTipoffsReportRequestModel retrofitRequestModel) {
         Observable<SystemTipoffsReportResponseModel> observable = mApiInterface
                 .systemTipoffsReportRequest(retrofitRequestModel)
                 .map(new HttpResultFunc<SystemTipoffsReportResponseModel>());
@@ -818,12 +835,12 @@ public class HttpMethod {
      * @param retrofitRequestModel
      * @return
      */
-    /*public Subscription marketHomeGetAllCityList(Observer<Object> observer, MarketHomeGetAllCityListRequestModel retrofitRequestModel, MarketHomeGetHotCityListRequestModel retrofitRequestModel2) {
+    public Subscription marketHomeGetAllCityList(Observer<MarketHomeGetAllCityListResponseModel> observer, MarketHomeGetAllCityListRequestModel retrofitRequestModel) {
         Observable<MarketHomeGetAllCityListResponseModel> observable = mApiInterface
                 .marketHomeGetAllCityList(retrofitRequestModel)
                 .map(new HttpResultFunc<MarketHomeGetAllCityListResponseModel>());
-        return mergeSubscribe(observable, observer, retrofitRequestModel2);
-    }*/
+        return addSubscribe(observable, observer);
+    }
 
     /**
      * 获取热门城市
@@ -1145,4 +1162,89 @@ public class HttpMethod {
                 .map(new HttpResultFunc<MarketHomeRecommendationResponseModel>());
         return addSubscribe(observable, observer);
     }
+
+    /**
+     * 提醒发货/收货/退货
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketOrderNotice(Observer<MarketOrderNoticeResponseModel> observer, MarketOrderNoticeRequestModel retrofitRequestModel) {
+        Observable<MarketOrderNoticeResponseModel> observable = mApiInterface
+                .marketOrderNotice(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketOrderNoticeResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 提醒发货/收货/退货
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketCenterPersonCenterInfo(Observer<MarketCenterPersonCenterInfoResponseModel> observer, MarketCenterPersonCenterInfoRequestModel retrofitRequestModel) {
+        Observable<MarketCenterPersonCenterInfoResponseModel> observable = mApiInterface
+                .marketCenterPersonCenterInfo(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketCenterPersonCenterInfoResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 收货地址城市字典
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription provinceCityGetAll(Observer<ProvinceCityGetAllResponseModel> observer, ProvinceCityGetAllRequestModel retrofitRequestModel) {
+        Observable<ProvinceCityGetAllResponseModel> observable = mApiInterface
+                .provinceCityGetAll(retrofitRequestModel)
+                .map(new HttpResultFunc<ProvinceCityGetAllResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 筛选类型
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketHomeGetScreen(Observer<MarketHomeGetScreenResponseModel> observer, MarketHomeGetScreenRequestModel retrofitRequestModel) {
+        Observable<MarketHomeGetScreenResponseModel> observable = mApiInterface
+                .marketHomeGetScreen(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketHomeGetScreenResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 消息列表
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketMessageGetPage(Observer<MarketMessageGetPageResponseModel> observer, MarketMessageGetPageRequestModel retrofitRequestModel) {
+        Observable<MarketMessageGetPageResponseModel> observable = mApiInterface
+                .marketMessageGetPage(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketMessageGetPageResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 消息列表
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketMessageSetMessageType(Observer<MarketMessageSetMessageTypeResponseModel> observer, MarketMessageSetMessageTypeRequestModel retrofitRequestModel) {
+        Observable<MarketMessageSetMessageTypeResponseModel> observable = mApiInterface
+                .marketMessageSetMessageType(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketMessageSetMessageTypeResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
 }

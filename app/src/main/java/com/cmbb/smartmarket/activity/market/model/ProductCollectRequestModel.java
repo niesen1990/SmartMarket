@@ -32,6 +32,11 @@ public class ProductCollectRequestModel extends RetrofitRequestModel {
         private int productId;
         private int isCollect;
 
+        public ParametersEntity(int productId, int isCollect) {
+            this.productId = productId;
+            this.isCollect = isCollect;
+        }
+
         public int getProductId() {
             return productId;
         }

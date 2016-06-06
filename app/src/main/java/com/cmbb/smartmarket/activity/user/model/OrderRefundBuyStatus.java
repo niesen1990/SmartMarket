@@ -10,7 +10,7 @@ public enum OrderRefundBuyStatus {
 
     买家申请退款("APPLY", "", "", ""),
     等待买家发货("SENDING", "", "", "退货"),
-    等待卖家收货("WAIT_RECEIVE", "", "", ""),
+    等待卖家收货("WAIT_RECEIVE", "", "", "提醒收货"),
     退款处理中("REFUNDING", "", "", ""),
     卖家拒绝退款("REJECT", "", "拒绝原因", "重新申请退款"),
     退款完成("REFUNDED", "", "", "");

@@ -13,6 +13,7 @@ import com.cmbb.smartmarket.activity.address.model.UserAddressDeleteRequestModel
 import com.cmbb.smartmarket.activity.address.model.UserAddressDeleteResponseModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressGetPageRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressGetPageResponseModel;
+import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.log.Log;
@@ -36,9 +37,12 @@ public class AddressManagerActivity extends BaseRecyclerActivity {
 
     private static final String TAG = AddressManagerActivity.class.getSimpleName();
 
+    int requestCode;
+
     @Override
     protected void initView(Bundle savedInstanceState) {
         setTitle("地址管理");
+        requestCode = getIntent().getIntExtra("requestCode", -1);
         adapter.setOnItemLongClickListener(new RecyclerArrayAdapter.OnItemLongClickListener() {
             @Override
             public boolean onItemClick(final int position) {
@@ -54,7 +58,7 @@ public class AddressManagerActivity extends BaseRecyclerActivity {
                         subscription = HttpMethod.getInstance().requestUserAddressDelete(mUserAddressDeleteResponseModelObserver, userAddressDeleteRequestModel);
                     }
                 });
-                return false;
+                return true;
             }
         });
         onRefresh();
@@ -95,7 +99,14 @@ public class AddressManagerActivity extends BaseRecyclerActivity {
 
     @Override
     public void onItemClick(int position) {
-        AddAndEditAddressActivity.newIntent(this, ((AddressItemAdapter) adapter).getItem(position).getId(), 100);
+        if (requestCode == -1) {
+            AddAndEditAddressActivity.newIntent(this, ((AddressItemAdapter) adapter).getItem(position).getId(), 100);
+        } else {
+            Intent intent = new Intent();
+            intent.putExtra("data", ((AddressItemAdapter) adapter).getItem(position));
+            setResult(RESULT_OK, intent);
+            finish();
+        }
     }
 
     @Override
@@ -114,7 +125,7 @@ public class AddressManagerActivity extends BaseRecyclerActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    Observer<UserAddressGetPageResponseModel> mTestUserAttentionModelObserver = new Observer<UserAddressGetPageResponseModel>() {
+    Observer<UserAddressGetPageResponseModel> mUserAddressGetPageResponseModelObserver = new Observer<UserAddressGetPageResponseModel>() {
         @Override
         public void onCompleted() {
 
@@ -138,13 +149,13 @@ public class AddressManagerActivity extends BaseRecyclerActivity {
     @Override
     public void onLoadMore() {
         pager++;
-        HttpMethod.getInstance().requestUserAddressGetPage(mTestUserAttentionModelObserver, setParams());
+        HttpMethod.getInstance().requestUserAddressGetPage(mUserAddressGetPageResponseModelObserver, setParams());
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        HttpMethod.getInstance().requestUserAddressGetPage(mTestUserAttentionModelObserver, setParams());
+        HttpMethod.getInstance().requestUserAddressGetPage(mUserAddressGetPageResponseModelObserver, setParams());
     }
 
     /**
@@ -176,5 +187,11 @@ public class AddressManagerActivity extends BaseRecyclerActivity {
     public static void newIntent(Context context) {
         Intent intent = new Intent(context, AddressManagerActivity.class);
         context.startActivity(intent);
+    }
+
+    public static void newIntent(BaseActivity context, int requestCode) {
+        Intent intent = new Intent(context, AddressManagerActivity.class);
+        intent.putExtra("requestCode", requestCode);
+        context.startActivityForResult(intent, requestCode);
     }
 }

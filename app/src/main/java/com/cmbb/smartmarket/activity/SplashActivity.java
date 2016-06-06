@@ -1,5 +1,7 @@
 package com.cmbb.smartmarket.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -41,5 +43,12 @@ public class SplashActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_splash;
+    }
+
+
+    public static void newIntent(Context context) {
+        Intent intent = new Intent(context, SplashActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        context.startActivity(intent);
     }
 }

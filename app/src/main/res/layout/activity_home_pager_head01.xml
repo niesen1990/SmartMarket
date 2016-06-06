@@ -77,49 +77,13 @@
             android:layout_marginRight="@dimen/activity_vertical_margin"
             android:src="@drawable/ic_home_qiugou"/>
 
-
-        <TextView
-            android:id="@+id/tv_head_zan"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/iv_head02"
-            android:layout_toRightOf="@+id/iv_head02"
-            android:background="@drawable/shape_color_stroke_corner"
-            android:paddingBottom="2dp"
-            android:paddingLeft="@dimen/half_global_padding"
-            android:paddingRight="@dimen/half_global_padding"
-            android:paddingTop="2dp"
-            android:text="超赞"
-            android:textColor="@color/colorPrimary"
-            android:textSize="12sp"/>
-
-
-        <TextView
-            android:id="@+id/tv_head_xin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/iv_head02"
-            android:layout_toRightOf="@+id/iv_head02"
-            android:background="@drawable/shape_color_stroke_corner"
-            android:paddingBottom="2dp"
-            android:paddingLeft="@dimen/half_global_padding"
-            android:paddingRight="@dimen/half_global_padding"
-            android:paddingTop="2dp"
-            android:text="最新"
-            android:textColor="@color/colorPrimary"
-            android:textSize="12sp"/>
-
-
         <AdapterViewFlipper
             android:id="@+id/adapterViewFlipper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tv_head_xin"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_toRightOf="@+id/tv_head_zan"
+            android:layout_alignBottom="@+id/iv_head02"
+            android:layout_toRightOf="@+id/iv_head02"
             android:flipInterval="3000"/>
-
 
     </RelativeLayout>
 

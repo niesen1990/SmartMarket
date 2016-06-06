@@ -1,13 +1,22 @@
 package com.cmbb.smartmarket.activity.home;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.mobileim.conversation.IYWConversationService;
+import com.alibaba.mobileim.conversation.IYWConversationUnreadChangeListener;
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.PublishOperationActivity;
+import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
+import com.cmbb.smartmarket.base.Constants;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 import butterknife.BindView;
 
@@ -30,81 +39,40 @@ public abstract class BaseHomeActivity extends BaseRecyclerActivity {
     TextView tvMessage;
     @BindView(R.id.tv_me)
     TextView tvMe;
+    @BindView(R.id.tv_message_count)
+    TextView tvMessageCount;
+
+    protected IYWConversationUnreadChangeListener mConversationUnreadChangeListener;
+    protected IYWConversationService mConversationService;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     @Override
     protected void init(Bundle savedInstanceState) {
         super.init(savedInstanceState);
         initBottom();
-//        initPublishFloatingButton();
+        initListener();
     }
 
-    /*protected void initPublishFloatingButton() {
-        int redActionButtonSize = getResources().getDimensionPixelSize(R.dimen.publish_button_size);
-        int redActionButtonMargin = getResources().getDimensionPixelSize(R.dimen.publish_button_margin);
-        int redActionButtonContentSize = getResources().getDimensionPixelSize(R.dimen.publish_button_content_size);
-        int redActionButtonContentMargin = getResources().getDimensionPixelSize(R.dimen.publish_button_content_margin);
-        int redActionMenuRadius = getResources().getDimensionPixelSize(R.dimen.publish_button_menu_radius);
-        int blueSubActionButtonSize = getResources().getDimensionPixelSize(R.dimen.publish_button_sub_size);
-        int blueSubActionButtonContentMargin = getResources().getDimensionPixelSize(R.dimen.publish_button_sub_margin);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mConversationUnreadChangeListener == null || mConversationService == null)
+            return;
 
-        ImageView fabIconStar = new ImageView(this);
+        //resume时需要检查全局未读消息数并做处理，因为离开此界面时删除了全局消息监听器
+        mConversationUnreadChangeListener.onUnreadChange();
+        //在Tab栏增加会话未读消息变化的全局监听器
+        mConversationService.addTotalUnreadChangeListener(mConversationUnreadChangeListener);
+    }
 
-        FloatingActionButton.LayoutParams starParams = new FloatingActionButton.LayoutParams(redActionButtonSize, redActionButtonSize);
-        starParams.setMargins(redActionButtonMargin, redActionButtonMargin, redActionButtonMargin, redActionButtonMargin);
-        fabIconStar.setLayoutParams(starParams);
-
-        FloatingActionButton.LayoutParams fabIconStarParams = new FloatingActionButton.LayoutParams(redActionButtonContentSize, redActionButtonContentSize);
-        fabIconStarParams.setMargins(redActionButtonContentMargin, redActionButtonContentMargin, redActionButtonContentMargin, redActionButtonContentMargin);
-
-        final FloatingActionButton BottomCenterButton = new FloatingActionButton.Builder(this)
-                .setContentView(fabIconStar, fabIconStarParams)
-                .setBackgroundDrawable(R.drawable.selector_home_publish)
-                .setPosition(FloatingActionButton.POSITION_BOTTOM_CENTER)
-                .setLayoutParams(starParams)
-                .build();
-
-        // Set up customized SubActionButtons for the right center menu
-        SubActionButton.Builder lCSubBuilder = new SubActionButton.Builder(this);
-        lCSubBuilder.setBackgroundDrawable(getResources().getDrawable(R.drawable.shape_white_circle));
-
-        FrameLayout.LayoutParams blueContentParams = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
-        blueContentParams.setMargins(blueSubActionButtonContentMargin, blueSubActionButtonContentMargin, blueSubActionButtonContentMargin, blueSubActionButtonContentMargin);
-        lCSubBuilder.setLayoutParams(blueContentParams);
-        // Set custom layout params
-        FrameLayout.LayoutParams blueParams = new FrameLayout.LayoutParams(blueSubActionButtonSize, blueSubActionButtonSize);
-        //blueParams.setMargins(blueSubActionButtonContentMargin, blueSubActionButtonContentMargin, blueSubActionButtonContentMargin, blueSubActionButtonContentMargin);
-        lCSubBuilder.setLayoutParams(blueParams);
-
-        ImageView lcIcon1 = new ImageView(this);
-        ImageView lcIcon2 = new ImageView(this);
-        lcIcon1.setImageDrawable(getResources().getDrawable(R.drawable.ic_home_pager_red));
-        lcIcon2.setImageDrawable(getResources().getDrawable(R.drawable.ic_home_message_red));
-
-        // Build another menu with custom options
-        final FloatingActionMenu BottomCenterMenu = new FloatingActionMenu.Builder(this)
-                .addSubActionView(lCSubBuilder.setContentView(lcIcon1, blueContentParams).build())
-                .addSubActionView(lCSubBuilder.setContentView(lcIcon2, blueContentParams).build())
-                .setRadius(redActionMenuRadius)
-                .setStartAngle(-60)
-                .setEndAngle(-120)
-                .attachTo(BottomCenterButton)
-                .build();
-        lcIcon1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BottomCenterMenu.close(true);
-                PublishActivity.newIntent(BaseHomeActivity.this, "求购", "1");
-
-            }
-        });
-        lcIcon2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BottomCenterMenu.close(true);
-                PublishActivity.newIntent(BaseHomeActivity.this, "发布", "0");
-            }
-        });
-    }*/
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mConversationUnreadChangeListener == null || mConversationService == null)
+            return;
+        //在Tab栏删除会话未读消息变化的全局监听器
+        mConversationService.removeTotalUnreadChangeListener(mConversationUnreadChangeListener);
+    }
 
     protected void initBottom() {
         tvHome.setOnClickListener(this);
@@ -112,6 +80,40 @@ public abstract class BaseHomeActivity extends BaseRecyclerActivity {
         tvPublish.setOnClickListener(this);
         tvMessage.setOnClickListener(this);
         tvMe.setOnClickListener(this);
+    }
+
+    private void initListener() {
+        if (IMHelper.getInstance().getIMKit() == null)
+            return;
+        mConversationService = IMHelper.getInstance().getIMKit().getConversationService();
+        //初始化并添加会话变更监听
+        mConversationUnreadChangeListener = new IYWConversationUnreadChangeListener() {
+            //当未读数发生变化时会回调该方法，开发者可以在该方法中更新未读数
+            @Override
+            public void onUnreadChange() {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        //获取当前登录用户的所有未读数
+                        int unReadCount = mConversationService.getAllUnreadCount();
+                        updateMessage(unReadCount);
+                    }
+                });
+            }
+        };
+    }
+
+    public void updateMessage(int unReadCount) {
+        if (unReadCount > 0) {
+            tvMessageCount.setVisibility(View.VISIBLE);
+            if (unReadCount < 100) {
+                tvMessageCount.setText(unReadCount + "");
+            } else {
+                tvMessageCount.setText("99+");
+            }
+        } else {
+            tvMessageCount.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -125,7 +127,7 @@ public abstract class BaseHomeActivity extends BaseRecyclerActivity {
                 HomeShopActivity.newIntent(this);
                 break;
             case R.id.tv_publish:
-                PublishOperationActivity.newIntent(this);
+                HomeOperationActivity.newIntent(this);
                 break;
             case R.id.tv_message:
                 HomeMessageActivity.newIntent(this);
@@ -133,6 +135,27 @@ public abstract class BaseHomeActivity extends BaseRecyclerActivity {
             case R.id.tv_me:
                 HomeMeActivity.newIntent(this);
                 break;
+        }
+    }
+
+    private Boolean isQuit = false;// 退出应用标识符
+    private Timer timer = new Timer();// 程序退出定时器
+
+    @Override
+    public void onBackPressed() {
+        if (!isQuit) {
+            isQuit = true;
+            showToast("您确定要退出吗？");
+            TimerTask task = new TimerTask() {
+                @Override
+                public void run() {
+                    isQuit = false;
+                }
+            };
+            timer.schedule(task, 2000);
+        } else {
+            Intent intent = new Intent(Constants.INTENT_ACTION_EXIT_APP);
+            sendBroadcast(intent);
         }
     }
 }

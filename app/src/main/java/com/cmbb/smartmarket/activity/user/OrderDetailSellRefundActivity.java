@@ -7,6 +7,8 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerReceiveRequestModel;
@@ -33,10 +35,9 @@ public class OrderDetailSellRefundActivity extends OrderDetailBaseActivity {
 
     private static final String TAG = OrderDetailSellRefundActivity.class.getSimpleName();
 
-    public static void newIntent(Context context, int orderId, String orderType) {
+    public static void newIntent(Context context, int orderId) {
         Intent intent = new Intent(context, OrderDetailSellRefundActivity.class);
         intent.putExtra("orderId", orderId);
-        intent.putExtra("orderType", orderType);
         context.startActivity(intent);
     }
 
@@ -101,6 +102,24 @@ public class OrderDetailSellRefundActivity extends OrderDetailBaseActivity {
                         break;
                     case "提醒退货":
                         // TODO: 16/5/31
+                        HttpMethod.getInstance().marketOrderNotice(new Observer<MarketOrderNoticeResponseModel>() {
+                            @Override
+                            public void onCompleted() {
+                                hideWaitingDialog();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                hideWaitingDialog();
+                                Log.e(TAG, e.toString());
+                            }
+
+                            @Override
+                            public void onNext(MarketOrderNoticeResponseModel marketOrderNoticeResponseModel) {
+                                if(marketOrderNoticeResponseModel == null) return;
+                                showToast(marketOrderNoticeResponseModel.getMsg());
+                            }
+                        }, setNoticeParams());
                         break;
                     case "确认收货":
                         DialogUtils.createAlertDialog(OrderDetailSellRefundActivity.this, "警告", "确认收货了吗？", true, new DialogInterface.OnClickListener() {
@@ -135,6 +154,14 @@ public class OrderDetailSellRefundActivity extends OrderDetailBaseActivity {
                 }
             }
         });
+    }
+
+    private MarketOrderNoticeRequestModel setNoticeParams() {
+        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
+        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
+        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
+        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("refund", "sell", getIntent().getIntExtra("orderId", -1)));
+        return marketOrderNoticeRequestModel;
     }
 
     private MarketOrderSellerReceiveRequestModel setReceiverParams(int id) {

@@ -15,7 +15,6 @@ import com.cmbb.smartmarket.activity.address.model.UserAddressDetailRequestModel
 import com.cmbb.smartmarket.activity.address.model.UserAddressDetailResponseModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSaveRequestModel;
 import com.cmbb.smartmarket.activity.address.model.UserAddressSaveResponseModel;
-import com.cmbb.smartmarket.activity.home.HomeAddressActivity;
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.log.Log;
@@ -61,9 +60,10 @@ public class AddAndEditAddressActivity extends BaseActivity {
     Switch switchDefault;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
+    @BindView(R.id.tv_pcd)
+    TextView tvPcd;
 
     int isDefault = 0;
-
     int id = -1;
 
     @Override
@@ -170,10 +170,10 @@ public class AddAndEditAddressActivity extends BaseActivity {
                 parametersEntity.setReceiveName(etName.getText().toString());
                 parametersEntity.setReceivePhone(etPhone.getText().toString());
                 parametersEntity.setAddress(etAddressDetail.getText().toString());
-                // TODO: 16/6/2  
-                parametersEntity.setProvince("310000");
-                parametersEntity.setCity("310100");
-                parametersEntity.setDistrict("310110");
+                // TODO: 16/6/2
+                parametersEntity.setProvince(provinceCode);
+                parametersEntity.setCity(cityCode);
+                parametersEntity.setDistrict(districtCode);
                 parametersEntity.setIsDefault(isDefault);
                 if (id != -1) {
                     parametersEntity.setId(id + "");
@@ -182,7 +182,7 @@ public class AddAndEditAddressActivity extends BaseActivity {
                 subscription = HttpMethod.getInstance().requestUserAddressSave(mUserAddressSaveResponseModelObserver, requestModel);
                 break;
             case R.id.ll03:
-                HomeAddressActivity.newIntent(this, 100);
+                AddressPickActivity.newIntent(this, 100);
                 break;
         }
     }
@@ -190,6 +190,27 @@ public class AddAndEditAddressActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
         return R.layout.activity_add_address_layout;
+    }
+
+    String province;
+    String provinceCode;
+    String city;
+    String cityCode;
+    String district;
+    String districtCode;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 & resultCode == RESULT_OK) {
+            province = data.getStringExtra("province");
+            provinceCode = data.getStringExtra("provinceCode");
+            city = data.getStringExtra("city");
+            cityCode = data.getStringExtra("cityCode");
+            district = data.getStringExtra("district");
+            districtCode = data.getStringExtra("districtCode");
+            tvPcd.setText(province + " " + city + " " + district);
+        }
     }
 
     public static void newIntent(BaseActivity context, int requestCode) {
