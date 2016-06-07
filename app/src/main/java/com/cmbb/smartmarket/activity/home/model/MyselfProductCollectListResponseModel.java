@@ -14,11 +14,11 @@ import java.util.List;
 public class MyselfProductCollectListResponseModel {
 
     /**
-     * content : [{"id":4,"userId":3,"isDelete":0,"createDate":"2016-05-05 14:36:05","createUserId":3,"productDto":{"id":5,"title":"配饰","introduce":"","content":"服","originalPrice":500,"currentPrice":100,"freight":20,"priceDesc":"","parentClassify":"3","parentClassifyText":"","secondClassify":"6","secondClassifyText":"","thirdClassify":"3","thirdClassifyText":"","lontitude":0,"latitude":"","province":"","city":"","district":"","address":"","type":"SELL","status":"ITEMUPSHELF","statusText":"上架","isResolve":1,"resolveDate":"","browseNumber":0,"replyNumber":3,"shareNumber":0,"isRecommoned":0,"publicDate":"2016-04-29 18:01:21","publicUserDto":{"id":3,"mbpUserId":108074,"loginAccount":"18221507236","nickName":"mywaystay","sex":1,"province":310000,"provinceText":"","city":310104,"cityText":"","introduce":"","userImg":"http://smart.image.alimmdn.com/app/test/2015-12-8/C6BDAD0C-A958-428A-8287-745234FE9253","imgWidth":"","imgHeight":"","userLevel":0,"appVersion":"","device":"","deviceImei":""},"productImageList":[{"imageHeight":"","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-04-29/imageList_NzYxNzI2YjgtOTg3Yy00NTlmLTgwM2YtM2FmNmY0Yjc4NjRl","imageWidth":""}],"isCollect":1,"isSpot":1}}]
-     * last : true
+     * content : [{"id":56,"userId":6,"isDelete":0,"createDate":"2016-06-07 11:48:35","createUserId":6,"product":{"id":231,"title":"测试数据","introduce":"","content":"Android","originalPrice":9.02,"currentPrice":0.01,"freight":0.01,"priceDesc":"","parentClassify":"MMYP","parentClassifyText":"妈妈用品","secondClassify":"MMYP_XB","secondClassifyText":"鞋包","thirdClassify":"","thirdClassifyText":"","userLocation":{"id":153,"country":"中国","countryCode":"0","province":"上海市","city":"上海市","cityCode":"289","district":"杨浦区","street":"飞虹路","streetNumber":"568弄-13","address":"中国上海市杨浦区飞虹路568弄-13"},"productType":0,"productStatus":0,"productStatusText":"上架","isResolve":1,"resolveDate":"","browseNumber":19,"replyNumber":1,"shareNumber":0,"isRecommoned":1,"publicDate":"2016-06-06 16:11:09","publicUser":{"id":5,"mbpUserId":101033,"imUserId":"13818155072","loginAccount":"13818155072","nickName":"共产党","sex":1,"province":"","provinceText":"","city":"","cityText":"","introduce":"哈哈","userImg":"http://smart-test.image.alimmdn.com/market/user/image/2016-06-03/ZTljYWI0YjUtYjhmYy00YTk4LTk3YWItYWI5ZTMzYmFhNGU5","imgWidth":512,"imgHeight":512,"userLevel":0,"appVersion":"hm_android_1.0.0","device":"ANDROID","deviceImei":"352514065726683"},"productImageList":[{"imageHeight":640,"businessNumber":"8a7c7f4755244eaa015524c3bdee0013","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-06-06/OWE3MzRkMzEtMmFlMi00NjZmLTkyZTktZTE1YTQ1NDlhMWY4","imageWidth":1138}],"isCollect":1,"isSpot":1}}]
      * totalElements : 1
      * totalPages : 1
-     * size : 5
+     * last : true
+     * size : 10
      * number : 0
      * first : true
      * sort :
@@ -27,7 +27,7 @@ public class MyselfProductCollectListResponseModel {
 
     private DataEntity data;
     /**
-     * data : {"content":[{"id":4,"userId":3,"isDelete":0,"createDate":"2016-05-05 14:36:05","createUserId":3,"productDto":{"id":5,"title":"配饰","introduce":"","content":"服","originalPrice":500,"currentPrice":100,"freight":20,"priceDesc":"","parentClassify":"3","parentClassifyText":"","secondClassify":"6","secondClassifyText":"","thirdClassify":"3","thirdClassifyText":"","lontitude":0,"latitude":"","province":"","city":"","district":"","address":"","type":"SELL","status":"ITEMUPSHELF","statusText":"上架","isResolve":1,"resolveDate":"","browseNumber":0,"replyNumber":3,"shareNumber":0,"isRecommoned":0,"publicDate":"2016-04-29 18:01:21","publicUserDto":{"id":3,"mbpUserId":108074,"loginAccount":"18221507236","nickName":"mywaystay","sex":1,"province":310000,"provinceText":"","city":310104,"cityText":"","introduce":"","userImg":"http://smart.image.alimmdn.com/app/test/2015-12-8/C6BDAD0C-A958-428A-8287-745234FE9253","imgWidth":"","imgHeight":"","userLevel":0,"appVersion":"","device":"","deviceImei":""},"productImageList":[{"imageHeight":"","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-04-29/imageList_NzYxNzI2YjgtOTg3Yy00NTlmLTgwM2YtM2FmNmY0Yjc4NjRl","imageWidth":""}],"isCollect":1,"isSpot":1}}],"last":true,"totalElements":1,"totalPages":1,"size":5,"number":0,"first":true,"sort":"","numberOfElements":1}
+     * data : {"content":[{"id":56,"userId":6,"isDelete":0,"createDate":"2016-06-07 11:48:35","createUserId":6,"product":{"id":231,"title":"测试数据","introduce":"","content":"Android","originalPrice":9.02,"currentPrice":0.01,"freight":0.01,"priceDesc":"","parentClassify":"MMYP","parentClassifyText":"妈妈用品","secondClassify":"MMYP_XB","secondClassifyText":"鞋包","thirdClassify":"","thirdClassifyText":"","userLocation":{"id":153,"country":"中国","countryCode":"0","province":"上海市","city":"上海市","cityCode":"289","district":"杨浦区","street":"飞虹路","streetNumber":"568弄-13","address":"中国上海市杨浦区飞虹路568弄-13"},"productType":0,"productStatus":0,"productStatusText":"上架","isResolve":1,"resolveDate":"","browseNumber":19,"replyNumber":1,"shareNumber":0,"isRecommoned":1,"publicDate":"2016-06-06 16:11:09","publicUser":{"id":5,"mbpUserId":101033,"imUserId":"13818155072","loginAccount":"13818155072","nickName":"共产党","sex":1,"province":"","provinceText":"","city":"","cityText":"","introduce":"哈哈","userImg":"http://smart-test.image.alimmdn.com/market/user/image/2016-06-03/ZTljYWI0YjUtYjhmYy00YTk4LTk3YWItYWI5ZTMzYmFhNGU5","imgWidth":512,"imgHeight":512,"userLevel":0,"appVersion":"hm_android_1.0.0","device":"ANDROID","deviceImei":"352514065726683"},"productImageList":[{"imageHeight":640,"businessNumber":"8a7c7f4755244eaa015524c3bdee0013","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-06-06/OWE3MzRkMzEtMmFlMi00NjZmLTkyZTktZTE1YTQ1NDlhMWY4","imageWidth":1138}],"isCollect":1,"isSpot":1}}],"totalElements":1,"totalPages":1,"last":true,"size":10,"number":0,"first":true,"sort":"","numberOfElements":1}
      * msg : 数据加载成功
      */
 
@@ -50,32 +50,24 @@ public class MyselfProductCollectListResponseModel {
     }
 
     public static class DataEntity {
-        private boolean last;
         private int totalElements;
         private int totalPages;
+        private boolean last;
         private int size;
         private int number;
         private boolean first;
         private String sort;
         private int numberOfElements;
         /**
-         * id : 4
-         * userId : 3
+         * id : 56
+         * userId : 6
          * isDelete : 0
-         * createDate : 2016-05-05 14:36:05
-         * createUserId : 3
-         * productDto : {"id":5,"title":"配饰","introduce":"","content":"服","originalPrice":500,"currentPrice":100,"freight":20,"priceDesc":"","parentClassify":"3","parentClassifyText":"","secondClassify":"6","secondClassifyText":"","thirdClassify":"3","thirdClassifyText":"","lontitude":0,"latitude":"","province":"","city":"","district":"","address":"","type":"SELL","status":"ITEMUPSHELF","statusText":"上架","isResolve":1,"resolveDate":"","browseNumber":0,"replyNumber":3,"shareNumber":0,"isRecommoned":0,"publicDate":"2016-04-29 18:01:21","publicUserDto":{"id":3,"mbpUserId":108074,"loginAccount":"18221507236","nickName":"mywaystay","sex":1,"province":310000,"provinceText":"","city":310104,"cityText":"","introduce":"","userImg":"http://smart.image.alimmdn.com/app/test/2015-12-8/C6BDAD0C-A958-428A-8287-745234FE9253","imgWidth":"","imgHeight":"","userLevel":0,"appVersion":"","device":"","deviceImei":""},"productImageList":[{"imageHeight":"","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-04-29/imageList_NzYxNzI2YjgtOTg3Yy00NTlmLTgwM2YtM2FmNmY0Yjc4NjRl","imageWidth":""}],"isCollect":1,"isSpot":1}
+         * createDate : 2016-06-07 11:48:35
+         * createUserId : 6
+         * product : {"id":231,"title":"测试数据","introduce":"","content":"Android","originalPrice":9.02,"currentPrice":0.01,"freight":0.01,"priceDesc":"","parentClassify":"MMYP","parentClassifyText":"妈妈用品","secondClassify":"MMYP_XB","secondClassifyText":"鞋包","thirdClassify":"","thirdClassifyText":"","userLocation":{"id":153,"country":"中国","countryCode":"0","province":"上海市","city":"上海市","cityCode":"289","district":"杨浦区","street":"飞虹路","streetNumber":"568弄-13","address":"中国上海市杨浦区飞虹路568弄-13"},"productType":0,"productStatus":0,"productStatusText":"上架","isResolve":1,"resolveDate":"","browseNumber":19,"replyNumber":1,"shareNumber":0,"isRecommoned":1,"publicDate":"2016-06-06 16:11:09","publicUser":{"id":5,"mbpUserId":101033,"imUserId":"13818155072","loginAccount":"13818155072","nickName":"共产党","sex":1,"province":"","provinceText":"","city":"","cityText":"","introduce":"哈哈","userImg":"http://smart-test.image.alimmdn.com/market/user/image/2016-06-03/ZTljYWI0YjUtYjhmYy00YTk4LTk3YWItYWI5ZTMzYmFhNGU5","imgWidth":512,"imgHeight":512,"userLevel":0,"appVersion":"hm_android_1.0.0","device":"ANDROID","deviceImei":"352514065726683"},"productImageList":[{"imageHeight":640,"businessNumber":"8a7c7f4755244eaa015524c3bdee0013","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-06-06/OWE3MzRkMzEtMmFlMi00NjZmLTkyZTktZTE1YTQ1NDlhMWY4","imageWidth":1138}],"isCollect":1,"isSpot":1}
          */
 
         private List<ContentEntity> content;
-
-        public boolean isLast() {
-            return last;
-        }
-
-        public void setLast(boolean last) {
-            this.last = last;
-        }
 
         public int getTotalElements() {
             return totalElements;
@@ -91,6 +83,14 @@ public class MyselfProductCollectListResponseModel {
 
         public void setTotalPages(int totalPages) {
             this.totalPages = totalPages;
+        }
+
+        public boolean isLast() {
+            return last;
+        }
+
+        public void setLast(boolean last) {
+            this.last = last;
         }
 
         public int getSize() {
@@ -148,43 +148,38 @@ public class MyselfProductCollectListResponseModel {
             private String createDate;
             private int createUserId;
             /**
-             * id : 5
-             * title : 配饰
+             * id : 231
+             * title : 测试数据
              * introduce :
-             * content : 服
-             * originalPrice : 500
-             * currentPrice : 100
-             * freight : 20
+             * content : Android
+             * originalPrice : 9.02
+             * currentPrice : 0.01
+             * freight : 0.01
              * priceDesc :
-             * parentClassify : 3
-             * parentClassifyText :
-             * secondClassify : 6
-             * secondClassifyText :
-             * thirdClassify : 3
+             * parentClassify : MMYP
+             * parentClassifyText : 妈妈用品
+             * secondClassify : MMYP_XB
+             * secondClassifyText : 鞋包
+             * thirdClassify :
              * thirdClassifyText :
-             * lontitude : 0
-             * latitude :
-             * province :
-             * city :
-             * district :
-             * address :
-             * type : SELL
-             * status : ITEMUPSHELF
-             * statusText : 上架
+             * userLocation : {"id":153,"country":"中国","countryCode":"0","province":"上海市","city":"上海市","cityCode":"289","district":"杨浦区","street":"飞虹路","streetNumber":"568弄-13","address":"中国上海市杨浦区飞虹路568弄-13"}
+             * productType : 0
+             * productStatus : 0
+             * productStatusText : 上架
              * isResolve : 1
              * resolveDate :
-             * browseNumber : 0
-             * replyNumber : 3
+             * browseNumber : 19
+             * replyNumber : 1
              * shareNumber : 0
-             * isRecommoned : 0
-             * publicDate : 2016-04-29 18:01:21
-             * publicUserDto : {"id":3,"mbpUserId":108074,"loginAccount":"18221507236","nickName":"mywaystay","sex":1,"province":310000,"provinceText":"","city":310104,"cityText":"","introduce":"","userImg":"http://smart.image.alimmdn.com/app/test/2015-12-8/C6BDAD0C-A958-428A-8287-745234FE9253","imgWidth":"","imgHeight":"","userLevel":0,"appVersion":"","device":"","deviceImei":""}
-             * productImageList : [{"imageHeight":"","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-04-29/imageList_NzYxNzI2YjgtOTg3Yy00NTlmLTgwM2YtM2FmNmY0Yjc4NjRl","imageWidth":""}]
+             * isRecommoned : 1
+             * publicDate : 2016-06-06 16:11:09
+             * publicUser : {"id":5,"mbpUserId":101033,"imUserId":"13818155072","loginAccount":"13818155072","nickName":"共产党","sex":1,"province":"","provinceText":"","city":"","cityText":"","introduce":"哈哈","userImg":"http://smart-test.image.alimmdn.com/market/user/image/2016-06-03/ZTljYWI0YjUtYjhmYy00YTk4LTk3YWItYWI5ZTMzYmFhNGU5","imgWidth":512,"imgHeight":512,"userLevel":0,"appVersion":"hm_android_1.0.0","device":"ANDROID","deviceImei":"352514065726683"}
+             * productImageList : [{"imageHeight":640,"businessNumber":"8a7c7f4755244eaa015524c3bdee0013","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-06-06/OWE3MzRkMzEtMmFlMi00NjZmLTkyZTktZTE1YTQ1NDlhMWY4","imageWidth":1138}]
              * isCollect : 1
              * isSpot : 1
              */
 
-            private ProductDtoEntity productDto;
+            private ProductEntity product;
 
             public int getId() {
                 return id;
@@ -226,22 +221,22 @@ public class MyselfProductCollectListResponseModel {
                 this.createUserId = createUserId;
             }
 
-            public ProductDtoEntity getProductDto() {
-                return productDto;
+            public ProductEntity getProduct() {
+                return product;
             }
 
-            public void setProductDto(ProductDtoEntity productDto) {
-                this.productDto = productDto;
+            public void setProduct(ProductEntity product) {
+                this.product = product;
             }
 
-            public static class ProductDtoEntity {
+            public static class ProductEntity {
                 private int id;
                 private String title;
                 private String introduce;
                 private String content;
-                private int originalPrice;
-                private int currentPrice;
-                private int freight;
+                private double originalPrice;
+                private double currentPrice;
+                private double freight;
                 private String priceDesc;
                 private String parentClassify;
                 private String parentClassifyText;
@@ -249,15 +244,23 @@ public class MyselfProductCollectListResponseModel {
                 private String secondClassifyText;
                 private String thirdClassify;
                 private String thirdClassifyText;
-                private int lontitude;
-                private String latitude;
-                private String province;
-                private String city;
-                private String district;
-                private String address;
-                private String type;
-                private String status;
-                private String statusText;
+                /**
+                 * id : 153
+                 * country : 中国
+                 * countryCode : 0
+                 * province : 上海市
+                 * city : 上海市
+                 * cityCode : 289
+                 * district : 杨浦区
+                 * street : 飞虹路
+                 * streetNumber : 568弄-13
+                 * address : 中国上海市杨浦区飞虹路568弄-13
+                 */
+
+                private UserLocationEntity userLocation;
+                private int productType;
+                private int productStatus;
+                private String productStatusText;
                 private int isResolve;
                 private String resolveDate;
                 private int browseNumber;
@@ -266,32 +269,34 @@ public class MyselfProductCollectListResponseModel {
                 private int isRecommoned;
                 private String publicDate;
                 /**
-                 * id : 3
-                 * mbpUserId : 108074
-                 * loginAccount : 18221507236
-                 * nickName : mywaystay
+                 * id : 5
+                 * mbpUserId : 101033
+                 * imUserId : 13818155072
+                 * loginAccount : 13818155072
+                 * nickName : 共产党
                  * sex : 1
-                 * province : 310000
+                 * province :
                  * provinceText :
-                 * city : 310104
+                 * city :
                  * cityText :
-                 * introduce :
-                 * userImg : http://smart.image.alimmdn.com/app/test/2015-12-8/C6BDAD0C-A958-428A-8287-745234FE9253
-                 * imgWidth :
-                 * imgHeight :
+                 * introduce : 哈哈
+                 * userImg : http://smart-test.image.alimmdn.com/market/user/image/2016-06-03/ZTljYWI0YjUtYjhmYy00YTk4LTk3YWItYWI5ZTMzYmFhNGU5
+                 * imgWidth : 512.0
+                 * imgHeight : 512.0
                  * userLevel : 0
-                 * appVersion :
-                 * device :
-                 * deviceImei :
+                 * appVersion : hm_android_1.0.0
+                 * device : ANDROID
+                 * deviceImei : 352514065726683
                  */
 
                 private PublicUserEntity publicUser;
                 private int isCollect;
                 private int isSpot;
                 /**
-                 * imageHeight :
-                 * location : http://smart-test.image.alimmdn.com/market/product/image/2016-04-29/imageList_NzYxNzI2YjgtOTg3Yy00NTlmLTgwM2YtM2FmNmY0Yjc4NjRl
-                 * imageWidth :
+                 * imageHeight : 640
+                 * businessNumber : 8a7c7f4755244eaa015524c3bdee0013
+                 * location : http://smart-test.image.alimmdn.com/market/product/image/2016-06-06/OWE3MzRkMzEtMmFlMi00NjZmLTkyZTktZTE1YTQ1NDlhMWY4
+                 * imageWidth : 1138
                  */
 
                 private List<ProductImageListEntity> productImageList;
@@ -328,27 +333,27 @@ public class MyselfProductCollectListResponseModel {
                     this.content = content;
                 }
 
-                public int getOriginalPrice() {
+                public double getOriginalPrice() {
                     return originalPrice;
                 }
 
-                public void setOriginalPrice(int originalPrice) {
+                public void setOriginalPrice(double originalPrice) {
                     this.originalPrice = originalPrice;
                 }
 
-                public int getCurrentPrice() {
+                public double getCurrentPrice() {
                     return currentPrice;
                 }
 
-                public void setCurrentPrice(int currentPrice) {
+                public void setCurrentPrice(double currentPrice) {
                     this.currentPrice = currentPrice;
                 }
 
-                public int getFreight() {
+                public double getFreight() {
                     return freight;
                 }
 
-                public void setFreight(int freight) {
+                public void setFreight(double freight) {
                     this.freight = freight;
                 }
 
@@ -408,76 +413,36 @@ public class MyselfProductCollectListResponseModel {
                     this.thirdClassifyText = thirdClassifyText;
                 }
 
-                public int getLontitude() {
-                    return lontitude;
+                public UserLocationEntity getUserLocation() {
+                    return userLocation;
                 }
 
-                public void setLontitude(int lontitude) {
-                    this.lontitude = lontitude;
+                public void setUserLocation(UserLocationEntity userLocation) {
+                    this.userLocation = userLocation;
                 }
 
-                public String getLatitude() {
-                    return latitude;
+                public int getProductType() {
+                    return productType;
                 }
 
-                public void setLatitude(String latitude) {
-                    this.latitude = latitude;
+                public void setProductType(int productType) {
+                    this.productType = productType;
                 }
 
-                public String getProvince() {
-                    return province;
+                public int getProductStatus() {
+                    return productStatus;
                 }
 
-                public void setProvince(String province) {
-                    this.province = province;
+                public void setProductStatus(int productStatus) {
+                    this.productStatus = productStatus;
                 }
 
-                public String getCity() {
-                    return city;
+                public String getProductStatusText() {
+                    return productStatusText;
                 }
 
-                public void setCity(String city) {
-                    this.city = city;
-                }
-
-                public String getDistrict() {
-                    return district;
-                }
-
-                public void setDistrict(String district) {
-                    this.district = district;
-                }
-
-                public String getAddress() {
-                    return address;
-                }
-
-                public void setAddress(String address) {
-                    this.address = address;
-                }
-
-                public String getType() {
-                    return type;
-                }
-
-                public void setType(String type) {
-                    this.type = type;
-                }
-
-                public String getStatus() {
-                    return status;
-                }
-
-                public void setStatus(String status) {
-                    this.status = status;
-                }
-
-                public String getStatusText() {
-                    return statusText;
-                }
-
-                public void setStatusText(String statusText) {
-                    this.statusText = statusText;
+                public void setProductStatusText(String productStatusText) {
+                    this.productStatusText = productStatusText;
                 }
 
                 public int getIsResolve() {
@@ -536,12 +501,12 @@ public class MyselfProductCollectListResponseModel {
                     this.publicDate = publicDate;
                 }
 
-                public PublicUserEntity getPublicUserDto() {
+                public PublicUserEntity getPublicUser() {
                     return publicUser;
                 }
 
-                public void setPublicUserDto(PublicUserEntity publicUserDto) {
-                    this.publicUser = publicUserDto;
+                public void setPublicUser(PublicUserEntity publicUser) {
+                    this.publicUser = publicUser;
                 }
 
                 public int getIsCollect() {
@@ -568,20 +533,114 @@ public class MyselfProductCollectListResponseModel {
                     this.productImageList = productImageList;
                 }
 
+                public static class UserLocationEntity {
+                    private int id;
+                    private String country;
+                    private String countryCode;
+                    private String province;
+                    private String city;
+                    private String cityCode;
+                    private String district;
+                    private String street;
+                    private String streetNumber;
+                    private String address;
+
+                    public int getId() {
+                        return id;
+                    }
+
+                    public void setId(int id) {
+                        this.id = id;
+                    }
+
+                    public String getCountry() {
+                        return country;
+                    }
+
+                    public void setCountry(String country) {
+                        this.country = country;
+                    }
+
+                    public String getCountryCode() {
+                        return countryCode;
+                    }
+
+                    public void setCountryCode(String countryCode) {
+                        this.countryCode = countryCode;
+                    }
+
+                    public String getProvince() {
+                        return province;
+                    }
+
+                    public void setProvince(String province) {
+                        this.province = province;
+                    }
+
+                    public String getCity() {
+                        return city;
+                    }
+
+                    public void setCity(String city) {
+                        this.city = city;
+                    }
+
+                    public String getCityCode() {
+                        return cityCode;
+                    }
+
+                    public void setCityCode(String cityCode) {
+                        this.cityCode = cityCode;
+                    }
+
+                    public String getDistrict() {
+                        return district;
+                    }
+
+                    public void setDistrict(String district) {
+                        this.district = district;
+                    }
+
+                    public String getStreet() {
+                        return street;
+                    }
+
+                    public void setStreet(String street) {
+                        this.street = street;
+                    }
+
+                    public String getStreetNumber() {
+                        return streetNumber;
+                    }
+
+                    public void setStreetNumber(String streetNumber) {
+                        this.streetNumber = streetNumber;
+                    }
+
+                    public String getAddress() {
+                        return address;
+                    }
+
+                    public void setAddress(String address) {
+                        this.address = address;
+                    }
+                }
+
                 public static class PublicUserEntity {
                     private int id;
                     private int mbpUserId;
+                    private String imUserId;
                     private String loginAccount;
                     private String nickName;
                     private int sex;
-                    private int province;
+                    private String province;
                     private String provinceText;
-                    private int city;
+                    private String city;
                     private String cityText;
                     private String introduce;
                     private String userImg;
-                    private String imgWidth;
-                    private String imgHeight;
+                    private double imgWidth;
+                    private double imgHeight;
                     private int userLevel;
                     private String appVersion;
                     private String device;
@@ -601,6 +660,14 @@ public class MyselfProductCollectListResponseModel {
 
                     public void setMbpUserId(int mbpUserId) {
                         this.mbpUserId = mbpUserId;
+                    }
+
+                    public String getImUserId() {
+                        return imUserId;
+                    }
+
+                    public void setImUserId(String imUserId) {
+                        this.imUserId = imUserId;
                     }
 
                     public String getLoginAccount() {
@@ -627,11 +694,11 @@ public class MyselfProductCollectListResponseModel {
                         this.sex = sex;
                     }
 
-                    public int getProvince() {
+                    public String getProvince() {
                         return province;
                     }
 
-                    public void setProvince(int province) {
+                    public void setProvince(String province) {
                         this.province = province;
                     }
 
@@ -643,11 +710,11 @@ public class MyselfProductCollectListResponseModel {
                         this.provinceText = provinceText;
                     }
 
-                    public int getCity() {
+                    public String getCity() {
                         return city;
                     }
 
-                    public void setCity(int city) {
+                    public void setCity(String city) {
                         this.city = city;
                     }
 
@@ -675,19 +742,19 @@ public class MyselfProductCollectListResponseModel {
                         this.userImg = userImg;
                     }
 
-                    public String getImgWidth() {
+                    public double getImgWidth() {
                         return imgWidth;
                     }
 
-                    public void setImgWidth(String imgWidth) {
+                    public void setImgWidth(double imgWidth) {
                         this.imgWidth = imgWidth;
                     }
 
-                    public String getImgHeight() {
+                    public double getImgHeight() {
                         return imgHeight;
                     }
 
-                    public void setImgHeight(String imgHeight) {
+                    public void setImgHeight(double imgHeight) {
                         this.imgHeight = imgHeight;
                     }
 
@@ -725,16 +792,25 @@ public class MyselfProductCollectListResponseModel {
                 }
 
                 public static class ProductImageListEntity {
-                    private String imageHeight;
+                    private int imageHeight;
+                    private String businessNumber;
                     private String location;
-                    private String imageWidth;
+                    private int imageWidth;
 
-                    public String getImageHeight() {
+                    public int getImageHeight() {
                         return imageHeight;
                     }
 
-                    public void setImageHeight(String imageHeight) {
+                    public void setImageHeight(int imageHeight) {
                         this.imageHeight = imageHeight;
+                    }
+
+                    public String getBusinessNumber() {
+                        return businessNumber;
+                    }
+
+                    public void setBusinessNumber(String businessNumber) {
+                        this.businessNumber = businessNumber;
                     }
 
                     public String getLocation() {
@@ -745,11 +821,11 @@ public class MyselfProductCollectListResponseModel {
                         this.location = location;
                     }
 
-                    public String getImageWidth() {
+                    public int getImageWidth() {
                         return imageWidth;
                     }
 
-                    public void setImageWidth(String imageWidth) {
+                    public void setImageWidth(int imageWidth) {
                         this.imageWidth = imageWidth;
                     }
                 }

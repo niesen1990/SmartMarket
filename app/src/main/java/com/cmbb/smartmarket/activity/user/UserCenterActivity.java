@@ -23,11 +23,11 @@ import com.cmbb.smartmarket.activity.user.model.MarketCenterPersonCenterInfoRequ
 import com.cmbb.smartmarket.activity.user.model.MarketCenterPersonCenterInfoResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
-import com.cmbb.smartmarket.image.BlurTransformation;
 import com.cmbb.smartmarket.image.CircleTransform;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.utils.TDevice;
 import com.cmbb.smartmarket.widget.MengCoordinatorLayout;
 
 import butterknife.BindView;
@@ -124,10 +124,11 @@ public class UserCenterActivity extends BaseActivity implements AppBarLayout.OnO
                     .into(ivHead);
 
             Glide.with(UserCenterActivity.this)
-                    .load(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getUserImg())
+                    .load(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getUserImg() + "@" + TDevice.getScreenWidth(UserCenterActivity.this) + "w_" + TDevice.dip2px(256, UserCenterActivity.this) + "h_50-50bl")
+                    .override(TDevice.getScreenWidth(UserCenterActivity.this), TDevice.dip2px(256, UserCenterActivity.this))
                     .crossFade()
                     .centerCrop()
-                    .bitmapTransform(new BlurTransformation(UserCenterActivity.this, 50))
+                    //                    .bitmapTransform(new BlurTransformation(UserCenterActivity.this, 100))
                     .into(ivBac);
             tvNick.setText(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getNickName());
             ratingBar.setNumStars(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getUserLevel());

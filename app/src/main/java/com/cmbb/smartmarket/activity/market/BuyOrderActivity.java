@@ -108,8 +108,10 @@ public class BuyOrderActivity extends BaseActivity {
                 receiveNick = marketOrderReserveResponseModel.getData().getReceiveName();
                 receivePhone = marketOrderReserveResponseModel.getData().getReceivePhone();
                 receiveAddress = marketOrderReserveResponseModel.getData().getAddress();
-                tvName.setText(marketOrderReserveResponseModel.getData().getReceiveName() + " " + marketOrderReserveResponseModel.getData().getReceivePhone());
-                tvDetailAddress.setText(marketOrderReserveResponseModel.getData().getAddress());
+                if (!TextUtils.isEmpty(receiveNick) && !TextUtils.isEmpty(receivePhone))
+                    tvName.setText(marketOrderReserveResponseModel.getData().getReceiveName() + " " + marketOrderReserveResponseModel.getData().getReceivePhone());
+                if (!TextUtils.isEmpty(receiveAddress))
+                    tvDetailAddress.setText(marketOrderReserveResponseModel.getData().getAddress());
                 tvExpress.setText("￥" + marketOrderReserveResponseModel.getData().getProduct().getFreight());
                 tvMoney.setText("￥" + marketOrderReserveResponseModel.getData().getPrice());
             }

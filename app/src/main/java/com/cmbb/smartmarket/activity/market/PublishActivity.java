@@ -22,6 +22,9 @@ import android.widget.TextView;
 import com.aigestudio.wheelpicker.core.AbstractWheelPicker;
 import com.aigestudio.wheelpicker.view.WheelStraightPicker;
 import com.alibaba.mobileim.ui.multi.lightservice.MultiPickGalleryActivity;
+import com.alibaba.mobileim.utility.IMFileTools;
+import com.alibaba.wxlib.config.StorageConstant;
+import com.alibaba.wxlib.util.IMPrefsTools;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.login.LoginActivity;
 import com.cmbb.smartmarket.activity.market.model.CommodityPublishResponseModel;
@@ -35,11 +38,14 @@ import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.Constants;
 import com.cmbb.smartmarket.image.ImageLoader;
+import com.cmbb.smartmarket.image.MediaCamera;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.utils.DialogUtils;
+import com.cmbb.smartmarket.utils.KeyboardUtil;
 import com.cmbb.smartmarket.utils.SPCache;
 import com.cmbb.smartmarket.utils.lbs.Location;
+import com.cmbb.smartmarket.widget.NestedScrollView;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -133,6 +139,14 @@ public class PublishActivity extends BaseActivity {
     TextView tvConfirm;
     @BindView(R.id.add)
     ImageView add;
+
+    @BindView(R.id.pic)
+    NestedScrollView pic;
+    @BindView(R.id.tv_camera)
+    TextView tvCamera;
+    @BindView(R.id.tv_gallery)
+    TextView tvGallery;
+    BottomSheetBehavior behaviorPic;
 
     @BindView(R.id.wv01)
     WheelStraightPicker straightPicker;
@@ -306,6 +320,7 @@ public class PublishActivity extends BaseActivity {
         });
         subscription = HttpMethod.getInstance().systemCodeInfoGetAllRequest(mSystemCodeInfoGetAllResponseModelObserver, setParams());
         behavior = BottomSheetBehavior.from(scroll);
+        behaviorPic = BottomSheetBehavior.from(pic);
         tvSubmit.setOnClickListener(this);
         rlType.setOnClickListener(this);
         tvCancel.setOnClickListener(this);
@@ -316,6 +331,8 @@ public class PublishActivity extends BaseActivity {
         ivDelete03.setOnClickListener(this);
         ivDelete04.setOnClickListener(this);
         ivDelete05.setOnClickListener(this);
+        tvCamera.setOnClickListener(this);
+        tvGallery.setOnClickListener(this);
         if (productType.equals("1")) {
             ll03.setVisibility(View.GONE);
         }
@@ -381,11 +398,13 @@ public class PublishActivity extends BaseActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_cancel:
-                behaviorStart(tvCancel);
+                behaviorStart();
                 break;
             case R.id.tv_confirm:
-                behaviorStart(tvConfirm);
+                behaviorStart();
                 tvClass.setText(mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getName() + " - " + mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getChildCodeInfoList().get(classChild).getName());
+                parentClassify = mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getValue();
+                secondClassify = mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getChildCodeInfoList() != null ? mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getChildCodeInfoList().get(classChild).getValue() : "";
                 break;
             case R.id.iv:
 
@@ -402,20 +421,23 @@ public class PublishActivity extends BaseActivity {
                     return;
                 }
                 String currentPrice = tvNewPrice.getText().toString();
-                if (TextUtils.isEmpty(currentPrice)) {
+                if (Double.parseDouble(currentPrice) == 0) {
                     showToast("请输入当前价格");
+                    return;
+                }
+                if (TextUtils.isEmpty(parentClassify)) {
+                    showToast("请选择商品类型");
                     return;
                 }
                 String originalPrice = tvOldPrice.getText().toString();
                 String freight = tvFreight.getText().toString();
-                parentClassify = mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getValue();
-                secondClassify = mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getChildCodeInfoList() != null ? mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getChildCodeInfoList().get(classChild).getValue() : "";
                 String locationJosnStr = SPCache.getString(Constants.LOCATION, "");
                 Log.i(TAG, locationJosnStr);
                 if (TextUtils.isEmpty(locationJosnStr)) {
                     showToast("您未开启定位功能，可能影响使用");
                 }
                 if (goodModel == null) {
+
                     publishCommodity(title, content, currentPrice, originalPrice, freight, parentClassify, secondClassify, locationJosnStr, productType);
                 } else {
                     editCommodity(title, content, currentPrice, originalPrice, freight, parentClassify, secondClassify, locationJosnStr, productType);
@@ -424,19 +446,15 @@ public class PublishActivity extends BaseActivity {
             case R.id.rl_type:
                 if (mSystemCodeInfoGetAllResponseModel == null)
                     return;
-                behaviorStart(rlType);
+                behaviorStart();
                 break;
             case R.id.add:
                 if (imageCount == 0) {
                     showToast("最多添加5张图片");
                     return;
                 }
-                Intent intent = new Intent(this, MultiPickGalleryActivity.class);
-                intent.putExtra(MultiPickGalleryActivity.MAX_COUNT, imageCount);
-                intent.putExtra(MultiPickGalleryActivity.MAX_TOAST, "选择的图片不能超过" + imageCount + "张");
-                intent.putExtra("titleRightText", "完成");
-                intent.putExtra("need_choose_original_pic", true);
-                startActivityForResult(intent, PIC_REQUEST_CODE);
+                KeyboardUtil.hideKeyboard(this);
+                behaviorPic();
                 break;
             case R.id.iv_delete01:
                 deleteImage(publishImageModels.get(0).getBusinessNumber(), 0);
@@ -453,6 +471,20 @@ public class PublishActivity extends BaseActivity {
             case R.id.iv_delete05:
                 deleteImage(publishImageModels.get(4).getBusinessNumber(), 4);
                 break;
+            case R.id.tv_camera:
+                imageTempFile = IMFileTools.createImageFile(StorageConstant.getFilePath());
+                MediaCamera.startCameraActivity(this, imageTempFile, 700);
+                behaviorPic();
+                break;
+            case R.id.tv_gallery:
+                Intent intent = new Intent(this, MultiPickGalleryActivity.class);
+                intent.putExtra(MultiPickGalleryActivity.MAX_COUNT, imageCount);
+                intent.putExtra(MultiPickGalleryActivity.MAX_TOAST, "选择的图片不能超过" + imageCount + "张");
+                intent.putExtra("titleRightText", "完成");
+                intent.putExtra("need_choose_original_pic", true);
+                startActivityForResult(intent, PIC_REQUEST_CODE);
+                behaviorPic();
+                break;
         }
     }
 
@@ -464,6 +496,8 @@ public class PublishActivity extends BaseActivity {
         systemCodeInfoGetAllRequest.setParameters(new SystemCodeInfoGetAllRequest.ParametersEntity("market_product_type", 2));
         return systemCodeInfoGetAllRequest;
     }
+
+    File imageTempFile;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -491,6 +525,21 @@ public class PublishActivity extends BaseActivity {
             }
             if (imageCount != 0)
                 imageCount = imageCount - data.getStringArrayListExtra("result_list").size();
+        } else if (resultCode == RESULT_OK && requestCode == 700) {
+            // camera
+            if (this.imageTempFile == null && !TextUtils.isEmpty(IMPrefsTools.getStringPrefs(this, "imageTempFile"))) {
+                this.imageTempFile = new File(IMPrefsTools.getStringPrefs(this, "imageTempFile"));
+            }
+
+            if (this.imageTempFile != null) {
+                Log.e("data", this.imageTempFile.getAbsolutePath());
+                publishImageModels.add(new PublishImageModel(this.imageTempFile.getAbsolutePath(), 0));
+                imageControl(publishImageModels);
+                if (imageCount != 0)
+                    imageCount = imageCount - 1;
+            }
+
+            IMPrefsTools.removePrefs(this, "imageTempFile");
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -687,8 +736,11 @@ public class PublishActivity extends BaseActivity {
     private Map<String, RequestBody> setDeleteParams(String businessNumber) {
         Map<String, RequestBody> params = new HashMap<>();
         params.put("token", RequestBody.create(MediaType.parse("text/plain"), BaseApplication.getToken()));
+        Log.e(TAG, "token = " + BaseApplication.getToken());
         params.put("type", RequestBody.create(MediaType.parse("text/plain"), "1"));
+        Log.e(TAG, "type = " + 1);
         params.put("businessNumber", RequestBody.create(MediaType.parse("text/plain"), businessNumber));
+        Log.e(TAG, "businessNumber = " + businessNumber);
         return params;
     }
 
@@ -700,11 +752,19 @@ public class PublishActivity extends BaseActivity {
         }
     }
 
-    public void behaviorStart(View view) {
+    public void behaviorStart() {
         if (behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
             behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         } else {
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }
+    }
+
+    public void behaviorPic() {
+        if (behaviorPic.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            behaviorPic.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        } else {
+            behaviorPic.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
     }
 

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:layout_marginBottom="45dp">
+        android:layout_marginBottom="48dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -127,10 +127,10 @@
                 android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingBottom="8dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="@dimen/half_global_padding"
+                android:paddingTop="8dp"
                 >
 
                 <TextView
@@ -157,10 +157,10 @@
                 android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingBottom="8dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="@dimen/half_global_padding">
+                android:paddingTop="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -187,10 +187,10 @@
                 android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingBottom="8dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="@dimen/half_global_padding">
+                android:paddingTop="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -228,10 +228,10 @@
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingBottom="8dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="@dimen/half_global_padding">
+                android:paddingTop="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -268,10 +268,10 @@
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingBottom="8dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="@dimen/half_global_padding">
+                android:paddingTop="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -308,10 +308,10 @@
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingBottom="8dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="@dimen/half_global_padding">
+                android:paddingTop="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -349,10 +349,10 @@
                 android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingBottom="8dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="@dimen/half_global_padding">
+                android:paddingTop="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -379,10 +379,10 @@
                 android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:orientation="horizontal"
-                android:paddingBottom="@dimen/half_global_padding"
+                android:paddingBottom="8dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="@dimen/half_global_padding">
+                android:paddingTop="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"

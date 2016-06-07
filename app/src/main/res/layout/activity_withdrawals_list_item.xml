@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_white_stroke_no_corner"
@@ -10,7 +11,7 @@
         android:id="@+id/tv_zhifubao"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@android:drawable/ic_menu_add"/>
+        android:src="@drawable/ic_zhifubao"/>
 
     <TextView
         android:id="@+id/tv_name"
@@ -20,7 +21,7 @@
         android:layout_marginRight="@dimen/global_padding"
         android:layout_toRightOf="@+id/tv_zhifubao"
         android:maxLines="1"
-        android:text="魅族"/>
+        tools:text="魅族"/>
 
     <TextView
         android:id="@+id/tv_account"
@@ -32,8 +33,8 @@
         android:layout_marginRight="@dimen/global_padding"
         android:layout_toRightOf="@+id/tv_zhifubao"
         android:maxLines="1"
-        android:text="niesen918@163.com"
-        android:textColor="@color/address"/>
+        android:textColor="@color/address"
+        tools:text="niesen918@163.com"/>
 
     <!--<ImageView
         android:id="@+id/iv_checked"

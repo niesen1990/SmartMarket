@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -14,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterViewFlipper;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -34,7 +34,6 @@ import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.utils.SPCache;
-import com.cmbb.smartmarket.utils.TDevice;
 import com.cmbb.smartmarket.utils.lbs.BaiduLocation;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.rollviewpager.PointHintView;
@@ -161,13 +160,11 @@ public class HomePagerActivity extends BaseHomeActivity {
         adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
             @Override
             public View onCreateView(ViewGroup parent) {
-                RollPagerView header = new RollPagerView(HomePagerActivity.this);
-                header.setHintView(new PointHintView(HomePagerActivity.this));
-                header.setHintPadding(0, 0, 0, TDevice.dip2px(8, HomePagerActivity.this));
-                header.setPlayDelay(2000);
-                header.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, TDevice.dip2px(120, HomePagerActivity.this)));
+                FrameLayout header = (FrameLayout) LayoutInflater.from(HomePagerActivity.this).inflate(R.layout.activity_home_pager_head02, null);
+                RollPagerView rollPagerView = (RollPagerView) header.findViewById(R.id.roll_view_pager);
+                rollPagerView.setHintView(new PointHintView(HomePagerActivity.this));
                 mBannerAdapter = new BannerAdapter(null);
-                header.setAdapter(mBannerAdapter);
+                rollPagerView.setAdapter(mBannerAdapter);
                 return header;
             }
 
@@ -298,14 +295,14 @@ public class HomePagerActivity extends BaseHomeActivity {
     private MarketHomeAdvertInfoRequestModel setAdParams() {
         MarketHomeAdvertInfoRequestModel marketHomeAdvertInfoRequestModel = new MarketHomeAdvertInfoRequestModel();
         marketHomeAdvertInfoRequestModel.setCmd(ApiInterface.MarketHomeAdvertInfo);
-//        marketHomeAdvertInfoRequestModel.setToken(BaseApplication.getToken());
+        //        marketHomeAdvertInfoRequestModel.setToken(BaseApplication.getToken());
         marketHomeAdvertInfoRequestModel.setParameters(new MarketHomeAdvertInfoRequestModel.ParametersEntity("INDEX"));
         return marketHomeAdvertInfoRequestModel;
     }
 
     private MarketHomeSaveLocationAddressRequestModel setLocationParams(String locationJson) {
         MarketHomeSaveLocationAddressRequestModel marketHomeSaveLocationAddressRequestModel = new MarketHomeSaveLocationAddressRequestModel();
-//        marketHomeSaveLocationAddressRequestModel.setToken(BaseApplication.getToken());
+        //        marketHomeSaveLocationAddressRequestModel.setToken(BaseApplication.getToken());
         marketHomeSaveLocationAddressRequestModel.setCmd(ApiInterface.MarketHomeSaveLocationAddress);
         marketHomeSaveLocationAddressRequestModel.setParameters(new MarketHomeSaveLocationAddressRequestModel.ParametersEntity(locationJson));
         return marketHomeSaveLocationAddressRequestModel;
@@ -319,7 +316,7 @@ public class HomePagerActivity extends BaseHomeActivity {
     protected ProductGetPageRequestModel setParams() {
         unSubscribe();
         ProductGetPageRequestModel productGetPageRequestModel = new ProductGetPageRequestModel();
-//        productGetPageRequestModel.setToken(BaseApplication.getToken());
+        //        productGetPageRequestModel.setToken(BaseApplication.getToken());
         productGetPageRequestModel.setCmd(ApiInterface.ProductGetPage);
         productGetPageRequestModel.setParameters(new ProductGetPageRequestModel.ParametersEntity(pagerSize, pager, 0, city));
         return productGetPageRequestModel;
@@ -327,7 +324,7 @@ public class HomePagerActivity extends BaseHomeActivity {
 
     protected ProductGetPageRequestModel setFlipperParams() {
         ProductGetPageRequestModel productGetPageRequestModel = new ProductGetPageRequestModel();
-//        productGetPageRequestModel.setToken(BaseApplication.getToken());
+        //        productGetPageRequestModel.setToken(BaseApplication.getToken());
         productGetPageRequestModel.setCmd(ApiInterface.ProductGetPage);
         productGetPageRequestModel.setParameters(new ProductGetPageRequestModel.ParametersEntity(pagerSize, pager, 1));
         return productGetPageRequestModel;

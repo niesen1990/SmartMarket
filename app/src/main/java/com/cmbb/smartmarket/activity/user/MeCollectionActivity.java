@@ -42,7 +42,7 @@ public class MeCollectionActivity extends BaseRecyclerActivity {
 
     @Override
     public void onItemClick(int position) {
-        CommodityDetailActivity.newIntent(this, 1);
+        CommodityDetailActivity.newIntent(this, ((MeCollectionAdapter)adapter).getItem(position).getProduct().getId());
     }
 
     Observer<MyselfProductCollectListResponseModel> mMyselfProductCollectListResponseModelObserver = new Observer<MyselfProductCollectListResponseModel>() {

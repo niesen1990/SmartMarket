@@ -16,6 +16,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 public class OrderDetailListItemHolder extends BaseViewHolder<MarketOrderDetailResponseModel.DataEntity.LogisticsEntity> {
     private final String TAG = OrderDetailListItemHolder.class.getSimpleName();
 
+
     private TextView tvContent;
     private TextView tvTime;
 

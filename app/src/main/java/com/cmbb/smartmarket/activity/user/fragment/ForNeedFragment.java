@@ -98,7 +98,7 @@ public class ForNeedFragment extends BaseRecyclerFragment {
         MarketCenterSelectProductListRequestModel marketCenterSelectProductListRequestModel = new MarketCenterSelectProductListRequestModel();
         marketCenterSelectProductListRequestModel.setCmd(ApiInterface.MarketCenterSelectProductList);
         marketCenterSelectProductListRequestModel.setToken(BaseApplication.getToken());
-        marketCenterSelectProductListRequestModel.setParameters(new MarketCenterSelectProductListRequestModel.ParametersEntity(0, userId,pagerSize, pager));
+        marketCenterSelectProductListRequestModel.setParameters(new MarketCenterSelectProductListRequestModel.ParametersEntity(1, userId,pagerSize, pager));
         return marketCenterSelectProductListRequestModel;
     }
 }

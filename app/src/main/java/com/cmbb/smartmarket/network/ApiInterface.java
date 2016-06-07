@@ -157,10 +157,12 @@ import rx.Observable;
  * 创建时间：16/5/10 上午11:10
  */
 public interface ApiInterface {
+
     String Base = "http://erpuat.mengbp.com:8094/";
     String HOST = Base + "wine-market-rest/cgi/";
-    //        String Base = "http://192.168.100.64:8084/";
-    //        String HOST = Base + "wine-market-rest/cgi/";
+
+    String SHARE_NEED = "http://erpuat.mengbp.com:8090/SmartApp/MBPZShare/index.html#/shopDetail/";
+    String SHARE_PUBLISH = "http://erpuat.mengbp.com:8090/SmartApp/MBPZShare/index.html#/productDetail/";
 
     @Headers("Content-Type: application/json")
     @POST("http://mengbaopai.smart-kids.com:82/wine-rest/cgi")
@@ -243,7 +245,6 @@ public interface ApiInterface {
 
     // 商品删除
     String ProductDelete = "product/delete";
-
 
     @Headers("Content-Type: application/json")
     @POST(HOST)
@@ -662,7 +663,5 @@ public interface ApiInterface {
 
     // 订单详情
     String ProvinceCityGetAll = "provinceCity/getAll";
-
-
 
 }

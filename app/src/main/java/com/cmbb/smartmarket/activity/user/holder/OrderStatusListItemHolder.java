@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailResponseModel;
+import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.utils.date.JTimeTransform;
 import com.cmbb.smartmarket.utils.date.RecentDateFormat;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
@@ -31,6 +32,7 @@ public class OrderStatusListItemHolder extends BaseViewHolder<MarketOrderDetailR
         if (row == null)
             return;
         tvStatus.setText(row.getStatusName());
+        Log.e(TAG, row.getStatusName());
         tvTime.setText(new JTimeTransform(row.getStatusDate()).toString(new RecentDateFormat()));
     }
 }

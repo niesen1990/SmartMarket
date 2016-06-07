@@ -14,15 +14,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar"
         android:background="@drawable/shape_white_stroke_no_corner"
-        android:paddingBottom="@dimen/half_global_padding"
-        android:paddingLeft="@dimen/global_padding"
-        android:paddingRight="@dimen/global_padding"
-        android:paddingTop="@dimen/half_global_padding">
+        android:padding="@dimen/global_padding">
 
         <ImageView
             android:id="@+id/tv_head"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:src="@drawable/ic_head_default"/>
 
         <TextView
@@ -200,7 +197,7 @@
     <com.jude.easyrecyclerview.EasyRecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/ll_bottom"
         android:layout_below="@+id/recycler"
         app:layout_progress="@layout/view_progress"

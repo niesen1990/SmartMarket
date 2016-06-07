@@ -47,7 +47,7 @@
                 android:layout_height="32dp"
                 android:layout_marginLeft="56dp"
                 android:layout_toRightOf="@+id/tv_head"
-                android:src="@mipmap/ic_launcher"/>
+                android:src="@drawable/ic_head_default"/>
 
             <ImageView
 
@@ -241,6 +241,42 @@
                 android:gravity="center"
                 android:padding="@dimen/activity_vertical_margin"
                 android:text="女"/>
+
+        </LinearLayout>
+    </com.cmbb.smartmarket.widget.NestedScrollView>
+
+    <com.cmbb.smartmarket.widget.NestedScrollView
+        android:id="@+id/pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_white_stroke_no_corner_dark"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="3dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_camera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:gravity="center"
+                android:padding="@dimen/activity_vertical_margin"
+                android:textStyle="bold"
+                android:text="照相机"/>
+
+            <TextView
+                android:id="@+id/tv_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:padding="@dimen/activity_vertical_margin"
+                android:text="图 库"/>
 
         </LinearLayout>
     </com.cmbb.smartmarket.widget.NestedScrollView>

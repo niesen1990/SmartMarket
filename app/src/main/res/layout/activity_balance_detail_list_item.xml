@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/shape_white_stroke_no_corner"
     android:padding="@dimen/global_padding">
 
@@ -11,7 +12,7 @@
         style="@style/TextAppearance.Smart.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="提现到支付宝"
+        tools:text="提现到支付宝"
         android:textColor="@color/dimgray"
         android:textStyle="bold"/>
 
@@ -22,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_status_tag"
         android:layout_marginTop="@dimen/global_padding"
-        android:text="2016-05-26 09:30"
+        tools:text="2016-05-26 09:30"
         android:textColor="@color/darkgray"/>
 
     <TextView
@@ -31,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="提现中"
+        tools:text="提现中"
         android:textColor="@color/address"/>
 
     <TextView
@@ -41,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/tv_time"
         android:layout_alignParentRight="true"
-        android:text="1000.00"
+        tools:text="1000.00"
         android:textColor="@color/dimgray"/>
 
 

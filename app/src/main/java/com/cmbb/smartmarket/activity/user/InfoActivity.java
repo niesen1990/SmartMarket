@@ -17,7 +17,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.mobileim.ui.multi.lightservice.MultiPickGalleryActivity;
+import com.alibaba.mobileim.utility.IMFileTools;
+import com.alibaba.wxlib.config.StorageConstant;
+import com.alibaba.wxlib.util.IMPrefsTools;
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.address.AddressPickActivity;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateRequestModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
@@ -25,6 +29,7 @@ import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.db.DBContent;
 import com.cmbb.smartmarket.image.CircleTransform;
 import com.cmbb.smartmarket.image.ImageLoader;
+import com.cmbb.smartmarket.image.MediaCamera;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
@@ -86,6 +91,14 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
     TextView tvGirl;
     BottomSheetBehavior behaviorSex;
 
+    @BindView(R.id.pic)
+    NestedScrollView pic;
+    @BindView(R.id.tv_camera)
+    TextView tvCamera;
+    @BindView(R.id.tv_gallery)
+    TextView tvGallery;
+    BottomSheetBehavior behaviorPic;
+
     @Override
     protected void init(Bundle savedInstanceState) {
         setTitle("我的资料");
@@ -95,6 +108,7 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
 
     protected void initView() {
         behaviorSex = BottomSheetBehavior.from(scroll);
+        behaviorPic = BottomSheetBehavior.from(pic);
         rlHead.setOnClickListener(this);
         rlSex.setOnClickListener(this);
         rlRule.setOnClickListener(this);
@@ -102,22 +116,24 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
         tvBoy.setOnClickListener(this);
         tvGirl.setOnClickListener(this);
         rlNick.setOnClickListener(this);
+        tvCamera.setOnClickListener(this);
+        tvGallery.setOnClickListener(this);
     }
 
     private final int PIC_REQUEST_CODE = 1001;
-
+    File imageTempFile;
     @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
-
             case R.id.rl_head:
-                Intent intent = new Intent(this, MultiPickGalleryActivity.class);
+                behaviorPic();
+                /*Intent intent = new Intent(this, MultiPickGalleryActivity.class);
                 intent.putExtra(MultiPickGalleryActivity.MAX_COUNT, 1);
                 intent.putExtra(MultiPickGalleryActivity.MAX_TOAST, "选择的图片不能超过5张");
                 intent.putExtra("titleRightText", "完成");
                 intent.putExtra("need_choose_original_pic", true);
-                startActivityForResult(intent, PIC_REQUEST_CODE);
+                startActivityForResult(intent, PIC_REQUEST_CODE);*/
 
                 /*PhotoPickerIntent intent = new PhotoPickerIntent(this);
                 intent.setMultiChoose(false);
@@ -137,6 +153,7 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
                 intro(rlSex);
                 break;
             case R.id.rl_rule:
+                AddressPickActivity.newIntent(this, 100);
                 break;
             case R.id.rl_introduce:
                 IntroduceActivity.newIntent(this, tvIntroduce.getText().toString());
@@ -151,6 +168,20 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
                 behaviorSex.setState(BottomSheetBehavior.STATE_COLLAPSED);
                 updateRequest("", "2", "", "", "", "", "");
                 break;
+            case R.id.tv_camera:
+                imageTempFile = IMFileTools.createImageFile(StorageConstant.getFilePath());
+                MediaCamera.startCameraActivity(this, imageTempFile, 700);
+                behaviorPic();
+                break;
+            case R.id.tv_gallery:
+                Intent intent = new Intent(this, MultiPickGalleryActivity.class);
+                intent.putExtra(MultiPickGalleryActivity.MAX_COUNT, 1);
+                intent.putExtra(MultiPickGalleryActivity.MAX_TOAST, "选择的图片不能超过1张");
+                intent.putExtra("titleRightText", "完成");
+                intent.putExtra("need_choose_original_pic", true);
+                startActivityForResult(intent, PIC_REQUEST_CODE);
+                behaviorPic();
+                break;
         }
     }
 
@@ -158,6 +189,13 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
     protected int getLayoutId() {
         return R.layout.activity_info_layout;
     }
+
+    String province;
+    String provinceCode;
+    String city;
+    String cityCode;
+    String district;
+    String districtCode;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -178,6 +216,28 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
                 params.put("userImg\"; filename=\"" + file.getName() + "\"", RequestBody.create(MediaType.parse("image/*"), file));
                 subscription = HttpMethod.getInstance().requestUpdateInfoImage(mUserInfoUpdateResponseModelObserver, params);
             }
+        } else if (requestCode == 100 & resultCode == RESULT_OK) {
+            province = data.getStringExtra("province");
+            provinceCode = data.getStringExtra("provinceCode");
+            city = data.getStringExtra("city");
+            cityCode = data.getStringExtra("cityCode");
+            district = data.getStringExtra("district");
+            districtCode = data.getStringExtra("districtCode");
+            updateRequest("", "", province, provinceCode, city, cityCode, "");
+            tvAddress.setText(province + " | " + city);
+        } else if (resultCode == RESULT_OK && requestCode == 700) {
+            // camera
+            if (this.imageTempFile == null && !TextUtils.isEmpty(IMPrefsTools.getStringPrefs(this, "imageTempFile"))) {
+                this.imageTempFile = new File(IMPrefsTools.getStringPrefs(this, "imageTempFile"));
+            }
+
+            if (this.imageTempFile != null) {
+                Log.e("data", this.imageTempFile.getAbsolutePath());
+                Uri source = Uri.fromFile(new File(this.imageTempFile.getAbsolutePath()));
+                Uri destination = Uri.fromFile(new File(getCacheDir(), "cache_head"));
+                Crop.of(source, destination).start(this);
+            }
+            IMPrefsTools.removePrefs(this, "imageTempFile");
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
@@ -190,6 +250,14 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
             behaviorSex.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
     }
+    public void behaviorPic() {
+        if (behaviorPic.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+            behaviorPic.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        } else {
+            behaviorPic.setState(BottomSheetBehavior.STATE_EXPANDED);
+        }
+    }
+
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {

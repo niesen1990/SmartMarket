@@ -151,10 +151,10 @@ public class MarketMessageGetPageResponseModel  {
             private String title;
             private String contents;
             private String img;
-            private String extraData;
+            private int productType;
             private double imgWidth;
             private String createDate;
-            private String relateField;
+            private int relateField;
             private double imgHeight;
 
             public int getId() {
@@ -197,12 +197,12 @@ public class MarketMessageGetPageResponseModel  {
                 this.img = img;
             }
 
-            public String getExtraData() {
-                return extraData;
+            public int getProductType() {
+                return productType;
             }
 
-            public void setExtraData(String extraData) {
-                this.extraData = extraData;
+            public void setProductType(int productType) {
+                this.productType = productType;
             }
 
             public double getImgWidth() {
@@ -221,11 +221,11 @@ public class MarketMessageGetPageResponseModel  {
                 this.createDate = createDate;
             }
 
-            public String getRelateField() {
+            public int getRelateField() {
                 return relateField;
             }
 
-            public void setRelateField(String relateField) {
+            public void setRelateField(int relateField) {
                 this.relateField = relateField;
             }
 

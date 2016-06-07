@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListResponseModel;
 import com.cmbb.smartmarket.image.ImageLoader;
+import com.cmbb.smartmarket.log.Log;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
 /**
@@ -41,7 +42,7 @@ public class RecommendListItemHolder extends BaseViewHolder<MyselfProductPublicL
             return;
         tvTitle.setText(row.getTitle());
         if (row.getProductImageList() != null && row.getProductImageList().size() > 0)
-            ImageLoader.loadUrlAndDiskCache(mContext, row.getProductImageList().get(0).getLocation(), ivGood);
+            ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(0).getLocation(), ivGood);
         tvContent.setText(row.getContent());
         check.setChecked(row.isChecked());
     }

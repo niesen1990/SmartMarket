@@ -71,27 +71,39 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/half_global_padding"
                         android:background="@drawable/shape_white_stroke_no_corner"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        >
 
                         <ImageView
                             android:id="@+id/iv01"
                             android:layout_width="84dp"
                             android:layout_height="84dp"
-                            android:src="@mipmap/ic_launcher"/>
+                            android:src="@color/line"/>
 
                         <ImageView
                             android:id="@+id/iv_delete01"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="right"
-                            android:src="@android:drawable/ic_menu_add"/>
+                            android:src="@drawable/ic_delete"/>
 
                         <ProgressBar
                             android:id="@+id/progress01"
                             style="?android:attr/progressBarStyleSmall"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
                             android:layout_gravity="center"/>
+
+                        <TextView
+                            android:layout_width="84dp"
+                            android:layout_height="32dp"
+                            android:layout_gravity="bottom"
+                            android:alpha="0.8"
+                            android:background="@color/colorAccent"
+                            android:gravity="center"
+                            android:text="主图"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold"/>
 
                     </FrameLayout>
 
@@ -115,13 +127,13 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="right"
-                            android:src="@android:drawable/ic_menu_add"/>
+                            android:src="@drawable/ic_delete"/>
 
                         <ProgressBar
                             android:id="@+id/progress02"
                             style="?android:attr/progressBarStyleSmall"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
                             android:layout_gravity="center"/>
 
                     </FrameLayout>
@@ -145,13 +157,13 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="right"
-                            android:src="@android:drawable/ic_menu_add"/>
+                            android:src="@drawable/ic_delete"/>
 
                         <ProgressBar
                             android:id="@+id/progress03"
                             style="?android:attr/progressBarStyleSmall"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
                             android:layout_gravity="center"/>
 
                     </FrameLayout>
@@ -175,13 +187,13 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="right"
-                            android:src="@android:drawable/ic_menu_add"/>
+                            android:src="@drawable/ic_delete"/>
 
                         <ProgressBar
                             android:id="@+id/progress04"
                             style="?android:attr/progressBarStyleSmall"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
                             android:layout_gravity="center"/>
 
                     </FrameLayout>
@@ -205,14 +217,14 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_gravity="right"
-                            android:src="@android:drawable/ic_menu_add"/>
+                            android:src="@drawable/ic_delete"/>
 
 
                         <ProgressBar
                             android:id="@+id/progress05"
                             style="?android:attr/progressBarStyleSmall"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
                             android:layout_gravity="center"/>
 
                     </FrameLayout>
@@ -281,7 +293,8 @@
                             android:background="@android:color/white"
                             android:inputType="numberDecimal"
                             android:maxLines="1"
-                            android:text="0"/>
+                            android:text="0"
+                            android:textColor="@color/dimgray"/>
 
                         <TextView
                             android:layout_width="0dp"
@@ -315,7 +328,8 @@
                             android:background="@android:color/white"
                             android:inputType="numberDecimal"
                             android:maxLines="1"
-                            android:text="0"/>
+                            android:text="0"
+                            android:textColor="@color/dimgray"/>
 
                         <TextView
                             android:layout_width="0dp"
@@ -349,7 +363,8 @@
                         android:background="@android:color/white"
                         android:inputType="numberDecimal"
                         android:maxLines="1"
-                        android:text="0"/>
+                        android:text="0"
+                        android:textColor="@color/dimgray"/>
 
                     <TextView
                         android:layout_width="0dp"
@@ -364,7 +379,7 @@
             <RelativeLayout
                 android:id="@+id/rl_type"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:layout_below="@+id/ll03"
                 android:layout_marginTop="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_no_corner"
@@ -461,4 +476,41 @@
         </LinearLayout>
 
     </LinearLayout>
+
+
+    <com.cmbb.smartmarket.widget.NestedScrollView
+        android:id="@+id/pic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_white_stroke_no_corner_dark"
+        app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="3dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_camera"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:gravity="center"
+                android:padding="@dimen/activity_vertical_margin"
+                android:textStyle="bold"
+                android:text="照相机"/>
+
+            <TextView
+                android:id="@+id/tv_gallery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_white_stroke_no_corner"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:padding="@dimen/activity_vertical_margin"
+                android:text="图 库"/>
+
+        </LinearLayout>
+    </com.cmbb.smartmarket.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

@@ -8,6 +8,7 @@ import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetPageRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetPageResponseModel;
 import com.cmbb.smartmarket.activity.message.adapter.MessageOrderAdapter;
+import com.cmbb.smartmarket.activity.user.OrderDetailActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
@@ -52,6 +53,7 @@ public class OrderMessageActivity extends BaseMessageActivity {
     @Override
     public void onItemClick(int position) {
         // TODO: 16/6/5
+        OrderDetailActivity.newIntent(this, ((MessageOrderAdapter) adapter).getItem(position).getRelateField());
     }
 
     Observer<MarketMessageGetPageResponseModel> mMarketMessageGetPageResponseModelObserver = new Observer<MarketMessageGetPageResponseModel>() {

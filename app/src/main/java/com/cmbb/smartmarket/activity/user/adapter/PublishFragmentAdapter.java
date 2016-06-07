@@ -5,7 +5,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.cmbb.smartmarket.activity.user.fragment.PublishAllFragment;
+import com.cmbb.smartmarket.activity.user.fragment.PublishNeedFragment;
+import com.cmbb.smartmarket.activity.user.fragment.PublishSellFragment;
 
 /**
  * 项目名称：SmartMarket
@@ -29,7 +30,14 @@ public class PublishFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return PublishAllFragment.newInstance(position);
+        switch (position) {
+            case 0:
+                return PublishSellFragment.newInstance(position);
+            case 1:
+                return PublishNeedFragment.newInstance(position);
+            default:
+                return PublishSellFragment.newInstance(position);
+        }
     }
 
     @Override

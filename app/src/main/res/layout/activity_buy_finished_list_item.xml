@@ -103,7 +103,7 @@
             android:layout_margin="@dimen/global_padding"
             android:drawableLeft="@drawable/ic_contact"
             android:gravity="center"
-            android:text="联系卖家"/>
+            android:text="联系TA"/>
 
         <TextView
             android:id="@+id/tv_status_02"

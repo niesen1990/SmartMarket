@@ -39,7 +39,6 @@ import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListRequestM
 import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListResponseModel;
 import com.cmbb.smartmarket.activity.home.model.TestModel;
 import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
-import com.cmbb.smartmarket.activity.login.LoginActivity;
 import com.cmbb.smartmarket.activity.login.model.LoginRequestModel;
 import com.cmbb.smartmarket.activity.login.model.LoginResponseModel;
 import com.cmbb.smartmarket.activity.login.model.SecurityCodeRequestModel;
@@ -98,6 +97,8 @@ import com.cmbb.smartmarket.activity.user.model.MarketEvaluateListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketEvaluateListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketEvaluateSaveRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketEvaluateSaveResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderCancelRequestModel;
@@ -106,8 +107,6 @@ import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderDetailResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
-import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundRequestModel;
-import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundRequestModel;
@@ -223,7 +222,7 @@ public class HttpMethod {
                 LocalBroadcastManager.getInstance(BaseApplication.getContext()).sendBroadcast(intent);
                 //重新登陆
                 if (httpResult.getError().getErrorCode() == 14 || httpResult.getError().getErrorCode() == 15) {
-                    LoginActivity.newIntent(BaseApplication.getContext());
+                    Logout.logout(BaseApplication.getContext());
                 }
                 throw new ApiException(httpResult.getError().getErrorInfo());
             }

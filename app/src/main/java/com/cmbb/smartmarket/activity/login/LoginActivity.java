@@ -100,46 +100,66 @@ public class LoginActivity extends BaseActivity {
 
         @Override
         public void onNext(final LoginResponseModel loginResponseModel) {
-            SQLiteDatabase db = dbHelper.getWritableDatabase();
-            dbHelper.delete(db);
-            ContentValues values = new ContentValues();
-            Log.i(TAG, "token = " + loginResponseModel.getData().getLoginToken());
-            values.put(DBContent.DBUser.USER_TOKEN, loginResponseModel.getData().getLoginToken());
-            values.put(DBContent.DBUser.USER_ID, loginResponseModel.getData().getId());
-            values.put(DBContent.DBUser.USER_HEAD_IMG, loginResponseModel.getData().getUserImg());
-            values.put(DBContent.DBUser.USER_NICK_NAME, loginResponseModel.getData().getNickName());
-            values.put(DBContent.DBUser.USER_MALE, loginResponseModel.getData().getSex());
-            values.put(DBContent.DBUser.USER_PHONE, loginResponseModel.getData().getLoginAccount());
-            values.put(DBContent.DBUser.USER_PROVINCE_ID, loginResponseModel.getData().getProvince());
-            values.put(DBContent.DBUser.USER_CITY_ID, loginResponseModel.getData().getCity());
-            values.put(DBContent.DBUser.USER_LEVEL, loginResponseModel.getData().getUserLevel());
-            values.put(DBContent.DBUser.USER_INTRODUCE, loginResponseModel.getData().getIntroduce());
-            values.put(DBContent.DBUser.IM_USER_ID, loginResponseModel.getData().getImUserId());
-            getContentResolver().insert(DBContent.DBUser.CONTENT_URI, values);
-            BaseApplication.setToken(loginResponseModel.getData().getLoginToken());
-            BaseApplication.setUserId(loginResponseModel.getData().getId());
-            SPCache.putString(Constants.API_TOKEN, loginResponseModel.getData().getLoginToken());
-            SPCache.putInt(Constants.API_USER_ID, loginResponseModel.getData().getId());
-            // 发送信息注册Alias
-            Intent intent = new Intent(Constants.INTENT_ACTION_ALIAS);
-            intent.putExtra("umeng_id", loginResponseModel.getData().getId() + "_" + TDevice.getDeviceId(LoginActivity.this));
-            intent.putExtra("umeng_type", "market");
-            LocalBroadcastManager.getInstance(LoginActivity.this).sendBroadcast(intent);
             //阿里旺旺
             Log.i(TAG, loginResponseModel.getData().getImUserId());
-            Log.i(TAG, loginResponseModel.getData().getId() + "_" + loginResponseModel.getData().getImUserId());
-            IMHelper.getInstance().loginIM(loginResponseModel.getData().getImUserId(), loginResponseModel.getData().getId() + "_" + loginResponseModel.getData().getImUserId(), new IWxCallback() {
+            Log.i(TAG, loginResponseModel.getData().getImUserId());
+            IMPrefsTools.removePrefs(LoginActivity.this, Constants.IM_USER_ID);
+            IMPrefsTools.removePrefs(LoginActivity.this, Constants.IM_USER_PASSWORD);
+            IMHelper.getInstance().logoutIM(new IWxCallback() {
+                @Override
+                public void onSuccess(Object... objects) {
+
+                }
+
+                @Override
+                public void onError(int i, String s) {
+                    hideWaitingDialog();
+                    Log.e(TAG, s);
+                }
+
+                @Override
+                public void onProgress(int i) {
+
+                }
+            });
+            IMHelper.getInstance().loginIM(loginResponseModel.getData().getImUserId(), loginResponseModel.getData().getImUserId(), new IWxCallback() {
                 @Override
                 public void onSuccess(Object... objects) {
                     hideWaitingDialog();
+                    SQLiteDatabase db = dbHelper.getWritableDatabase();
+                    dbHelper.delete(db);
+                    ContentValues values = new ContentValues();
+                    Log.i(TAG, "token = " + loginResponseModel.getData().getLoginToken());
+                    values.put(DBContent.DBUser.USER_TOKEN, loginResponseModel.getData().getLoginToken());
+                    values.put(DBContent.DBUser.USER_ID, loginResponseModel.getData().getId());
+                    values.put(DBContent.DBUser.USER_HEAD_IMG, loginResponseModel.getData().getUserImg());
+                    values.put(DBContent.DBUser.USER_NICK_NAME, loginResponseModel.getData().getNickName());
+                    values.put(DBContent.DBUser.USER_MALE, loginResponseModel.getData().getSex());
+                    values.put(DBContent.DBUser.USER_PHONE, loginResponseModel.getData().getLoginAccount());
+                    values.put(DBContent.DBUser.USER_PROVINCE_ID, loginResponseModel.getData().getProvince());
+                    values.put(DBContent.DBUser.USER_CITY_ID, loginResponseModel.getData().getCity());
+                    values.put(DBContent.DBUser.USER_LEVEL, loginResponseModel.getData().getUserLevel());
+                    values.put(DBContent.DBUser.USER_INTRODUCE, loginResponseModel.getData().getIntroduce());
+                    values.put(DBContent.DBUser.IM_USER_ID, loginResponseModel.getData().getImUserId());
+                    getContentResolver().insert(DBContent.DBUser.CONTENT_URI, values);
+                    BaseApplication.setToken(loginResponseModel.getData().getLoginToken());
+                    BaseApplication.setUserId(loginResponseModel.getData().getId());
+                    SPCache.putString(Constants.API_TOKEN, loginResponseModel.getData().getLoginToken());
+                    SPCache.putInt(Constants.API_USER_ID, loginResponseModel.getData().getId());
+                    // 发送信息注册Alias
+                    Intent intent = new Intent(Constants.INTENT_ACTION_ALIAS);
+                    intent.putExtra("umeng_id", loginResponseModel.getData().getId() + "_" + TDevice.getDeviceId(LoginActivity.this));
+                    intent.putExtra("umeng_type", "market");
+                    LocalBroadcastManager.getInstance(LoginActivity.this).sendBroadcast(intent);
                     IMPrefsTools.setStringPrefs(LoginActivity.this, Constants.IM_USER_ID, loginResponseModel.getData().getImUserId());
-                    IMPrefsTools.setStringPrefs(LoginActivity.this, Constants.IM_USER_PASSWORD, loginResponseModel.getData().getId() + "_" + loginResponseModel.getData().getLoginAccount());
+                    IMPrefsTools.setStringPrefs(LoginActivity.this, Constants.IM_USER_PASSWORD, loginResponseModel.getData().getLoginAccount());
                     HomePagerActivity.newIntent(LoginActivity.this);
                 }
 
                 @Override
                 public void onError(int i, String s) {
-                    showToast("IM 登陆失败");
+                    hideWaitingDialog();
+                    Log.e(TAG, s);
                 }
 
                 @Override

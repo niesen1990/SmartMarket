@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.user.OrderDetailBuyRefundActivity;
+import com.cmbb.smartmarket.activity.user.OrderDetailActivity;
 import com.cmbb.smartmarket.activity.user.adapter.RefundBuyAdapter;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
@@ -87,7 +87,7 @@ public class RefundBuyFragment extends BaseRecyclerFragment {
 
     @Override
     public void onItemClick(int position) {
-        OrderDetailBuyRefundActivity.newIntent(getActivity(), ((RefundBuyAdapter) adapter).getItem(position).getId());
+        OrderDetailActivity.newIntent(getActivity(), ((RefundBuyAdapter) adapter).getItem(position).getId());
     }
 
     @Override

@@ -11,7 +11,7 @@ import com.cmbb.smartmarket.activity.market.NeedDetailActivity;
 import com.cmbb.smartmarket.activity.market.PublishActivity;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteResponseModel;
-import com.cmbb.smartmarket.activity.user.adapter.PublishListAdapter;
+import com.cmbb.smartmarket.activity.user.adapter.PublishSellListAdapter;
 import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
@@ -27,7 +27,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import butterknife.BindView;
 import rx.Observer;
 
-public class PublishAllFragment extends BaseRecyclerFragment {
+public class PublishSellFragment extends BaseRecyclerFragment {
     private static final String ARG_PARAM = "position";
     private int position;
 
@@ -64,12 +64,12 @@ public class PublishAllFragment extends BaseRecyclerFragment {
         }
     };
 
-    public PublishAllFragment() {
+    public PublishSellFragment() {
         // Required empty public constructor
     }
 
-    public static PublishAllFragment newInstance(int position) {
-        PublishAllFragment fragment = new PublishAllFragment();
+    public static PublishSellFragment newInstance(int position) {
+        PublishSellFragment fragment = new PublishSellFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_PARAM, position);
         fragment.setArguments(args);
@@ -115,10 +115,10 @@ public class PublishAllFragment extends BaseRecyclerFragment {
                 startBehavior();
                 switch (position) {
                     case 0:
-                        PublishActivity.newIntent(getActivity(), ((PublishListAdapter) adapter).getItem((Integer) tvEdit.getTag()), "0");
+                        PublishActivity.newIntent(getActivity(), ((PublishSellListAdapter) adapter).getItem((Integer) tvEdit.getTag()), "0");
                         break;
                     case 1:
-                        PublishActivity.newIntent(getActivity(), ((PublishListAdapter) adapter).getItem((Integer) tvEdit.getTag()), "1");
+                        PublishActivity.newIntent(getActivity(), ((PublishSellListAdapter) adapter).getItem((Integer) tvEdit.getTag()), "1");
                         break;
                 }
 
@@ -139,7 +139,7 @@ public class PublishAllFragment extends BaseRecyclerFragment {
         ProductDeleteRequestModel productDeleteRequestModel = new ProductDeleteRequestModel();
         productDeleteRequestModel.setCmd(ApiInterface.ProductDelete);
         productDeleteRequestModel.setToken(BaseApplication.getToken());
-        productDeleteRequestModel.setParameters(new ProductDeleteRequestModel.ParametersEntity(((PublishListAdapter) adapter).getItem(position).getId()));
+        productDeleteRequestModel.setParameters(new ProductDeleteRequestModel.ParametersEntity(((PublishSellListAdapter) adapter).getItem(position).getId()));
         return productDeleteRequestModel;
     }
 
@@ -158,17 +158,17 @@ public class PublishAllFragment extends BaseRecyclerFragment {
 
     @Override
     protected RecyclerArrayAdapter initAdapter() {
-        return new PublishListAdapter(getActivity());
+        return new PublishSellListAdapter(getActivity());
     }
 
     @Override
     public void onItemClick(int position) {
         switch (this.position) {
             case 0:
-                CommodityDetailActivity.newIntent(getActivity(), ((PublishListAdapter) adapter).getItem(position).getId());
+                CommodityDetailActivity.newIntent(getActivity(), ((PublishSellListAdapter) adapter).getItem(position).getId());
                 break;
             case 1:
-                NeedDetailActivity.newIntent(getActivity(), ((PublishListAdapter) adapter).getItem(position).getId());
+                NeedDetailActivity.newIntent(getActivity(), ((PublishSellListAdapter) adapter).getItem(position).getId());
                 break;
         }
     }

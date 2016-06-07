@@ -7,6 +7,8 @@ import android.os.Bundle;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetPageRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetPageResponseModel;
+import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
+import com.cmbb.smartmarket.activity.market.NeedDetailActivity;
 import com.cmbb.smartmarket.activity.message.adapter.MessageStoreAdapter;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.network.ApiInterface;
@@ -48,7 +50,15 @@ public class StoreMessageActivity extends BaseMessageActivity {
 
     @Override
     public void onItemClick(int position) {
-
+        switch (((MessageStoreAdapter) adapter).getItem(position).getProductType()) {
+            case 0:
+                CommodityDetailActivity.newIntent(this, ((MessageStoreAdapter) adapter).getItem(position).getRelateField());
+                break;
+            case 1:
+                //求购
+                NeedDetailActivity.newIntent(this, ((MessageStoreAdapter) adapter).getItem(position).getRelateField());
+                break;
+        }
     }
 
     Observer<MarketMessageGetPageResponseModel> mMarketMessageGetPageResponseModelObserver = new Observer<MarketMessageGetPageResponseModel>() {
@@ -70,7 +80,6 @@ public class StoreMessageActivity extends BaseMessageActivity {
             adapter.addAll(marketMessageGetPageResponseModel.getData().getContent());
         }
     };
-
 
     @Override
     public void onLoadMore() {

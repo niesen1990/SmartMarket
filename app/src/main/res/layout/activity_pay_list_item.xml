@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/shape_white_stroke_no_corner"
     android:padding="@dimen/global_padding">
 
@@ -10,7 +11,7 @@
         android:id="@+id/image"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/ic_zhifubao"/>
 
     <TextView
         android:id="@+id/tv_title"
@@ -19,7 +20,7 @@
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginTop="@dimen/half_global_padding"
         android:layout_toRightOf="@+id/image"
-        android:text="支付宝"
+        tools:text="支付宝"
         android:textStyle="bold"/>
 
     <TextView
@@ -30,7 +31,7 @@
         android:layout_marginBottom="@dimen/half_global_padding"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_toRightOf="@+id/image"
-        android:text="推荐支付宝用户使用"
+        tools:text="推荐支付宝用户使用"
         android:textColor="@color/darkgray"/>
 
     <RadioButton

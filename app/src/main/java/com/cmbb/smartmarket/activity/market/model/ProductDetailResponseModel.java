@@ -55,7 +55,7 @@ public class ProductDetailResponseModel {
         private String thirdClassifyText;
         private UserLocationEntity userLocation;
         private int productType;
-        private String productStatus;
+        private int productStatus;
         private String productStatusText;
         private int isResolve;
         private String resolveDate;
@@ -225,11 +225,11 @@ public class ProductDetailResponseModel {
             this.productType = productType;
         }
 
-        public String getProductStatus() {
+        public int getProductStatus() {
             return productStatus;
         }
 
-        public void setProductStatus(String productStatus) {
+        public void setProductStatus(int productStatus) {
             this.productStatus = productStatus;
         }
 

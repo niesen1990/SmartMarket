@@ -84,9 +84,6 @@
         <activity android:name=".activity.user.ReportActivity"/>
         <activity android:name=".activity.user.MeCollectionActivity"/>
         <activity
-            android:name=".activity.market.PublishCommodityActivity"
-            android:windowSoftInputMode="stateHidden"/>
-        <activity
             android:name=".activity.market.PublishActivity"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activity.market.BuyOrderActivity"/>
@@ -144,10 +141,7 @@
         <activity android:name=".activity.user.CheckRejectActivity"/>
         <activity android:name=".activity.user.CheckRefundActivity"/>
         <activity android:name=".activity.user.RejectRefundReasonActivity"/>
-        <activity android:name=".activity.user.OrderDetailBuyFinishedActivity"/>
-        <activity android:name=".activity.user.OrderDetailBuyRefundActivity"/>
-        <activity android:name=".activity.user.OrderDetailSellFinishedActivity"/>
-        <activity android:name=".activity.user.OrderDetailSellRefundActivity"/>
+        <activity android:name=".activity.user.OrderDetailActivity"/>
         <activity android:name=".activity.user.CheckEvaluateActivity"/>
         <activity android:name=".activity.user.EvaluationForSellerActivity"/>
         <activity android:name=".activity.address.AddressPickActivity"/>

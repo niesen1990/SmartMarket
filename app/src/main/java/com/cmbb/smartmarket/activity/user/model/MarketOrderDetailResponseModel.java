@@ -16,44 +16,7 @@ import java.util.List;
  */
 public class MarketOrderDetailResponseModel implements Parcelable {
 
-    /**
-     * id : 99
-     * product : {"id":159,"title":"Meizu","introduce":"","content":"Android测试","originalPrice":6.01,"currentPrice":0.01,"freight":0.02,"priceDesc":"","parentClassify":"","parentClassifyText":"","secondClassify":"","secondClassifyText":"","thirdClassify":"","thirdClassifyText":"","locationId":1,"type":"","status":"","statusText":"","isResolve":1,"resolveDate":"","browseNumber":1,"replyNumber":1,"shareNumber":1,"isRecommoned":1,"publicDate":"2016-05-30 16:46:16","publicUserId":5,"publicUser":{"id":5,"mbpUserId":101033,"imUserId":"13818155072","loginAccount":"13818155072","nickName":"共产党","sex":1,"province":"","provinceText":"","city":"","cityText":"","introduce":"?????","userImg":"http://smart-test.image.alimmdn.com/market/user/image/2016-05-19/NTE1NTA1ODItYjRhYS00MGE3LWFkNWEtZGZlYTYxYjI0ZjFl","imgWidth":512,"imgHeight":512,"userLevel":0,"appVersion":"","device":"","deviceImei":""},"productImageList":[{"imageHeight":640,"businessNumber":"8a7c7f475500d51f015500d7639b0001","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-05-30/ZWQ1MWE3MzEtZjQzNy00ZTAyLWIyYTgtOWFjMzNjYzRmZjU2","imageWidth":1138}],"isCollect":1,"isSpot":1}
-     * buyUser : {"id":6,"mbpUserId":100768,"imUserId":"15201921714","loginAccount":"15201921714","nickName":"库里","sex":1,"province":"","provinceText":"","city":"","cityText":"","introduce":"","userImg":"http://smart.image.alimmdn.com/app/test/2016-1-25/image_08d10846139348919717a107c73c16ae","imgWidth":"","imgHeight":"","userLevel":0,"appVersion":"","device":"","deviceImei":""}
-     * status : EVALUATED
-     * statusName : 已评价
-     * orderCode : 0015998468711915
-     * phone : 15201921714
-     * price : 0.01
-     * payDate : 2016-05-30 16:46:32
-     * freight : 0.0
-     * express : shentong
-     * expressNum : 1346464949797
-     * receiveName : 聂森
-     * receivePhone : 1520192171
-     * postCode : 224021
-     * address : 河北省石家庄市长安区测试
-     * cancelDate :
-     * cancelReason :
-     * refundStatus :
-     * refundStatusName :
-     * refundDate :
-     * refundServer :
-     * refundReason :
-     * refundMark :
-     * refundExpress :
-     * refundExpressNum :
-     * rejectDate :
-     * rejectReason :
-     * createDate : 2016-05-30 16:46:25
-     * process : [{"statusDate":"2016-05-30 16:46:25","statusName":"待付款","logistics":[{"date":"2016-01-08 10:53:00","info":"【郑州市】 河南省邮政速递物流有限公司郑州市同城揽投部已收件（揽投员姓名：张莲花,联系电话:）"}]}]
-     */
-
     private DataEntity data;
-    /**
-     * data : {"id":99,"product":{"id":159,"title":"Meizu","introduce":"","content":"Android测试","originalPrice":6.01,"currentPrice":0.01,"freight":0.02,"priceDesc":"","parentClassify":"","parentClassifyText":"","secondClassify":"","secondClassifyText":"","thirdClassify":"","thirdClassifyText":"","locationId":1,"type":"","status":"","statusText":"","isResolve":1,"resolveDate":"","browseNumber":1,"replyNumber":1,"shareNumber":1,"isRecommoned":1,"publicDate":"2016-05-30 16:46:16","publicUserId":5,"publicUser":{"id":5,"mbpUserId":101033,"imUserId":"13818155072","loginAccount":"13818155072","nickName":"共产党","sex":1,"province":"","provinceText":"","city":"","cityText":"","introduce":"?????","userImg":"http://smart-test.image.alimmdn.com/market/user/image/2016-05-19/NTE1NTA1ODItYjRhYS00MGE3LWFkNWEtZGZlYTYxYjI0ZjFl","imgWidth":512,"imgHeight":512,"userLevel":0,"appVersion":"","device":"","deviceImei":""},"productImageList":[{"imageHeight":640,"businessNumber":"8a7c7f475500d51f015500d7639b0001","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-05-30/ZWQ1MWE3MzEtZjQzNy00ZTAyLWIyYTgtOWFjMzNjYzRmZjU2","imageWidth":1138}],"isCollect":1,"isSpot":1},"buyUser":{"id":6,"mbpUserId":100768,"imUserId":"15201921714","loginAccount":"15201921714","nickName":"库里","sex":1,"province":"","provinceText":"","city":"","cityText":"","introduce":"","userImg":"http://smart.image.alimmdn.com/app/test/2016-1-25/image_08d10846139348919717a107c73c16ae","imgWidth":"","imgHeight":"","userLevel":0,"appVersion":"","device":"","deviceImei":""},"status":"EVALUATED","statusName":"已评价","orderCode":"0015998468711915","phone":"15201921714","price":0.01,"payDate":"2016-05-30 16:46:32","freight":0,"express":"shentong","expressNum":"1346464949797","receiveName":"聂森","receivePhone":"1520192171","postCode":"224021","address":"河北省石家庄市长安区测试","cancelDate":"","cancelReason":"","refundStatus":"","refundStatusName":"","refundDate":"","refundServer":"","refundReason":"","refundMark":"","refundExpress":"","refundExpressNum":"","rejectDate":"","rejectReason":"","createDate":"2016-05-30 16:46:25","process":[{"statusDate":"2016-05-30 16:46:25","statusName":"待付款","logistics":[{"date":"2016-01-08 10:53:00","info":"【郑州市】 河南省邮政速递物流有限公司郑州市同城揽投部已收件（揽投员姓名：张莲花,联系电话:）"}]}]}
-     * msg : 数据加载成功
-     */
 
     private String msg;
 
@@ -75,62 +38,10 @@ public class MarketOrderDetailResponseModel implements Parcelable {
 
     public static class DataEntity implements Parcelable {
         private int id;
-        /**
-         * id : 159
-         * title : Meizu
-         * introduce :
-         * content : Android测试
-         * originalPrice : 6.01
-         * currentPrice : 0.01
-         * freight : 0.02
-         * priceDesc :
-         * parentClassify :
-         * parentClassifyText :
-         * secondClassify :
-         * secondClassifyText :
-         * thirdClassify :
-         * thirdClassifyText :
-         * locationId : 1
-         * type :
-         * status :
-         * statusText :
-         * isResolve : 1
-         * resolveDate :
-         * browseNumber : 1
-         * replyNumber : 1
-         * shareNumber : 1
-         * isRecommoned : 1
-         * publicDate : 2016-05-30 16:46:16
-         * publicUserId : 5
-         * publicUser : {"id":5,"mbpUserId":101033,"imUserId":"13818155072","loginAccount":"13818155072","nickName":"共产党","sex":1,"province":"","provinceText":"","city":"","cityText":"","introduce":"?????","userImg":"http://smart-test.image.alimmdn.com/market/user/image/2016-05-19/NTE1NTA1ODItYjRhYS00MGE3LWFkNWEtZGZlYTYxYjI0ZjFl","imgWidth":512,"imgHeight":512,"userLevel":0,"appVersion":"","device":"","deviceImei":""}
-         * productImageList : [{"imageHeight":640,"businessNumber":"8a7c7f475500d51f015500d7639b0001","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-05-30/ZWQ1MWE3MzEtZjQzNy00ZTAyLWIyYTgtOWFjMzNjYzRmZjU2","imageWidth":1138}]
-         * isCollect : 1
-         * isSpot : 1
-         */
-
         private ProductEntity product;
-        /**
-         * id : 6
-         * mbpUserId : 100768
-         * imUserId : 15201921714
-         * loginAccount : 15201921714
-         * nickName : 库里
-         * sex : 1
-         * province :
-         * provinceText :
-         * city :
-         * cityText :
-         * introduce :
-         * userImg : http://smart.image.alimmdn.com/app/test/2016-1-25/image_08d10846139348919717a107c73c16ae
-         * imgWidth :
-         * imgHeight :
-         * userLevel : 0
-         * appVersion :
-         * device :
-         * deviceImei :
-         */
-
         private BuyUserEntity buyUser;
+        private List<ProcessEntity> process;
+        private List<LogisticsEntity> logistics;
         private String status;
         private String statusName;
         private String orderCode;
@@ -157,13 +68,8 @@ public class MarketOrderDetailResponseModel implements Parcelable {
         private String rejectDate;
         private String rejectReason;
         private String createDate;
-        /**
-         * statusDate : 2016-05-30 16:46:25
-         * statusName : 待付款
-         * logistics : [{"date":"2016-01-08 10:53:00","info":"【郑州市】 河南省邮政速递物流有限公司郑州市同城揽投部已收件（揽投员姓名：张莲花,联系电话:）"}]
-         */
-
-        private List<ProcessEntity> process;
+        private String orderType;
+        private String saleType;
 
         public int getId() {
             return id;
@@ -388,6 +294,21 @@ public class MarketOrderDetailResponseModel implements Parcelable {
         public void setRejectReason(String rejectReason) {
             this.rejectReason = rejectReason;
         }
+        public String getOrderType() {
+            return orderType;
+        }
+
+        public void setOrderType(String orderType) {
+            this.orderType = orderType;
+        }
+
+        public String getSaleType() {
+            return saleType;
+        }
+
+        public void setSaleType(String saleType) {
+            this.saleType = saleType;
+        }
 
         public String getCreateDate() {
             return createDate;
@@ -432,38 +353,16 @@ public class MarketOrderDetailResponseModel implements Parcelable {
             private int isRecommoned;
             private String publicDate;
             private int publicUserId;
-            /**
-             * id : 5
-             * mbpUserId : 101033
-             * imUserId : 13818155072
-             * loginAccount : 13818155072
-             * nickName : 共产党
-             * sex : 1
-             * province :
-             * provinceText :
-             * city :
-             * cityText :
-             * introduce : ?????
-             * userImg : http://smart-test.image.alimmdn.com/market/user/image/2016-05-19/NTE1NTA1ODItYjRhYS00MGE3LWFkNWEtZGZlYTYxYjI0ZjFl
-             * imgWidth : 512
-             * imgHeight : 512
-             * userLevel : 0
-             * appVersion :
-             * device :
-             * deviceImei :
-             */
+
+
 
             private PublicUserEntity publicUser;
             private int isCollect;
             private int isSpot;
-            /**
-             * imageHeight : 640
-             * businessNumber : 8a7c7f475500d51f015500d7639b0001
-             * location : http://smart-test.image.alimmdn.com/market/product/image/2016-05-30/ZWQ1MWE3MzEtZjQzNy00ZTAyLWIyYTgtOWFjMzNjYzRmZjU2
-             * imageWidth : 1138
-             */
 
             private List<ProductImageListEntity> productImageList;
+
+
 
             public int getId() {
                 return id;
@@ -1032,6 +931,7 @@ public class MarketOrderDetailResponseModel implements Parcelable {
                 dest.writeString(this.type);
                 dest.writeString(this.status);
                 dest.writeString(this.statusText);
+                dest.writeString(this.statusText);
                 dest.writeInt(this.isResolve);
                 dest.writeString(this.resolveDate);
                 dest.writeInt(this.browseNumber);
@@ -1068,6 +968,7 @@ public class MarketOrderDetailResponseModel implements Parcelable {
                 this.type = in.readString();
                 this.status = in.readString();
                 this.statusText = in.readString();
+
                 this.isResolve = in.readInt();
                 this.resolveDate = in.readString();
                 this.browseNumber = in.readInt();
@@ -1322,7 +1223,9 @@ public class MarketOrderDetailResponseModel implements Parcelable {
                 }
             };
         }
-        private List<LogisticsEntity> logistics;
+
+
+
         public List<LogisticsEntity> getLogistics() {
             return logistics;
         }
@@ -1382,15 +1285,15 @@ public class MarketOrderDetailResponseModel implements Parcelable {
                 }
             };
         }
+
         public static class ProcessEntity implements Parcelable {
             private String statusDate;
             private String statusName;
+
             /**
              * date : 2016-01-08 10:53:00
              * info : 【郑州市】 河南省邮政速递物流有限公司郑州市同城揽投部已收件（揽投员姓名：张莲花,联系电话:）
              */
-
-
 
             public String getStatusDate() {
                 return statusDate;
@@ -1474,6 +1377,8 @@ public class MarketOrderDetailResponseModel implements Parcelable {
             dest.writeString(this.refundExpress);
             dest.writeString(this.refundExpressNum);
             dest.writeString(this.rejectDate);
+            dest.writeString(this.orderType);
+            dest.writeString(this.saleType);
             dest.writeString(this.rejectReason);
             dest.writeString(this.createDate);
             dest.writeTypedList(this.process);
@@ -1500,6 +1405,8 @@ public class MarketOrderDetailResponseModel implements Parcelable {
             this.receivePhone = in.readString();
             this.postCode = in.readString();
             this.address = in.readString();
+            this.orderType = in.readString();
+            this.saleType = in.readString();
             this.cancelDate = in.readString();
             this.cancelReason = in.readString();
             this.refundStatus = in.readString();

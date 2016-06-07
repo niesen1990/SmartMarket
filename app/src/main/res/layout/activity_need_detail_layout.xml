@@ -69,11 +69,11 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/tv_send"
             android:gravity="left"
-            tools:hint="回复@xxx"
             android:imeOptions="actionDone"
             android:padding="@dimen/activity_vertical_margin"
             android:textColor="@color/darkgray"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            tools:hint="回复@xxx"/>
 
         <TextView
             android:id="@+id/tv_send"
@@ -111,10 +111,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.7"
+            android:drawableLeft="@drawable/ic_great_gray"
             android:gravity="center"
             android:paddingLeft="@dimen/global_padding"
-            android:paddingRight="@dimen/global_padding"
-            android:drawableLeft="@drawable/ic_great_gray"/>
+            android:paddingRight="@dimen/global_padding"/>
 
         <TextView
             android:id="@+id/tv_share"

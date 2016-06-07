@@ -66,11 +66,16 @@ public class HomeItemHolder extends BaseViewHolder<ProductGetPageResponseModel.D
         ImageLoader.loadUrlAndDiskCache(mContext, row.getPublicUser().getUserImg(), ivHead, new CircleTransform(mContext));
         tvNick.setText(row.getPublicUser().getNickName());
         tvTime.setText(new JTimeTransform(row.getPublicDate()).toString(new RecentDateFormat()));
-        tvContent.setText(row.getTitle());
+        tvContent.setText(row.getContent());
         tvNewPrice.setText("￥" + row.getCurrentPrice());
-        tvOldPrice.setText("￥" + row.getOriginalPrice());
-        if(row.getUserLocation() != null)
-        tvAddress.setText(row.getUserLocation().getCity() + "  " + row.getUserLocation().getDistrict());
+        if (row.getOriginalPrice() == 0) {
+            tvOldPrice.setVisibility(View.INVISIBLE);
+        } else {
+            tvOldPrice.setVisibility(View.VISIBLE);
+            tvOldPrice.setText("￥" + row.getOriginalPrice());
+        }
+        if (row.getUserLocation() != null)
+            tvAddress.setText(row.getUserLocation().getCity() + "  " + row.getUserLocation().getDistrict());
         tvMessage.setText(row.getReplyNumber() + "");
         tvWatch.setText(row.getBrowseNumber() + "");
         if (row.getProductImageList() == null || row.getProductImageList().size() == 0) {

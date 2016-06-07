@@ -4,8 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
@@ -19,6 +23,8 @@ import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.utils.KeyboardUtil;
+import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import butterknife.BindView;
@@ -90,7 +96,42 @@ public class RecommendListActivity extends BaseRecyclerActivity {
     protected void initView(Bundle savedInstanceState) {
         setTitle("选择推荐商品");
         tvSubmit.setOnClickListener(this);
+        adapter.addFooter(new RecyclerArrayAdapter.ItemView() {
+            @Override
+            public View onCreateView(ViewGroup parent) {
+                LinearLayout header = (LinearLayout) LayoutInflater.from(RecommendListActivity.this).inflate(R.layout.activity_recommend_head01, null);
+                header.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+                return header;
+            }
+
+            @Override
+            public void onBindView(View headerView) {
+                headerView.findViewById(R.id.tv_publish).setOnClickListener(RecommendListActivity.this);
+            }
+        });
         onRefresh();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
+
+    protected void initRecyclerView() {
+        mSmartRecyclerView = (EasyRecyclerView) findViewById(R.id.recyclerView);
+        if (mSmartRecyclerView == null)
+            return;
+        adapter = initAdapter();
+        mSmartRecyclerView.setLayoutManager(setLayoutManager());
+        if (adapter == null)
+            return;
+        mSmartRecyclerView.setAdapterWithProgress(adapter);
+        setSpaceDecoration(mSmartRecyclerView);
+        adapter.setMore(R.layout.view_more, this);
+        adapter.setOnItemClickListener(this);
+        mSmartRecyclerView.setRefreshListener(this);
     }
 
     @Override
@@ -105,16 +146,12 @@ public class RecommendListActivity extends BaseRecyclerActivity {
 
     @Override
     public void onItemClick(int position) {
-        clearChecked();
+        for (MyselfProductPublicListResponseModel.DataEntity.ContentEntity contentEntity : ((RecommendItemAdapter) adapter).getAll()) {
+            contentEntity.setChecked(false);
+        }
         ((RecommendItemAdapter) adapter).getItem(position).setChecked(true);
         resolveProductId = ((RecommendItemAdapter) adapter).getItem(position).getId();
         adapter.notifyDataSetChanged();
-    }
-
-    private void clearChecked() {
-        for (MyselfProductPublicListResponseModel.DataEntity.ContentEntity entity : mMyselfProductPublicListResponseModel.getData().getContent()) {
-            entity.setChecked(false);
-        }
     }
 
     @Override
@@ -130,8 +167,12 @@ public class RecommendListActivity extends BaseRecyclerActivity {
                     showToast("请选择推荐商品");
                     return;
                 }
+                KeyboardUtil.hideKeyboard(RecommendListActivity.this);
                 showWaitingDialog();
                 subscription = HttpMethod.getInstance().requestProductReplay(mProductReplayResponseModelObserver, setReplayParams());
+                break;
+            case R.id.tv_publish:
+                PublishActivity.newIntent(this, "发布", "0");
                 break;
         }
     }

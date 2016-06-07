@@ -136,7 +136,6 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
         setTitle("我的");
         init();
         getSupportLoaderManager().initLoader(0, null, this);
-        subscription = HttpMethod.getInstance().myselfGetCount(mMyselfGetCountResponseModelObserver, setCountParams());
     }
 
     @Override
@@ -149,6 +148,9 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
             rlNotLogin.setVisibility(View.GONE);
             rlInfo.setVisibility(View.VISIBLE);
         }
+        if (!TextUtils.isEmpty(BaseApplication.getToken()))
+            subscription = HttpMethod.getInstance().myselfGetCount(mMyselfGetCountResponseModelObserver, setCountParams());
+
     }
 
     private MyselfGetCountRequestModel setCountParams() {

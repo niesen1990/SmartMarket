@@ -44,6 +44,7 @@
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_toRightOf="@+id/iv_image"
         android:maxLines="2"
+        android:textSize="12sp"
         tools:text="3700"/>
 
 </RelativeLayout>

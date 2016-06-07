@@ -74,7 +74,6 @@ public class ImageLoader {
                 .into(imageView);
     }
 
-
     public static void loadWithUploadListener(final Context context, final PublishImageModel row, final ImageView imageView, final ProgressBar progressBar) {
         Glide.with(context)
                 .load(row.getImageUrl())
@@ -111,7 +110,7 @@ public class ImageLoader {
                                         public void onError(Throwable e) {
                                             Log.e(TAG, e.toString());
                                             progressBar.setVisibility(View.GONE);
-                                            imageView.setImageResource(android.R.drawable.ic_media_play);
+                                            imageView.setImageResource(R.drawable.ic_refresh);
                                             imageView.setOnClickListener(new View.OnClickListener() {
                                                 @Override
                                                 public void onClick(View v) {
@@ -146,10 +145,6 @@ public class ImageLoader {
     }
 
     private static Map<String, RequestBody> setUploadParams(String url) {
-        //        File file = new File(url);
-        /*Bitmap bmp = BitmapFactory.decodeFile(url);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 70, bos);*/
         Map<String, RequestBody> params = new HashMap<>();
         params.put("token", RequestBody.create(MediaType.parse("text/plain"), BaseApplication.getToken()));
         params.put("type", RequestBody.create(MediaType.parse("text/plain"), "1"));
@@ -161,8 +156,8 @@ public class ImageLoader {
         Glide.with(context)
                 .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .placeholder(R.color.line)
-                .error(R.color.darkgray)
+                .placeholder(R.drawable.ic_head_default)
+                .error(R.drawable.ic_head_default)
                 .crossFade()
                 .fitCenter()
                 .transform(bitmapTransformation)

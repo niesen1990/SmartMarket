@@ -20,10 +20,10 @@ import com.alibaba.mobileim.login.IYWConnectionListener;
 import com.alibaba.mobileim.login.YWLoginCode;
 import com.alibaba.mobileim.login.YWLoginState;
 import com.alibaba.mobileim.utility.IMAutoLoginInfoStoreUtil;
-import com.cmbb.smartmarket.activity.login.LoginActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.Constants;
 import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.Logout;
 
 /**
  * 项目名称：SmartMarket
@@ -141,7 +141,7 @@ public class IMHelper {
                 sendAutoLoginState(YWLoginState.disconnect);
                 //在其它终端登录，当前用户被踢下线 重新登陆
                 IMHelper.getInstance().setAutoLoginState(YWLoginState.disconnect);
-                LoginActivity.newIntent(BaseApplication.getContext());
+                Logout.logout(BaseApplication.getContext());
             }
         }
     }

@@ -7,13 +7,13 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,6 +37,7 @@ import com.cmbb.smartmarket.activity.market.model.ProductReplyListRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplyListResponseModel;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.user.ReportActivity;
+import com.cmbb.smartmarket.activity.user.UserCenterActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.image.CircleTransform;
@@ -45,6 +46,7 @@ import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.utils.DialogUtils;
+import com.cmbb.smartmarket.utils.KeyboardUtil;
 import com.cmbb.smartmarket.utils.SocialUtils;
 import com.cmbb.smartmarket.utils.date.JTimeTransform;
 import com.cmbb.smartmarket.utils.date.RecentDateFormat;
@@ -84,6 +86,8 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
     EditText evSendContent;
     @BindView(R.id.bottom)
     LinearLayout bottom;
+    @BindView(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout collapsingToolbar;
     BottomSheetBehavior behaviorBottom;
     //HeadView
     TextView tvTitle;
@@ -98,12 +102,10 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
     TextView tvAddress;
     BannerDetailListAdapter mBannerDetailListAdapter;
     RecyclerArrayAdapter.ItemView headItemView;
-    int userId;
     int replayId;
-    int productId;
     String imUserId;
-    String userNick;
     int isSpot;
+    ProductDetailResponseModel mProductDetailResponseModel;
     Observer<ProductDetailResponseModel> mProductDetailResponseModelObserver = new Observer<ProductDetailResponseModel>() {
         @Override
         public void onCompleted() {
@@ -118,25 +120,35 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
         @Override
         public void onNext(ProductDetailResponseModel productDetailResponseModel) {
             if (productDetailResponseModel != null) {
-                productId = productDetailResponseModel.getData().getId();
-                userId = productDetailResponseModel.getData().getPublicUser().getId();
+                mProductDetailResponseModel = productDetailResponseModel;
                 if (productDetailResponseModel.getData().getPublicUser().getImUserId() != null)
                     imUserId = productDetailResponseModel.getData().getPublicUser().getImUserId();
-                mBannerDetailListAdapter.updateList(productDetailResponseModel.getData().getProductImageList());
+                if (productDetailResponseModel.getData().getProductImageList() != null && productDetailResponseModel.getData().getProductImageList().size() > 0) {
+                    mBannerDetailListAdapter.updateList(productDetailResponseModel.getData().getProductImageList());
+                } else {
+                    collapsingToolbar.setBackgroundResource(R.mipmap.ic_good_bac);
+                }
                 isSpot = productDetailResponseModel.getData().getIsSpot();
-                userNick = productDetailResponseModel.getData().getPublicUser().getNickName();
                 tvTitle.setText(productDetailResponseModel.getData().getTitle());
                 tvWatchCount.setText(productDetailResponseModel.getData().getBrowseNumber() + "");
                 tvIntroduce.setText(productDetailResponseModel.getData().getContent());
                 tvTime.setText(new JTimeTransform(productDetailResponseModel.getData().getPublicDate()).toString(new RecentDateFormat()));
-                tvAddress.setText(productDetailResponseModel.getData().getUserLocation().getCity() + " | " + productDetailResponseModel.getData().getUserLocation().getDistrict());
+                if (productDetailResponseModel.getData().getUserLocation() != null)
+                    tvAddress.setText(productDetailResponseModel.getData().getUserLocation().getCity() + " | " + productDetailResponseModel.getData().getUserLocation().getDistrict());
                 ImageLoader.loadUrlAndDiskCache(NeedDetailActivity.this, productDetailResponseModel.getData().getPublicUser().getUserImg(), ivHead, new CircleTransform(NeedDetailActivity.this));
                 tvNick.setText(productDetailResponseModel.getData().getPublicUser().getNickName());
-                if (productDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId()) {
-                    tvBuy.setText("确认解决");
+                if (productDetailResponseModel.getData().getProductStatus() == 0) {
+                    if (productDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId()) {
+                        tvBuy.setText("确认解决");
+                    } else {
+                        tvBuy.setText("推荐给TA");
+                    }
                 } else {
-                    tvBuy.setText("推荐给TA");
+                    tvBuy.setText(productDetailResponseModel.getData().getProductStatusText());
+                    tvBuy.setClickable(false);
+                    tvBuy.setBackgroundResource(R.color.line);
                 }
+
                 tvMessage.setText(productDetailResponseModel.getData().getReplyNumber() + "");
                 onRefresh();
             }
@@ -181,9 +193,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
             hideWaitingDialog();
             showToast(productReplayResponseModel.getMsg());
             evSendContent.setText("");
-            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(NeedDetailActivity.this.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-
+            KeyboardUtil.hideKeyboard(NeedDetailActivity.this);
         }
     };
 
@@ -260,7 +270,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
 
             @Override
             public void onBindView(View headerView) {
-
+                headerView.findViewById(R.id.iv_head).setOnClickListener(NeedDetailActivity.this);
             }
         };
         adapter.addHeader(headItemView);
@@ -310,27 +320,34 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_report:
-                ReportActivity.newIntent(this, productId);
+                ReportActivity.newIntent(this, mProductDetailResponseModel.getData().getId());
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
         switch (v.getId()) {
+            case R.id.iv_head:
+                UserCenterActivity.newIntent(this, mProductDetailResponseModel.getData().getPublicUser().getId());
+                break;
             case R.id.tv_share:
-                SocialUtils.share(this, "http://smart.image.alimmdn.com/system/image/2016-04-18/file_50647_NTFjM2VmMjMtOTNiNC00MTI2LWJhMWMtOWFlZDc2MTg2MDU4", "魅族手机PRO6", "MEIZU design and make", "http://www.baidu.com");
+                if (mProductDetailResponseModel.getData().getProductImageList() != null & mProductDetailResponseModel.getData().getProductImageList().size() > 0) {
+                    SocialUtils.share(this, mProductDetailResponseModel.getData().getProductImageList().get(0).getLocation(), mProductDetailResponseModel.getData().getTitle(), mProductDetailResponseModel.getData().getContent(), ApiInterface.SHARE_NEED + getIntent().getIntExtra("id", -1));
+                } else {
+                    SocialUtils.share(this, R.mipmap.ic_good_bac, mProductDetailResponseModel.getData().getTitle(), mProductDetailResponseModel.getData().getContent(), ApiInterface.SHARE_NEED + getIntent().getIntExtra("id", -1));
+                }
                 break;
             case R.id.tv_message:
-                replayId = userId;
-                evSendContent.setHint("回复@" + userNick);
+                replayId = mProductDetailResponseModel.getData().getPublicUser().getId();
+                evSendContent.setHint("回复@" + mProductDetailResponseModel.getData().getPublicUser().getNickName());
                 evSendContent.setFocusable(true);
                 evSendContent.setFocusableInTouchMode(true);
                 evSendContent.requestFocus();
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+                KeyboardUtil.showKeyboard(this);
                 break;
             case R.id.iv_spot:
                 HttpMethod.getInstance().requestProductAskToBuySpot(new Observer<ProductAskToBuySpotResponseModel>() {
@@ -367,7 +384,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                 }, setSpotParams());
                 break;
             case R.id.tv_buy:
-                if (userId == BaseApplication.getUserId()) {
+                if (mProductDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId()) {
                     DialogUtils.createAlertDialog(this, "警告", "确认解决？", true, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -396,7 +413,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                     });
 
                 } else {
-                    RecommendListActivity.newIntent(this, getIntent().getIntExtra("id", -1), userId);
+                    RecommendListActivity.newIntent(this, getIntent().getIntExtra("id", -1), mProductDetailResponseModel.getData().getPublicUser().getId());
                 }
                 break;
             case R.id.tv_send:
@@ -446,15 +463,14 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
     public void onItemClick(int position) {
         if (((DetailReplayAdapter) adapter).getItem(position).getIsRecommoned() == 1 || ((DetailReplayAdapter) adapter).getItem(position).getResolveProductId() != -1) {
             CommodityDetailActivity.newIntent(this, ((DetailReplayAdapter) adapter).getItem(position).getResolveProductId());
-        } else if (userId == BaseApplication.getUserId()) {
+        } else if (mProductDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId()) {
             replayId = ((DetailReplayAdapter) adapter).getItem(position).getCreateUser().getId();
             Log.e(TAG, "replayId = " + replayId);
             evSendContent.setHint("回复@" + ((DetailReplayAdapter) adapter).getItem(position).getCreateUser().getNickName());
             evSendContent.setFocusable(true);
             evSendContent.setFocusableInTouchMode(true);
             evSendContent.requestFocus();
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+            KeyboardUtil.showKeyboard(this);
         }
     }
 

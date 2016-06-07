@@ -182,7 +182,8 @@ public class HomeMessageActivity extends BaseHomeActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        subscription = HttpMethod.getInstance().marketMessageGetType(mMarketMessageGetTypeResponseModelObserver, setMessageParams());
+        if (!TextUtils.isEmpty(BaseApplication.getToken()))
+            subscription = HttpMethod.getInstance().marketMessageGetType(mMarketMessageGetTypeResponseModelObserver, setMessageParams());
     }
 
     @Override

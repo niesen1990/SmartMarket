@@ -45,7 +45,7 @@
             android:id="@+id/iv_head"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/ic_head_default"/>
 
         <TextView
             android:id="@+id/tv_nick"
@@ -103,6 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_introduce"
             android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:textSize="12sp"
             android:text="6小时以前"/>
 
         <TextView

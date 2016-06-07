@@ -90,7 +90,7 @@ public class SocialUtils {
                         if (snsPlatform.mShowWord.equals("umeng_sharebutton_custom")) {
                             Toast.makeText(context, "自定义按钮", Toast.LENGTH_LONG).show();
                         } else {
-                            new ShareAction(context).withText("来自友盟自定义分享面板")
+                            new ShareAction(context).withText("来自萌宝铺子的分享")
                                     .setPlatform(share_media)
                                     .withTitle(title)
                                     .withText(content)
@@ -119,4 +119,44 @@ public class SocialUtils {
                     }
                 }).open();
     }
+
+    public static void share(final Activity context, int imageUrl, final String title, final String content, final String targetUrl) {
+        final UMImage image = new UMImage(context, imageUrl);
+        new ShareAction(context).setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+                .setShareboardclickCallback(new ShareBoardlistener() {
+                    @Override
+                    public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
+                        if (snsPlatform.mShowWord.equals("umeng_sharebutton_custom")) {
+                            Toast.makeText(context, "自定义按钮", Toast.LENGTH_LONG).show();
+                        } else {
+                            new ShareAction(context).withText("来自萌宝铺子的分享")
+                                    .setPlatform(share_media)
+                                    .withTitle(title)
+                                    .withText(content)
+                                    .withMedia(image)
+                                    .withTargetUrl(targetUrl)
+                                    .setCallback(new UMShareListener() {
+                                        @Override
+                                        public void onResult(SHARE_MEDIA platform) {
+                                            Log.d("plat", "platform" + platform);
+                                            Toast.makeText(context, platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        @Override
+                                        public void onError(SHARE_MEDIA platform, Throwable t) {
+                                            Log.e("onError", t.getMessage());
+                                            Toast.makeText(context, platform + " 分享失败啦", Toast.LENGTH_SHORT).show();
+                                        }
+
+                                        @Override
+                                        public void onCancel(SHARE_MEDIA platform) {
+                                            Toast.makeText(context, platform + " 分享取消了", Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .share();
+                        }
+                    }
+                }).open();
+    }
+
 }
