@@ -59,7 +59,8 @@ public class OnSellItemHolder extends BaseViewHolder<MarketCenterSelectProductLi
             tvOldPrice.setVisibility(View.VISIBLE);
             tvOldPrice.setText("￥" + row.getOriginalPrice());
         }
-        tvAddress.setText(row.getUserLocation().getCity() + " " + row.getUserLocation().getDistrict());
+        if (row.getUserLocation() != null)
+            tvAddress.setText(row.getUserLocation().getCity() + " " + row.getUserLocation().getDistrict());
         tvTime.setText(new JTimeTransform(row.getPublicDate()).toString(new RecentDateFormat()));
     }
 }
