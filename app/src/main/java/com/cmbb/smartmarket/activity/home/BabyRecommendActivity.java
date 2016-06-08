@@ -18,7 +18,7 @@ public class BabyRecommendActivity extends BaseRecommendActivity {
     @Override
     protected void initRecommend() {
         setTitle("宝宝用品");
-        setParentClassify("MMYP");
+        setParentClassify("BBYP");
     }
 
     public static void newIntent(Context context) {

@@ -41,6 +41,11 @@ public class CodeInfoListResponseModel {
         private String name;
         private String value;
 
+        public DataEntity(String name, String value) {
+            this.name = name;
+            this.value = value;
+        }
+
         public String getName() {
             return name;
         }

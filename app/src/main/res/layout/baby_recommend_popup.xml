@@ -17,6 +17,7 @@
 
 
     <LinearLayout
+        android:id="@+id/ll01"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tv_tag"
@@ -31,9 +32,9 @@
             android:background="@drawable/shape_white_stroke_corner_dark"
             android:gravity="center"
             android:hint="最低价"
-            android:textColorHint="@color/darkgray"
             android:inputType="number"
             android:padding="@dimen/global_padding"
+            android:textColorHint="@color/darkgray"
             android:textSize="14sp"/>
 
         <TextView
@@ -61,6 +62,37 @@
             android:textSize="14sp"/>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/ll01"
+        android:layout_marginRight="@dimen/global_padding"
+        android:layout_marginTop="@dimen/global_padding"
+        android:background="@drawable/shape_white_stroke_corner_dark"
+        android:paddingBottom="@dimen/half_global_padding"
+        android:paddingLeft="@dimen/global_padding"
+        android:paddingRight="@dimen/global_padding"
+        android:paddingTop="@dimen/half_global_padding"
+        android:text="确定"/>
+
+
+    <TextView
+        android:id="@+id/tv_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll01"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/global_padding"
+        android:layout_toLeftOf="@+id/tv_confirm"
+        android:background="@drawable/shape_white_stroke_corner_dark"
+        android:paddingBottom="@dimen/half_global_padding"
+        android:paddingLeft="@dimen/global_padding"
+        android:paddingRight="@dimen/global_padding"
+        android:paddingTop="@dimen/half_global_padding"
+        android:text="重置"/>
 
 
 </RelativeLayout>

@@ -112,6 +112,7 @@ public abstract class BaseRecommendActivity extends BaseRecyclerActivity {
             if (codeInfoListResponseModel == null)
                 return;
             mStringArrayAdapter2.clear();
+            codeInfoListResponseModel.getData().add(0, new CodeInfoListResponseModel.DataEntity("全部", ""));
             mStringArrayAdapter2.addAll(codeInfoListResponseModel.getData());
         }
     };
@@ -157,7 +158,7 @@ public abstract class BaseRecommendActivity extends BaseRecyclerActivity {
             listPopupWindow4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    sortType = mStringArrayAdapter4.getItem(position).getName();
+                    sortType = mStringArrayAdapter4.getItem(position).getValue();
                     subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
                     listPopupWindow4.dismiss();
                 }
@@ -173,6 +174,8 @@ public abstract class BaseRecommendActivity extends BaseRecyclerActivity {
             listPopupWindow2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (position == 0)
+                        pager = 0;
                     secondClassify = mStringArrayAdapter2.getItem(position).getValue();
                     subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
                     listPopupWindow2.dismiss();
@@ -224,6 +227,13 @@ public abstract class BaseRecommendActivity extends BaseRecyclerActivity {
             case R.id.tv04:
                 listPopupWindow4.show();
                 break;
+            case R.id.tv_cancel:
+                pager = 0;
+                beginPrice = "";
+                endPrice = "";
+                popupWindow.dismiss();
+                subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
+                break;
         }
     }
 
@@ -259,6 +269,21 @@ public abstract class BaseRecommendActivity extends BaseRecyclerActivity {
         // 设置按钮的点击事件
         final EditText etPriceLow = (EditText) contentView.findViewById(R.id.et_price_low);
         final EditText etPriceHigh = (EditText) contentView.findViewById(R.id.et_price_high);
+
+        final TextView tvConfirm = (TextView) contentView.findViewById(R.id.tv_confirm);
+
+        final TextView tvCancel = (TextView) contentView.findViewById(R.id.tv_cancel);
+        tvCancel.setOnClickListener(this);
+        tvConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pager = 0;
+                beginPrice = etPriceLow.getText().toString();
+                endPrice = etPriceHigh.getText().toString();
+                subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
+                popupWindow.dismiss();
+            }
+        });
         etPriceHigh.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
