@@ -1,6 +1,7 @@
 package com.cmbb.smartmarket.activity.user.holder;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -52,7 +53,12 @@ public class OnSellItemHolder extends BaseViewHolder<MarketCenterSelectProductLi
             ImageLoader.loadCenterCropCache(mContext, row.getProductImageList().get(0).getLocation(), ivPic);
         tvContent.setText(row.getTitle());
         tvNewPrice.setText("￥" + row.getCurrentPrice());
-        tvOldPrice.setText("￥" + row.getOriginalPrice());
+        if (row.getOriginalPrice() == 0) {
+            tvOldPrice.setVisibility(View.INVISIBLE);
+        } else {
+            tvOldPrice.setVisibility(View.VISIBLE);
+            tvOldPrice.setText("￥" + row.getOriginalPrice());
+        }
         tvAddress.setText(row.getUserLocation().getCity() + " " + row.getUserLocation().getDistrict());
         tvTime.setText(new JTimeTransform(row.getPublicDate()).toString(new RecentDateFormat()));
     }

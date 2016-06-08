@@ -86,8 +86,9 @@ public class CheckRefundActivity extends BaseActivity {
         tvReject.setOnClickListener(this);
         tvAgree.setOnClickListener(this);
         tvType.setText(dataEntity.getRefundServer());
-        tvReason.setText(dataEntity.getRejectReason());
+        tvReason.setText(dataEntity.getRefundReason());
         tvIntroduce.setText(dataEntity.getRefundMark());
+        tvIntroduce.setEnabled(false);
         tvMoney.setText("￥" + dataEntity.getPrice());
     }
 

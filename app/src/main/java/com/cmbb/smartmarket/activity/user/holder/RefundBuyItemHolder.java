@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.user.ApplyRefundActivity;
-import com.cmbb.smartmarket.activity.user.CheckRejectActivity;
+import com.cmbb.smartmarket.activity.user.CheckRejectForBuyActivity;
 import com.cmbb.smartmarket.activity.user.ExpressActivity;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeRequestModel;
@@ -85,7 +85,12 @@ public class RefundBuyItemHolder extends BaseViewHolder<MarketOrderListResponseM
         ImageLoader.loadUrlAndDiskCache(mContext, row.getProduct().getPublicUser().getUserImg(), ivImage, new CircleTransform(mContext));
         tvTitle.setText(row.getProduct().getTitle());
         tvNewPrice.setText("￥" + row.getProduct().getCurrentPrice());
-        tvOldPrice.setText("￥" + row.getProduct().getOriginalPrice());
+        if (row.getProduct().getOriginalPrice() == 0) {
+            tvOldPrice.setVisibility(View.INVISIBLE);
+        } else {
+            tvOldPrice.setVisibility(View.VISIBLE);
+            tvOldPrice.setText("￥" + row.getProduct().getOriginalPrice());
+        }
         tvDealMoney.setText("￥" + row.getPrice());
         tvRefundMoney.setText("￥" + row.getPrice());
         tvContact.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +109,7 @@ public class RefundBuyItemHolder extends BaseViewHolder<MarketOrderListResponseM
             public void onClick(View v) {
                 switch (tvOperation02.getText().toString()) {
                     case "拒绝原因":
-                        CheckRejectActivity.newIntent(mContext, row);
+                        CheckRejectForBuyActivity.newIntent(mContext, row);
                         break;
                 }
             }

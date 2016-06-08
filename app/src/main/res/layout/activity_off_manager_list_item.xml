@@ -18,7 +18,7 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_margin="@dimen/global_padding"
-            tools:src="@mipmap/ic_launcher"/>
+            tools:src="@color/line"/>
 
         <TextView
             android:id="@+id/tv_title"

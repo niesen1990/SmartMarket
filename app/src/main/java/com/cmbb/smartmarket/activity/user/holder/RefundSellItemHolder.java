@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.user.CheckRefundActivity;
-import com.cmbb.smartmarket.activity.user.CheckRejectActivity;
+import com.cmbb.smartmarket.activity.user.CheckRejectForSellActivity;
 import com.cmbb.smartmarket.activity.user.RejectRefundReasonActivity;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeRequestModel;
@@ -93,13 +93,19 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
         ImageLoader.loadUrlAndDiskCache(mContext, row.getProduct().getPublicUser().getUserImg(), ivImage, new CircleTransform(mContext));
         tvTitle.setText(row.getProduct().getTitle());
         tvNewPrice.setText("￥" + row.getProduct().getCurrentPrice());
-        tvOldPrice.setText("￥" + row.getProduct().getOriginalPrice());
+        if (row.getProduct().getOriginalPrice() == 0) {
+            tvOldPrice.setVisibility(View.INVISIBLE);
+        } else {
+            tvOldPrice.setVisibility(View.VISIBLE);
+            tvOldPrice.setText("￥" + row.getProduct().getOriginalPrice());
+        }
         tvDealMoney.setText("￥" + row.getPrice());
         tvRefundMoney.setText("￥" + row.getPrice());
         tvContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(row.getBuyUser().getImUserId() == null) return;
+                if (row.getBuyUser().getImUserId() == null)
+                    return;
                 Intent intent = IMHelper.getInstance().getIMKit().getChattingActivityIntent(row.getBuyUser().getImUserId(), IMHelper.getAppKey());
                 mContext.startActivity(intent);
             }
@@ -111,7 +117,7 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
         tvOperation01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (tvOperation02.getText().toString()) {
+                switch (tvOperation01.getText().toString()) {
                     case "退款详情":
                         CheckRefundActivity.newIntent(mContext, row);
                         break;
@@ -161,7 +167,6 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
                         });
                         break;
                     case "提醒退货":
-                        // TODO: 16/5/31
                         HttpMethod.getInstance().marketOrderNotice(new Observer<MarketOrderNoticeResponseModel>() {
                             @Override
                             public void onCompleted() {
@@ -211,7 +216,7 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
                         });
                         break;
                     case "拒绝原因":
-                        CheckRejectActivity.newIntent(mContext, row);
+                        CheckRejectForSellActivity.newIntent(mContext, row);
                         break;
                 }
             }

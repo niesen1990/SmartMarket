@@ -53,7 +53,12 @@ public class PublishSellListItemHolder extends BaseViewHolder<MyselfProductPubli
     public void setData(MyselfProductPublicListResponseModel.DataEntity.ContentEntity row) {
         tvTitle.setText(row.getTitle());
         tvNewPrice.setText("￥" + row.getCurrentPrice());
-        tvOldPrice.setText("￥" + row.getOriginalPrice());
+        if (row.getOriginalPrice() == 0) {
+            tvOldPrice.setVisibility(View.INVISIBLE);
+        } else {
+            tvOldPrice.setVisibility(View.VISIBLE);
+            tvOldPrice.setText("￥" + row.getOriginalPrice());
+        }
         if (row.getProductImageList() == null || row.getProductImageList().size() == 0) {
             ll01.setVisibility(View.GONE);
         } else if (0 < row.getProductImageList().size() && row.getProductImageList().size() <= 3) {

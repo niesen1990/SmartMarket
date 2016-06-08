@@ -80,7 +80,12 @@ public class BuyFinishedItemHolder extends BaseViewHolder<MarketOrderListRespons
             ImageLoader.loadCenterCropCache(mContext, row.getProduct().getProductImageList().get(0).getLocation(), ivImage);
         tvTitle.setText(row.getProduct().getTitle());
         tvNewPrice.setText("￥" + row.getProduct().getCurrentPrice());
-        tvOldPrice.setText("￥" + row.getProduct().getOriginalPrice());
+        if (row.getProduct().getOriginalPrice() == 0) {
+            tvOldPrice.setVisibility(View.INVISIBLE);
+        } else {
+            tvOldPrice.setVisibility(View.VISIBLE);
+            tvOldPrice.setText("￥" + row.getProduct().getOriginalPrice());
+        }
         tvStatus.setText(row.getStatusName());
         tvContact.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -181,6 +186,7 @@ public class BuyFinishedItemHolder extends BaseViewHolder<MarketOrderListRespons
         marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("order", "buy", orderId));
         return marketOrderNoticeRequestModel;
     }
+
     private MarketOrderBuyerReceiveRequestModel setConfirmExpressParams(int orderId) {
         MarketOrderBuyerReceiveRequestModel marketOrderBuyerReceiveRequestModel = new MarketOrderBuyerReceiveRequestModel();
         marketOrderBuyerReceiveRequestModel.setToken(BaseApplication.getToken());

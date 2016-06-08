@@ -293,7 +293,7 @@
                             android:background="@android:color/white"
                             android:inputType="numberDecimal"
                             android:maxLines="1"
-                            android:text="0"
+                            android:text=""
                             android:textColor="@color/dimgray"/>
 
                         <TextView
@@ -328,7 +328,7 @@
                             android:background="@android:color/white"
                             android:inputType="numberDecimal"
                             android:maxLines="1"
-                            android:text="0"
+                            android:text=""
                             android:textColor="@color/dimgray"/>
 
                         <TextView
@@ -363,7 +363,7 @@
                         android:background="@android:color/white"
                         android:inputType="numberDecimal"
                         android:maxLines="1"
-                        android:text="0"
+                        android:text=""
                         android:textColor="@color/dimgray"/>
 
                     <TextView
@@ -421,6 +421,7 @@
                 android:layout_marginLeft="@dimen/global_padding"
                 android:layout_marginRight="@dimen/global_padding"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:text="确定发布"/>
 
         </RelativeLayout>

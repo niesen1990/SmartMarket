@@ -90,7 +90,8 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
     @BindView(R.id.tv_operation02)
     TextView tvOperation02;
     OrderDetailStatusListAdapter recyclerAdapter;
-    String imUserId;
+    String imUserIdBuy;
+    String imUserIdSell;
     String orderType;
     String saleType;
 
@@ -123,12 +124,19 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
             if (marketOrderDetailResponseModel.getData().getProcess() != null && marketOrderDetailResponseModel.getData().getProcess().size() > 0)
                 recyclerAdapter.addAll(marketOrderDetailResponseModel.getData().getProcess());
             //更新UI
-            imUserId = marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getImUserId();
+            imUserIdBuy = marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getImUserId();
+            imUserIdSell = marketOrderDetailResponseModel.getData().getBuyUser().getImUserId();
             ImageLoader.loadUrlAndDiskCache(OrderDetailActivity.this, marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getUserImg(), tvHead, new CircleTransform(OrderDetailActivity.this));
             if (marketOrderDetailResponseModel.getData().getProduct().getProductImageList() != null && marketOrderDetailResponseModel.getData().getProduct().getProductImageList().size() > 0)
                 ImageLoader.loadCenterCropCache(OrderDetailActivity.this, marketOrderDetailResponseModel.getData().getProduct().getProductImageList().get(0).getLocation(), ivCom);
-            tvNick.setText(marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getNickName());
-            tvContact.setOnClickListener(OrderDetailActivity.this);
+            if (saleType.equals("buy")) {
+                tvNick.setText(marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getNickName());
+                tvContact.setOnClickListener(OrderDetailActivity.this);
+            } else {
+                tvNick.setText(marketOrderDetailResponseModel.getData().getBuyUser().getNickName());
+                tvContact.setOnClickListener(OrderDetailActivity.this);
+            }
+
             tvTitle.setText(marketOrderDetailResponseModel.getData().getProduct().getTitle());
             if (marketOrderDetailResponseModel.getData().getProduct().getFreight() == 0) {
                 tvPrice.setText("￥" + marketOrderDetailResponseModel.getData().getProduct().getCurrentPrice() + " ( 包含快递费 ) ");
@@ -165,10 +173,17 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_contact:
-                if (TextUtils.isEmpty(imUserId))
-                    return;
-                Intent intent = IMHelper.getInstance().getIMKit().getChattingActivityIntent(imUserId, IMHelper.getAppKey());
-                startActivity(intent);
+                if (saleType.equals("buy")) {
+                    if (TextUtils.isEmpty(imUserIdBuy))
+                        return;
+                    Intent intent = IMHelper.getInstance().getIMKit().getChattingActivityIntent(imUserIdBuy, IMHelper.getAppKey());
+                    startActivity(intent);
+                } else {
+                    if (TextUtils.isEmpty(imUserIdSell))
+                        return;
+                    Intent intent = IMHelper.getInstance().getIMKit().getChattingActivityIntent(imUserIdSell, IMHelper.getAppKey());
+                    startActivity(intent);
+                }
                 break;
         }
     }
@@ -432,7 +447,7 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
                 public void onClick(View v) {
                     switch (tvOperation02.getText().toString()) {
                         case "拒绝原因":
-                            CheckRejectActivity.newIntent(OrderDetailActivity.this, response);
+                            CheckRejectForBuyActivity.newIntent(OrderDetailActivity.this, response);
                             break;
                     }
                 }
@@ -579,7 +594,7 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
                             });
                             break;
                         case "拒绝原因":
-                            CheckRejectActivity.newIntent(OrderDetailActivity.this, response);
+                            CheckRejectForBuyActivity.newIntent(OrderDetailActivity.this, response);
                             break;
                     }
                 }

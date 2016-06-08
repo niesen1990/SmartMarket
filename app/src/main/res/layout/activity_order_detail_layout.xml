@@ -39,7 +39,7 @@
             android:layout_centerVertical="true"
             android:drawableLeft="@drawable/ic_contact"
             android:gravity="center"
-            android:text="联系卖家"/>
+            android:text="联系TA"/>
 
     </RelativeLayout>
 

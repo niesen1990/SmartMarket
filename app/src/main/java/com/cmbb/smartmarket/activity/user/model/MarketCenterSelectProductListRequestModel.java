@@ -34,12 +34,31 @@ public class MarketCenterSelectProductListRequestModel extends RetrofitRequestMo
         private int numberOfPerPage;
         private int pageNo;
         private int userId;
+        private String status;
 
-        public ParametersEntity(int type, int userId,int numberOfPerPage, int pageNo) {
+        public ParametersEntity(int type, int userId, String status, int numberOfPerPage, int pageNo) {
+            this.type = type;
+            this.userId = userId;
+            this.status = status;
+            this.numberOfPerPage = numberOfPerPage;
+            this.pageNo = pageNo;
+
+        }
+
+        public ParametersEntity(int type, int userId, int numberOfPerPage, int pageNo) {
             this.type = type;
             this.userId = userId;
             this.numberOfPerPage = numberOfPerPage;
             this.pageNo = pageNo;
+        }
+
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
         }
 
         public int getUserId() {

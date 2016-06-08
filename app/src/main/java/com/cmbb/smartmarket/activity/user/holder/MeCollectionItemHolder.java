@@ -72,7 +72,12 @@ public class MeCollectionItemHolder extends BaseViewHolder<MyselfProductCollectL
         tvContent.setText(row.getProduct().getContent());
         tvStatus.setText(row.getProduct().getProductStatusText());
         tvNewPrice.setText("￥" + row.getProduct().getCurrentPrice());
-        tvOldPrice.setText("￥" + row.getProduct().getOriginalPrice());
+        if (row.getProduct().getOriginalPrice() == 0) {
+            tvOldPrice.setVisibility(View.INVISIBLE);
+        } else {
+            tvOldPrice.setVisibility(View.VISIBLE);
+            tvOldPrice.setText("￥" + row.getProduct().getOriginalPrice());
+        }
         if(row.getProduct().getUserLocation() != null)
             tvAddress.setText(row.getProduct().getUserLocation().getCity() + "  " + row.getProduct().getUserLocation().getDistrict());
         tvMessage.setText(row.getProduct().getReplyNumber() + "");

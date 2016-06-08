@@ -21,7 +21,6 @@ import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.message.im.custom.CustomHelper;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.log.constant.ZoneOffset;
-import com.cmbb.smartmarket.network.SmartLogInterceptor;
 import com.cmbb.smartmarket.utils.SPCache;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
@@ -30,10 +29,6 @@ import com.umeng.message.UmengMessageHandler;
 import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
 import com.umeng.socialize.PlatformConfig;
-
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.OkHttpClient;
 
 /**
  * 项目名称：SmartMarket
@@ -60,7 +55,6 @@ public class BaseApplication extends MultiDexApplication {
         initSharePreference();
         initUmengAnalytics();
         initPushAgent();
-        //        initOkHttp();
         initShare();
         initBroadcastReceiver();
         setToken(SPCache.getString(Constants.API_TOKEN, ""));
@@ -122,19 +116,6 @@ public class BaseApplication extends MultiDexApplication {
         BaseApplication.context = context;
     }
 
-    /**
-     * 初始化OkHttp
-     */
-    private void initOkHttp() {
-        SmartLogInterceptor interceptor = new SmartLogInterceptor();
-        interceptor.setLevel(SmartLogInterceptor.Level.BASIC);
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .retryOnConnectionFailure(true)
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .build();
-        //        Glide.get(this).register(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory(okHttpClient));
-    }
 
     /**
      * 初始化日志

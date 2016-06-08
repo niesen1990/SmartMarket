@@ -44,18 +44,30 @@
         android:layout_alignBottom="@+id/iv_head"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_toEndOf="@+id/iv_head"
-        android:textSize="12sp"
         android:layout_toRightOf="@+id/iv_head"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/darkgray"
+        android:textSize="12sp"
         tools:text="5小时之前"/>
+
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/TextAppearance.Smart.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_head"
+        android:layout_marginTop="@dimen/global_padding"
+        android:maxLines="2"
+        android:textColor="@color/dimgray"
+        tools:text="[求购]贝亲新生儿护肤礼盒"/>
 
 
     <LinearLayout
         android:id="@+id/ll_images"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_head"
+        android:layout_below="@+id/tv_title"
         android:layout_marginTop="@dimen/global_padding"
         android:orientation="horizontal">
 
@@ -84,22 +96,11 @@
 
     </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ll_images"
-        android:layout_marginTop="@dimen/half_global_padding"
-        android:maxLines="2"
-        android:textColor="@color/dimgray"
-        tools:text="[求购]贝亲新生儿护肤礼盒"/>
-
     <TextView
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tv_title"
+        android:layout_below="@+id/ll_images"
         android:layout_marginTop="@dimen/half_global_padding"
         android:maxLines="2"
         android:textColor="@color/darkgray"

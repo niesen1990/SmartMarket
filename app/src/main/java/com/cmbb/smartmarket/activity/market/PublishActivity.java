@@ -421,7 +421,7 @@ public class PublishActivity extends BaseActivity {
                     return;
                 }
                 String currentPrice = tvNewPrice.getText().toString();
-                if (Double.parseDouble(currentPrice) == 0 && productType.equals("0")) {
+                if ((TextUtils.isEmpty(currentPrice) || Double.parseDouble(currentPrice) == 0) && productType.equals("0")) {
                     showToast("请输入当前价格");
                     return;
                 }

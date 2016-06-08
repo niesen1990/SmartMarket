@@ -139,7 +139,8 @@
         <activity android:name=".activity.user.SoldFinishedActivity"/>
         <activity android:name=".activity.user.ExpressActivity"
             android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".activity.user.CheckRejectActivity"/>
+        <activity android:name=".activity.user.CheckRejectForBuyActivity"/>
+        <activity android:name=".activity.user.CheckRejectForSellActivity"/>
         <activity android:name=".activity.user.CheckRefundActivity"/>
         <activity android:name=".activity.user.RejectRefundReasonActivity"/>
         <activity android:name=".activity.user.OrderDetailActivity"/>

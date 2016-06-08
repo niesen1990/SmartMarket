@@ -106,7 +106,7 @@ public class OnSellFragment extends BaseRecyclerFragment {
         MarketCenterSelectProductListRequestModel marketCenterSelectProductListRequestModel = new MarketCenterSelectProductListRequestModel();
         marketCenterSelectProductListRequestModel.setCmd(ApiInterface.MarketCenterSelectProductList);
         marketCenterSelectProductListRequestModel.setToken(BaseApplication.getToken());
-        marketCenterSelectProductListRequestModel.setParameters(new MarketCenterSelectProductListRequestModel.ParametersEntity(0, userId, pagerSize, pager));
+        marketCenterSelectProductListRequestModel.setParameters(new MarketCenterSelectProductListRequestModel.ParametersEntity(0, userId, "0", pagerSize, pager));
         return marketCenterSelectProductListRequestModel;
     }
 }
