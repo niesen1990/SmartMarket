@@ -25,7 +25,6 @@ import com.cmbb.smartmarket.activity.user.model.OrderRefundSellStatus;
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.Constants;
-import com.cmbb.smartmarket.image.CircleTransform;
 import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
@@ -90,7 +89,8 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
             return;
         tvOrder.setText(row.getOrderCode());
         tvStatus.setText(row.getRefundStatusName());
-        ImageLoader.loadUrlAndDiskCache(mContext, row.getProduct().getPublicUser().getUserImg(), ivImage, new CircleTransform(mContext));
+        if (row.getProduct().getProductImageList() != null && row.getProduct().getProductImageList().size() > 0)
+            ImageLoader.loadUrlAndDiskCache(mContext, row.getProduct().getProductImageList().get(0).getLocation(), ivImage);
         tvTitle.setText(row.getProduct().getTitle());
         tvNewPrice.setText("￥" + row.getProduct().getCurrentPrice());
         if (row.getProduct().getOriginalPrice() == 0) {

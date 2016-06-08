@@ -64,12 +64,12 @@
         "source": "/Users/niesen918/AndroidStudioProjects/SmartMarket/WXIM/build/intermediates/bundles/debug/res/layout/aliwx_audio_flipper_to.xml"
     },
     {
-        "merged": "/Users/niesen918/AndroidStudioProjects/SmartMarket/WXIM/build/intermediates/res/merged/androidTest/debug/layout/aliwx_tooltip_chatwindow_rec_funbar.xml",
-        "source": "/Users/niesen918/AndroidStudioProjects/SmartMarket/WXIM/build/intermediates/bundles/debug/res/layout/aliwx_tooltip_chatwindow_rec_funbar.xml"
-    },
-    {
         "merged": "/Users/niesen918/AndroidStudioProjects/SmartMarket/WXIM/build/intermediates/res/merged/androidTest/debug/layout/aliwx_enlarge_enhanced_text_activity.xml",
         "source": "/Users/niesen918/AndroidStudioProjects/SmartMarket/WXIM/build/intermediates/bundles/debug/res/layout/aliwx_enlarge_enhanced_text_activity.xml"
+    },
+    {
+        "merged": "/Users/niesen918/AndroidStudioProjects/SmartMarket/WXIM/build/intermediates/res/merged/androidTest/debug/layout/aliwx_tooltip_chatwindow_rec_funbar.xml",
+        "source": "/Users/niesen918/AndroidStudioProjects/SmartMarket/WXIM/build/intermediates/bundles/debug/res/layout/aliwx_tooltip_chatwindow_rec_funbar.xml"
     },
     {
         "merged": "/Users/niesen918/AndroidStudioProjects/SmartMarket/WXIM/build/intermediates/res/merged/androidTest/debug/layout/chatting_selfhelp_sub_menu_item.xml",
