@@ -59,7 +59,7 @@ public class HomeOperationActivity extends BaseActivity {
         tvNeed.setOnClickListener(this);
         tvPublish.setOnClickListener(this);
         tvNeedOpen = new TranslateAnimation(tvNeed.getLeft(), tvNeed.getLeft() + leftX, tvNeed.getRight(), tvNeed.getRight() - leftY);
-        tvNeedOpen.setDuration(200);
+        tvNeedOpen.setDuration(150);
         tvNeedOpen.setFillAfter(true);
         tvNeedOpen.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -82,11 +82,11 @@ public class HomeOperationActivity extends BaseActivity {
         tvNeedOpen.startNow();
 
         tvNeedClose = new TranslateAnimation(tvNeed.getLeft(), tvNeed.getLeft() - leftX, tvNeed.getRight(), tvNeed.getRight() + leftY);
-        tvNeedClose.setDuration(150);
+        tvNeedClose.setDuration(100);
         tvNeedClose.setFillAfter(true);
 
         tvPublishOpen = new TranslateAnimation(tvPublish.getLeft(), tvPublish.getLeft() - leftX, tvPublish.getRight(), tvPublish.getRight() - leftY);
-        tvPublishOpen.setDuration(200);
+        tvPublishOpen.setDuration(150);
         tvPublishOpen.setFillAfter(true);
         tvPublishOpen.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -109,23 +109,23 @@ public class HomeOperationActivity extends BaseActivity {
         tvPublishOpen.startNow();
 
         tvPublishClose = new TranslateAnimation(tvPublish.getLeft(), tvPublish.getLeft() + leftX, tvPublish.getRight(), tvPublish.getRight() + leftY);
-        tvPublishClose.setDuration(200);
+        tvPublishClose.setDuration(100);
         tvPublishClose.setFillAfter(true);
 
         animationOpen = new RotateAnimation(0f, 45f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animationOpen.setDuration(120);//设置动画持续时间
+        animationOpen.setDuration(150);//设置动画持续时间
         animationOpen.setFillAfter(true);
         ivClose.setAnimation(animationOpen);
         animationOpen.startNow();
 
         animationClose = new RotateAnimation(45f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animationClose.setDuration(200);//设置动画持续时间
+        animationClose.setDuration(100);//设置动画持续时间
         animationClose.setFillAfter(true);
 
     }
 
     @Override
-    public void onClick(View v) {
+    public void onClick(final View v) {
         super.onClick(v);
         tvNeed.clearAnimation();
         tvNeed.setAnimation(tvNeedClose);
@@ -144,7 +144,22 @@ public class HomeOperationActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                finish();
+                switch (v.getId()) {
+                    case R.id.iv_close:
+                        finish();
+                        break;
+                    case R.id.tv_publish:
+                        PublishActivity.newIntent(HomeOperationActivity.this, "发布", "0");
+                        finish();
+                        break;
+                    case R.id.tv_need:
+                        PublishActivity.newIntent(HomeOperationActivity.this, "求购", "1");
+                        finish();
+                        break;
+                    default:
+                        finish();
+                        break;
+                }
             }
 
             @Override
@@ -154,16 +169,6 @@ public class HomeOperationActivity extends BaseActivity {
         });
         ivClose.setAnimation(animationClose);
         animationClose.startNow();
-        switch (v.getId()) {
-            case R.id.iv_close:
-                break;
-            case R.id.tv_publish:
-                PublishActivity.newIntent(this, "发布", "0");
-                break;
-            case R.id.tv_need:
-                PublishActivity.newIntent(this, "求购", "1");
-                break;
-        }
 
     }
 

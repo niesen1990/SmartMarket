@@ -21,7 +21,6 @@ import com.umeng.socialize.utils.ShareBoardlistener;
  */
 public class SocialUtils {
 
-
     /**
      * 第三方登陆授权
      * 注意： @Override
@@ -67,7 +66,6 @@ public class SocialUtils {
         mShareAPI.deleteOauth(context, platform, umAuthListener);
     }
 
-
     /**
      * 分享
      * 注意：@Override
@@ -83,7 +81,7 @@ public class SocialUtils {
      */
     public static void share(final Activity context, String imageUrl, final String title, final String content, final String targetUrl) {
         final UMImage image = new UMImage(context, imageUrl);
-        new ShareAction(context).setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE)
+        new ShareAction(context).setDisplayList(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE, SHARE_MEDIA.SINA)
                 .setShareboardclickCallback(new ShareBoardlistener() {
                     @Override
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {

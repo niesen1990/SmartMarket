@@ -45,7 +45,6 @@ public class SplashActivity extends BaseActivity {
         return R.layout.activity_splash;
     }
 
-
     public static void newIntent(Context context) {
         Intent intent = new Intent(context, SplashActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

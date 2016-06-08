@@ -21,7 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            android:text="个人资料设置"/>
+            android:text="个人资料设置"
+            android:textStyle="bold"/>
 
         <ImageView
 
@@ -48,6 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
+            android:textStyle="bold"
             android:text="关于App"/>
 
         <ImageView
@@ -76,6 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
+            android:textStyle="bold"
             android:text="意见和反馈"/>
 
         <ImageView
@@ -103,6 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
+            android:textStyle="bold"
             android:text="交易约定"/>
 
         <ImageView
@@ -130,6 +134,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
+            android:textStyle="bold"
             android:text="推荐给朋友"/>
 
         <ImageView
@@ -157,6 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
+            android:textStyle="bold"
             android:text="检查新版本"/>
 
         <ImageView

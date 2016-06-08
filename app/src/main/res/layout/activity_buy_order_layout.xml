@@ -20,7 +20,7 @@
             android:id="@+id/iv_image"
             android:layout_width="108dp"
             android:layout_height="108dp"
-            tools:src="@mipmap/ic_launcher"/>
+            tools:src="@color/line"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -32,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:textStyle="bold"
                 tools:text="贝亲超级套装"/>
 
             <RelativeLayout

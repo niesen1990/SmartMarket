@@ -57,6 +57,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl"
                     android:text="系统消息"
+                    android:textStyle="bold"
                     android:textColor="@color/dimgray"/>
 
                 <TextView
@@ -123,6 +124,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl_store"
                     android:text="商品回复"
+                    android:textStyle="bold"
                     android:textColor="@color/dimgray"/>
 
                 <TextView
@@ -189,6 +191,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl_order"
                     android:text="订单动态"
+                    android:textStyle="bold"
                     android:textColor="@color/dimgray"/>
 
                 <TextView
@@ -255,6 +258,7 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl_chat"
                     android:text="即时聊天"
+                    android:textStyle="bold"
                     android:textColor="@color/dimgray"/>
 
                 <TextView

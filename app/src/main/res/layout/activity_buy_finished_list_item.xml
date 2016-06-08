@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/shape_white_stroke_no_corner">
 
     <RelativeLayout
@@ -17,15 +17,19 @@
             style="@style/TextAppearance.Smart.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="订单编号："/>
+            android:layout_centerVertical="true"
+            android:text="订单编号："
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/tv_order"
             style="@style/TextAppearance.Smart.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/tv_order_tag"
             android:maxLines="1"
+            android:textSize="12sp"
             tools:text="200918u22389748905"/>
 
         <TextView
@@ -35,8 +39,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:maxLines="1"
-            tools:text="退款完成"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            tools:text="退款完成"/>
     </RelativeLayout>
 
     <RelativeLayout
@@ -51,14 +56,15 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_margin="@dimen/global_padding"
-            tools:src="@mipmap/ic_launcher"/>
+            android:src="@color/line"/>
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_alignTop="@+id/iv_image"
             android:layout_toRightOf="@+id/iv_image"
+            android:textStyle="bold"
             tools:text="贝亲套装"/>
 
 
@@ -67,12 +73,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_image"
-            android:layout_marginBottom="@dimen/half_global_padding"
             android:layout_toRightOf="@+id/iv_image"
             android:gravity="center"
-            tools:text="2999"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            tools:text="2999"/>
 
         <TextView
             android:id="@+id/tv_old_price"
@@ -80,11 +85,11 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_image"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/half_global_padding"
             android:layout_marginLeft="@dimen/global_padding"
             android:layout_toRightOf="@+id/tv_new_price"
             android:background="@drawable/shape_gray_single_line"
             android:gravity="center"
+            android:textSize="12sp"
             tools:text="3700"/>
 
 
@@ -103,7 +108,8 @@
             android:layout_margin="@dimen/global_padding"
             android:drawableLeft="@drawable/ic_contact"
             android:gravity="center"
-            android:text="联系TA"/>
+            android:text="联系TA"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_status_02"
@@ -113,6 +119,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/global_padding"
             android:padding="@dimen/half_global_padding"
+            android:textStyle="bold"
             tools:text="查看订单"/>
 
 
@@ -124,6 +131,7 @@
             android:layout_marginRight="@dimen/global_padding"
             android:layout_toLeftOf="@+id/tv_status_02"
             android:padding="@dimen/half_global_padding"
+            android:textStyle="bold"
             tools:text="查看订单"/>
 
         <TextView
@@ -134,6 +142,7 @@
             android:layout_marginRight="@dimen/global_padding"
             android:layout_toLeftOf="@+id/tv_status_01"
             android:padding="@dimen/half_global_padding"
+            android:textStyle="bold"
             tools:text="查看订单"/>
 
     </RelativeLayout>

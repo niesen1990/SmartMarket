@@ -29,7 +29,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/global_padding"
             android:layout_toRightOf="@+id/tv_head"
-            android:text="用户昵称"/>
+            android:text="用户昵称"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_contact"
@@ -39,6 +40,7 @@
             android:layout_centerVertical="true"
             android:drawableLeft="@drawable/ic_contact"
             android:gravity="center"
+            android:textStyle="bold"
             android:text="联系TA"/>
 
     </RelativeLayout>

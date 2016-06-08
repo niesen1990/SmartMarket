@@ -31,6 +31,7 @@
             android:background="@drawable/shape_white_stroke_corner_dark"
             android:gravity="center"
             android:hint="最低价"
+            android:textColorHint="@color/darkgray"
             android:inputType="number"
             android:padding="@dimen/global_padding"
             android:textSize="14sp"/>
@@ -38,9 +39,9 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/global_padding"
-            android:layout_marginRight="@dimen/global_padding"
-            android:layout_weight="0.3"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginRight="@dimen/activity_vertical_margin"
+            android:layout_weight="0.2"
             android:background="@drawable/shape_gray_single_line"/>
 
 
@@ -51,11 +52,12 @@
             android:layout_weight="1"
             android:background="@drawable/shape_white_stroke_corner_dark"
             android:gravity="center"
-            android:hint="最低价"
+            android:hint="最高价"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:maxLines="1"
             android:padding="@dimen/global_padding"
+            android:textColorHint="@color/darkgray"
             android:textSize="14sp"/>
 
     </LinearLayout>

@@ -106,6 +106,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_wallet_pre"
                     android:gravity="center_vertical"
+                    android:textStyle="bold"
                     android:text="预收款"/>
 
 
@@ -136,6 +137,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_wallet_cash"
                     android:gravity="center_vertical"
+                    android:textStyle="bold"
                     android:text="余额转出(提现)"/>
 
                 <ImageView
@@ -162,6 +164,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_wallet_set_psw"
                     android:gravity="center_vertical"
+                    android:textStyle="bold"
                     android:text="设置交易密码"/>
 
                 <ImageView
@@ -189,6 +192,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_wallet_modify_psw"
                     android:gravity="center_vertical"
+                    android:textStyle="bold"
                     android:text="修改交易密码"/>
 
                 <ImageView
@@ -216,6 +220,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_wallet_setting"
                     android:gravity="center_vertical"
+                    android:textStyle="bold"
                     android:text="设置提现账号"/>
 
                 <ImageView

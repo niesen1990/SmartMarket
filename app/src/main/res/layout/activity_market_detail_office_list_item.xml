@@ -39,6 +39,6 @@
         android:layout_height="72dp"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="@dimen/global_padding"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@color/line"/>
 
 </RelativeLayout>

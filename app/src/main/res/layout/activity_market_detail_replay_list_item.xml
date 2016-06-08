@@ -15,7 +15,7 @@
             android:id="@+id/iv_head"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/ic_head_default"/>
 
         <TextView
             android:id="@+id/tv_nick"
@@ -25,6 +25,7 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_toRightOf="@+id/iv_head"
             android:text="niesen918"
+            android:textStyle="bold"
             android:textSize="16sp"/>
 
         <TextView

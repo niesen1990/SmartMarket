@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:textStyle="bold"
         android:layout_toRightOf="@+id/iv_head"
         android:text="niesen918" />
 
@@ -30,6 +31,7 @@
         android:layout_centerVertical="true"
         android:drawableLeft="@drawable/ic_contact"
         android:gravity="center"
+        android:textStyle="bold"
         android:text="联系TA" />
 
     <TextView

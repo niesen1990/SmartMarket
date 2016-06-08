@@ -23,6 +23,7 @@
             android:drawableTop="@drawable/ic_office_recommend"
             android:gravity="center"
             android:text="@string/home_head_tuijian"
+            android:textStyle="bold"
             android:textSize="12sp"/>
 
         <TextView
@@ -34,6 +35,7 @@
             android:drawableTop="@drawable/ic_baby_recommend"
             android:gravity="center"
             android:text="@string/home_head_baobao"
+            android:textStyle="bold"
             android:textSize="12sp"/>
 
         <TextView
@@ -45,6 +47,7 @@
             android:drawableTop="@drawable/ic_mami_recommend"
             android:gravity="center"
             android:text="@string/home_head_mama"
+            android:textStyle="bold"
             android:textSize="12sp"/>
 
         <TextView
@@ -56,6 +59,7 @@
             android:drawableTop="@drawable/ic_house_recommend"
             android:gravity="center"
             android:text="@string/home_head_jujia"
+            android:textStyle="bold"
             android:textSize="12sp"/>
 
     </LinearLayout>

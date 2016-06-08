@@ -10,7 +10,7 @@
         android:id="@+id/iv"
         android:layout_width="84dp"
         android:layout_height="84dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@color/line"/>
 
     <ImageView
         android:id="@+id/iv_delete"

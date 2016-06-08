@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:textStyle="bold"
             android:layout_toRightOf="@+id/iv_head"
             tools:text="来自上海的卖家"/>
     </RelativeLayout>

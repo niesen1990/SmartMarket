@@ -39,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
+                android:textStyle="bold"
                 android:text="头像"/>
 
             <ImageView
@@ -75,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
+                android:textStyle="bold"
                 android:text="昵称"/>
 
             <TextView
@@ -112,6 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
+                android:textStyle="bold"
                 android:text="性别"/>
 
             <TextView
@@ -149,6 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
+                android:textStyle="bold"
                 android:text="常住"/>
 
             <TextView
@@ -187,6 +191,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
+                android:textStyle="bold"
                 android:text="简介"/>
 
             <TextView

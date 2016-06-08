@@ -24,8 +24,9 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_alignTop="@+id/iv_image"
             android:layout_toRightOf="@+id/iv_image"
+            android:textStyle="bold"
             tools:text="贝亲套装"/>
 
         <TextView
@@ -42,7 +43,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_image"
-            android:layout_marginBottom="@dimen/half_global_padding"
             android:layout_toRightOf="@+id/iv_image"
             android:gravity="center"
             android:textColor="@color/colorPrimary"
@@ -55,11 +55,11 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iv_image"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="@dimen/half_global_padding"
             android:layout_marginLeft="@dimen/global_padding"
             android:layout_toRightOf="@+id/tv_new_price"
             android:background="@drawable/shape_gray_single_line"
             android:gravity="center"
+            android:textSize="12sp"
             tools:text="3700"/>
 
 
@@ -76,6 +76,7 @@
         android:layout_marginRight="@dimen/global_padding"
         android:layout_toLeftOf="@+id/tv_status_01"
         android:padding="@dimen/global_padding"
+        android:textStyle="bold"
         android:text="重新上架"/>
 
 

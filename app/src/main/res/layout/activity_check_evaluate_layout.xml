@@ -31,6 +31,7 @@
 
             <TextView
                 android:id="@+id/tv_from"
+                android:textStyle="bold"
                 style="@style/TextAppearance.Smart.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -103,6 +104,7 @@
 
             <TextView
                 android:id="@+id/tv_nick"
+                android:textStyle="bold"
                 style="@style/TextAppearance.Smart.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

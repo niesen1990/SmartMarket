@@ -12,7 +12,7 @@
         android:id="@+id/iv_image"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@color/line"/>
 
     <TextView
         android:id="@+id/tv_title"
@@ -23,6 +23,7 @@
         android:layout_toRightOf="@+id/iv_image"
         android:maxLength="20"
         android:maxLines="1"
+        android:textStyle="bold"
         tools:text="贝亲护理套装"/>
 
     <TextView

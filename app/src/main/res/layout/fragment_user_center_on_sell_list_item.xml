@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/shape_white_stroke_no_corner"
     android:foreground="?android:attr/selectableItemBackground"
     android:padding="@dimen/global_padding">
@@ -20,8 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_pic"
-        android:layout_marginTop="@dimen/half_global_padding"
+        android:layout_marginTop="@dimen/global_padding"
         android:maxLines="1"
+        android:textSize="14sp"
         tools:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
 
     <RelativeLayout
@@ -36,9 +37,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            tools:text="2999"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            tools:text="2999"/>
 
         <TextView
             android:id="@+id/tv_old_price"
@@ -78,8 +79,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            tools:text="10小时前"
-            android:textSize="10sp"/>
+            android:textSize="10sp"
+            tools:text="10小时前"/>
 
     </RelativeLayout>
 

@@ -20,7 +20,9 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/activity_vertical_margin"
             android:maxLines="1"
-            android:text="贝亲新生婴儿清洁护肤礼品"/>
+            android:text="贝亲新生婴儿清洁护肤礼品"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_watch_count"
@@ -54,7 +56,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_toRightOf="@+id/iv_head"
-            android:text="niesen918"/>
+            android:text="niesen918"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_contact"
@@ -64,7 +67,8 @@
             android:layout_centerVertical="true"
             android:drawableLeft="@drawable/ic_contact"
             android:gravity="center"
-            android:text="联系TA"/>
+            android:text="联系TA"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_line"
@@ -103,8 +107,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_introduce"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:textSize="12sp"
-            android:text="6小时以前"/>
+            android:text="6小时以前"
+            android:textSize="12sp"/>
 
         <TextView
             android:id="@+id/tv_address"

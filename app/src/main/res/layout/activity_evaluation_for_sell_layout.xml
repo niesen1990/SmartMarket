@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:textStyle="bold"
             android:layout_toRightOf="@+id/iv_head"
             tools:text="买家昵称"/>
 
@@ -115,6 +116,7 @@
             android:layout_height="wrap_content"
             android:background="@color/line"
             android:padding="@dimen/global_padding"
+            android:textStyle="bold"
             android:text="卖家追评"/>
 
         <EditText

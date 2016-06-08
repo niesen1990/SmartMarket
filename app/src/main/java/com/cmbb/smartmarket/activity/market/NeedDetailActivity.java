@@ -140,16 +140,18 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                 if (productDetailResponseModel.getData().getProductStatus() == 0) {
                     if (productDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId() && productDetailResponseModel.getData().getIsResolve() == 0) {
                         tvBuy.setText("确认解决");
+                        tvBuy.setOnClickListener(NeedDetailActivity.this);
                     } else if (productDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId() && productDetailResponseModel.getData().getIsResolve() == 1) {
                         tvBuy.setText("已解决");
-                        tvBuy.setClickable(false);
                         tvBuy.setBackgroundResource(R.color.dimgray);
+                        tvBuy.setOnClickListener(null);
                     } else {
                         tvBuy.setText("推荐给TA");
+                        tvBuy.setOnClickListener(NeedDetailActivity.this);
                     }
                 } else {
                     tvBuy.setText(productDetailResponseModel.getData().getProductStatusText());
-                    tvBuy.setClickable(false);
+                    tvBuy.setOnClickListener(null);
                     tvBuy.setBackgroundResource(R.color.dimgray);
                 }
 
@@ -230,7 +232,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
         tvMessage.setOnClickListener(this);
         ivSpot.setOnClickListener(this);
         tvShare.setOnClickListener(this);
-        tvBuy.setOnClickListener(this);
+
     }
 
     @Override
@@ -293,7 +295,6 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
             }
         });
         subscription = HttpMethod.getInstance().requestProductDetail(mProductDetailResponseModelObserver, setParams());
-
     }
 
     private ProductDeleteReplyRequestModel setDeleteReplay(int position) {
@@ -332,7 +333,6 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
 
     @Override
     public void onClick(View v) {
-        super.onClick(v);
         switch (v.getId()) {
             case R.id.iv_head:
                 UserCenterActivity.newIntent(this, mProductDetailResponseModel.getData().getPublicUser().getId());
@@ -345,6 +345,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                 }
                 break;
             case R.id.tv_message:
+                Log.e(TAG, "tv_message");
                 replayId = mProductDetailResponseModel.getData().getPublicUser().getId();
                 evSendContent.setHint("回复@" + mProductDetailResponseModel.getData().getPublicUser().getNickName());
                 evSendContent.setFocusable(true);
@@ -387,6 +388,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                 }, setSpotParams());
                 break;
             case R.id.tv_buy:
+                Log.e(TAG, "tv_buy");
                 if (mProductDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId()) {
                     DialogUtils.createAlertDialog(this, "警告", "确认解决？", true, new DialogInterface.OnClickListener() {
                         @Override

@@ -49,11 +49,13 @@
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/iv_image"
             android:layout_marginBottom="@dimen/global_padding"
             android:layout_marginTop="@dimen/global_padding"
+            android:layout_toRightOf="@+id/iv_image"
             android:maxLines="1"
-            android:text="贝亲套装"/>
+            android:text="贝亲套装"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
 
         <TextView
@@ -64,9 +66,9 @@
             android:layout_marginTop="@dimen/global_padding"
             android:gravity="center"
             android:text="2999"
-            android:visibility="gone"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:visibility="gone"/>
 
         <TextView
             android:id="@+id/tv_old_price"
@@ -79,8 +81,8 @@
             android:layout_toRightOf="@+id/tv_new_price"
             android:background="@drawable/shape_gray_single_line"
             android:gravity="center"
-            android:visibility="gone"
-            android:text="3700"/>
+            android:text="3700"
+            android:visibility="gone"/>
 
 
     </RelativeLayout>

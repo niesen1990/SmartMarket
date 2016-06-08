@@ -74,7 +74,8 @@
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="@dimen/half_global_padding"
                     android:layout_toRightOf="@+id/iv_head"
-                    android:text="未设置昵称"/>
+                    android:text="未设置昵称"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tv_sex"
@@ -138,7 +139,8 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_mine_wallet"
                     android:gravity="center_vertical"
-                    android:text="我的钱包"/>
+                    android:text="我的钱包"
+                    android:textStyle="bold"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -167,7 +169,8 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_mine_refunds"
                     android:gravity="center_vertical"
-                    android:text="退款管理"/>
+                    android:text="退款管理"
+                    android:textStyle="bold"/>
 
                 <ImageView
 
@@ -197,7 +200,8 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_mine_release"
                     android:gravity="center_vertical"
-                    android:text="宝贝发布"/>
+                    android:text="宝贝发布"
+                    android:textStyle="bold"/>
 
 
                 <TextView
@@ -238,7 +242,8 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_mine_sold"
                     android:gravity="center_vertical"
-                    android:text="宝贝已售"/>
+                    android:text="宝贝已售"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tv_sold_count"
@@ -278,7 +283,8 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_mine_buy"
                     android:gravity="center_vertical"
-                    android:text="宝贝已购"/>
+                    android:text="宝贝已购"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tv_buyed_count"
@@ -318,7 +324,8 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_mine_collect"
                     android:gravity="center_vertical"
-                    android:text="宝贝收藏"/>
+                    android:text="宝贝收藏"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tv_collection_count"
@@ -359,7 +366,8 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_mine_undercarriage"
                     android:gravity="center_vertical"
-                    android:text="下架管理"/>
+                    android:text="下架管理"
+                    android:textStyle="bold"/>
 
                 <ImageView
 
@@ -389,7 +397,8 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_mine_add"
                     android:gravity="center_vertical"
-                    android:text="地址管理"/>
+                    android:text="地址管理"
+                    android:textStyle="bold"/>
 
                 <ImageView
 

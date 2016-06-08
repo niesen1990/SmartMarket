@@ -51,7 +51,9 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/iv_image"
             android:maxLines="1"
-            android:text="贝亲套装"/>
+            android:text="贝亲套装"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
 
         <TextView

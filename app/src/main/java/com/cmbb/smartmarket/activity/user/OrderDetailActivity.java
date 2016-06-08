@@ -147,12 +147,7 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
             tvAddress.setText(marketOrderDetailResponseModel.getData().getAddress());
             tvSellNick.setText(marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getNickName());
             tvOrderCode.setText(marketOrderDetailResponseModel.getData().getOrderCode());
-            if (!TextUtils.isEmpty(marketOrderDetailResponseModel.getData().getPayDate()))
-                tvTime.setText(new JTimeTransform(marketOrderDetailResponseModel.getData().getPayDate()).toString(new RecentDateFormat()));
-            if (!TextUtils.isEmpty(marketOrderDetailResponseModel.getData().getRefundDate()))
-                tvTime.setText(new JTimeTransform(marketOrderDetailResponseModel.getData().getRefundDate()).toString(new RecentDateFormat()));
-            if (!TextUtils.isEmpty(marketOrderDetailResponseModel.getData().getCancelDate()))
-                tvTime.setText(new JTimeTransform(marketOrderDetailResponseModel.getData().getCancelDate()).toString(new RecentDateFormat()));
+            tvTime.setText(new JTimeTransform(marketOrderDetailResponseModel.getData().getCreateDate()).toString(new RecentDateFormat()));
             initBottomView(marketOrderDetailResponseModel);
         }
     };
