@@ -126,13 +126,14 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
             //更新UI
             imUserIdBuy = marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getImUserId();
             imUserIdSell = marketOrderDetailResponseModel.getData().getBuyUser().getImUserId();
-            ImageLoader.loadUrlAndDiskCache(OrderDetailActivity.this, marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getUserImg(), tvHead, new CircleTransform(OrderDetailActivity.this));
             if (marketOrderDetailResponseModel.getData().getProduct().getProductImageList() != null && marketOrderDetailResponseModel.getData().getProduct().getProductImageList().size() > 0)
                 ImageLoader.loadCenterCropCache(OrderDetailActivity.this, marketOrderDetailResponseModel.getData().getProduct().getProductImageList().get(0).getLocation(), ivCom);
             if (saleType.equals("buy")) {
+                ImageLoader.loadUrlAndDiskCache(OrderDetailActivity.this, marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getUserImg(), tvHead, new CircleTransform(OrderDetailActivity.this));
                 tvNick.setText(marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getNickName());
                 tvContact.setOnClickListener(OrderDetailActivity.this);
             } else {
+                ImageLoader.loadUrlAndDiskCache(OrderDetailActivity.this, marketOrderDetailResponseModel.getData().getBuyUser().getUserImg(), tvHead, new CircleTransform(OrderDetailActivity.this));
                 tvNick.setText(marketOrderDetailResponseModel.getData().getBuyUser().getNickName());
                 tvContact.setOnClickListener(OrderDetailActivity.this);
             }
