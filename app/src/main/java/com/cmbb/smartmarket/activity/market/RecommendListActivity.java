@@ -201,7 +201,7 @@ public class RecommendListActivity extends BaseRecyclerActivity {
         MyselfProductPublicListRequestModel myselfProductPublicListRequestModel = new MyselfProductPublicListRequestModel();
         myselfProductPublicListRequestModel.setCmd(ApiInterface.MyselfProductPublicList);
         myselfProductPublicListRequestModel.setToken(BaseApplication.getToken());
-        myselfProductPublicListRequestModel.setParameters(new MyselfProductPublicListRequestModel.ParametersEntity(0, pagerSize, pager));
+        myselfProductPublicListRequestModel.setParameters(new MyselfProductPublicListRequestModel.ParametersEntity(0, pagerSize, pager, ""));
         return myselfProductPublicListRequestModel;
     }
 
