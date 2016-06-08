@@ -20,7 +20,7 @@
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginTop="@dimen/half_global_padding"
         android:layout_toRightOf="@+id/image"
-        tools:text="支付宝"
+        android:text="支付宝"
         android:textStyle="bold"/>
 
     <TextView
@@ -31,7 +31,7 @@
         android:layout_marginBottom="@dimen/half_global_padding"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_toRightOf="@+id/image"
-        tools:text="推荐支付宝用户使用"
+        android:text="推荐支付宝用户使用"
         android:textColor="@color/darkgray"/>
 
     <RadioButton

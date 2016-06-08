@@ -101,7 +101,7 @@ public class ImmediateEvaluationActivity extends BaseActivity {
         MarketEvaluateSaveRequestModel marketEvaluateSaveRequestModel = new MarketEvaluateSaveRequestModel();
         marketEvaluateSaveRequestModel.setCmd(ApiInterface.MarketEvaluateSave);
         marketEvaluateSaveRequestModel.setToken(BaseApplication.getToken());
-        marketEvaluateSaveRequestModel.setParameters(new MarketEvaluateSaveRequestModel.ParametersEntity(getIntent().getIntExtra("orderId", -1), expNum, desNum, etContent.getText().toString()));
+        marketEvaluateSaveRequestModel.setParameters(new MarketEvaluateSaveRequestModel.ParametersEntity(getIntent().getIntExtra("orderId", -1)+"", expNum, desNum, etContent.getText().toString()));
         return marketEvaluateSaveRequestModel;
     }
 

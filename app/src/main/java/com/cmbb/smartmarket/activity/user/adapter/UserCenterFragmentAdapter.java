@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.ViewGroup;
 
 import com.cmbb.smartmarket.activity.user.fragment.ForNeedFragment;
 import com.cmbb.smartmarket.activity.user.fragment.OnSellFragment;
@@ -39,6 +40,12 @@ public class UserCenterFragmentAdapter extends FragmentStatePagerAdapter {
 
     public void setCurrentFragment(BaseRecyclerFragment currentFragment) {
         this.currentFragment = currentFragment;
+    }
+
+    @Override
+    public void setPrimaryItem(ViewGroup container, int position, Object object) {
+        currentFragment = (BaseRecyclerFragment) object;
+        super.setPrimaryItem(container, position, object);
     }
 
     @Override

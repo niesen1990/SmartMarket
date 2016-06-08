@@ -14,6 +14,7 @@ import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.base.Constants;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.utils.KeyboardUtil;
 import com.cmbb.smartmarket.widget.NestedScrollView;
 
 import butterknife.BindView;
@@ -56,6 +57,7 @@ public abstract class BaseAccountRecyclerActivity extends BaseRecyclerActivity {
         switch (v.getId()) {
             case R.id.iv_cancel:
                 showBottomSheet();
+                KeyboardUtil.hideKeyboard(this);
                 break;
             case R.id.iv_confirm:
                 if (TextUtils.isEmpty(etPsw.getText().toString())) {
@@ -67,6 +69,7 @@ public abstract class BaseAccountRecyclerActivity extends BaseRecyclerActivity {
                     return;
                 }
                 showWaitingDialog();
+                KeyboardUtil.hideKeyboard(this);
                 subscription = HttpMethod.getInstance().walletAccountValiatePayPasswordRequest(getPswValiate(), setPswParams());
                 break;
         }

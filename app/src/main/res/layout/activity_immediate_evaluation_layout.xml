@@ -1,48 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar"/>
 
-    <RelativeLayout
-        android:id="@+id/rl01"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/global_padding">
-
-        <ImageView
-            android:id="@+id/iv_head"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:src="@drawable/ic_head_default"/>
-
-        <TextView
-            android:id="@+id/tv_from"
-            style="@style/TextAppearance.Smart.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_toRightOf="@+id/iv_head"
-            tools:text="买家昵称"/>
-
-        <TextView
-            android:id="@+id/tv_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            tools:text="5小时之前"/>
-
-    </RelativeLayout>
-
-    <TextView
+    <EditText
         android:id="@+id/et_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
+        android:layout_margin="@dimen/global_padding"
+        android:background="@drawable/shape_white_stroke_corner_dark"
         android:gravity="top"
         android:hint="评价字数限制在200以内"
         android:padding="@dimen/global_padding"
@@ -72,7 +42,6 @@
             android:layout_height="wrap_content"
             android:isIndicator="false"
             android:numStars="5"
-            android:rating="1"
             android:stepSize="1"/>
 
     </LinearLayout>
@@ -100,27 +69,7 @@
             android:layout_height="wrap_content"
             android:isIndicator="false"
             android:numStars="5"
-            android:rating="1"
             android:stepSize="1"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/shape_white_stroke_corner"
-        android:padding="@dimen/global_padding">
-
-        <EditText
-            android:id="@+id/et_evaluate"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@drawable/shape_white_stroke_corner"
-            android:gravity="top"
-            android:hint="评价买家，200字以内"
-            android:padding="@dimen/global_padding"
-            android:textSize="14sp"/>
-
 
     </LinearLayout>
 

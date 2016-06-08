@@ -77,6 +77,7 @@ public class EvaluateListActivity extends BaseRecyclerActivity {
         MarketEvaluateListRequestModel marketEvaluateListRequestModel = new MarketEvaluateListRequestModel();
         marketEvaluateListRequestModel.setCmd(ApiInterface.MarketEvaluateList);
         marketEvaluateListRequestModel.setToken(BaseApplication.getToken());
+        marketEvaluateListRequestModel.setParameters(new MarketEvaluateListRequestModel.ParametersEntity(getIntent().getIntExtra("userId", -1), pagerSize, pager));
         return marketEvaluateListRequestModel;
     }
 
@@ -86,8 +87,9 @@ public class EvaluateListActivity extends BaseRecyclerActivity {
         HttpMethod.getInstance().marketEvaluateList(mMarketEvaluateListResponseModelObserver, setParams());
     }
 
-    public static void newIntent(Context context) {
+    public static void newIntent(Context context, int userId) {
         Intent intent = new Intent(context, EvaluateListActivity.class);
+        intent.putExtra("userId", userId);
         context.startActivity(intent);
     }
 }

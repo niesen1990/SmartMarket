@@ -135,7 +135,7 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
             } else {
                 tvPrice.setText("￥" + (marketOrderDetailResponseModel.getData().getProduct().getCurrentPrice() + marketOrderDetailResponseModel.getData().getProduct().getFreight()) + " ( 含" + marketOrderDetailResponseModel.getData().getProduct().getFreight() + "元运费）");
             }
-            tvReceiver.setText(marketOrderDetailResponseModel.getData().getReceiveName());
+            tvReceiver.setText(marketOrderDetailResponseModel.getData().getReceiveName() + "  " + marketOrderDetailResponseModel.getData().getReceivePhone());
             tvAddress.setText(marketOrderDetailResponseModel.getData().getAddress());
             tvSellNick.setText(marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getNickName());
             tvOrderCode.setText(marketOrderDetailResponseModel.getData().getOrderCode());

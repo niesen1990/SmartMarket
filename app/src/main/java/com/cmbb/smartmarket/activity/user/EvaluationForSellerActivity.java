@@ -97,16 +97,22 @@ public class EvaluationForSellerActivity extends BaseActivity {
         public void onNext(MarketEvaluateDetailResponseModel marketEvaluateDetailResponseModel) {
             if (marketEvaluateDetailResponseModel == null)
                 return;
-            parentId = marketEvaluateDetailResponseModel.getData().getParentId();
+            parentId = marketEvaluateDetailResponseModel.getData().getId();
             Log.e(TAG, "parentId = " + parentId);
             ImageLoader.loadUrlAndDiskCache(EvaluationForSellerActivity.this, marketEvaluateDetailResponseModel.getData().getEvaluateUser().getUserImg(), ivHead, new CircleTransform(EvaluationForSellerActivity.this));
             tvFrom.setText(marketEvaluateDetailResponseModel.getData().getEvaluateUser().getNickName());
             tvTime.setText(new JTimeTransform(marketEvaluateDetailResponseModel.getData().getEvaluateDate()).toString(new RecentDateFormat()));
             etContent.setText(marketEvaluateDetailResponseModel.getData().getContent());
-            ImageLoader.loadUrlAndDiskCache(EvaluationForSellerActivity.this, marketEvaluateDetailResponseModel.getData().getChildEvaluate().getEvaluateUser().getUserImg(), ivHead, new CircleTransform(EvaluationForSellerActivity.this));
-            tvFrom.setText(marketEvaluateDetailResponseModel.getData().getChildEvaluate().getEvaluateUser().getNickName());
-            ratingBar01.setNumStars(marketEvaluateDetailResponseModel.getData().getProductMatche());
-            ratingBar02.setNumStars(marketEvaluateDetailResponseModel.getData().getExpressSpeed());
+            ratingBar01.setRating(marketEvaluateDetailResponseModel.getData().getProductMatche());
+            ratingBar02.setRating(marketEvaluateDetailResponseModel.getData().getExpressSpeed());
+            if (marketEvaluateDetailResponseModel.getData().getChildEvaluate() != null) {
+                etEvaluate.setText(marketEvaluateDetailResponseModel.getData().getChildEvaluate().getContent());
+                etEvaluate.setEnabled(false);
+                tvSubmit.setVisibility(View.GONE);
+            } else {
+                tvSubmit.setVisibility(View.VISIBLE);
+                etEvaluate.setEnabled(true);
+            }
         }
     };
 
@@ -145,13 +151,13 @@ public class EvaluationForSellerActivity extends BaseActivity {
         MarketEvaluateSaveRequestModel marketEvaluateSaveRequestModel = new MarketEvaluateSaveRequestModel();
         marketEvaluateSaveRequestModel.setCmd(ApiInterface.MarketEvaluateSave);
         marketEvaluateSaveRequestModel.setToken(BaseApplication.getToken());
-        marketEvaluateSaveRequestModel.setParameters(new MarketEvaluateSaveRequestModel.ParametersEntity(parentId,getIntent().getIntExtra("orderId", -1), etEvaluate.getText().toString()));
+        marketEvaluateSaveRequestModel.setParameters(new MarketEvaluateSaveRequestModel.ParametersEntity(parentId + "", etEvaluate.getText().toString()));
         return marketEvaluateSaveRequestModel;
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_immediate_evaluation_layout;
+        return R.layout.activity_evaluation_for_sell_layout;
     }
 
     public static void newIntent(BaseActivity context, int orderId) {

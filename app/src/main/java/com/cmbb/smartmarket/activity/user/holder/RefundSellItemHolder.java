@@ -99,7 +99,8 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
         tvContact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = IMHelper.getInstance().getIMKit().getChattingActivityIntent(row.getProduct().getPublicUser().getImUserId(), IMHelper.getAppKey());
+                if(row.getBuyUser().getImUserId() == null) return;
+                Intent intent = IMHelper.getInstance().getIMKit().getChattingActivityIntent(row.getBuyUser().getImUserId(), IMHelper.getAppKey());
                 mContext.startActivity(intent);
             }
         });

@@ -421,7 +421,7 @@ public class PublishActivity extends BaseActivity {
                     return;
                 }
                 String currentPrice = tvNewPrice.getText().toString();
-                if (Double.parseDouble(currentPrice) == 0) {
+                if (Double.parseDouble(currentPrice) == 0 && productType.equals("0")) {
                     showToast("请输入当前价格");
                     return;
                 }
@@ -437,7 +437,6 @@ public class PublishActivity extends BaseActivity {
                     showToast("您未开启定位功能，可能影响使用");
                 }
                 if (goodModel == null) {
-
                     publishCommodity(title, content, currentPrice, originalPrice, freight, parentClassify, secondClassify, locationJosnStr, productType);
                 } else {
                     editCommodity(title, content, currentPrice, originalPrice, freight, parentClassify, secondClassify, locationJosnStr, productType);

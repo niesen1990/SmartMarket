@@ -128,7 +128,7 @@ public class UserCenterActivity extends BaseActivity implements AppBarLayout.OnO
                     .override(TDevice.getScreenWidth(UserCenterActivity.this), TDevice.dip2px(256, UserCenterActivity.this))
                     .crossFade()
                     .centerCrop()
-                    //                    .bitmapTransform(new BlurTransformation(UserCenterActivity.this, 100))
+                    //.bitmapTransform(new BlurTransformation(UserCenterActivity.this, 100))
                     .into(ivBac);
             tvNick.setText(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getNickName());
             ratingBar.setNumStars(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getUserLevel());
@@ -168,7 +168,7 @@ public class UserCenterActivity extends BaseActivity implements AppBarLayout.OnO
         super.onClick(v);
         switch (v.getId()) {
             case R.id.ll_evaluate:
-                EvaluateListActivity.newIntent(this);
+                EvaluateListActivity.newIntent(this, userId);
                 break;
             case R.id.iv_contact:
                 if (TextUtils.isEmpty(imUserId))

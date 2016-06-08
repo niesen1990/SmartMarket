@@ -138,15 +138,19 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                 ImageLoader.loadUrlAndDiskCache(NeedDetailActivity.this, productDetailResponseModel.getData().getPublicUser().getUserImg(), ivHead, new CircleTransform(NeedDetailActivity.this));
                 tvNick.setText(productDetailResponseModel.getData().getPublicUser().getNickName());
                 if (productDetailResponseModel.getData().getProductStatus() == 0) {
-                    if (productDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId()) {
+                    if (productDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId() && productDetailResponseModel.getData().getIsResolve() == 0) {
                         tvBuy.setText("确认解决");
+                    } else if (productDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId() && productDetailResponseModel.getData().getIsResolve() == 1) {
+                        tvBuy.setText("已解决");
+                        tvBuy.setClickable(false);
+                        tvBuy.setBackgroundResource(R.color.dimgray);
                     } else {
                         tvBuy.setText("推荐给TA");
                     }
                 } else {
                     tvBuy.setText(productDetailResponseModel.getData().getProductStatusText());
                     tvBuy.setClickable(false);
-                    tvBuy.setBackgroundResource(R.color.line);
+                    tvBuy.setBackgroundResource(R.color.dimgray);
                 }
 
                 tvMessage.setText(productDetailResponseModel.getData().getReplyNumber() + "");
@@ -325,7 +329,6 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
     @Override
     public void onClick(View v) {

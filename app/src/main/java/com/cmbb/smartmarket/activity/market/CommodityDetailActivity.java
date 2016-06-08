@@ -155,7 +155,7 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
                 } else {
                     tvBuy.setText(productDetailResponseModel.getData().getProductStatusText());
                     tvBuy.setClickable(false);
-                    tvBuy.setBackgroundResource(R.color.line);
+                    tvBuy.setBackgroundResource(R.color.dimgray);
                 }
 
                 tvMessage.setText(productDetailResponseModel.getData().getReplyNumber() + "");
