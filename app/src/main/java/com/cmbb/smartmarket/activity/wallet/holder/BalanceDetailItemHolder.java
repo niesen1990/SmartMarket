@@ -33,8 +33,8 @@ public class BalanceDetailItemHolder extends BaseViewHolder<WalletAccountBillLis
         if (row == null)
             return;
         tvStatus.setText(row.getStatusName());
-        tvStatusTag.setText(row.getBusinessReason());
+        tvStatusTag.setText(row.getBusinessDetail());
         tvTime.setText(row.getCreateDate());
-        tvCount.setText(row.getBusinessBalance() + "");
+        tvCount.setText(row.getViewBalance() + "");
     }
 }

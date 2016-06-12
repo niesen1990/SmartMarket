@@ -96,6 +96,32 @@ public abstract class BaseRecommendActivity extends BaseRecyclerActivity {
         }
     };
 
+    Observer<ProductGetPageResponseModel> mProductGetPageResponseModelObserverFresh = new Observer<ProductGetPageResponseModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e(TAG, e.toString());
+            mSmartRecyclerView.showError();
+            adapter.pauseMore();
+        }
+
+        @Override
+        public void onNext(ProductGetPageResponseModel productGetPageResponseModel) {
+            if (pager == 0)
+                adapter.clear();
+
+            if (productGetPageResponseModel.getData().getContent() == null || productGetPageResponseModel.getData().getContent().size() == 0) {
+                adapter.clear();
+            } else {
+                adapter.addAll(productGetPageResponseModel.getData().getContent());
+            }
+        }
+    };
+
     Observer<CodeInfoListResponseModel> mCodeInfoListResponseModelObserver = new Observer<CodeInfoListResponseModel>() {
         @Override
         public void onCompleted() {
@@ -158,8 +184,9 @@ public abstract class BaseRecommendActivity extends BaseRecyclerActivity {
             listPopupWindow4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    pager = 0;
                     sortType = mStringArrayAdapter4.getItem(position).getValue();
-                    subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
+                    subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserverFresh, setParams());
                     listPopupWindow4.dismiss();
                 }
             });
@@ -174,10 +201,9 @@ public abstract class BaseRecommendActivity extends BaseRecyclerActivity {
             listPopupWindow2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (position == 0)
-                        pager = 0;
+                    pager = 0;
                     secondClassify = mStringArrayAdapter2.getItem(position).getValue();
-                    subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
+                    subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserverFresh, setParams());
                     listPopupWindow2.dismiss();
                 }
             });
@@ -247,12 +273,7 @@ public abstract class BaseRecommendActivity extends BaseRecyclerActivity {
     public void onRefresh() {
         pager = 0;
         parentClassify = getParentClassify();
-        secondClassify = "";
-        city = "";
-        beginPrice = "";
-        endPrice = "";
-        sortType = "";
-        subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
+        subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserverFresh, setParams());
     }
 
     public String getParentClassify() {
@@ -346,7 +367,8 @@ public abstract class BaseRecommendActivity extends BaseRecyclerActivity {
             //地址选择返回数据
             city = data.getStringExtra("city");
             Log.e(TAG, data.getStringExtra("city"));
-            subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
+            pager = 0;
+            subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserverFresh, setParams());
             tv01.setText(city);
         }
     }

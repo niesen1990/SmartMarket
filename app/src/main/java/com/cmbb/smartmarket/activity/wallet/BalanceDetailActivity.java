@@ -42,7 +42,6 @@ public class BalanceDetailActivity extends BaseRecyclerActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         setTitle("余额明细");
-        onRefresh();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

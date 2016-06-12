@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.ViewGroup;
 
 import com.cmbb.smartmarket.activity.market.model.RecommendListItemHolder;
-import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListResponseModel;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -14,7 +14,7 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  * 创建人：javon
  * 创建时间：2015/8/24 13:31
  */
-public class RecommendItemAdapter extends RecyclerArrayAdapter<MyselfProductPublicListResponseModel.DataEntity.ContentEntity> {
+public class RecommendItemAdapter extends RecyclerArrayAdapter<MarketCenterSelectProductListResponseModel.DataEntity.ContentEntity> {
 
     public RecommendItemAdapter(Context context) {
         super(context);

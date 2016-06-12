@@ -7,9 +7,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListResponseModel;
 import com.cmbb.smartmarket.image.ImageLoader;
-import com.cmbb.smartmarket.log.Log;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 
 /**
@@ -18,7 +17,7 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
  * 创建人：javon
  * 创建时间：2015/8/24 14:25
  */
-public class RecommendListItemHolder extends BaseViewHolder<MyselfProductPublicListResponseModel.DataEntity.ContentEntity> {
+public class RecommendListItemHolder extends BaseViewHolder<MarketCenterSelectProductListResponseModel.DataEntity.ContentEntity> {
     private final String TAG = RecommendListItemHolder.class.getSimpleName();
 
     private RadioButton check;
@@ -37,7 +36,7 @@ public class RecommendListItemHolder extends BaseViewHolder<MyselfProductPublicL
 
     }
 
-    public void setData(final MyselfProductPublicListResponseModel.DataEntity.ContentEntity row) {
+    public void setData(final MarketCenterSelectProductListResponseModel.DataEntity.ContentEntity row) {
         if (row == null)
             return;
         tvTitle.setText(row.getTitle());

@@ -182,6 +182,17 @@ public class MarketCenterSelectProductListResponseModel {
             private int shareNumber;
             private int isRecommoned;
             private String publicDate;
+
+            private boolean checked;
+
+            public boolean isChecked() {
+                return checked;
+            }
+
+            public void setChecked(boolean checked) {
+                this.checked = checked;
+            }
+
             /**
              * id : 6
              * mbpUserId : 100768

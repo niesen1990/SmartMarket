@@ -25,8 +25,8 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_toRightOf="@+id/iv_head"
             android:text="niesen918"
-            android:textStyle="bold"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_time"
@@ -48,8 +48,7 @@
         android:layout_below="@+id/ll_info"
         android:layout_marginLeft="48dp"
         android:layout_marginTop="@dimen/half_global_padding"
-        android:maxLines="3"
-        android:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
+        android:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分，就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
 
 
 </RelativeLayout>

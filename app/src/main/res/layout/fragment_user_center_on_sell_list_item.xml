@@ -50,6 +50,8 @@
             android:layout_toRightOf="@+id/tv_new_price"
             android:background="@drawable/shape_gray_single_line"
             android:gravity="center"
+            android:maxLines="1"
+            android:textSize="12sp"
             tools:text="3700"/>
 
     </RelativeLayout>

@@ -49,8 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            android:textStyle="bold"
-            android:text="关于App"/>
+            android:text="关于App"
+            android:textStyle="bold"/>
 
         <ImageView
 
@@ -78,8 +78,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            android:textStyle="bold"
-            android:text="意见和反馈"/>
+            android:text="意见和反馈"
+            android:textStyle="bold"/>
 
         <ImageView
 
@@ -106,8 +106,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            android:textStyle="bold"
-            android:text="交易约定"/>
+            android:text="帮助中心"
+            android:textStyle="bold"/>
 
         <ImageView
 
@@ -134,8 +134,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            android:textStyle="bold"
-            android:text="推荐给朋友"/>
+            android:text="推荐给朋友"
+            android:textStyle="bold"/>
 
         <ImageView
 
@@ -162,8 +162,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
-            android:textStyle="bold"
-            android:text="检查新版本"/>
+            android:text="检查新版本"
+            android:textStyle="bold"/>
 
         <ImageView
 

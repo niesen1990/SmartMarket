@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.base.BaseActivity;
+import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.Logout;
 import com.cmbb.smartmarket.utils.SocialUtils;
 import com.umeng.socialize.UMShareAPI;
@@ -71,7 +72,7 @@ public class SettingActivity extends BaseActivity {
 
                 break;
             case R.id.rl_share:
-                SocialUtils.share(this, "http://smart.image.alimmdn.com/system/image/2016-04-18/file_50647_NTFjM2VmMjMtOTNiNC00MTI2LWJhMWMtOWFlZDc2MTg2MDU4", "魅族手机PRO6", "MEIZU design and make", "http://www.baidu.com");
+                SocialUtils.share(this, R.mipmap.ic_launcher, "萌宝铺子", "我分享了一个用家中闲置物品赚钱的神器，妈妈们都来试试身手吧！", ApiInterface.SHARE_APP);
                 break;
             case R.id.tv_logout:
                 // TODO: 16/4/27

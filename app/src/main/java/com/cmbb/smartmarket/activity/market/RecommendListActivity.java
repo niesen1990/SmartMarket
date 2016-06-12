@@ -16,8 +16,8 @@ import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.market.adapter.RecommendItemAdapter;
 import com.cmbb.smartmarket.activity.market.model.ProductReplayRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplayResponseModel;
-import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListRequestModel;
-import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListResponseModel;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.log.Log;
@@ -46,8 +46,8 @@ public class RecommendListActivity extends BaseRecyclerActivity {
     EditText etContent;
     @BindView(R.id.tv_submit)
     TextView tvSubmit;
-    MyselfProductPublicListResponseModel mMyselfProductPublicListResponseModel;
-    Observer<MyselfProductPublicListResponseModel> mMyselfProductPublicListResponseModelObserver = new Observer<MyselfProductPublicListResponseModel>() {
+    MarketCenterSelectProductListResponseModel mMarketCenterSelectProductListResponseModel;
+    Observer<MarketCenterSelectProductListResponseModel> mMarketCenterSelectProductListResponseModelObserver = new Observer<MarketCenterSelectProductListResponseModel>() {
         @Override
         public void onCompleted() {
 
@@ -60,11 +60,11 @@ public class RecommendListActivity extends BaseRecyclerActivity {
         }
 
         @Override
-        public void onNext(MyselfProductPublicListResponseModel myselfProductPublicListResponseModel) {
+        public void onNext(MarketCenterSelectProductListResponseModel marketCenterSelectProductListResponseModel) {
+            mMarketCenterSelectProductListResponseModel = marketCenterSelectProductListResponseModel;
             if (pager == 0)
                 adapter.clear();
-            mMyselfProductPublicListResponseModel = myselfProductPublicListResponseModel;
-            adapter.addAll(myselfProductPublicListResponseModel.getData().getContent());
+            adapter.addAll(marketCenterSelectProductListResponseModel.getData().getContent());
         }
     };
 
@@ -146,7 +146,7 @@ public class RecommendListActivity extends BaseRecyclerActivity {
 
     @Override
     public void onItemClick(int position) {
-        for (MyselfProductPublicListResponseModel.DataEntity.ContentEntity contentEntity : ((RecommendItemAdapter) adapter).getAll()) {
+        for (MarketCenterSelectProductListResponseModel.DataEntity.ContentEntity contentEntity : ((RecommendItemAdapter) adapter).getAll()) {
             contentEntity.setChecked(false);
         }
         ((RecommendItemAdapter) adapter).getItem(position).setChecked(true);
@@ -188,21 +188,21 @@ public class RecommendListActivity extends BaseRecyclerActivity {
     @Override
     public void onLoadMore() {
         pager++;
-        HttpMethod.getInstance().myselfProductPublicListRequest(mMyselfProductPublicListResponseModelObserver, setParams());
+        HttpMethod.getInstance().marketCenterSelectProductList(mMarketCenterSelectProductListResponseModelObserver, setParams());
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        HttpMethod.getInstance().myselfProductPublicListRequest(mMyselfProductPublicListResponseModelObserver, setParams());
+        HttpMethod.getInstance().marketCenterSelectProductList(mMarketCenterSelectProductListResponseModelObserver, setParams());
     }
 
-    private MyselfProductPublicListRequestModel setParams() {
-        MyselfProductPublicListRequestModel myselfProductPublicListRequestModel = new MyselfProductPublicListRequestModel();
-        myselfProductPublicListRequestModel.setCmd(ApiInterface.MyselfProductPublicList);
-        myselfProductPublicListRequestModel.setToken(BaseApplication.getToken());
-        myselfProductPublicListRequestModel.setParameters(new MyselfProductPublicListRequestModel.ParametersEntity(0, pagerSize, pager, ""));
-        return myselfProductPublicListRequestModel;
+    private MarketCenterSelectProductListRequestModel setParams() {
+        MarketCenterSelectProductListRequestModel marketCenterSelectProductListRequestModel = new MarketCenterSelectProductListRequestModel();
+        marketCenterSelectProductListRequestModel.setCmd(ApiInterface.MarketCenterSelectProductList);
+        marketCenterSelectProductListRequestModel.setToken(BaseApplication.getToken());
+        marketCenterSelectProductListRequestModel.setParameters(new MarketCenterSelectProductListRequestModel.ParametersEntity(0, BaseApplication.getUserId(), "0", pagerSize, pager));
+        return marketCenterSelectProductListRequestModel;
     }
 
     public static void newIntent(Context context, int productId, int repUserId) {

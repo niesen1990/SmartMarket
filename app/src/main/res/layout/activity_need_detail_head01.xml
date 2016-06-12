@@ -16,7 +16,7 @@
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/global_padding"
@@ -60,8 +60,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_toRightOf="@+id/iv_head"
-            tools:text="niesen918"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            tools:text="niesen918"/>
 
         <TextView
             android:id="@+id/tv_contact"
@@ -111,8 +111,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_introduce"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            tools:text="6小时以前"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            tools:text="6小时以前"/>
 
         <TextView
             android:id="@+id/tv_address"
@@ -122,9 +122,9 @@
             android:layout_marginTop="@dimen/global_padding"
             android:drawableLeft="@drawable/ic_location"
             android:gravity="center"
-            tools:text="上海 | 杨浦区"
             android:textColor="@color/address"
-            android:textSize="10sp"/>
+            android:textSize="10sp"
+            tools:text="上海 | 杨浦区"/>
 
 
     </RelativeLayout>

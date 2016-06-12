@@ -167,6 +167,7 @@ public interface ApiInterface {
 
     String SHARE_NEED = "http://erpuat.mengbp.com:8090/SmartApp/MBPZShare/index.html#/shopDetail/";
     String SHARE_PUBLISH = "http://erpuat.mengbp.com:8090/SmartApp/MBPZShare/index.html#/productDetail/";
+    String SHARE_APP = "http://erpuat.mengbp.com:8090/SmartApp/MBPZShare/index.html#/productDetail/";
 
     @Headers("Content-Type: application/json")
     @POST("http://mengbaopai.smart-kids.com:82/wine-rest/cgi")

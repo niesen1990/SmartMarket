@@ -141,7 +141,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                     if (productDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId() && productDetailResponseModel.getData().getIsResolve() == 0) {
                         tvBuy.setText("确认解决");
                         tvBuy.setOnClickListener(NeedDetailActivity.this);
-                    } else if (productDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId() && productDetailResponseModel.getData().getIsResolve() == 1) {
+                    } else if (productDetailResponseModel.getData().getIsResolve() == 1) {
                         tvBuy.setText("已解决");
                         tvBuy.setBackgroundResource(R.color.dimgray);
                         tvBuy.setOnClickListener(null);
