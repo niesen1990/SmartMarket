@@ -30,7 +30,7 @@
         android:layout_below="@+id/tv_tag"
         android:layout_marginTop="@dimen/global_padding"
         android:layout_toLeftOf="@+id/iv_good"
-        android:maxLines="2"
+        android:maxLines="3"
         android:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
 
     <ImageView

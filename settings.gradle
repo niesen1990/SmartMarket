@@ -1,1 +1,1 @@
-include ':app', ':UmengPushSDK', ':OkHttpUtils', ':SmartPhotoPicker', ':MultiPhotoPicker', ':UmengShare', ':WXIM', ':EasyRecyclerView', ':WheelPicker'
+include ':app', ':UmengPushSDK', ':OkHttpUtils', ':SmartPhotoPicker', ':MultiPhotoPicker', ':UmengShare', ':WXIM', ':EasyRecyclerView', ':WheelPicker', ':UpdatePlugin'

@@ -14,6 +14,7 @@
     </string-array>
 
     <string-array name="balance_detail_item">
+        <item>全 部</item>
         <item>提 现</item>
         <item>交 易</item>
         <item>退 款</item>

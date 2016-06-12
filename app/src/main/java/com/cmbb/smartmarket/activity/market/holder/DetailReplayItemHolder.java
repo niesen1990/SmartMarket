@@ -42,7 +42,8 @@ public class DetailReplayItemHolder extends BaseViewHolder<ProductReplyListRespo
     }
 
     public void setData(ProductReplyListResponseModel.DataEntity.ContentEntity row) {
-        if(row == null) return;
+        if (row == null)
+            return;
         ImageLoader.loadUrlAndDiskCache(mContext, row.getCreateUser().getUserImg(), ivHead, new CircleTransform(mContext));
         tvNick.setText(row.getCreateUser().getNickName());
         tvTime.setText(new JTimeTransform(row.getCreateDate()).toString(new RecentDateFormat()));

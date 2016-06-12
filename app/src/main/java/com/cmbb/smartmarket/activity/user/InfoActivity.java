@@ -122,6 +122,7 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
 
     private final int PIC_REQUEST_CODE = 1001;
     File imageTempFile;
+
     @Override
     public void onClick(View v) {
         super.onClick(v);
@@ -223,7 +224,7 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
             cityCode = data.getStringExtra("cityCode");
             district = data.getStringExtra("district");
             districtCode = data.getStringExtra("districtCode");
-            updateRequest("", "", province, provinceCode, city, cityCode, "");
+            updateRequest("", "", provinceCode, province, cityCode, city, "");
             tvAddress.setText(province + " | " + city);
         } else if (resultCode == RESULT_OK && requestCode == 700) {
             // camera
@@ -250,6 +251,7 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
             behaviorSex.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
     }
+
     public void behaviorPic() {
         if (behaviorPic.getState() == BottomSheetBehavior.STATE_EXPANDED) {
             behaviorPic.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -257,7 +259,6 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
             behaviorPic.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
     }
-
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -325,6 +326,8 @@ public class InfoActivity extends BaseActivity implements LoaderManager.LoaderCa
             values.put(DBContent.DBUser.USER_PHONE, userInfoUpdateResponseModel.getData().getLoginAccount());
             values.put(DBContent.DBUser.USER_PROVINCE_ID, userInfoUpdateResponseModel.getData().getProvince());
             values.put(DBContent.DBUser.USER_CITY_ID, userInfoUpdateResponseModel.getData().getCity());
+            values.put(DBContent.DBUser.USER_PROVINCE, userInfoUpdateResponseModel.getData().getProvinceText());
+            values.put(DBContent.DBUser.USER_CITY, userInfoUpdateResponseModel.getData().getCityText());
             values.put(DBContent.DBUser.USER_LEVEL, userInfoUpdateResponseModel.getData().getUserLevel());
             values.put(DBContent.DBUser.USER_INTRODUCE, userInfoUpdateResponseModel.getData().getIntroduce());
             values.put(DBContent.DBUser.IM_USER_ID, userInfoUpdateResponseModel.getData().getImUserId());

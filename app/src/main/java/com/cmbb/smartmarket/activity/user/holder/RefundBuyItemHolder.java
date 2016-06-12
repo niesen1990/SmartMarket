@@ -81,8 +81,8 @@ public class RefundBuyItemHolder extends BaseViewHolder<MarketOrderListResponseM
             return;
         tvOrder.setText(row.getOrderCode());
         tvStatus.setText(row.getRefundStatusName());
-        if(row.getProduct().getProductImageList() != null && row.getProduct().getProductImageList().size()>0)
-        ImageLoader.loadCenterCropCache(mContext, row.getProduct().getProductImageList().get(0).getLocation(), ivImage);
+        if (row.getProduct().getProductImageList() != null && row.getProduct().getProductImageList().size() > 0)
+            ImageLoader.loadCenterCropCache(mContext, row.getProduct().getProductImageList().get(0).getLocation(), ivImage);
         tvTitle.setText(row.getProduct().getTitle());
         tvNewPrice.setText("￥" + row.getProduct().getCurrentPrice());
         if (row.getProduct().getOriginalPrice() == 0) {

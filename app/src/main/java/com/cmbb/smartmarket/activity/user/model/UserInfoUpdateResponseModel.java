@@ -53,35 +53,46 @@ public class UserInfoUpdateResponseModel {
     }
 
     public static class DataEntity {
-        private String sex;
+
+        /**
+         * sex : 1
+         * provinceText : 北京
+         * introduce : 牛逼共产党
+         * imgWidth : 512.0
+         * city : 110100
+         * loginAccount : 13818155072
+         * id : 5
+         * loginToken : ODBkN2NmYTItNjVjMy00NTU3LTliMjYtNmJlYTRlNWFlOTli
+         * nickName : 共产党人
+         * userLevel : 0
+         * province : 110000
+         * cityText : 北京市
+         * imUserId : 13818155072
+         * userImg : http://smart-test.image.alimmdn.com/market/user/image/2016-06-12/ODYwYjkxMGYtYzYyZS00OTc1LTk3NjEtZDQ1ZjVmZWNjMzQ4
+         * imgHeight : 512.01
+         */
+
+        private int sex;
         private String provinceText;
         private String introduce;
-        private int imgWidth;
-        private int city;
+        private double imgWidth;
+        private String city;
         private String loginAccount;
         private int id;
         private String loginToken;
         private String nickName;
         private int userLevel;
-        private int province;
+        private String province;
         private String cityText;
-        private String userImg;
-        private int imgHeight;
         private String imUserId;
+        private String userImg;
+        private double imgHeight;
 
-        public String getImUserId() {
-            return imUserId;
-        }
-
-        public void setImUserId(String imUserId) {
-            this.imUserId = imUserId;
-        }
-
-        public String getSex() {
+        public int getSex() {
             return sex;
         }
 
-        public void setSex(String sex) {
+        public void setSex(int sex) {
             this.sex = sex;
         }
 
@@ -101,19 +112,19 @@ public class UserInfoUpdateResponseModel {
             this.introduce = introduce;
         }
 
-        public int getImgWidth() {
+        public double getImgWidth() {
             return imgWidth;
         }
 
-        public void setImgWidth(int imgWidth) {
+        public void setImgWidth(double imgWidth) {
             this.imgWidth = imgWidth;
         }
 
-        public int getCity() {
+        public String getCity() {
             return city;
         }
 
-        public void setCity(int city) {
+        public void setCity(String city) {
             this.city = city;
         }
 
@@ -157,11 +168,11 @@ public class UserInfoUpdateResponseModel {
             this.userLevel = userLevel;
         }
 
-        public int getProvince() {
+        public String getProvince() {
             return province;
         }
 
-        public void setProvince(int province) {
+        public void setProvince(String province) {
             this.province = province;
         }
 
@@ -173,6 +184,14 @@ public class UserInfoUpdateResponseModel {
             this.cityText = cityText;
         }
 
+        public String getImUserId() {
+            return imUserId;
+        }
+
+        public void setImUserId(String imUserId) {
+            this.imUserId = imUserId;
+        }
+
         public String getUserImg() {
             return userImg;
         }
@@ -181,11 +200,11 @@ public class UserInfoUpdateResponseModel {
             this.userImg = userImg;
         }
 
-        public int getImgHeight() {
+        public double getImgHeight() {
             return imgHeight;
         }
 
-        public void setImgHeight(int imgHeight) {
+        public void setImgHeight(double imgHeight) {
             this.imgHeight = imgHeight;
         }
     }

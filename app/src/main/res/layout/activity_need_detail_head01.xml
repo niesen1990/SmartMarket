@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_white_stroke_no_corner"
@@ -18,11 +19,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:maxLines="1"
-            android:text="贝亲新生婴儿清洁护肤礼品"
-            android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:layout_marginLeft="@dimen/global_padding"
+            android:layout_toLeftOf="@+id/tv_watch_count"
+            android:layout_toRightOf="@+id/tv_tag"
+            android:maxLength="26"
+            android:maxLines="2"
+            android:textStyle="bold"
+            tools:text="贝亲新生婴儿清洁护肤礼品贝亲新生婴儿清洁护肤礼品贝亲新生婴儿清洁护肤礼品贝亲新生婴儿清洁护肤礼品贝亲新生婴儿清洁护肤礼品"/>
+
 
         <TextView
             android:id="@+id/tv_watch_count"
@@ -31,7 +35,7 @@
             android:layout_alignParentRight="true"
             android:drawableLeft="@drawable/ic_browse"
             android:gravity="center"
-            android:text="2106"/>
+            tools:text="2106"/>
 
     </RelativeLayout>
 
@@ -56,7 +60,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_toRightOf="@+id/iv_head"
-            android:text="niesen918"
+            tools:text="niesen918"
             android:textStyle="bold"/>
 
         <TextView
@@ -98,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_real_price"
             android:maxLines="2"
-            android:text="洗护全套，送宝宝的好礼品。（爽身粉）140g,洗发精200ml，沐浴露200ml, 论腐乳300ml"/>
+            tools:text="洗护全套，送宝宝的好礼品。（爽身粉）140g,洗发精200ml，沐浴露200ml, 论腐乳300ml"/>
 
 
         <TextView
@@ -107,7 +111,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_introduce"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:text="6小时以前"
+            tools:text="6小时以前"
             android:textSize="12sp"/>
 
         <TextView
@@ -118,7 +122,7 @@
             android:layout_marginTop="@dimen/global_padding"
             android:drawableLeft="@drawable/ic_location"
             android:gravity="center"
-            android:text="上海 | 杨浦区"
+            tools:text="上海 | 杨浦区"
             android:textColor="@color/address"
             android:textSize="10sp"/>
 

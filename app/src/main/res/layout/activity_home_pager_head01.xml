@@ -21,10 +21,11 @@
             android:layout_weight="1"
             android:drawablePadding="@dimen/half_global_padding"
             android:drawableTop="@drawable/ic_office_recommend"
+            android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:text="@string/home_head_tuijian"
-            android:textStyle="bold"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_baobaoyongping"
@@ -35,8 +36,8 @@
             android:drawableTop="@drawable/ic_baby_recommend"
             android:gravity="center"
             android:text="@string/home_head_baobao"
-            android:textStyle="bold"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_mamashangping"
@@ -47,8 +48,8 @@
             android:drawableTop="@drawable/ic_mami_recommend"
             android:gravity="center"
             android:text="@string/home_head_mama"
-            android:textStyle="bold"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_jujiashangping"
@@ -59,8 +60,8 @@
             android:drawableTop="@drawable/ic_house_recommend"
             android:gravity="center"
             android:text="@string/home_head_jujia"
-            android:textStyle="bold"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:textStyle="bold"/>
 
     </LinearLayout>
 

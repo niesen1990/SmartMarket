@@ -155,6 +155,20 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                     tvBuy.setBackgroundResource(R.color.dimgray);
                 }
 
+                //设置Collection
+                switch (productDetailResponseModel.getData().getIsSpot()) {
+                    case 0:
+                        Drawable drawable0 = getResources().getDrawable(R.drawable.ic_great_gray);
+                        drawable0.setBounds(0, 0, drawable0.getMinimumWidth(), drawable0.getMinimumHeight());
+                        ivSpot.setCompoundDrawables(drawable0, null, null, null);
+                        break;
+                    case 1:
+                        Drawable drawable1 = getResources().getDrawable(R.drawable.ic_great_color);
+                        drawable1.setBounds(0, 0, drawable1.getMinimumWidth(), drawable1.getMinimumHeight());
+                        ivSpot.setCompoundDrawables(drawable1, null, null, null);
+                        break;
+                }
+
                 tvMessage.setText(productDetailResponseModel.getData().getReplyNumber() + "");
                 onRefresh();
             }

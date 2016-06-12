@@ -91,6 +91,8 @@ public class NickActivity extends BaseActivity {
             values.put(DBContent.DBUser.USER_PHONE, userInfoUpdateResponseModel.getData().getLoginAccount());
             values.put(DBContent.DBUser.USER_PROVINCE_ID, userInfoUpdateResponseModel.getData().getProvince());
             values.put(DBContent.DBUser.USER_CITY_ID, userInfoUpdateResponseModel.getData().getCity());
+            values.put(DBContent.DBUser.USER_PROVINCE, userInfoUpdateResponseModel.getData().getProvinceText());
+            values.put(DBContent.DBUser.USER_CITY, userInfoUpdateResponseModel.getData().getCityText());
             values.put(DBContent.DBUser.USER_LEVEL, userInfoUpdateResponseModel.getData().getUserLevel());
             values.put(DBContent.DBUser.USER_INTRODUCE, userInfoUpdateResponseModel.getData().getIntroduce());
             values.put(DBContent.DBUser.IM_USER_ID, userInfoUpdateResponseModel.getData().getImUserId());

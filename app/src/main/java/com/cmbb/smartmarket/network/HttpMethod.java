@@ -123,6 +123,8 @@ import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictRequestMode
 import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictResponseModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateRequestModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBillListRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBillListResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindListRequestModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindListResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindalipayRequestModel;
@@ -1243,6 +1245,20 @@ public class HttpMethod {
         Observable<MarketMessageSetMessageTypeResponseModel> observable = mApiInterface
                 .marketMessageSetMessageType(retrofitRequestModel)
                 .map(new HttpResultFunc<MarketMessageSetMessageTypeResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 消息列表
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription walletAccountBillList(Observer<WalletAccountBillListResponseModel> observer, WalletAccountBillListRequestModel retrofitRequestModel) {
+        Observable<WalletAccountBillListResponseModel> observable = mApiInterface
+                .walletAccountBillList(retrofitRequestModel)
+                .map(new HttpResultFunc<WalletAccountBillListResponseModel>());
         return addSubscribe(observable, observer);
     }
 

@@ -120,6 +120,8 @@ import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictRequestMode
 import com.cmbb.smartmarket.activity.user.model.SystemGetMultipleDictResponseModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateRequestModel;
 import com.cmbb.smartmarket.activity.user.model.UserInfoUpdateResponseModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBillListRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBillListResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindListRequestModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindListResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBindalipayRequestModel;
@@ -160,6 +162,8 @@ public interface ApiInterface {
 
     String Base = "http://erpuat.mengbp.com:8094/";
     String HOST = Base + "wine-market-rest/cgi/";
+    //    String Base = "http://192.168.100.64:8085/";
+    //    String HOST = Base + "wine-market-rest/cgi/";
 
     String SHARE_NEED = "http://erpuat.mengbp.com:8090/SmartApp/MBPZShare/index.html#/shopDetail/";
     String SHARE_PUBLISH = "http://erpuat.mengbp.com:8090/SmartApp/MBPZShare/index.html#/productDetail/";
@@ -448,6 +452,13 @@ public interface ApiInterface {
 
     // 提现
     String WalletAccountGetCash = "wallet/account/getCash";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<WalletAccountBillListResponseModel>> walletAccountBillList(@Body WalletAccountBillListRequestModel retrofitRequestModel);
+
+    // 余额明细
+    String WalletAccountBillList = "wallet/account/billList";
 
     /* *******************************我的***********************************/
     @Headers("Content-Type: application/json")

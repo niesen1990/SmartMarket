@@ -3,19 +3,24 @@ package com.cmbb.smartmarket.activity.wallet;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
-import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
 import com.cmbb.smartmarket.activity.wallet.adapter.BalanceDetailAdapter;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBillListRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountBillListResponseModel;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.widget.SpaceItemDecoration;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
+import butterknife.BindView;
 import rx.Observer;
 
 /**
@@ -30,11 +35,39 @@ import rx.Observer;
 public class BalanceDetailActivity extends BaseRecyclerActivity {
 
     private static final String TAG = BalanceDetailActivity.class.getSimpleName();
+    @BindView(R.id.sp_status)
+    Spinner spinner;
+    private String type;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         setTitle("余额明细");
         onRefresh();
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position) {
+                    case 0:
+                        type = "";
+                        break;
+                    case 1:
+                        type = "CASH";
+                        break;
+                    case 2:
+                        type = "RECEIPT";
+                        break;
+                    case 3:
+                        type = "REFUND";
+                        break;
+                }
+                onRefresh();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     @Override
@@ -57,7 +90,7 @@ public class BalanceDetailActivity extends BaseRecyclerActivity {
 
     }
 
-    Observer<TestModel> mTestUserAttentionModelObserver = new Observer<TestModel>() {
+    Observer<WalletAccountBillListResponseModel> mWalletAccountBillListResponseModelObserver = new Observer<WalletAccountBillListResponseModel>() {
         @Override
         public void onCompleted() {
 
@@ -71,37 +104,31 @@ public class BalanceDetailActivity extends BaseRecyclerActivity {
         }
 
         @Override
-        public void onNext(TestModel testModel) {
+        public void onNext(WalletAccountBillListResponseModel testModel) {
             if (pager == 0)
                 adapter.clear();
-            adapter.addAll(testModel.getData().getRows());
+            adapter.addAll(testModel.getData().getContent());
         }
     };
 
     @Override
     public void onLoadMore() {
         pager++;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
+        HttpMethod.getInstance().walletAccountBillList(mWalletAccountBillListResponseModelObserver, setParams());
+    }
+
+    private WalletAccountBillListRequestModel setParams() {
+        WalletAccountBillListRequestModel walletAccountBillListRequestModel = new WalletAccountBillListRequestModel();
+        walletAccountBillListRequestModel.setToken(BaseApplication.getToken());
+        walletAccountBillListRequestModel.setCmd(ApiInterface.WalletAccountBillList);
+        walletAccountBillListRequestModel.setParameters(new WalletAccountBillListRequestModel.ParametersEntity(type, pager, pagerSize));
+        return walletAccountBillListRequestModel;
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        HttpMethod.getInstance().getTestData(mTestUserAttentionModelObserver, setParams());
-    }
-
-    /**
-     * 设置参数
-     *
-     * @return params
-     */
-    protected TestRequestModel setParams() {
-        unSubscribe();
-        TestRequestModel testRequestModel = new TestRequestModel();
-        testRequestModel.setCmd("smart/attention/getList");
-        testRequestModel.setToken(BaseApplication.getToken());
-        testRequestModel.setParameters(new TestRequestModel.ParametersEntity(pager, pagerSize, 0));
-        return testRequestModel;
+        HttpMethod.getInstance().walletAccountBillList(mWalletAccountBillListResponseModelObserver, setParams());
     }
 
     public static void newIntent(Context context) {

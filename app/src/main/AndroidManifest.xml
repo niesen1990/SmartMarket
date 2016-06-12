@@ -2,7 +2,7 @@
 <manifest package="com.cmbb.smartmarket"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Umeng数据分析 start-->
+    <!-- Umeng数据分析 start -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -15,28 +15,27 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
     <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
-    <!-- Umeng数据分析 end-->
-    <!-- 百度Location start-->
-    <!-- 这个权限用于进行网络定位-->
+    <!-- Umeng数据分析 end -->
+    <!-- 百度Location start -->
+    <!-- 这个权限用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <!-- 这个权限用于访问GPS定位-->
+    <!-- 这个权限用于访问GPS定位 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <!-- 用于访问wifi网络信息，wifi信息会用于进行网络定位 -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口-->
+    <!-- 获取运营商信息，用于支持提供运营商信息相关的接口 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <!-- 用于读取手机当前的状态-->
+    <!-- 用于读取手机当前的状态 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据-->
+    <!-- 写入扩展存储，向扩展卡写入数据，用于写入离线定位数据 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <!-- 访问网络，网络定位需要上网-->
+    <!-- 访问网络，网络定位需要上网 -->
     <uses-permission android:name="android.permission.INTERNET"/>
-    <!-- SD卡读取权限，用户写入离线定位数据-->
+    <!-- SD卡读取权限，用户写入离线定位数据 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
-    <!-- 百度Location end-->
-
+    <uses-permission android:name="android.permission.VIBRATE"/> <!-- 百度Location end -->
     <application
         android:name=".base.BaseApplication"
         android:allowBackup="true"
@@ -44,7 +43,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".activity.SplashActivity"
             android:theme="@style/AppTheme.FullScreen">
@@ -54,7 +52,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.home.HomePagerActivity"
             android:theme="@style/AppTheme.NoAnimation"/>
@@ -67,20 +64,18 @@
         <activity
             android:name=".activity.home.HomeMeActivity"
             android:theme="@style/AppTheme.NoAnimation"/>
-
         <activity android:name=".activity.home.HomeAddressActivity"/>
-
         <activity
             android:name=".activity.search.SearchActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
             </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable"/>
         </activity>
-
         <activity android:name=".activity.user.ReportActivity"/>
         <activity android:name=".activity.user.MeCollectionActivity"/>
         <activity
@@ -91,7 +86,6 @@
         <activity
             android:name=".activity.user.UserCenterActivity"
             android:theme="@style/AppTheme.v21"/>
-
         <activity
             android:name=".activity.login.LoginActivity"
             android:theme="@style/AppTheme.v21"/>
@@ -107,7 +101,6 @@
         <activity android:name=".activity.message.StoreMessageActivity"/>
         <activity android:name=".activity.message.OrderMessageActivity"/>
         <activity android:name=".activity.user.OffManagerActivity"/>
-
         <activity
             android:name=".activity.home.HomeOperationActivity"
             android:theme="@style/AppTheme.FullScreen.Publish"/>
@@ -137,7 +130,8 @@
         <activity android:name=".activity.user.CancelOrderActivity"/>
         <activity android:name=".activity.user.ImmediateEvaluationActivity"/>
         <activity android:name=".activity.user.SoldFinishedActivity"/>
-        <activity android:name=".activity.user.ExpressActivity"
+        <activity
+            android:name=".activity.user.ExpressActivity"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activity.user.CheckRejectForBuyActivity"/>
         <activity android:name=".activity.user.CheckRejectForSellActivity"/>
@@ -150,7 +144,6 @@
         <activity
             android:name=".activity.user.ApplyRefundActivity"
             android:windowSoftInputMode="stateHidden"/>
-
         <activity
             android:name=".activity.market.CommodityDetailActivity"
             android:theme="@style/AppTheme.v21"
@@ -160,19 +153,18 @@
             android:theme="@style/AppTheme.v21"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.message.SystemMessageActivity"/>
-
         <activity android:name=".activity.message.IMConversationActivity"/>
 
         <provider
-            android:name="com.cmbb.smartmarket.db.UserProvider"
+            android:name=".db.UserProvider"
             android:authorities="com.cmbb.smartmarket.useraccount"
             android:enabled="true"
             android:exported="false"/>
+
         <activity
             android:name="com.umeng.socialize.editorpage.ShareActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.UMDefault"/>
-
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
@@ -186,13 +178,13 @@
                 <data android:scheme="tencent100424468"/>
             </intent-filter>
         </activity>
-
         <activity
             android:name=".WBShareActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -205,6 +197,7 @@
         <service
             android:name="com.sina.weibo.sdk.net.DownloadService"
             android:exported="false"/>
+
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
             android:screenOrientation="portrait"
@@ -247,7 +240,6 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"/>
@@ -256,12 +248,13 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote"/>
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="imNTzF1pejxCEfgr22OG7CdArby8mRrn"/>
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
-            android:value="GlideModule" />
+            android:value="GlideModule"/>
     </application>
 
 </manifest>

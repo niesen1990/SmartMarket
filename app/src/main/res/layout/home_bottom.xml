@@ -3,7 +3,7 @@
     android:id="@+id/rl_bottom"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="75dp"
+    android:layout_height="95dp"
     android:layout_alignParentBottom="true">
 
     <LinearLayout
@@ -88,6 +88,15 @@
 
     <ImageView
         android:id="@+id/tv_publish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/global_padding"
+        android:src="@drawable/ic_home_publish_red"/>
+
+    <ImageView
+        android:id="@+id/tv_publish2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

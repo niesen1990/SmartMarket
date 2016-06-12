@@ -21,6 +21,7 @@ import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.message.im.custom.CustomHelper;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.log.constant.ZoneOffset;
+import com.cmbb.smartmarket.utils.MessageNotification;
 import com.cmbb.smartmarket.utils.SPCache;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
@@ -116,7 +117,6 @@ public class BaseApplication extends MultiDexApplication {
         BaseApplication.context = context;
     }
 
-
     /**
      * 初始化日志
      */
@@ -162,8 +162,9 @@ public class BaseApplication extends MultiDexApplication {
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
-                        Log.e("SmartKids", "message = " + msg);
+                        Log.e("SmartKids", "message" + msg);
                         UTrack.getInstance(getApplicationContext()).trackMsgClick(msg);
+                        MessageNotification.notify(getContext(), msg.custom, 0);
                     }
                 });
             }

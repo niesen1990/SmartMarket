@@ -38,8 +38,6 @@ import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.utils.DialogUtils;
-import com.cmbb.smartmarket.utils.date.JTimeTransform;
-import com.cmbb.smartmarket.utils.date.RecentDateFormat;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -148,7 +146,7 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
             tvAddress.setText(marketOrderDetailResponseModel.getData().getAddress());
             tvSellNick.setText(marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getNickName());
             tvOrderCode.setText(marketOrderDetailResponseModel.getData().getOrderCode());
-            tvTime.setText(new JTimeTransform(marketOrderDetailResponseModel.getData().getCreateDate()).toString(new RecentDateFormat()));
+            tvTime.setText(marketOrderDetailResponseModel.getData().getCreateDate());
             initBottomView(marketOrderDetailResponseModel);
         }
     };

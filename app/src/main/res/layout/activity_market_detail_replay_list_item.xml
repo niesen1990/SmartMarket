@@ -48,7 +48,7 @@
         android:layout_below="@+id/ll_info"
         android:layout_marginLeft="48dp"
         android:layout_marginTop="@dimen/half_global_padding"
-        android:maxLines="2"
+        android:maxLines="3"
         android:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
 
 
