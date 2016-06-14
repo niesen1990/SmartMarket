@@ -100,7 +100,12 @@ public class BuyOrderActivity extends BaseActivity {
                     ImageLoader.loadCenterCropCache(BuyOrderActivity.this, marketOrderReserveResponseModel.getData().getProduct().getProductImageList().get(0).getLocation(), ivImage);
                 tvTitle.setText(marketOrderReserveResponseModel.getData().getProduct().getTitle());
                 tvNewPrice.setText("￥" + marketOrderReserveResponseModel.getData().getProduct().getCurrentPrice());
-                tvOldPrice.setText("￥" + marketOrderReserveResponseModel.getData().getProduct().getOriginalPrice());
+                if (marketOrderReserveResponseModel.getData().getProduct().getOriginalPrice() == 0) {
+                    tvOldPrice.setVisibility(View.INVISIBLE);
+                } else {
+                    tvOldPrice.setVisibility(View.VISIBLE);
+                    tvOldPrice.setText("￥" + marketOrderReserveResponseModel.getData().getProduct().getOriginalPrice());
+                }
                 if (marketOrderReserveResponseModel.getData().getProduct().getUserLocation() != null)
                     tvAddress.setText(marketOrderReserveResponseModel.getData().getProduct().getUserLocation().getCity() + marketOrderReserveResponseModel.getData().getProduct().getUserLocation().getDistrict());
                 //设置是否在线交易
@@ -172,11 +177,11 @@ public class BuyOrderActivity extends BaseActivity {
                 AddressManagerActivity.newIntent(this, 100);
                 break;
             case R.id.tv_confirm:
-                showWaitingDialog();
-                if (TextUtils.isEmpty(mMarketOrderReserveResponseModel.getData().getReceiveName()) || TextUtils.isEmpty(mMarketOrderReserveResponseModel.getData().getAddress())) {
+                if (TextUtils.isEmpty(receiveNick) || TextUtils.isEmpty(receiveAddress)) {
                     showToast("请设置收获地址");
                     return;
                 }
+                showWaitingDialog();
                 subscription = HttpMethod.getInstance().marketOrderCommitDelete(mMarketOrderCommitResponseModelObserver, setCommitParams());
                 break;
         }
@@ -203,7 +208,7 @@ public class BuyOrderActivity extends BaseActivity {
             UserAddressGetPageResponseModel.DataEntity.RowsEntity rowsEntity = data.getParcelableExtra("data");
             receiveNick = rowsEntity.getReceiveName();
             receivePhone = rowsEntity.getReceivePhone();
-            receiveAddress = rowsEntity.getProvince() + rowsEntity.getCity() + rowsEntity.getDistrict() + rowsEntity.getAddress();
+            receiveAddress = rowsEntity.getProvinceText() + rowsEntity.getCityText() + rowsEntity.getDistrictText() + rowsEntity.getAddress();
             tvName.setText(receiveNick + " " + receivePhone);
             tvDetailAddress.setText(receiveAddress);
         }

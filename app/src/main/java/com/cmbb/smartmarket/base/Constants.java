@@ -32,7 +32,7 @@ public class Constants {
      * @return
      */
     public static boolean regExpAccount(String psw) {
-        String regex = "(?!^\\\\d+$)(?!^[a-zA-Z]+$)(?!^[_#@]+$).{4,16}";
+        String regex = "(?!^\\d+$)(?!^[a-zA-Z]+$)(?!^[_#@]+$).{4,16}";
         return Pattern.matches(regex, psw);
     }
 

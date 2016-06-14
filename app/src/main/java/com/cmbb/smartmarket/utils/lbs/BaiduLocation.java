@@ -23,6 +23,7 @@ import java.util.List;
  * 创建时间：16/4/25 上午10:53
  */
 public class BaiduLocation {
+
     private static final String TAG = BaiduLocation.class.getSimpleName();
 
     private static BaiduLocation ourInstance = new BaiduLocation();
@@ -141,7 +142,7 @@ public class BaiduLocation {
                     sb.append(p.getId() + " " + p.getName() + " " + p.getRank());
                 }
             }
-            Log.i("BaiduLocationApiDem", sb.toString());
+            Log.i(TAG, sb.toString());
         }
     }
 }

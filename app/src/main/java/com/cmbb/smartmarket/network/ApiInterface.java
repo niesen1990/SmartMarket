@@ -94,6 +94,8 @@ import com.cmbb.smartmarket.activity.user.model.MarketEvaluateListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketEvaluateListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketEvaluateSaveRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketEvaluateSaveResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketLogoutRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketLogoutResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveRequestModel;
@@ -167,7 +169,7 @@ public interface ApiInterface {
 
     String SHARE_NEED = "http://erpuat.mengbp.com:8090/SmartApp/MBPZShare/index.html#/shopDetail/";
     String SHARE_PUBLISH = "http://erpuat.mengbp.com:8090/SmartApp/MBPZShare/index.html#/productDetail/";
-    String SHARE_APP = "http://erpuat.mengbp.com:8090/SmartApp/MBPZShare/index.html#/productDetail/";
+    String SHARE_APP = "http://mbpz.file.alimmdn.com/recommended.html";
 
     @Headers("Content-Type: application/json")
     @POST("http://mengbaopai.smart-kids.com:82/wine-rest/cgi")
@@ -503,6 +505,13 @@ public interface ApiInterface {
 
     // 获取个人中心基本信息
     String MarketCenterPersonCenterInfo = "market/center/personCenterInfo";
+
+    @Headers("Content-Type: application/json")
+    @POST(HOST)
+    Observable<BaseRetrofitModel<MarketLogoutResponseModel>> marketLogout(@Body MarketLogoutRequestModel retrofitRequestModel);
+
+    // 注销登录
+    String MarketLogout = "market/logout";
 
     /* *******************************我的***********************************/
     /* *******************************首页***********************************/

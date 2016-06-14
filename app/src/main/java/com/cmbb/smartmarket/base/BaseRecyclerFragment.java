@@ -1,6 +1,11 @@
 package com.cmbb.smartmarket.base;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -25,6 +30,13 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements Recyc
     AppBarLayout appBarLayout;
     protected int pager = 0;
     protected int pagerSize = 10;
+
+    BroadcastReceiver refreshReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            onRefresh();
+        }
+    };
 
     @Override
     protected void initView(View view) {
@@ -69,6 +81,7 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements Recyc
     @Override
     public void onResume() {
         super.onResume();
+        LocalBroadcastManager.getInstance(getActivity()).registerReceiver(refreshReceiver, new IntentFilter(Constants.INTENT_ACTION_REFRESH));
         if (appBarLayout != null)
             appBarLayout.addOnOffsetChangedListener(this);
     }
@@ -76,6 +89,7 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements Recyc
     @Override
     public void onPause() {
         super.onPause();
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(refreshReceiver);
         if (appBarLayout != null)
             appBarLayout.removeOnOffsetChangedListener(this);
     }

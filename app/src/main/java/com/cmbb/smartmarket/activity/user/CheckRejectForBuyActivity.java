@@ -38,10 +38,12 @@ public class CheckRejectForBuyActivity extends BaseActivity {
     @Override
     protected void init(Bundle savedInstanceState) {
         setTitle("查看拒绝原因");
-        if (getIntent().getParcelableExtra("entity") instanceof MarketOrderListResponseModel.DataEntity.ContentEntity) {
-            data = getIntent().getParcelableExtra("entity");
+        if (getIntent().getParcelableExtra("data") instanceof MarketOrderListResponseModel.DataEntity.ContentEntity) {
+            data = getIntent().getParcelableExtra("data");
+            tvReason.setText(data.getRejectReason());
         } else {
-            dataFormDetail = getIntent().getParcelableExtra("entity");
+            dataFormDetail = getIntent().getParcelableExtra("data");
+            tvReason.setText(dataFormDetail.getData().getRejectReason());
         }
         tvApply.setOnClickListener(this);
         tvContact.setOnClickListener(this);

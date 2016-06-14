@@ -92,6 +92,10 @@ public class DealPswActivity extends BaseActivity {
                     showToast("请设置确认密码");
                     return;
                 }
+                if (!Constants.regExpAccount(etPsw.getText().toString()) && !Constants.regExpAccount(etPswConfirm.getText().toString())) {
+                    showToast("密码格式字母，字符，4-16位");
+                    return;
+                }
                 subscription = HttpMethod.getInstance().walletAccountSetPasswordRequest(mWalletAccountSetPasswordResponseModelObserver, setParams());
                 break;
         }

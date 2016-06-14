@@ -20,7 +20,6 @@ import com.cmbb.smartmarket.activity.user.model.MarketOrderNoticeResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderRefundResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerReceiveRequestModel;
-import com.cmbb.smartmarket.activity.user.model.MarketOrderSellerReceiveResponseModel;
 import com.cmbb.smartmarket.activity.user.model.OrderRefundSellStatus;
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
@@ -61,10 +60,12 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
     private TextView tvOperation02;
     private TextView tvOperation03;
     private BaseActivity mContext;
+    ConfirmReceiver mConfirmReceiver;
 
-    public RefundSellItemHolder(ViewGroup parent) {
+    public RefundSellItemHolder(ViewGroup parent, ConfirmReceiver confirmReceiver) {
         super(parent, R.layout.activity_refund_list_item);
         mContext = (BaseActivity) parent.getContext();
+        mConfirmReceiver = confirmReceiver;
         rl01 = $(R.id.rl01);
         tvOrderTag = $(R.id.tv_order_tag);
         tvOrder = $(R.id.tv_order);
@@ -188,7 +189,9 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
                         }, setNoticeParams(row.getId()));
                         break;
                     case "确认收货":
-                        DialogUtils.createAlertDialog(mContext, "警告", "确认收货了吗？", true, new DialogInterface.OnClickListener() {
+                        mConfirmReceiver.onClick(row.getId());
+
+                        /*DialogUtils.createAlertDialog(mContext, "警告", "确认收货了吗？", true, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 mContext.showWaitingDialog();
@@ -213,7 +216,7 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
                                     }
                                 }, setReceiverParams(row.getId()));
                             }
-                        });
+                        });*/
                         break;
                     case "拒绝原因":
                         CheckRejectForSellActivity.newIntent(mContext, row);
@@ -245,6 +248,10 @@ public class RefundSellItemHolder extends BaseViewHolder<MarketOrderListResponse
         marketOrderRefundRequestModel.setCmd(ApiInterface.MarketOrderRefund);
         marketOrderRefundRequestModel.setParameters(new MarketOrderRefundRequestModel.ParametersEntity(dataEntity.getId(), "AGREE", ""));
         return marketOrderRefundRequestModel;
+    }
+
+    public interface ConfirmReceiver {
+        void onClick(int id);
     }
 
 }

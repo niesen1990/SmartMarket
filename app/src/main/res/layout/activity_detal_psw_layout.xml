@@ -38,7 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:background="@null"
-            android:inputType="numberPassword"
+            android:inputType="textPassword"
             android:maxLines="1"
             android:textColor="@color/darkgray"
             android:textSize="14sp"/>
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:background="@null"
-            android:inputType="numberPassword"
+            android:inputType="textPassword"
             android:maxLines="1"
             android:textColor="@color/darkgray"
             android:textSize="14sp"/>

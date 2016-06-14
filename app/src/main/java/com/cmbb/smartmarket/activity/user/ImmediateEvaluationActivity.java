@@ -91,6 +91,10 @@ public class ImmediateEvaluationActivity extends BaseActivity {
                     showToast("请输入评价内容");
                     return;
                 }
+                if (desNum == 0 || expNum == 0) {
+                    showToast("请选择评价星级");
+                    return;
+                }
                 showWaitingDialog();
                 subscription = HttpMethod.getInstance().marketEvaluateSave(mMarketEvaluateSaveResponseModelObserver, setParams());
                 break;
@@ -101,7 +105,7 @@ public class ImmediateEvaluationActivity extends BaseActivity {
         MarketEvaluateSaveRequestModel marketEvaluateSaveRequestModel = new MarketEvaluateSaveRequestModel();
         marketEvaluateSaveRequestModel.setCmd(ApiInterface.MarketEvaluateSave);
         marketEvaluateSaveRequestModel.setToken(BaseApplication.getToken());
-        marketEvaluateSaveRequestModel.setParameters(new MarketEvaluateSaveRequestModel.ParametersEntity(getIntent().getIntExtra("orderId", -1)+"", expNum, desNum, etContent.getText().toString()));
+        marketEvaluateSaveRequestModel.setParameters(new MarketEvaluateSaveRequestModel.ParametersEntity(getIntent().getIntExtra("orderId", -1) + "", expNum, desNum, etContent.getText().toString()));
         return marketEvaluateSaveRequestModel;
     }
 

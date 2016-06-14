@@ -80,6 +80,9 @@
         <activity android:name=".activity.user.MeCollectionActivity"/>
         <activity
             android:name=".activity.market.PublishActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".activity.market.BuyOrderActivity"/>
         <activity android:name=".activity.market.PayActivity"/>
@@ -102,6 +105,10 @@
         <activity android:name=".activity.message.OrderMessageActivity"/>
         <activity android:name=".activity.user.OffManagerActivity"/>
         <activity
+            android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="sensor"/>
+        <activity
             android:name=".activity.home.HomeOperationActivity"
             android:theme="@style/AppTheme.FullScreen.Publish"/>
         <activity
@@ -115,21 +122,27 @@
         <activity android:name=".activity.wallet.AddAccountPhoneActivity"/>
         <activity
             android:name=".activity.wallet.WithdrawalsActivity"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.wallet.DealPswActivity"/>
         <activity android:name=".activity.wallet.DealPswPhoneActivity"/>
-        <activity android:name=".activity.user.RefundActivity"/>
+        <activity
+            android:name=".activity.user.RefundActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.address.AddressManagerActivity"/>
         <activity android:name=".activity.address.AddAndEditAddressActivity"/>
         <activity android:name=".activity.user.EvaluateListActivity"/>
         <activity android:name=".activity.user.EvaluateDetailActivity"/>
-        <activity android:name=".activity.user.BuyFinishedActivity"/>
+        <activity
+            android:name=".activity.user.BuyFinishedActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.user.PublishListActivity"/>
         <activity android:name=".activity.user.SuggestionActivity"/>
         <activity android:name=".activity.market.RecommendListActivity"/>
         <activity android:name=".activity.user.CancelOrderActivity"/>
         <activity android:name=".activity.user.ImmediateEvaluationActivity"/>
-        <activity android:name=".activity.user.SoldFinishedActivity"/>
+        <activity
+            android:name=".activity.user.SoldFinishedActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".activity.user.ExpressActivity"
             android:windowSoftInputMode="stateHidden"/>
@@ -137,7 +150,9 @@
         <activity android:name=".activity.user.CheckRejectForSellActivity"/>
         <activity android:name=".activity.user.CheckRefundActivity"/>
         <activity android:name=".activity.user.RejectRefundReasonActivity"/>
-        <activity android:name=".activity.user.OrderDetailActivity"/>
+        <activity
+            android:name=".activity.user.OrderDetailActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity android:name=".activity.user.CheckEvaluateActivity"/>
         <activity android:name=".activity.user.EvaluationForSellerActivity"/>
         <activity android:name=".activity.address.AddressPickActivity"/>

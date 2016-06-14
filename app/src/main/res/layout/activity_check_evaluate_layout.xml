@@ -31,13 +31,13 @@
 
             <TextView
                 android:id="@+id/tv_from"
-                android:textStyle="bold"
                 style="@style/TextAppearance.Smart.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_toRightOf="@+id/iv_head"
+                android:textStyle="bold"
                 tools:text="买家昵称"/>
 
             <TextView
@@ -61,10 +61,68 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll02"
+        android:id="@+id/ll07"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll01"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/global_padding">
+
+        <TextView
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="描述相符"/>
+
+
+        <RatingBar
+            android:id="@+id/ratingBar01"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll08"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll07"
+        android:background="@drawable/shape_white_stroke_no_corner"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/global_padding">
+
+        <TextView
+            style="@style/TextAppearance.Smart.Medium"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="物流速度"/>
+
+
+        <RatingBar
+            android:id="@+id/ratingBar02"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="1"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll08"
         android:background="@drawable/shape_white_stroke_no_corner"
         android:gravity="center_vertical"
         android:orientation="horizontal"
@@ -104,14 +162,14 @@
 
             <TextView
                 android:id="@+id/tv_nick"
-                android:textStyle="bold"
                 style="@style/TextAppearance.Smart.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_toRightOf="@+id/iv_child_head"
-                android:text="买家昵称"/>
+                android:text="买家昵称"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tv_child_time"

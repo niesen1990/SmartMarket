@@ -19,6 +19,7 @@ import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.utils.TimeCount;
 
 import butterknife.BindView;
 import rx.Observer;
@@ -50,6 +51,8 @@ public class DealPswPhoneActivity extends BaseActivity {
     TextView tvCheck;
     @BindView(R.id.tv_next)
     TextView tvNext;
+
+    TimeCount timeCount;
 
     Observer<WalletAccountSetPasswordNextResponseModel> mWalletAccountSetPasswordNextResponseModelObserver = new Observer<WalletAccountSetPasswordNextResponseModel>() {
         @Override
@@ -92,6 +95,7 @@ public class DealPswPhoneActivity extends BaseActivity {
             hideWaitingDialog();
             if (securityCodeResponseModel != null) {
                 showToast(securityCodeResponseModel.getMsg());
+                timeCount.start();
             }
         }
     };
@@ -99,6 +103,7 @@ public class DealPswPhoneActivity extends BaseActivity {
     @Override
     protected void init(Bundle savedInstanceState) {
         setTitle("修改密码");
+        timeCount = new TimeCount(60000, 1000, tvCheck);
         tvCheck.setOnClickListener(this);
         tvNext.setOnClickListener(this);
     }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -63,6 +64,10 @@ public class CheckEvaluateActivity extends BaseActivity {
     TextView tvChildTime;
     @BindView(R.id.tv_child_content)
     TextView tvChildContent;
+    @BindView(R.id.ratingBar01)
+    RatingBar ratingBar01;
+    @BindView(R.id.ratingBar02)
+    RatingBar ratingBar02;
 
     Observer<MarketEvaluateDetailResponseModel> mMarketEvaluateDetailResponseModelObserver = new Observer<MarketEvaluateDetailResponseModel>() {
         @Override
@@ -84,6 +89,8 @@ public class CheckEvaluateActivity extends BaseActivity {
             tvFrom.setText(marketEvaluateDetailResponseModel.getData().getEvaluateUser().getNickName());
             tvTime.setText(new JTimeTransform(marketEvaluateDetailResponseModel.getData().getEvaluateDate()).toString(new RecentDateFormat()));
             tvContent.setText(marketEvaluateDetailResponseModel.getData().getContent());
+            ratingBar01.setRating(marketEvaluateDetailResponseModel.getData().getProductMatche());
+            ratingBar02.setRating(marketEvaluateDetailResponseModel.getData().getExpressSpeed());
             if (marketEvaluateDetailResponseModel.getData().getChildEvaluate() != null) {
                 ll02.setVisibility(View.VISIBLE);
                 ll03.setVisibility(View.VISIBLE);

@@ -126,7 +126,7 @@ public class EvaluationForSellerActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        setTitle("立即评价");
+        setTitle("评价详情");
         tvSubmit.setOnClickListener(this);
         showWaitingDialog();
         subscription = HttpMethod.getInstance().marketEvaluateDetail(mMarketEvaluateDetailResponseModelObserver, setDetailParams());

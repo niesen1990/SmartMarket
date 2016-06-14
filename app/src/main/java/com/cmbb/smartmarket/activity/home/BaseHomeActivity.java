@@ -65,7 +65,6 @@ public abstract class BaseHomeActivity extends BaseRecyclerActivity {
             tvPublish.startAnimation(animationSet);
         if (mConversationUnreadChangeListener == null || mConversationService == null)
             return;
-
         //resume时需要检查全局未读消息数并做处理，因为离开此界面时删除了全局消息监听器
         mConversationUnreadChangeListener.onUnreadChange();
         //在Tab栏增加会话未读消息变化的全局监听器
@@ -87,89 +86,23 @@ public abstract class BaseHomeActivity extends BaseRecyclerActivity {
         tvHome.setOnClickListener(this);
         tvShop.setOnClickListener(this);
         tvPublish.setOnClickListener(this);
-
         tvMessage.setOnClickListener(this);
         tvMe.setOnClickListener(this);
-
         animationSet = new AnimationSet(false);
-        //--------------------1----------
-        ScaleAnimation scaleAnimation1 = new ScaleAnimation(1.0f, 1.1f, 1.0f, 1.1f,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        scaleAnimation1.setStartOffset(1500);
-        scaleAnimation1.setDuration(1000);
-        scaleAnimation1.setFillAfter(false);
-        scaleAnimation1.setRepeatCount(10000);
-        scaleAnimation1.setRepeatMode(Animation.INFINITE);
+        ScaleAnimation scaleAnimation = new ScaleAnimation(1.0f, 1.4f, 1.0f, 1.4f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setFillAfter(false);
+        scaleAnimation.setRepeatCount(Animation.INFINITE);
+        scaleAnimation.setRepeatMode(Animation.RESTART);
+        scaleAnimation.setDuration(1000);
 
-        AlphaAnimation alphaAnimation1 = new AlphaAnimation(1.0f, 0.2f);
-        alphaAnimation1.setStartOffset(1500);
-        alphaAnimation1.setFillAfter(false);
-        alphaAnimation1.setRepeatCount(Animation.INFINITE);
-        alphaAnimation1.setRepeatMode(Animation.RESTART);
-        alphaAnimation1.setDuration(2000);
-        //--------------------1----------
+        AlphaAnimation alphaAnimation = new AlphaAnimation(1.0f, 0.0f);
+        alphaAnimation.setFillAfter(false);
+        alphaAnimation.setRepeatCount(Animation.INFINITE);
+        alphaAnimation.setRepeatMode(Animation.RESTART);
+        alphaAnimation.setDuration(1000);
 
-        //--------------------2----------
-        ScaleAnimation scaleAnimation2 = new ScaleAnimation(1.0f, 1.2f, 1.0f, 1.2f,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        scaleAnimation2.setStartOffset(1000);
-        scaleAnimation2.setFillAfter(false);
-        scaleAnimation2.setDuration(2000);
-        scaleAnimation2.setRepeatCount(10000);
-        scaleAnimation2.setRepeatMode(Animation.INFINITE);
-
-        AlphaAnimation alphaAnimation2 = new AlphaAnimation(1.0f, 0.2f);
-        alphaAnimation2.setFillAfter(false);
-        alphaAnimation2.setStartOffset(1000);
-        alphaAnimation2.setRepeatCount(Animation.INFINITE);
-        alphaAnimation2.setRepeatMode(Animation.RESTART);
-        alphaAnimation2.setDuration(2000);
-        //--------------------2----------
-
-        //--------------------3----------
-        ScaleAnimation scaleAnimation3 = new ScaleAnimation(1.0f, 1.4f, 1.0f, 1.4f,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        scaleAnimation3.setFillAfter(false);
-//        scaleAnimation3.setStartOffset(500);
-        scaleAnimation3.setRepeatCount(Animation.INFINITE);
-        scaleAnimation3.setRepeatMode(Animation.RESTART);
-        scaleAnimation3.setDuration(2000);
-
-        AlphaAnimation alphaAnimation3 = new AlphaAnimation(1.0f, 0.2f);
-        alphaAnimation3.setFillAfter(false);
-//        alphaAnimation3.setStartOffset(500);
-        alphaAnimation3.setRepeatCount(Animation.INFINITE);
-        alphaAnimation3.setRepeatMode(Animation.RESTART);
-        alphaAnimation3.setDuration(2000);
-
-        //--------------------3----------
-
-        //--------------------4----------
-        ScaleAnimation scaleAnimation4 = new ScaleAnimation(1.0f, 1.4f, 1.0f, 1.4f,
-                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        scaleAnimation4.setFillAfter(false);
-        scaleAnimation4.setRepeatCount(Animation.INFINITE);
-        scaleAnimation4.setRepeatMode(Animation.RESTART);
-        scaleAnimation4.setDuration(2000);
-
-        AlphaAnimation alphaAnimation4 = new AlphaAnimation(1.0f, 0.2f);
-        alphaAnimation4.setFillAfter(false);
-        alphaAnimation4.setRepeatCount(Animation.INFINITE);
-        alphaAnimation4.setRepeatMode(Animation.RESTART);
-        alphaAnimation4.setDuration(2000);
-        //--------------------4----------
-
-       /* animationSet.addAnimation(scaleAnimation1);
-        animationSet.addAnimation(alphaAnimation1);
-
-        animationSet.addAnimation(scaleAnimation2);
-        animationSet.addAnimation(alphaAnimation2);*/
-
-//                animationSet.addAnimation(scaleAnimation3);
-//                animationSet.addAnimation(alphaAnimation3);
-        animationSet.addAnimation(scaleAnimation4);
-        animationSet.addAnimation(alphaAnimation4);
-
+        animationSet.addAnimation(scaleAnimation);
+        animationSet.addAnimation(alphaAnimation);
     }
 
     private void initListener() {

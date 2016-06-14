@@ -21,6 +21,8 @@ import com.cmbb.smartmarket.activity.login.model.LoginResponseModel;
 import com.cmbb.smartmarket.activity.login.model.SecurityCodeRequestModel;
 import com.cmbb.smartmarket.activity.login.model.SecurityCodeResponseModel;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountIndexRequestModel;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountIndexResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.Constants;
@@ -86,6 +88,30 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+    Observer<WalletAccountIndexResponseModel> mWalletAccountIndexResponseModelObserver = new Observer<WalletAccountIndexResponseModel>() {
+        @Override
+        public void onCompleted() {
+
+        }
+
+        @Override
+        public void onError(Throwable e) {
+        }
+
+        @Override
+        public void onNext(WalletAccountIndexResponseModel walletAccountIndexResponseModel) {
+            if (walletAccountIndexResponseModel == null)
+                return;
+
+            if (walletAccountIndexResponseModel.getData().isHasPassword()) {
+                SPCache.putBoolean(Constants.HAS_WALLET_PSW, true);
+            } else {
+                SPCache.putBoolean(Constants.HAS_WALLET_PSW, false);
+            }
+
+        }
+    };
+
     Observer<LoginResponseModel> mLoginResponseModelObserver = new Observer<LoginResponseModel>() {
         @Override
         public void onCompleted() {
@@ -138,6 +164,8 @@ public class LoginActivity extends BaseActivity {
                     values.put(DBContent.DBUser.USER_PHONE, loginResponseModel.getData().getLoginAccount());
                     values.put(DBContent.DBUser.USER_PROVINCE_ID, loginResponseModel.getData().getProvince());
                     values.put(DBContent.DBUser.USER_CITY_ID, loginResponseModel.getData().getCity());
+                    values.put(DBContent.DBUser.USER_PROVINCE, loginResponseModel.getData().getProvinceText());
+                    values.put(DBContent.DBUser.USER_CITY, loginResponseModel.getData().getCityText());
                     values.put(DBContent.DBUser.USER_LEVEL, loginResponseModel.getData().getUserLevel());
                     values.put(DBContent.DBUser.USER_INTRODUCE, loginResponseModel.getData().getIntroduce());
                     values.put(DBContent.DBUser.IM_USER_ID, loginResponseModel.getData().getImUserId());
@@ -146,6 +174,8 @@ public class LoginActivity extends BaseActivity {
                     BaseApplication.setUserId(loginResponseModel.getData().getId());
                     SPCache.putString(Constants.API_TOKEN, loginResponseModel.getData().getLoginToken());
                     SPCache.putInt(Constants.API_USER_ID, loginResponseModel.getData().getId());
+                    HttpMethod.getInstance().walletAccountIndexRequest(mWalletAccountIndexResponseModelObserver, setIndexParams());
+
                     // 发送信息注册Alias
                     Intent intent = new Intent(Constants.INTENT_ACTION_ALIAS);
                     intent.putExtra("umeng_id", loginResponseModel.getData().getId() + "_" + TDevice.getDeviceId(LoginActivity.this));
@@ -220,6 +250,13 @@ public class LoginActivity extends BaseActivity {
         securityCodeRequestModel.setCmd(ApiInterface.SecurityCode);
         securityCodeRequestModel.setParameters(new SecurityCodeRequestModel.ParametersEntity(etPhone.getText().toString().trim()));
         subscription = HttpMethod.getInstance().requestSecurityCode(mSecurityCodeResponseModelObserver, securityCodeRequestModel);
+    }
+
+    private WalletAccountIndexRequestModel setIndexParams() {
+        WalletAccountIndexRequestModel walletAccountIndexRequestModel = new WalletAccountIndexRequestModel();
+        walletAccountIndexRequestModel.setCmd(ApiInterface.WalletAccountIndex);
+        walletAccountIndexRequestModel.setToken(BaseApplication.getToken());
+        return walletAccountIndexRequestModel;
     }
 
     private void initIM(String account) {

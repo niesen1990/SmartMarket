@@ -16,12 +16,15 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  */
 public class RefundSellAdapter extends RecyclerArrayAdapter<MarketOrderListResponseModel.DataEntity.ContentEntity> {
 
-    public RefundSellAdapter(Context context) {
+    RefundSellItemHolder.ConfirmReceiver mConfirmReceiver;
+
+    public RefundSellAdapter(Context context, RefundSellItemHolder.ConfirmReceiver confirmReceiver) {
         super(context);
+        this.mConfirmReceiver = confirmReceiver;
     }
 
     @Override
     public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-        return new RefundSellItemHolder(parent);
+        return new RefundSellItemHolder(parent, mConfirmReceiver);
     }
 }

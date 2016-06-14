@@ -83,7 +83,23 @@ public class HomeOperationActivity extends BaseActivity {
 
         tvNeedClose = new TranslateAnimation(tvNeed.getLeft(), tvNeed.getLeft() - leftX, tvNeed.getRight(), tvNeed.getRight() + leftY);
         tvNeedClose.setDuration(100);
-        tvNeedClose.setFillAfter(true);
+        tvNeedClose.setFillAfter(false);
+        tvNeedClose.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                tvNeed.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
         tvPublishOpen = new TranslateAnimation(tvPublish.getLeft(), tvPublish.getLeft() - leftX, tvPublish.getRight(), tvPublish.getRight() - leftY);
         tvPublishOpen.setDuration(150);
@@ -110,7 +126,23 @@ public class HomeOperationActivity extends BaseActivity {
 
         tvPublishClose = new TranslateAnimation(tvPublish.getLeft(), tvPublish.getLeft() + leftX, tvPublish.getRight(), tvPublish.getRight() + leftY);
         tvPublishClose.setDuration(100);
-        tvPublishClose.setFillAfter(true);
+        tvPublishClose.setFillAfter(false);
+        tvPublishClose.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                tvPublish.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
 
         animationOpen = new RotateAnimation(0f, 45f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         animationOpen.setDuration(150);//设置动画持续时间
@@ -169,7 +201,6 @@ public class HomeOperationActivity extends BaseActivity {
         });
         ivClose.setAnimation(animationClose);
         animationClose.startNow();
-
     }
 
     @Override

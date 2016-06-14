@@ -153,7 +153,7 @@ public class PublishSellFragment extends BaseRecyclerFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_sell_refund;
+        return R.layout.fragment_publish;
     }
 
     @Override

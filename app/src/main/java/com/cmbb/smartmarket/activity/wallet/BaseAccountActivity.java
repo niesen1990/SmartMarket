@@ -5,12 +5,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordRequestModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.base.Constants;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.widget.NestedScrollView;
@@ -30,8 +32,11 @@ import rx.Observer;
 public abstract class BaseAccountActivity extends BaseActivity {
     @BindView(R.id.scroll)
     NestedScrollView scroll;
+    @BindView(R.id.tv_forget)
+    TextView tvForget;
     @BindView(R.id.iv_cancel)
     ImageView ivCancel;
+
     @BindView(R.id.iv_confirm)
     ImageView ivConfirm;
     @BindView(R.id.et_psw)
@@ -50,6 +55,7 @@ public abstract class BaseAccountActivity extends BaseActivity {
     public void showBottomSheet() {
         ivCancel.setOnClickListener(this);
         ivConfirm.setOnClickListener(this);
+        tvForget.setOnClickListener(this);
         BottomSheetBehavior behaviorPsw = BottomSheetBehavior.from(scroll);
         if (behaviorPsw.getState() == BottomSheetBehavior.STATE_EXPANDED) {
             behaviorPsw.setState(BottomSheetBehavior.STATE_COLLAPSED);
@@ -70,6 +76,10 @@ public abstract class BaseAccountActivity extends BaseActivity {
                     showToast("请输入交易密码");
                     return;
                 }
+                if (!Constants.regExpAccount(etPsw.getText().toString())) {
+                    showToast("密码格式字母，字符，4-16位");
+                    return;
+                }
                 if (needValPsw) {
                     showWaitingDialog();
                     subscription = HttpMethod.getInstance().walletAccountValiatePayPasswordRequest(getPswValiate(), setPswParams());
@@ -77,6 +87,9 @@ public abstract class BaseAccountActivity extends BaseActivity {
                     showBottomSheet();
                     pswOnConfirm(etPsw.getText().toString());
                 }
+                break;
+            case R.id.tv_forget:
+                DealPswPhoneActivity.newIntent(this);
                 break;
         }
     }

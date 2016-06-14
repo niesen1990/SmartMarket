@@ -155,6 +155,7 @@
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:background="@drawable/shape_white_stroke_no_corner"
         android:orientation="horizontal"
+        android:visibility="invisible"
         android:padding="@dimen/activity_vertical_margin">
 
         <TextView

@@ -165,7 +165,11 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
         super.onClick(v);
         switch (v.getId()) {
             case R.id.rl_wallet:
-                WalletActivity.newIntent(this);
+                if (TextUtils.isEmpty(BaseApplication.getToken())) {
+                    showToast("请登陆");
+                } else {
+                    WalletActivity.newIntent(this);
+                }
                 break;
             case R.id.rl_info:
                 if (userId == 0)

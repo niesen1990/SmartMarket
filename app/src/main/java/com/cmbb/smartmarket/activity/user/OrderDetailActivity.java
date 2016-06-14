@@ -1,9 +1,9 @@
 package com.cmbb.smartmarket.activity.user;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
@@ -30,14 +30,18 @@ import com.cmbb.smartmarket.activity.user.model.OrderBuyStatus;
 import com.cmbb.smartmarket.activity.user.model.OrderRefundBuyStatus;
 import com.cmbb.smartmarket.activity.user.model.OrderRefundSellStatus;
 import com.cmbb.smartmarket.activity.user.model.OrderSoldStatus;
+import com.cmbb.smartmarket.activity.wallet.BaseAccountRecyclerActivity;
+import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordResponseModel;
+import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
-import com.cmbb.smartmarket.base.BaseRecyclerActivity;
+import com.cmbb.smartmarket.base.Constants;
 import com.cmbb.smartmarket.image.CircleTransform;
 import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.utils.DialogUtils;
+import com.cmbb.smartmarket.utils.SPCache;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -53,7 +57,7 @@ import rx.Observer;
  * 修改时间：16/5/31 下午1:17
  * 修改备注：
  */
-public class OrderDetailActivity extends BaseRecyclerActivity {
+public class OrderDetailActivity extends BaseAccountRecyclerActivity {
     private static final String TAG = OrderDetailActivity.class.getSimpleName();
 
     @BindView(R.id.tv_head)
@@ -146,7 +150,7 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
             tvAddress.setText(marketOrderDetailResponseModel.getData().getAddress());
             tvSellNick.setText(marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getNickName());
             tvOrderCode.setText(marketOrderDetailResponseModel.getData().getOrderCode());
-            tvTime.setText(marketOrderDetailResponseModel.getData().getCreateDate());
+            tvTime.setText(marketOrderDetailResponseModel.getData().getPayDate());
             initBottomView(marketOrderDetailResponseModel);
         }
     };
@@ -183,6 +187,11 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
     }
 
     @Override
+    protected Observer<WalletAccountValiatePayPasswordResponseModel> getPswValiate() {
+        return null;
+    }
+
+    @Override
     protected RecyclerArrayAdapter initAdapter() {
         return new OrderDetailListAdapter(this);
     }
@@ -208,70 +217,6 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
         subscription = HttpMethod.getInstance().marketOrderDetail(mMarketOrderDetailResponseModelObserver, setParams());
     }
 
-    private MarketOrderDetailRequestModel setParams() {
-        MarketOrderDetailRequestModel marketOrderDetailRequestModel = new MarketOrderDetailRequestModel();
-        marketOrderDetailRequestModel.setToken(BaseApplication.getToken());
-        marketOrderDetailRequestModel.setCmd(ApiInterface.MarketOrderDetail);
-        marketOrderDetailRequestModel.setParameters(new MarketOrderDetailRequestModel.ParametersEntity(getIntent().getIntExtra("orderId", -1)));
-        return marketOrderDetailRequestModel;
-    }
-
-    private MarketOrderNoticeRequestModel setRefundBuyNoticeParams() {
-        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
-        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
-        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
-        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("refund", "buy", getIntent().getIntExtra("orderId", -1)));
-        return marketOrderNoticeRequestModel;
-    }
-
-    private MarketOrderNoticeRequestModel setOrderSellNoticeParams() {
-        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
-        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
-        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
-        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("order", "sell", getIntent().getIntExtra("orderId", -1)));
-        return marketOrderNoticeRequestModel;
-    }
-
-    private MarketOrderNoticeRequestModel setOrderBuyNoticeParams() {
-        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
-        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
-        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
-        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("order", "buy", getIntent().getIntExtra("orderId", -1)));
-        return marketOrderNoticeRequestModel;
-    }
-
-    private MarketOrderBuyerReceiveRequestModel setOrderBuyConfirmExpressParams(int orderId) {
-        MarketOrderBuyerReceiveRequestModel marketOrderBuyerReceiveRequestModel = new MarketOrderBuyerReceiveRequestModel();
-        marketOrderBuyerReceiveRequestModel.setToken(BaseApplication.getToken());
-        marketOrderBuyerReceiveRequestModel.setCmd(ApiInterface.MarketOrderBuyerReceive);
-        marketOrderBuyerReceiveRequestModel.setParameters(new MarketOrderBuyerReceiveRequestModel.ParametersEntity(orderId));
-        return marketOrderBuyerReceiveRequestModel;
-    }
-
-    private MarketOrderNoticeRequestModel setRefundSellNoticeParams() {
-        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
-        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
-        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
-        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("refund", "sell", getIntent().getIntExtra("orderId", -1)));
-        return marketOrderNoticeRequestModel;
-    }
-
-    private MarketOrderSellerReceiveRequestModel setRefundSellReceiverParams(int id) {
-        MarketOrderSellerReceiveRequestModel marketOrderSellerReceiveRequestModel = new MarketOrderSellerReceiveRequestModel();
-        marketOrderSellerReceiveRequestModel.setToken(BaseApplication.getToken());
-        marketOrderSellerReceiveRequestModel.setCmd(ApiInterface.MarketOrderSellerReceive);
-        marketOrderSellerReceiveRequestModel.setParameters(new MarketOrderSellerReceiveRequestModel.ParametersEntity(id));
-        return marketOrderSellerReceiveRequestModel;
-    }
-
-    private MarketOrderRefundRequestModel setRefundSellAgreeParams(MarketOrderDetailResponseModel response) {
-        MarketOrderRefundRequestModel marketOrderRefundRequestModel = new MarketOrderRefundRequestModel();
-        marketOrderRefundRequestModel.setToken(BaseApplication.getToken());
-        marketOrderRefundRequestModel.setCmd(ApiInterface.MarketOrderRefund);
-        marketOrderRefundRequestModel.setParameters(new MarketOrderRefundRequestModel.ParametersEntity(response.getData().getId(), "AGREE", ""));
-        return marketOrderRefundRequestModel;
-    }
-
     protected void initBottomView(final MarketOrderDetailResponseModel response) {
         if (orderType.equals("order") && saleType.equals("buy")) {
             String[] items = OrderBuyStatus.getStatus(response.getData().getStatus());
@@ -279,11 +224,14 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
                 llBottom.setVisibility(View.GONE);
                 return;
             } else if (!TextUtils.isEmpty(items[0]) && !TextUtils.isEmpty(items[1])) {
+                llBottom.setVisibility(View.VISIBLE);
                 tvOperation01.setVisibility(View.VISIBLE);
                 tvOperation02.setVisibility(View.VISIBLE);
             } else if (TextUtils.isEmpty(items[0])) {
+                llBottom.setVisibility(View.VISIBLE);
                 tvOperation01.setVisibility(View.GONE);
             } else {
+                llBottom.setVisibility(View.VISIBLE);
                 tvOperation02.setVisibility(View.GONE);
             }
             tvOperation01.setText(OrderBuyStatus.getStatus(response.getData().getStatus())[0]);
@@ -330,31 +278,55 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
                             }, setOrderBuyNoticeParams());
                             break;
                         case "确认收货":
-                            DialogUtils.createAlertDialog(OrderDetailActivity.this, "操作提醒", "你确定收获了吗？", true, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    showWaitingDialog();
-                                    HttpMethod.getInstance().marketOrderBuyerReceive(new Observer<MarketOrderBuyerReceiveResponseModel>() {
-                                        @Override
-                                        public void onCompleted() {
-                                            hideWaitingDialog();
-                                        }
+                            if (SPCache.getBoolean(Constants.HAS_WALLET_PSW, false)) {
+                                showBottomSheet(new Observer<WalletAccountValiatePayPasswordResponseModel>() {
+                                    @Override
+                                    public void onCompleted() {
+                                        hideWaitingDialog();
+                                    }
 
-                                        @Override
-                                        public void onError(Throwable e) {
-                                            hideWaitingDialog();
-                                            Log.e(TAG, e.toString());
-                                        }
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        hideWaitingDialog();
+                                        Log.e(TAG, e.toString());
+                                    }
 
-                                        @Override
-                                        public void onNext(MarketOrderBuyerReceiveResponseModel marketOrderBuyerReceiveResponseModel) {
-                                            if (marketOrderBuyerReceiveResponseModel == null)
-                                                return;
-                                            showToast(marketOrderBuyerReceiveResponseModel.getMsg());
+                                    @Override
+                                    public void onNext(WalletAccountValiatePayPasswordResponseModel walletAccountValiatePayPasswordResponseModel) {
+                                        hideWaitingDialog();
+                                        if (walletAccountValiatePayPasswordResponseModel != null) {
+                                            showWaitingDialog();
+                                            HttpMethod.getInstance().marketOrderBuyerReceive(new Observer<MarketOrderBuyerReceiveResponseModel>() {
+                                                @Override
+                                                public void onCompleted() {
+                                                    hideWaitingDialog();
+                                                }
+
+                                                @Override
+                                                public void onError(Throwable e) {
+                                                    hideWaitingDialog();
+                                                    Log.e(TAG, e.toString());
+                                                }
+
+                                                @Override
+                                                public void onNext(MarketOrderBuyerReceiveResponseModel marketOrderBuyerReceiveResponseModel) {
+                                                    if (marketOrderBuyerReceiveResponseModel == null)
+                                                        return;
+                                                    showToast(marketOrderBuyerReceiveResponseModel.getMsg());
+                                                    finish();
+                                                }
+                                            }, setOrderBuyConfirmExpressParams(response.getData().getId()));
                                         }
-                                    }, setOrderBuyConfirmExpressParams(response.getData().getId()));
-                                }
-                            });
+                                    }
+                                });
+                            } else {
+                                DialogUtils.createAlertDialog(OrderDetailActivity.this, "提示", getString(R.string.tip_deal_psw), true, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        onBackPressed();
+                                    }
+                                });
+                            }
                             break;
                         case "立即评价":
                             ImmediateEvaluationActivity.newIntent(OrderDetailActivity.this, response.getData().getId());
@@ -371,12 +343,15 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
                 llBottom.setVisibility(View.GONE);
                 return;
             } else if (!TextUtils.isEmpty(items[0]) && !TextUtils.isEmpty(items[1])) {
+                llBottom.setVisibility(View.VISIBLE);
                 tvOperation01.setVisibility(View.VISIBLE);
                 tvOperation02.setVisibility(View.VISIBLE);
                 return;
             } else if (TextUtils.isEmpty(items[0])) {
+                llBottom.setVisibility(View.VISIBLE);
                 tvOperation01.setVisibility(View.GONE);
             } else {
+                llBottom.setVisibility(View.VISIBLE);
                 tvOperation02.setVisibility(View.GONE);
             }
             tvOperation01.setText(items[0]);
@@ -427,11 +402,14 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
                 llBottom.setVisibility(View.GONE);
                 return;
             } else if (!TextUtils.isEmpty(items[1]) && !TextUtils.isEmpty(items[2])) {
+                llBottom.setVisibility(View.VISIBLE);
                 tvOperation01.setVisibility(View.VISIBLE);
                 tvOperation02.setVisibility(View.VISIBLE);
             } else if (TextUtils.isEmpty(items[1])) {
+                llBottom.setVisibility(View.VISIBLE);
                 tvOperation01.setVisibility(View.GONE);
             } else {
+                llBottom.setVisibility(View.VISIBLE);
                 tvOperation02.setVisibility(View.GONE);
             }
             tvOperation01.setText(items[1]);
@@ -486,12 +464,15 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
                 llBottom.setVisibility(View.GONE);
                 return;
             } else if (!TextUtils.isEmpty(items[1]) && !TextUtils.isEmpty(items[2])) {
+                llBottom.setVisibility(View.VISIBLE);
                 tvOperation01.setVisibility(View.VISIBLE);
                 tvOperation02.setVisibility(View.VISIBLE);
                 return;
             } else if (TextUtils.isEmpty(items[1])) {
+                llBottom.setVisibility(View.VISIBLE);
                 tvOperation01.setVisibility(View.GONE);
             } else {
+                llBottom.setVisibility(View.VISIBLE);
                 tvOperation02.setVisibility(View.GONE);
             }
             tvOperation01.setText(items[1]);
@@ -561,31 +542,54 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
                             }, setRefundSellNoticeParams());
                             break;
                         case "确认收货":
-                            DialogUtils.createAlertDialog(OrderDetailActivity.this, "警告", "确认收货了吗？", true, new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    showWaitingDialog();
-                                    HttpMethod.getInstance().marketOrderSellerReceive(new Observer<MarketOrderSellerReceiveResponseModel>() {
-                                        @Override
-                                        public void onCompleted() {
-                                            hideWaitingDialog();
-                                        }
+                            if (SPCache.getBoolean(Constants.HAS_WALLET_PSW, false)) {
+                                showBottomSheet(new Observer<WalletAccountValiatePayPasswordResponseModel>() {
+                                    @Override
+                                    public void onCompleted() {
+                                        hideWaitingDialog();
+                                    }
 
-                                        @Override
-                                        public void onError(Throwable e) {
-                                            hideWaitingDialog();
-                                            Log.e(TAG, e.toString());
-                                        }
+                                    @Override
+                                    public void onError(Throwable e) {
+                                        hideWaitingDialog();
+                                        Log.e(TAG, e.toString());
+                                    }
 
-                                        @Override
-                                        public void onNext(MarketOrderSellerReceiveResponseModel marketOrderSellerReceiveResponseModel) {
-                                            if (marketOrderSellerReceiveResponseModel == null)
-                                                return;
-                                            showToast(marketOrderSellerReceiveResponseModel.getMsg());
+                                    @Override
+                                    public void onNext(WalletAccountValiatePayPasswordResponseModel walletAccountValiatePayPasswordResponseModel) {
+                                        if (walletAccountValiatePayPasswordResponseModel != null) {
+                                            showWaitingDialog();
+                                            HttpMethod.getInstance().marketOrderSellerReceive(new Observer<MarketOrderSellerReceiveResponseModel>() {
+                                                @Override
+                                                public void onCompleted() {
+                                                    hideWaitingDialog();
+                                                }
+
+                                                @Override
+                                                public void onError(Throwable e) {
+                                                    hideWaitingDialog();
+                                                    Log.e(TAG, e.toString());
+                                                }
+
+                                                @Override
+                                                public void onNext(MarketOrderSellerReceiveResponseModel marketOrderSellerReceiveResponseModel) {
+                                                    if (marketOrderSellerReceiveResponseModel == null)
+                                                        return;
+                                                    showToast(marketOrderSellerReceiveResponseModel.getMsg());
+                                                    finish();
+                                                }
+                                            }, setRefundSellReceiverParams(response.getData().getId()));
                                         }
-                                    }, setRefundSellReceiverParams(response.getData().getId()));
-                                }
-                            });
+                                    }
+                                });
+                            } else {
+                                DialogUtils.createAlertDialog(OrderDetailActivity.this, "提示", getString(R.string.tip_deal_psw), true, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        onBackPressed();
+                                    }
+                                });
+                            }
                             break;
                         case "拒绝原因":
                             CheckRejectForBuyActivity.newIntent(OrderDetailActivity.this, response);
@@ -596,10 +600,80 @@ public class OrderDetailActivity extends BaseRecyclerActivity {
         }
     }
 
-    public static void newIntent(Context context, int orderId) {
+    private MarketOrderDetailRequestModel setParams() {
+        MarketOrderDetailRequestModel marketOrderDetailRequestModel = new MarketOrderDetailRequestModel();
+        marketOrderDetailRequestModel.setToken(BaseApplication.getToken());
+        marketOrderDetailRequestModel.setCmd(ApiInterface.MarketOrderDetail);
+        marketOrderDetailRequestModel.setParameters(new MarketOrderDetailRequestModel.ParametersEntity(getIntent().getIntExtra("orderId", -1)));
+        return marketOrderDetailRequestModel;
+    }
+
+    private MarketOrderNoticeRequestModel setRefundBuyNoticeParams() {
+        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
+        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
+        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
+        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("refund", "buy", getIntent().getIntExtra("orderId", -1)));
+        return marketOrderNoticeRequestModel;
+    }
+
+    private MarketOrderNoticeRequestModel setOrderSellNoticeParams() {
+        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
+        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
+        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
+        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("order", "sell", getIntent().getIntExtra("orderId", -1)));
+        return marketOrderNoticeRequestModel;
+    }
+
+    private MarketOrderNoticeRequestModel setOrderBuyNoticeParams() {
+        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
+        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
+        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
+        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("order", "buy", getIntent().getIntExtra("orderId", -1)));
+        return marketOrderNoticeRequestModel;
+    }
+
+    private MarketOrderBuyerReceiveRequestModel setOrderBuyConfirmExpressParams(int orderId) {
+        MarketOrderBuyerReceiveRequestModel marketOrderBuyerReceiveRequestModel = new MarketOrderBuyerReceiveRequestModel();
+        marketOrderBuyerReceiveRequestModel.setToken(BaseApplication.getToken());
+        marketOrderBuyerReceiveRequestModel.setCmd(ApiInterface.MarketOrderBuyerReceive);
+        marketOrderBuyerReceiveRequestModel.setParameters(new MarketOrderBuyerReceiveRequestModel.ParametersEntity(orderId));
+        return marketOrderBuyerReceiveRequestModel;
+    }
+
+    private MarketOrderNoticeRequestModel setRefundSellNoticeParams() {
+        MarketOrderNoticeRequestModel marketOrderNoticeRequestModel = new MarketOrderNoticeRequestModel();
+        marketOrderNoticeRequestModel.setCmd(ApiInterface.MarketOrderNotice);
+        marketOrderNoticeRequestModel.setToken(BaseApplication.getToken());
+        marketOrderNoticeRequestModel.setParameters(new MarketOrderNoticeRequestModel.ParametersEntity("refund", "sell", getIntent().getIntExtra("orderId", -1)));
+        return marketOrderNoticeRequestModel;
+    }
+
+    private MarketOrderSellerReceiveRequestModel setRefundSellReceiverParams(int id) {
+        MarketOrderSellerReceiveRequestModel marketOrderSellerReceiveRequestModel = new MarketOrderSellerReceiveRequestModel();
+        marketOrderSellerReceiveRequestModel.setToken(BaseApplication.getToken());
+        marketOrderSellerReceiveRequestModel.setCmd(ApiInterface.MarketOrderSellerReceive);
+        marketOrderSellerReceiveRequestModel.setParameters(new MarketOrderSellerReceiveRequestModel.ParametersEntity(id));
+        return marketOrderSellerReceiveRequestModel;
+    }
+
+    private MarketOrderRefundRequestModel setRefundSellAgreeParams(MarketOrderDetailResponseModel response) {
+        MarketOrderRefundRequestModel marketOrderRefundRequestModel = new MarketOrderRefundRequestModel();
+        marketOrderRefundRequestModel.setToken(BaseApplication.getToken());
+        marketOrderRefundRequestModel.setCmd(ApiInterface.MarketOrderRefund);
+        marketOrderRefundRequestModel.setParameters(new MarketOrderRefundRequestModel.ParametersEntity(response.getData().getId(), "AGREE", ""));
+        return marketOrderRefundRequestModel;
+    }
+
+    public static void newIntent(BaseActivity context, int orderId, int requestCode) {
         Intent intent = new Intent(context, OrderDetailActivity.class);
         intent.putExtra("orderId", orderId);
-        context.startActivity(intent);
+        context.startActivityForResult(intent, requestCode);
+    }
+
+    public static void newIntent(Fragment context, int orderId, int requestCode) {
+        Intent intent = new Intent(context.getContext(), OrderDetailActivity.class);
+        intent.putExtra("orderId", orderId);
+        context.startActivityForResult(intent, requestCode);
     }
 
 }

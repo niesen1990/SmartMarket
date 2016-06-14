@@ -155,7 +155,6 @@ public class HomePagerActivity extends BaseHomeActivity {
         tvHome.setSelected(true);
         tvCity.setOnClickListener(this);
         city = SPCache.getString(Constants.LOCATION_CITY, "");
-        tvCity.setText(city);
         getToolbar().setDisplayHomeAsUpEnabled(false);
         adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
             @Override

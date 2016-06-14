@@ -31,6 +31,12 @@ import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
 import com.umeng.socialize.PlatformConfig;
 
+import org.lzh.framework.updatepluginlib.UpdateConfig;
+import org.lzh.framework.updatepluginlib.callback.EmptyCheckCB;
+import org.lzh.framework.updatepluginlib.callback.EmptyDownloadCB;
+import org.lzh.framework.updatepluginlib.model.Update;
+import org.lzh.framework.updatepluginlib.model.UpdateParser;
+
 /**
  * 项目名称：SmartMarket
  * 类描述：
@@ -39,10 +45,12 @@ import com.umeng.socialize.PlatformConfig;
  */
 public class BaseApplication extends MultiDexApplication {
 
+    private static final String TAG = BaseApplication.class.getSimpleName();
     public static PushAgent mPushAgent;
     public static Application context;
     public static String token = "";
     public static int userId;
+    Update update;
 
     @Override
     public void onCreate() {
@@ -53,6 +61,7 @@ public class BaseApplication extends MultiDexApplication {
         if (insideApplicationOnCreate())
             return;//todo 如果在":TCMSSevice"进程中，无需进行openIM和app业务的初始化，以节省内存
         initIM();
+        initUpdate();
         initSharePreference();
         initUmengAnalytics();
         initPushAgent();
@@ -60,6 +69,61 @@ public class BaseApplication extends MultiDexApplication {
         initBroadcastReceiver();
         setToken(SPCache.getString(Constants.API_TOKEN, ""));
         setUserId(SPCache.getInt(Constants.API_USER_ID, -1));
+    }
+
+    private void initUpdate() {
+        UpdateConfig.getConfig()
+                // 必填：数据更新接口
+                .url("http://www.baidu.com")
+                // 必填：用于从数据更新接口获取的数据response中。解析出Update实例。以便框架内部处理
+                .jsonParser(new UpdateParser() {
+                    @Override
+                    public Update parse(String response) {
+                        /*// 此处模拟一个Update对象
+                        Update update = new Update(response);
+                        // 此apk包的更新时间
+                        update.setUpdateTime(System.currentTimeMillis());
+                        // 此apk包的下载地址
+                        update.setUpdateUrl("http://www.baidu.com");
+                        // 此apk包的版本号
+                        update.setVersionCode(2);
+                        // 此apk包的版本名称
+                        update.setVersionName("2.0");
+                        // 此apk包的更新内容
+                        update.setUpdateContent("测试更新");
+                        // 此apk包是否为强制更新
+                        update.setForced(false);
+                        // 是否忽略此次版本更新
+                        update.setIgnore(false);*/
+                        return update;
+                    }
+                })
+                // TODO: 2016/5/11 除了以上两个参数为必填。以下的参数均为非必填项。
+                .checkCB(new EmptyCheckCB() {
+
+                    @Override
+                    public void onCheckError(int code, String errorMsg) {
+//                        Toast.makeText(getContext(), "更新失败：code:" + code + ",errorMsg:" + errorMsg, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onUserCancel() {
+                        //                        Toast.makeText(getContext(), "用户取消更新", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void noUpdate() {
+                        //                        Toast.makeText(getContext(), "无更新", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                // apk下载的回调
+                .downloadCB(new EmptyDownloadCB() {
+                    @Override
+                    public void onUpdateError(int code, String errorMsg) {
+//                        Toast.makeText(getContext(), "下载失败：code:" + code + ",errorMsg:" + errorMsg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
     }
 
     private void initBroadcastReceiver() {
@@ -155,16 +219,26 @@ public class BaseApplication extends MultiDexApplication {
          * 	      或者可以直接启动Service
          * */
         UmengMessageHandler messageHandler = new UmengMessageHandler() {
+
             @Override
             public void dealWithCustomMessage(final Context context, final UMessage msg) {
                 new Handler(getMainLooper()).post(new Runnable() {
-
                     @Override
                     public void run() {
                         // TODO Auto-generated method stub
-                        Log.e("SmartKids", "message" + msg);
+                        Log.e("SmartKids", "message" + msg.extra.toString());
                         UTrack.getInstance(getApplicationContext()).trackMsgClick(msg);
                         MessageNotification.notify(getContext(), msg.custom, 0);
+                        try {
+                            update = new Update("");
+                            update.setForced(Boolean.valueOf(msg.extra.get("forced")));
+                            update.setUpdateContent(msg.custom);
+                            update.setVersionCode(Integer.parseInt(msg.extra.get("versionCode")));
+                            update.setVersionName(msg.extra.get("versionName"));
+                            update.setUpdateUrl(msg.extra.get("updateUrl"));
+                        } catch (Exception e) {
+                            Log.e(TAG, e.toString());
+                        }
                     }
                 });
             }
@@ -197,6 +271,7 @@ public class BaseApplication extends MultiDexApplication {
             @Override
             public void dealWithCustomAction(Context context, UMessage msg) {
                 Log.e("SmartMarket", "message = " + msg.custom);
+                Log.e("SmartMarket", "message extra = " + msg.extra);
             }
         };
         mPushAgent.setNotificationClickHandler(notificationClickHandler);

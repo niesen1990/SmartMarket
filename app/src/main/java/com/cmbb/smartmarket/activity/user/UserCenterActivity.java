@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.user.adapter.UserCenterFragmentAdapter;
@@ -24,6 +23,7 @@ import com.cmbb.smartmarket.activity.user.model.MarketCenterPersonCenterInfoResp
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.image.CircleTransform;
+import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
@@ -113,15 +113,7 @@ public class UserCenterActivity extends BaseActivity implements AppBarLayout.OnO
                 return;
             imUserId = marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getImUserId();
             //UI
-            Glide.with(UserCenterActivity.this)
-                    .load(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getUserImg())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.color.line)
-                    .error(R.color.darkgray)
-                    .crossFade()
-                    .centerCrop()
-                    .transform(new CircleTransform(UserCenterActivity.this))
-                    .into(ivHead);
+            ImageLoader.loadUrlAndDiskCache(UserCenterActivity.this, marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getUserImg(),ivHead, new CircleTransform(UserCenterActivity.this));
 
             Glide.with(UserCenterActivity.this)
                     .load(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getUserImg() + "@" + TDevice.getScreenWidth(UserCenterActivity.this) + "w_" + TDevice.dip2px(256, UserCenterActivity.this) + "h_50-50bl")

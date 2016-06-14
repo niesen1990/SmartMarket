@@ -9,16 +9,16 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.user.SettingActivity;
 
 /**
  * Helper class for showing and canceling message
  * notifications.
- * <p>
+ * <p/>
  * This class makes heavy use of the {@link NotificationCompat.Builder} helper
  * class to create notifications in a backward-compatible way.
  */
@@ -31,10 +31,10 @@ public class MessageNotification {
     /**
      * Shows the notification, or updates a previously shown notification of
      * this type, with the given parameters.
-     * <p>
+     * <p/>
      * TODO: Customize this method's arguments to present relevant content in
      * the notification.
-     * <p>
+     * <p/>
      * TODO: Customize the contents of this method to tweak the behavior and
      * presentation of message notifications. Make
      * sure to follow the
@@ -46,6 +46,8 @@ public class MessageNotification {
     public static void notify(final Context context, final String content, final int number) {
         final Resources res = context.getResources();
 
+        Intent intent = new Intent(context, SettingActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         // This image is used as the notification's large icon (thumbnail).
         // TODO: Remove this if your notification has no relevant thumbnail.
         final Bitmap picture = BitmapFactory.decodeResource(res, R.mipmap.ic_launcher);
@@ -93,10 +95,7 @@ public class MessageNotification {
 
                 // Set the pending intent to be initiated when the user touches
                 // the notification.
-                .setContentIntent(PendingIntent.getActivity(
-                        context,
-                        0,
-                        new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com")),
+                .setContentIntent(PendingIntent.getActivity(context, 0, intent,
                         PendingIntent.FLAG_UPDATE_CURRENT))
 
                 // Show expanded text content on devices running Android 4.1 or
@@ -111,12 +110,12 @@ public class MessageNotification {
                 // should ensure that the activity in this notification's
                 // content intent provides access to the same actions in
                 // another way.
-                .addAction(android.R.drawable.ic_delete, "取消", PendingIntent.getActivity(context, 0,
-                        Intent.createChooser(new Intent(Intent.ACTION_SEND)
-                                .setType("text/plain")
-                                .putExtra(Intent.EXTRA_TEXT, "Dummy text"), "Dummy title"),
-                        PendingIntent.FLAG_UPDATE_CURRENT))
-                .addAction(android.R.drawable.ic_menu_upload, "下载", null)
+                //                .addAction(android.R.drawable.ic_delete, "取消", PendingIntent.getActivity(context, 0,
+                //                        Intent.createChooser(new Intent(Intent.ACTION_SEND)
+                //                                .setType("text/plain")
+                //                                .putExtra(Intent.EXTRA_TEXT, "Dummy text"), "Dummy title"),
+                //                        PendingIntent.FLAG_UPDATE_CURRENT))
+                //                .addAction(android.R.drawable.ic_menu_upload, "下载", null)
 
                 // Automatically dismiss the notification when it is touched.
                 .setAutoCancel(true);

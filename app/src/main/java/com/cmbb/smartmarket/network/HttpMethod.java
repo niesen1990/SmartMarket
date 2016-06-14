@@ -97,6 +97,8 @@ import com.cmbb.smartmarket.activity.user.model.MarketEvaluateListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketEvaluateListResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketEvaluateSaveRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketEvaluateSaveResponseModel;
+import com.cmbb.smartmarket.activity.user.model.MarketLogoutRequestModel;
+import com.cmbb.smartmarket.activity.user.model.MarketLogoutResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderApplyRefundResponseModel;
 import com.cmbb.smartmarket.activity.user.model.MarketOrderBuyerReceiveRequestModel;
@@ -1259,6 +1261,20 @@ public class HttpMethod {
         Observable<WalletAccountBillListResponseModel> observable = mApiInterface
                 .walletAccountBillList(retrofitRequestModel)
                 .map(new HttpResultFunc<WalletAccountBillListResponseModel>());
+        return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 注销登录
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription marketLogout(Observer<MarketLogoutResponseModel> observer, MarketLogoutRequestModel retrofitRequestModel) {
+        Observable<MarketLogoutResponseModel> observable = mApiInterface
+                .marketLogout(retrofitRequestModel)
+                .map(new HttpResultFunc<MarketLogoutResponseModel>());
         return addSubscribe(observable, observer);
     }
 

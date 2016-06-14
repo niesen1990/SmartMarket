@@ -16,12 +16,15 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  */
 public class BuyFinishedAdapter extends RecyclerArrayAdapter<MarketOrderListResponseModel.DataEntity.ContentEntity> {
 
-    public BuyFinishedAdapter(Context context) {
+    BuyFinishedItemHolder.ConfirmReceiverListener mConfirmReceiverListener;
+
+    public BuyFinishedAdapter(Context context, BuyFinishedItemHolder.ConfirmReceiverListener confirmReceiverListener) {
         super(context);
+        mConfirmReceiverListener = confirmReceiverListener;
     }
 
     @Override
     public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-        return new BuyFinishedItemHolder(parent);
+        return new BuyFinishedItemHolder(parent, mConfirmReceiverListener);
     }
 }

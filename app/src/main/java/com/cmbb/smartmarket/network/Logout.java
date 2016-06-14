@@ -36,21 +36,18 @@ public class Logout {
                             boolean flag = BaseApplication.mPushAgent.removeAlias(SPCache.getInt(Constants.API_USER_ID, -1) + "_" + TDevice.getDeviceId(context), "market");
                             Log.e("Alias", "Alias remove = " + flag);
                             Log.e("Alias", "Alias remove id = " + SPCache.getInt(Constants.API_USER_ID, -1));
-                            if (flag) {
-                                SPCache.clear();
-                                //删除表
-                                DBHelper dbHelper = new DBHelper(context);
-                                SQLiteDatabase db = dbHelper.getWritableDatabase();
-                                dbHelper.delete(db);
-                                SPCache.clear();
-                                BaseApplication.setToken("");
-                                BaseApplication.setUserId(0);
-                                //关闭主页面
-                                Intent intent = new Intent(Constants.INTENT_ACTION_EXIT_APP);
-                                context.sendBroadcast(intent);
-                                LoginActivity.newIntent(context);
-                            } else {
-                            }
+                            SPCache.clear();
+                            //删除表
+                            DBHelper dbHelper = new DBHelper(context);
+                            SQLiteDatabase db = dbHelper.getWritableDatabase();
+                            dbHelper.delete(db);
+                            SPCache.clear();
+                            BaseApplication.setToken("");
+                            BaseApplication.setUserId(0);
+                            //关闭主页面
+                            Intent intent = new Intent(Constants.INTENT_ACTION_EXIT_APP);
+                            context.sendBroadcast(intent);
+                            LoginActivity.newIntent(context);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

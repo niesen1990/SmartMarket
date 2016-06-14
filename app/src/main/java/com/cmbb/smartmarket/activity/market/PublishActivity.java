@@ -3,6 +3,7 @@ package com.cmbb.smartmarket.activity.market;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.text.Editable;
@@ -344,6 +345,7 @@ public class PublishActivity extends BaseActivity {
             etContent.setText(goodModel.getContent());
             tvNewPrice.setText(goodModel.getCurrentPrice() + "");
             tvOldPrice.setText(goodModel.getOriginalPrice() + "");
+            tvClass.setText(goodModel.getParentClassifyText() + " - " + goodModel.getSecondClassifyText());
 
             for (MyselfProductPublicListResponseModel.DataEntity.ContentEntity.ProductImageListEntity model : goodModel.getProductImageList()) {
                 publishImageModels.add(new PublishImageModel(model.getLocation(), 0, model.getBusinessNumber()));
@@ -367,6 +369,7 @@ public class PublishActivity extends BaseActivity {
             }
             curvedPicker.setData(curvedStrings);
             curvedPicker.setItemIndex(0);
+            classChild = 0;
         }
     };
 
@@ -374,7 +377,7 @@ public class PublishActivity extends BaseActivity {
 
         @Override
         public void onWheelSelected(int index, String data) {
-            Log.e("02", data);
+            Log.e(TAG, data);
             classChild = index;
         }
     };
@@ -399,6 +402,9 @@ public class PublishActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.tv_cancel:
                 behaviorStart();
+                parentClassify = "";
+                secondClassify = "";
+                tvClass.setText("");
                 break;
             case R.id.tv_confirm:
                 behaviorStart();
@@ -537,7 +543,6 @@ public class PublishActivity extends BaseActivity {
                 if (imageCount != 0)
                     imageCount = imageCount - 1;
             }
-
             IMPrefsTools.removePrefs(this, "imageTempFile");
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -725,6 +730,8 @@ public class PublishActivity extends BaseActivity {
                 }
             }, setDeleteParams(businessNumber));
         } else {
+            if (publishImageModels.get(position).getSubscription() == null)
+                return;
             publishImageModels.get(position).getSubscription().unsubscribe();
             publishImageModels.remove(position);
             imageCount++;
@@ -765,6 +772,19 @@ public class PublishActivity extends BaseActivity {
         } else {
             behaviorPic.setState(BottomSheetBehavior.STATE_EXPANDED);
         }
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Log.e(TAG, "onConfigurationChanged");
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e(TAG, "onDestroy");
     }
 
     public static void newIntent(Context context, String title, String productType) {

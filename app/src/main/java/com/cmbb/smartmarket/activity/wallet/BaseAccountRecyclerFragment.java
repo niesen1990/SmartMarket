@@ -10,8 +10,9 @@ import android.widget.TextView;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordRequestModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordResponseModel;
+import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
-import com.cmbb.smartmarket.base.BaseRecyclerActivity;
+import com.cmbb.smartmarket.base.BaseRecyclerFragment;
 import com.cmbb.smartmarket.base.Constants;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
@@ -30,7 +31,7 @@ import rx.Observer;
  * 修改时间：16/5/6 上午10:37
  * 修改备注：
  */
-public abstract class BaseAccountRecyclerActivity extends BaseRecyclerActivity {
+public abstract class BaseAccountRecyclerFragment extends BaseRecyclerFragment {
     @BindView(R.id.scroll)
     NestedScrollView scroll;
     @BindView(R.id.iv_cancel)
@@ -39,7 +40,6 @@ public abstract class BaseAccountRecyclerActivity extends BaseRecyclerActivity {
     TextView tvForget;
     @BindView(R.id.iv_confirm)
     ImageView ivConfirm;
-
     @BindView(R.id.et_psw)
     EditText etPsw;
 
@@ -71,8 +71,7 @@ public abstract class BaseAccountRecyclerActivity extends BaseRecyclerActivity {
                 } else {
                     behaviorPsw.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
-                KeyboardUtil.hideKeyboard(BaseAccountRecyclerActivity.this);
-
+                //                KeyboardUtil.hideKeyboard((BaseActivity) getActivity());
             }
         });
         ivConfirm.setOnClickListener(new View.OnClickListener() {
@@ -91,9 +90,8 @@ public abstract class BaseAccountRecyclerActivity extends BaseRecyclerActivity {
                 } else {
                     behaviorPsw.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
-                KeyboardUtil.hideKeyboard(BaseAccountRecyclerActivity.this);
-
-                showWaitingDialog();
+                //                KeyboardUtil.hideKeyboard((BaseActivity) getActivity());
+                ((BaseActivity) getActivity()).showWaitingDialog();
                 subscription = HttpMethod.getInstance().walletAccountValiatePayPasswordRequest(callback, setPswParams());
             }
         });
@@ -105,7 +103,7 @@ public abstract class BaseAccountRecyclerActivity extends BaseRecyclerActivity {
         switch (v.getId()) {
             case R.id.iv_cancel:
                 showBottomSheet();
-                KeyboardUtil.hideKeyboard(this);
+                KeyboardUtil.hideKeyboard((BaseActivity) getActivity());
                 break;
             case R.id.iv_confirm:
                 if (TextUtils.isEmpty(etPsw.getText().toString())) {
@@ -116,12 +114,12 @@ public abstract class BaseAccountRecyclerActivity extends BaseRecyclerActivity {
                     showToast("密码格式字母，字符，4-16位");
                     return;
                 }
-                showWaitingDialog();
-                KeyboardUtil.hideKeyboard(this);
+                ((BaseActivity) getActivity()).showWaitingDialog();
+                KeyboardUtil.hideKeyboard((BaseActivity) getActivity());
                 subscription = HttpMethod.getInstance().walletAccountValiatePayPasswordRequest(getPswValiate(), setPswParams());
                 break;
             case R.id.tv_forget:
-                DealPswPhoneActivity.newIntent(this);
+                DealPswPhoneActivity.newIntent(getActivity());
                 break;
         }
     }

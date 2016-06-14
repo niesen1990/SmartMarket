@@ -53,7 +53,7 @@ public class OrderMessageActivity extends BaseMessageActivity {
     @Override
     public void onItemClick(int position) {
         // TODO: 16/6/5
-        OrderDetailActivity.newIntent(this, ((MessageOrderAdapter) adapter).getItem(position).getRelateField());
+        OrderDetailActivity.newIntent(this, ((MessageOrderAdapter) adapter).getItem(position).getRelateField(), 100);
     }
 
     Observer<MarketMessageGetPageResponseModel> mMarketMessageGetPageResponseModelObserver = new Observer<MarketMessageGetPageResponseModel>() {

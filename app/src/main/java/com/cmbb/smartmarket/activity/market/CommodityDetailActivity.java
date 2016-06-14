@@ -357,12 +357,13 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
+        if(mProductDetailResponseModel == null) return;
         switch (v.getId()) {
             case R.id.iv_head:
                 UserCenterActivity.newIntent(this, mProductDetailResponseModel.getData().getPublicUser().getId());
                 break;
             case R.id.tv_share:
-                if (mProductDetailResponseModel.getData().getProductImageList() != null & mProductDetailResponseModel.getData().getProductImageList().size() > 0) {
+                if (mProductDetailResponseModel.getData().getProductImageList() != null && mProductDetailResponseModel.getData().getProductImageList().size() > 0) {
                     SocialUtils.share(this, mProductDetailResponseModel.getData().getProductImageList().get(0).getLocation(), mProductDetailResponseModel.getData().getTitle(), mProductDetailResponseModel.getData().getContent(), ApiInterface.SHARE_PUBLISH + getIntent().getIntExtra("id", -1));
                 } else {
                     SocialUtils.share(this, R.mipmap.ic_good_bac, mProductDetailResponseModel.getData().getTitle(), mProductDetailResponseModel.getData().getContent(), ApiInterface.SHARE_PUBLISH + getIntent().getIntExtra("id", -1));

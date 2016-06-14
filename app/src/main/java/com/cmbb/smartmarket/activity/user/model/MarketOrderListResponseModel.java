@@ -14,7 +14,7 @@ import java.util.List;
  * 修改时间：16/5/18 下午3:55
  * 修改备注：
  */
-public class MarketOrderListResponseModel  {
+public class MarketOrderListResponseModel {
 
     /**
      * content : [{"id":5,"product":{"id":9,"title":"【求购】 求购服装111","introduce":"","content":"求购服装111","originalPrice":500,"currentPrice":100,"freight":5,"priceDesc":"","parentClassify":"MMYP","parentClassifyText":"","secondClassify":"MMYP_FZ","secondClassifyText":"","thirdClassify":"","thirdClassifyText":"","lontitude":"","latitude":"","province":"","city":"","district":"","address":"","type":"ASK_TO_BUY","status":"ITEMDOWNSHELF","statusText":"下架","isResolve":1,"resolveDate":"","browseNumber":0,"replyNumber":0,"shareNumber":0,"isRecommoned":1,"publicDate":"2016-05-10 17:03:37","publicUser":{"id":3,"mbpUserId":108074,"loginAccount":"18221507236","nickName":"mywaystay","sex":1,"province":310000,"provinceText":"","city":310104,"cityText":"","introduce":"","userImg":"http://smart.image.alimmdn.com/app/test/2015-12-8/C6BDAD0C-A958-428A-8287-745234FE9253","imgWidth":"","imgHeight":"","userLevel":0,"appVersion":"","device":"","deviceImei":""},"isCollect":1,"isSpot":1},"buyUser":{"id":1,"mbpUserId":108075,"loginAccount":"15901718791","nickName":"臻萌兔","sex":1,"province":110000,"provinceText":null,"city":110100,"cityText":"","introduce":"","userImg":"http://smart-test.image.alimmdn.com/market/user/image/2016-05-13/ODUxNmNiNDctYjVlZC00N2JiLTljMzAtY2UwMDQxYWE4NjYx","imgWidth":542,"imgHeight":408,"userLevel":0,"appVersion":"","device":"","deviceImei":""},"status":"NOT_PAID","statusName":"等待买家付款","orderCode":"00982024","phone":"15901718791","price":100,"payDate":"","freight":5,"express":"","expressNum":"","receiveName":"收货人姓名","receivePhone":"15901718791","postCode":"200000","address":"上海上海市杨浦区飞虹路568弄13号","cancelDate":"","cancelReason":"","refundStatus":1,"refundDate":"","refundServer":"","refundReason":"","refundMark":"","refundExpress":"","refundExpressNum":"","rejectDate":"","rejectReason":"","createDate":"2016-05-16 19:38:38","process":""}]
@@ -979,6 +979,7 @@ public class MarketOrderListResponseModel  {
                     }
                 };
             }
+
             public static class ProductImageListEntity implements Parcelable {
                 private String imageHeight;
                 private String location;
@@ -1254,7 +1255,7 @@ public class MarketOrderListResponseModel  {
                     this.nickName = in.readString();
                     this.sex = in.readInt();
                     this.province = in.readInt();
-                    this.provinceText = in.readParcelable(Object.class.getClassLoader());
+                    this.provinceText = in.readString();
                     this.city = in.readInt();
                     this.cityText = in.readString();
                     this.introduce = in.readString();
