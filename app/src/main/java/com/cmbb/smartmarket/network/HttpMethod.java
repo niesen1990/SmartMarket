@@ -37,8 +37,6 @@ import com.cmbb.smartmarket.activity.home.model.MyselfGetCountRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfGetCountResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListResponseModel;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
-import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
 import com.cmbb.smartmarket.activity.login.model.LoginRequestModel;
 import com.cmbb.smartmarket.activity.login.model.LoginResponseModel;
 import com.cmbb.smartmarket.activity.login.model.SecurityCodeRequestModel;
@@ -234,17 +232,6 @@ public class HttpMethod {
         }
     }
 
-    /**
-     * 获取测试数据接口
-     *
-     * @param observer 调用者传过来的观察者对象
-     */
-    public Subscription getTestData(Observer<TestModel> observer, TestRequestModel retrofitRequestModel) {
-        Observable<TestModel> observable = mApiInterface
-                .testApi(retrofitRequestModel)
-                .map(new HttpResultFunc<TestModel>());
-        return addSubscribe(observable, observer);
-    }
 
     /**
      * 登陆接口

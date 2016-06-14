@@ -34,8 +34,6 @@ import com.cmbb.smartmarket.activity.home.model.MyselfGetCountRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfGetCountResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListResponseModel;
-import com.cmbb.smartmarket.activity.home.model.TestModel;
-import com.cmbb.smartmarket.activity.home.model.TestRequestModel;
 import com.cmbb.smartmarket.activity.login.model.LoginRequestModel;
 import com.cmbb.smartmarket.activity.login.model.LoginResponseModel;
 import com.cmbb.smartmarket.activity.login.model.SecurityCodeRequestModel;
@@ -164,16 +162,10 @@ public interface ApiInterface {
 
     String Base = "http://erpuat.mengbp.com:8094/";
     String HOST = Base + "wine-market-rest/cgi/";
-    //    String Base = "http://192.168.100.64:8085/";
-    //    String HOST = Base + "wine-market-rest/cgi/";
 
-    String SHARE_NEED = "http://erpuat.mengbp.com:8090/SmartApp/MBPZShare/index.html#/shopDetail/";
-    String SHARE_PUBLISH = "http://erpuat.mengbp.com:8090/SmartApp/MBPZShare/index.html#/productDetail/";
+    String SHARE_NEED = "http://www.mengbp.com/web/App/share/mbpz/index.html#/shopDetail/";
+    String SHARE_PUBLISH = "http://www.mengbp.com/web/App/share/mbpz/index.html#/productDetail/";
     String SHARE_APP = "http://mbpz.file.alimmdn.com/recommended.html";
-
-    @Headers("Content-Type: application/json")
-    @POST("http://mengbaopai.smart-kids.com:82/wine-rest/cgi")
-    Observable<BaseRetrofitModel<TestModel>> testApi(@Body TestRequestModel retrofitRequestModel);//测试数据接口
 
     @Headers("Content-Type: application/json")
     @POST(HOST)

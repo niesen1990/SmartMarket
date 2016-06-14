@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="2015-03-24 10:15"
-        android:textSize="9sp"/>
+        android:textSize="9.5sp"/>
 
 </LinearLayout>
 

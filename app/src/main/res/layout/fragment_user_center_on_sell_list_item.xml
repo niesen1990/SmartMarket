@@ -51,7 +51,7 @@
             android:background="@drawable/shape_gray_single_line"
             android:gravity="center"
             android:maxLines="1"
-            android:textSize="12sp"
+            android:textSize="10sp"
             tools:text="3700"/>
 
     </RelativeLayout>

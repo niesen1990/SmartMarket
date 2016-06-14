@@ -460,6 +460,8 @@ public class OrderDetailActivity extends BaseAccountRecyclerActivity {
             });
         } else if (orderType.equals("refund") && saleType.equals("sell")) {
             String[] items = OrderRefundSellStatus.getStatus(response.getData().getStatus());
+            Log.e(TAG, "items = " + items[1] + "  " + items[2]);
+            Log.e(TAG, "getStatus = " + response.getData().getStatus());
             if (TextUtils.isEmpty(items[1]) && TextUtils.isEmpty(items[2])) {
                 llBottom.setVisibility(View.GONE);
                 return;
@@ -475,6 +477,7 @@ public class OrderDetailActivity extends BaseAccountRecyclerActivity {
                 llBottom.setVisibility(View.VISIBLE);
                 tvOperation02.setVisibility(View.GONE);
             }
+
             tvOperation01.setText(items[1]);
             tvOperation02.setText(items[2]);
             tvOperation01.setOnClickListener(new View.OnClickListener() {

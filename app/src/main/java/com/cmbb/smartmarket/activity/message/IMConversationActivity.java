@@ -33,17 +33,16 @@ public class IMConversationActivity extends BaseActivity {
     @Override
     protected void init(Bundle savedInstanceState) {
         setTitle("最近联系人");
-        if (IMHelper.getInstance().getIMKit() == null) return;
+        if (IMHelper.getInstance().getIMKit() == null)
+            return;
         mConversationService = IMHelper.getInstance().getIMKit().getConversationService();
         getSupportFragmentManager().beginTransaction().add(R.id.container, IMHelper.getInstance().getIMKit().getConversationFragment()).commit();
     }
-
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_im_conversation_layout;
     }
-
 
     public static void newIntent(Context context) {
         Intent intent = new Intent(context, IMConversationActivity.class);
