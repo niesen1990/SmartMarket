@@ -150,7 +150,6 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
         }
         if (!TextUtils.isEmpty(BaseApplication.getToken()))
             subscription = HttpMethod.getInstance().myselfGetCount(mMyselfGetCountResponseModelObserver, setCountParams());
-
     }
 
     private MyselfGetCountRequestModel setCountParams() {
@@ -177,25 +176,53 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
                 UserCenterActivity.newIntent(this, userId);
                 break;
             case R.id.rl_refund:
-                RefundActivity.newIntent(this);
+                if (TextUtils.isEmpty(BaseApplication.getToken())) {
+                    showToast("请登陆");
+                } else {
+                    RefundActivity.newIntent(this);
+                }
                 break;
             case R.id.rl_publish:
-                PublishListActivity.newIntent(this);
+                if (TextUtils.isEmpty(BaseApplication.getToken())) {
+                    showToast("请登陆");
+                } else {
+                    PublishListActivity.newIntent(this);
+                }
                 break;
             case R.id.rl_selled:
-                SoldFinishedActivity.newIntent(this);
+                if (TextUtils.isEmpty(BaseApplication.getToken())) {
+                    showToast("请登陆");
+                } else {
+                    SoldFinishedActivity.newIntent(this);
+                }
                 break;
             case R.id.rl_buy:
-                BuyFinishedActivity.newIntent(this);
+                if (TextUtils.isEmpty(BaseApplication.getToken())) {
+                    showToast("请登陆");
+                } else {
+                    BuyFinishedActivity.newIntent(this);
+                }
                 break;
             case R.id.rl_collection:
-                MeCollectionActivity.newIntent(this);
+                if (TextUtils.isEmpty(BaseApplication.getToken())) {
+                    showToast("请登陆");
+                } else {
+                    MeCollectionActivity.newIntent(this);
+                }
                 break;
             case R.id.rl_off:
-                OffManagerActivity.newIntent(this);
+                if (TextUtils.isEmpty(BaseApplication.getToken())) {
+                    showToast("请登陆");
+                } else {
+                    OffManagerActivity.newIntent(this);
+                }
                 break;
             case R.id.rl_address:
-                AddressManagerActivity.newIntent(this);
+                if (TextUtils.isEmpty(BaseApplication.getToken())) {
+                    showToast("请登陆");
+                } else {
+                    AddressManagerActivity.newIntent(this);
+                }
                 break;
             case R.id.tv_login:
                 LoginActivity.newIntent(this);

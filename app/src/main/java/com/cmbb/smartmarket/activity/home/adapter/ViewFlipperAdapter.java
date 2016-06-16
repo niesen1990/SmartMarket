@@ -33,6 +33,8 @@ public class ViewFlipperAdapter extends BaseAdapter {
         if (rowsEntities != null) {
             mRowsEntities.clear();
             mRowsEntities.addAll(rowsEntities);
+        } else {
+            mRowsEntities.clear();
         }
         notifyDataSetChanged();
     }

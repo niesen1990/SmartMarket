@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:foreground="?android:attr/selectableItemBackground"
     android:background="@drawable/shape_white_stroke_no_corner">
 
     <RelativeLayout
@@ -149,6 +150,7 @@
             android:layout_margin="@dimen/global_padding"
             android:drawableLeft="@drawable/ic_contact"
             android:gravity="center"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="联系TA"
             android:textStyle="bold"/>
 
@@ -164,6 +166,7 @@
             android:paddingRight="@dimen/half_global_padding"
             android:paddingTop="2dp"
             android:text="查看订单"
+            android:foreground="?android:attr/selectableItemBackground"
             android:textStyle="bold"/>
 
         <TextView
@@ -177,6 +180,7 @@
             android:paddingLeft="@dimen/half_global_padding"
             android:paddingRight="@dimen/half_global_padding"
             android:paddingTop="2dp"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="查看订单"
             android:textStyle="bold"/>
 
@@ -187,6 +191,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/global_padding"
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_toLeftOf="@+id/tv_operation02"
             android:paddingBottom="2dp"
             android:paddingLeft="@dimen/half_global_padding"

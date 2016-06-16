@@ -91,7 +91,6 @@ public class HomeShopActivity extends BaseHomeActivity {
 
             }
         });
-        onRefresh();
         HttpMethod.getInstance().requestSystemDictList(mSystemDictListResponseModelObserver, setDictParams());
     }
 
@@ -139,16 +138,9 @@ public class HomeShopActivity extends BaseHomeActivity {
         public void onNext(ProductGetPageResponseModel productGetPageResponseModel) {
             if (pager == 0)
                 adapter.clear();
-            Log.i(TAG, productGetPageResponseModel.toString());
             adapter.addAll(productGetPageResponseModel.getData().getContent());
         }
     };
-
-    @Override
-    public void onLoadMore() {
-        pager++;
-        HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
-    }
 
     private ProductGetPageRequestModel setParams() {
         ProductGetPageRequestModel productGetPageRequestModel = new ProductGetPageRequestModel();
@@ -156,6 +148,12 @@ public class HomeShopActivity extends BaseHomeActivity {
         productGetPageRequestModel.setCmd(ApiInterface.ProductGetPage);
         productGetPageRequestModel.setParameters(new ProductGetPageRequestModel.ParametersEntity(pagerSize, pager, 1, spinnerType, value));
         return productGetPageRequestModel;
+    }
+
+    @Override
+    public void onLoadMore() {
+        pager++;
+        HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
     }
 
     @Override

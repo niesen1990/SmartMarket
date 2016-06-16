@@ -44,9 +44,9 @@
                         android:layout_gravity="right"
                         android:background="@drawable/shape_color_circle"
                         android:gravity="center"
-                        android:visibility="invisible"
                         android:textColor="@android:color/white"
                         android:textSize="9sp"
+                        android:visibility="invisible"
                         tools:text="99"/>
                 </FrameLayout>
 
@@ -57,8 +57,8 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl"
                     android:text="系统消息"
-                    android:textStyle="bold"
-                    android:textColor="@color/dimgray"/>
+                    android:textColor="@color/dimgray"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tv_sys_content"
@@ -69,10 +69,10 @@
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl"
-                    android:text="您没有新的系统消息"
-                    android:textSize="12sp"
                     android:maxLines="1"
-                    android:textColor="@color/darkgray"/>
+                    android:text="您没有新的系统消息"
+                    android:textColor="@color/darkgray"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/tv_sys_time"
@@ -82,8 +82,8 @@
                     android:layout_marginBottom="3dp"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
-                    android:text="16/03/21"
-                    android:textColor="@color/darkgray"/>
+                    android:textColor="@color/darkgray"
+                    tools:text="16/03/21"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -111,9 +111,9 @@
                         android:layout_gravity="right"
                         android:background="@drawable/shape_color_circle"
                         android:gravity="center"
-                        android:visibility="invisible"
                         android:textColor="@android:color/white"
                         android:textSize="9sp"
+                        android:visibility="invisible"
                         tools:text="99"/>
                 </FrameLayout>
 
@@ -124,8 +124,8 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl_store"
                     android:text="商品回复"
-                    android:textStyle="bold"
-                    android:textColor="@color/dimgray"/>
+                    android:textColor="@color/dimgray"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tv_store_content"
@@ -135,11 +135,11 @@
                     android:layout_marginBottom="3dp"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
-                    android:textSize="12sp"
-                    android:maxLines="1"
                     android:layout_toRightOf="@+id/fl_store"
+                    android:maxLines="1"
                     android:text="您没有新的商品消息"
-                    android:textColor="@color/darkgray"/>
+                    android:textColor="@color/darkgray"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/tv_store_time"
@@ -149,8 +149,8 @@
                     android:layout_marginBottom="3dp"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
-                    android:text="16/03/21"
-                    android:textColor="@color/darkgray"/>
+                    android:textColor="@color/darkgray"
+                    tools:text="16/03/21"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -178,9 +178,9 @@
                         android:layout_gravity="right"
                         android:background="@drawable/shape_color_circle"
                         android:gravity="center"
-                        android:visibility="invisible"
                         android:textColor="@android:color/white"
                         android:textSize="9sp"
+                        android:visibility="invisible"
                         tools:text="99"/>
                 </FrameLayout>
 
@@ -191,8 +191,8 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl_order"
                     android:text="订单动态"
-                    android:textStyle="bold"
-                    android:textColor="@color/dimgray"/>
+                    android:textColor="@color/dimgray"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tv_order_content"
@@ -202,11 +202,11 @@
                     android:layout_marginBottom="3dp"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
-                    android:textSize="12sp"
-                    android:maxLines="1"
                     android:layout_toRightOf="@+id/fl_order"
+                    android:maxLines="1"
                     android:text="您没有新的订单消息"
-                    android:textColor="@color/darkgray"/>
+                    android:textColor="@color/darkgray"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/tv_order_time"
@@ -216,8 +216,8 @@
                     android:layout_marginBottom="3dp"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
-                    android:text="16/03/21"
-                    android:textColor="@color/darkgray"/>
+                    android:textColor="@color/darkgray"
+                    tools:text="16/03/21"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -245,9 +245,9 @@
                         android:layout_gravity="right"
                         android:background="@drawable/shape_color_circle"
                         android:gravity="center"
-                        android:visibility="invisible"
                         android:textColor="@android:color/white"
                         android:textSize="9sp"
+                        android:visibility="invisible"
                         tools:text="99"/>
                 </FrameLayout>
 
@@ -258,8 +258,8 @@
                     android:layout_marginTop="3dp"
                     android:layout_toRightOf="@+id/fl_chat"
                     android:text="即时聊天"
-                    android:textStyle="bold"
-                    android:textColor="@color/dimgray"/>
+                    android:textColor="@color/dimgray"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/tv_chat_content"
@@ -269,11 +269,11 @@
                     android:layout_marginBottom="3dp"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
-                    android:textSize="12sp"
-                    android:maxLines="1"
                     android:layout_toRightOf="@+id/fl_chat"
+                    android:maxLines="1"
                     android:text="您没有新的聊天消息"
-                    android:textColor="@color/darkgray"/>
+                    android:textColor="@color/darkgray"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/tv_chat_time"
@@ -283,8 +283,8 @@
                     android:layout_marginBottom="3dp"
                     android:layout_marginLeft="@dimen/activity_vertical_margin"
                     android:layout_marginTop="3dp"
-                    android:text="16/03/21"
-                    android:textColor="@color/darkgray"/>
+                    android:textColor="@color/darkgray"
+                    tools:text="16/03/21"/>
             </RelativeLayout>
 
         </LinearLayout>

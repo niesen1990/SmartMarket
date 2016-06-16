@@ -87,7 +87,7 @@ public class AddAccountPhoneActivity extends BaseActivity {
             if (walletAccountBindalipayResponseModel != null) {
                 showToast(walletAccountBindalipayResponseModel.getMsg());
                 if (walletAccountBindalipayResponseModel.isData()) {
-                    PickAccountActivity.newIntent(AddAccountPhoneActivity.this, SPCache.getBoolean(Constants.HAS_WALLET_PSW, false),false);
+                    PickAccountActivity.newIntent(AddAccountPhoneActivity.this, SPCache.getBoolean(Constants.HAS_WALLET_PSW, false),false, "账号设置");
                     finish();
                 } else {
 

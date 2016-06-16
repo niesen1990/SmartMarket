@@ -114,7 +114,7 @@ public class WalletActivity extends BaseActivity {
             case R.id.rl_pre_payment:
                 break;
             case R.id.rl_balance_out:
-                PickAccountActivity.newIntent(this, SPCache.getBoolean(Constants.HAS_WALLET_PSW, false), true);
+                PickAccountActivity.newIntent(this, SPCache.getBoolean(Constants.HAS_WALLET_PSW, false), true, "选择提现账号");
                 break;
             case R.id.rl_deal_psw:
                 DealPswActivity.newIntent(this, "设置交易密码");
@@ -123,7 +123,7 @@ public class WalletActivity extends BaseActivity {
                 DealPswPhoneActivity.newIntent(this);
                 break;
             case R.id.rl_balance_account:
-                PickAccountActivity.newIntent(this, SPCache.getBoolean(Constants.HAS_WALLET_PSW, false), false);
+                PickAccountActivity.newIntent(this, SPCache.getBoolean(Constants.HAS_WALLET_PSW, false), false, "提现账号");
                 break;
         }
     }

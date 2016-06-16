@@ -113,14 +113,12 @@ public class UserCenterActivity extends BaseActivity implements AppBarLayout.OnO
                 return;
             imUserId = marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getImUserId();
             //UI
-            ImageLoader.loadUrlAndDiskCache(UserCenterActivity.this, marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getUserImg(),ivHead, new CircleTransform(UserCenterActivity.this));
-
+            ImageLoader.loadUrlAndDiskCache(UserCenterActivity.this, marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getUserImg(), ivHead, new CircleTransform(UserCenterActivity.this));
             Glide.with(UserCenterActivity.this)
                     .load(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getUserImg() + "@" + TDevice.getScreenWidth(UserCenterActivity.this) + "w_" + TDevice.dip2px(256, UserCenterActivity.this) + "h_50-50bl")
                     .override(TDevice.getScreenWidth(UserCenterActivity.this), TDevice.dip2px(256, UserCenterActivity.this))
                     .crossFade()
                     .centerCrop()
-                    //.bitmapTransform(new BlurTransformation(UserCenterActivity.this, 100))
                     .into(ivBac);
             tvNick.setText(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getNickName());
             ratingBar.setNumStars(marketCenterPersonCenterInfoResponseModel.getData().getUserInfo().getUserLevel());
@@ -197,6 +195,8 @@ public class UserCenterActivity extends BaseActivity implements AppBarLayout.OnO
     }
 
     /**
+     * 启动入口
+     *
      * @param context Context
      * @param id      UserId
      */

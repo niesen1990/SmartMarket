@@ -17,8 +17,11 @@ import android.widget.Toast;
 import com.alibaba.mobileim.YWAPI;
 import com.alibaba.wxlib.util.SysUtil;
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
+import com.cmbb.smartmarket.activity.market.NeedDetailActivity;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.message.im.custom.CustomHelper;
+import com.cmbb.smartmarket.activity.user.OrderDetailActivity;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.log.constant.ZoneOffset;
 import com.cmbb.smartmarket.utils.MessageNotification;
@@ -103,7 +106,7 @@ public class BaseApplication extends MultiDexApplication {
 
                     @Override
                     public void onCheckError(int code, String errorMsg) {
-//                        Toast.makeText(getContext(), "更新失败：code:" + code + ",errorMsg:" + errorMsg, Toast.LENGTH_SHORT).show();
+                        //                        Toast.makeText(getContext(), "更新失败：code:" + code + ",errorMsg:" + errorMsg, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -120,7 +123,7 @@ public class BaseApplication extends MultiDexApplication {
                 .downloadCB(new EmptyDownloadCB() {
                     @Override
                     public void onUpdateError(int code, String errorMsg) {
-//                        Toast.makeText(getContext(), "下载失败：code:" + code + ",errorMsg:" + errorMsg, Toast.LENGTH_SHORT).show();
+                        //                        Toast.makeText(getContext(), "下载失败：code:" + code + ",errorMsg:" + errorMsg, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -202,7 +205,7 @@ public class BaseApplication extends MultiDexApplication {
      * 友盟数据统计
      */
     private void initUmengAnalytics() {
-        MobclickAgent.setDebugMode(true);
+        MobclickAgent.setDebugMode(false);
     }
 
     /**
@@ -272,6 +275,24 @@ public class BaseApplication extends MultiDexApplication {
             public void dealWithCustomAction(Context context, UMessage msg) {
                 Log.e("SmartMarket", "message = " + msg.custom);
                 Log.e("SmartMarket", "message extra = " + msg.extra);
+                try {
+                    if (msg.extra != null) {
+                        switch (msg.extra.get("modual")) {
+                            case "product":
+                                if (msg.extra.get("type").equals("0")) {
+                                    CommodityDetailActivity.newIntent(getContext(), Integer.parseInt(msg.extra.get("relateField")));
+                                } else {
+                                    NeedDetailActivity.newIntent(getContext(), Integer.parseInt(msg.extra.get("relateField")));
+                                }
+                                break;
+                            case "order":
+                                OrderDetailActivity.newIntent(getContext(), Integer.parseInt(msg.extra.get("relateField")));
+                                break;
+                        }
+                    }
+                } catch (Exception e) {
+                    Log.e(TAG, e.toString());
+                }
             }
         };
         mPushAgent.setNotificationClickHandler(notificationClickHandler);

@@ -50,6 +50,7 @@
             android:id="@+id/iv_head"
             android:layout_width="32dp"
             android:layout_height="32dp"
+            android:foreground="?android:attr/selectableItemBackground"
             android:src="@drawable/ic_head_default"/>
 
         <TextView
@@ -68,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:drawableLeft="@drawable/ic_contact"
             android:gravity="center"
             android:text="联系TA"

@@ -40,7 +40,7 @@ public class SmartLogInterceptor implements Interceptor {
         NONE,
         /**
          * Logs request and response lines.
-         * <p>
+         * <p/>
          * <p>Example:
          * <pre>{@code
          * --> POST /greeting http/1.1 (3-byte body)
@@ -51,7 +51,7 @@ public class SmartLogInterceptor implements Interceptor {
         BASIC,
         /**
          * Logs request and response lines and their respective headers.
-         * <p>
+         * <p/>
          * <p>Example:
          * <pre>{@code
          * --> POST /greeting http/1.1
@@ -69,7 +69,7 @@ public class SmartLogInterceptor implements Interceptor {
         HEADERS,
         /**
          * Logs request and response lines and their respective headers and bodies (if present).
-         * <p>
+         * <p/>
          * <p>Example:
          * <pre>{@code
          * --> POST /greeting http/1.1

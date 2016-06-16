@@ -1,5 +1,6 @@
 package com.cmbb.smartmarket.activity.user;
 
+import android.app.Application;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -677,6 +678,13 @@ public class OrderDetailActivity extends BaseAccountRecyclerActivity {
         Intent intent = new Intent(context.getContext(), OrderDetailActivity.class);
         intent.putExtra("orderId", orderId);
         context.startActivityForResult(intent, requestCode);
+    }
+
+    public static void newIntent(Application context, int orderId) {
+        Intent intent = new Intent(context, OrderDetailActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra("orderId", orderId);
+        context.startActivity(intent);
     }
 
 }

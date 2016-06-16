@@ -39,7 +39,7 @@ public class PickAccountActivity extends BaseAccountRecyclerActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
-        setTitle("选择提现账号");
+        setTitle(getIntent().getStringExtra("title"));
         tvAddAccount.setOnClickListener(this);
         onRefresh();
     }
@@ -162,10 +162,11 @@ public class PickAccountActivity extends BaseAccountRecyclerActivity {
         return walletAccountBindListRequestModel;
     }
 
-    public static void newIntent(Context context, boolean hasPsw, boolean isClick) {
+    public static void newIntent(Context context, boolean hasPsw, boolean isClick, String title) {
         Intent intent = new Intent(context, PickAccountActivity.class);
         intent.putExtra("hasPsw", hasPsw);
         intent.putExtra("isClick", isClick);
+        intent.putExtra("title", title);
         context.startActivity(intent);
     }
 }

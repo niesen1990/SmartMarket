@@ -56,18 +56,6 @@ android {
         Lenovo {
             manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Lenovo"]
         }
-        SmartKids {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "SmartKids"]
-        }
-        SmartKids3 {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "SmartKids3"]
-        }
-        Beekingdom {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Beekingdom"]
-        }
-        Flowers {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "Flowers"]
-        }
     }
 
     sourceSets {
@@ -91,7 +79,7 @@ dependencies {
     apt 'com.jakewharton:butterknife-compiler:8.0.1'
     compile files('libs/BaiduLBS_Android.jar')
     compile files('libs/alipaySdk-20160516.jar')
-    compile project(':UmengPushSDK')
+    compile project(':PushSDK')
     compile project(':EasyRecyclerView')
     compile project(':UmengShare')
     compile project(':WXIM')

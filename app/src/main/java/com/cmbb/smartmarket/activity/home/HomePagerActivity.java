@@ -1,10 +1,15 @@
 package com.cmbb.smartmarket.activity.home;
 
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -29,6 +34,7 @@ import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
 import com.cmbb.smartmarket.activity.market.model.ProductGetPageRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductGetPageResponseModel;
 import com.cmbb.smartmarket.activity.search.SearchActivity;
+import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.Constants;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
@@ -63,12 +69,13 @@ public class HomePagerActivity extends BaseHomeActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             //保存数据
-            subscription = HttpMethod.getInstance().marketHomeSaveLocationAddressRequest(mMarketHomeSaveLocationAddressResponseModelObserver, setLocationParams(intent.getStringExtra("location")));
+            if (!TextUtils.isEmpty(BaseApplication.getToken()))
+                HttpMethod.getInstance().marketHomeSaveLocationAddressRequest(mMarketHomeSaveLocationAddressResponseModelObserver, setLocationParams(intent.getStringExtra("location")));
             city = SPCache.getString(Constants.LOCATION_CITY, "");
             if (TextUtils.isEmpty(city))
                 return;
             tvCity.setText(city);
-            subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
+            HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
         }
     };
     Observer<ProductGetPageResponseModel> mProductGetPageResponseModelObserver = new Observer<ProductGetPageResponseModel>() {
@@ -190,7 +197,6 @@ public class HomePagerActivity extends BaseHomeActivity {
                 headerView.findViewById(R.id.tv_mamashangping).setOnClickListener(HomePagerActivity.this);
                 headerView.findViewById(R.id.tv_jujiashangping).setOnClickListener(HomePagerActivity.this);
                 headerView.findViewById(R.id.head02).setOnClickListener(HomePagerActivity.this);
-
             }
         };
 
@@ -199,13 +205,30 @@ public class HomePagerActivity extends BaseHomeActivity {
         //                String target = "niesen714";// 消息接收者ID
         //                Intent intent = IMHelper.getInstance().getIMKit().getChattingActivityIntent(target, IMHelper.getAppKey());
         //                startActivity(intent);
-        BaiduLocation.getInstance().getLocationClient().start();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if ((requestCode == 4000 || requestCode == 5000) && grantResults.length > 0) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                BaiduLocation.getInstance().getLocationClient().start();
+            } else {
+                showToast("关闭定位权限可能影响使用");
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         LocalBroadcastManager.getInstance(this).registerReceiver(locationReceiver, new IntentFilter(Constants.INTENT_ACTION_LOCATION));
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 4000);
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE}, 5000);
+        } else {
+            BaiduLocation.getInstance().getLocationClient().start();
+        }
     }
 
     @Override
@@ -217,7 +240,6 @@ public class HomePagerActivity extends BaseHomeActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        BaiduLocation.getInstance().getLocationClient().stop();
     }
 
     @Override
@@ -279,13 +301,13 @@ public class HomePagerActivity extends BaseHomeActivity {
     @Override
     public void onLoadMore() {
         pager++;
-        subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
+        HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
+        HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
         HttpMethod.getInstance().marketHomeAdvertInfo(mMarketHomeAdvertInfoResponseModelObserver, setAdParams());
         HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserverFlip, setFlipperParams());
 
@@ -294,15 +316,14 @@ public class HomePagerActivity extends BaseHomeActivity {
     private MarketHomeAdvertInfoRequestModel setAdParams() {
         MarketHomeAdvertInfoRequestModel marketHomeAdvertInfoRequestModel = new MarketHomeAdvertInfoRequestModel();
         marketHomeAdvertInfoRequestModel.setCmd(ApiInterface.MarketHomeAdvertInfo);
-        //        marketHomeAdvertInfoRequestModel.setToken(BaseApplication.getToken());
         marketHomeAdvertInfoRequestModel.setParameters(new MarketHomeAdvertInfoRequestModel.ParametersEntity("INDEX"));
         return marketHomeAdvertInfoRequestModel;
     }
 
     private MarketHomeSaveLocationAddressRequestModel setLocationParams(String locationJson) {
         MarketHomeSaveLocationAddressRequestModel marketHomeSaveLocationAddressRequestModel = new MarketHomeSaveLocationAddressRequestModel();
-        //        marketHomeSaveLocationAddressRequestModel.setToken(BaseApplication.getToken());
         marketHomeSaveLocationAddressRequestModel.setCmd(ApiInterface.MarketHomeSaveLocationAddress);
+        marketHomeSaveLocationAddressRequestModel.setToken(BaseApplication.getToken());
         marketHomeSaveLocationAddressRequestModel.setParameters(new MarketHomeSaveLocationAddressRequestModel.ParametersEntity(locationJson));
         return marketHomeSaveLocationAddressRequestModel;
     }
@@ -315,7 +336,6 @@ public class HomePagerActivity extends BaseHomeActivity {
     protected ProductGetPageRequestModel setParams() {
         unSubscribe();
         ProductGetPageRequestModel productGetPageRequestModel = new ProductGetPageRequestModel();
-        //        productGetPageRequestModel.setToken(BaseApplication.getToken());
         productGetPageRequestModel.setCmd(ApiInterface.ProductGetPage);
         productGetPageRequestModel.setParameters(new ProductGetPageRequestModel.ParametersEntity(pagerSize, pager, 0, city));
         return productGetPageRequestModel;
@@ -323,7 +343,6 @@ public class HomePagerActivity extends BaseHomeActivity {
 
     protected ProductGetPageRequestModel setFlipperParams() {
         ProductGetPageRequestModel productGetPageRequestModel = new ProductGetPageRequestModel();
-        //        productGetPageRequestModel.setToken(BaseApplication.getToken());
         productGetPageRequestModel.setCmd(ApiInterface.ProductGetPage);
         productGetPageRequestModel.setParameters(new ProductGetPageRequestModel.ParametersEntity(pagerSize, pager, 1));
         return productGetPageRequestModel;
@@ -353,5 +372,4 @@ public class HomePagerActivity extends BaseHomeActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         context.startActivity(intent);
     }
-
 }

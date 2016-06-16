@@ -6,6 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/shape_white_stroke_no_corner"
     android:orientation="vertical"
+    android:foreground="?android:attr/selectableItemBackground"
     android:padding="@dimen/global_padding">
 
     <RelativeLayout

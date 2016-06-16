@@ -160,12 +160,18 @@ import rx.Observable;
  */
 public interface ApiInterface {
 
-    String Base = "http://erpuat.mengbp.com:8094/";
+    //正式环境地址 http://market.smart-kids.com:81/wine-market-rest/cgi
+    String Base = "http://market.smart-kids.com:81/";
     String HOST = Base + "wine-market-rest/cgi/";
 
-    String SHARE_NEED = "http://www.mengbp.com/web/App/share/mbpz/index.html#/shopDetail/";
-    String SHARE_PUBLISH = "http://www.mengbp.com/web/App/share/mbpz/index.html#/productDetail/";
-    String SHARE_APP = "http://mbpz.file.alimmdn.com/recommended.html";
+    //    String Base = "http://erpuat.mengbp.com:8094/";
+    //    String HOST = Base + "wine-market-rest/cgi/";
+    //    String Base = "http://192.168.100.109:8080/";
+    //    String HOST = Base + "cgi/";
+
+    String SHARE_NEED = "http://www.mengbp.com/web/App/share/mbpz/index.html#/shopDetail/";// 分享求购详情
+    String SHARE_PUBLISH = "http://www.mengbp.com/web/App/share/mbpz/index.html#/productDetail/";// 分享发布详情
+    String SHARE_APP = "http://mbpz.file.alimmdn.com/recommended.html";//推荐APP
 
     @Headers("Content-Type: application/json")
     @POST(HOST)

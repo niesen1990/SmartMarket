@@ -1,5 +1,6 @@
 package com.cmbb.smartmarket.activity.market;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -504,6 +505,13 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
 
     public static void newIntent(Context context, int id) {
         Intent intent = new Intent(context, CommodityDetailActivity.class);
+        intent.putExtra("id", id);
+        context.startActivity(intent);
+    }
+
+    public static void newIntent(Application context, int id) {
+        Intent intent = new Intent(context, CommodityDetailActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.putExtra("id", id);
         context.startActivity(intent);
     }

@@ -33,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawablePadding="@dimen/half_global_padding"
+            android:foreground="?android:attr/selectableItemBackground"
             android:drawableTop="@drawable/ic_baby_recommend"
             android:gravity="center"
             android:text="@string/home_head_baobao"
@@ -47,6 +48,7 @@
             android:drawablePadding="@dimen/half_global_padding"
             android:drawableTop="@drawable/ic_mami_recommend"
             android:gravity="center"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/home_head_mama"
             android:textSize="12sp"
             android:textStyle="bold"/>
@@ -59,6 +61,7 @@
             android:drawablePadding="@dimen/half_global_padding"
             android:drawableTop="@drawable/ic_house_recommend"
             android:gravity="center"
+            android:foreground="?android:attr/selectableItemBackground"
             android:text="@string/home_head_jujia"
             android:textSize="12sp"
             android:textStyle="bold"/>
