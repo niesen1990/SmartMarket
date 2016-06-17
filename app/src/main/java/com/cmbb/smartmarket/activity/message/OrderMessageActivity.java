@@ -3,6 +3,7 @@ package com.cmbb.smartmarket.activity.message;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetPageRequestModel;
@@ -51,7 +52,7 @@ public class OrderMessageActivity extends BaseMessageActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
         // TODO: 16/6/5
         OrderDetailActivity.newIntent(this, ((MessageOrderAdapter) adapter).getItem(position).getRelateField(), 100);
     }

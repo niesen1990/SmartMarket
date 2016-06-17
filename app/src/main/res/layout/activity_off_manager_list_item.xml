@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:background="@drawable/shape_white_stroke_no_corner">
-
+    android:background="@drawable/shape_white_stroke_no_corner_ripple">
 
     <RelativeLayout
         android:id="@+id/rl02"
@@ -19,6 +17,7 @@
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:layout_margin="@dimen/global_padding"
+            android:transitionName="iv01"
             tools:src="@color/line"/>
 
         <TextView
@@ -77,8 +76,8 @@
         android:layout_marginRight="@dimen/global_padding"
         android:layout_toLeftOf="@+id/tv_status_01"
         android:padding="@dimen/global_padding"
-        android:textStyle="bold"
-        android:text="重新上架"/>
+        android:text="重新上架"
+        android:textStyle="bold"/>
 
 
 </RelativeLayout>

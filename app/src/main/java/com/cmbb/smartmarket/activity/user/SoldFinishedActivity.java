@@ -3,6 +3,7 @@ package com.cmbb.smartmarket.activity.user;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.user.adapter.SoldFinishedAdapter;
@@ -75,7 +76,7 @@ public class SoldFinishedActivity extends BaseRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
         OrderDetailActivity.newIntent(this, ((SoldFinishedAdapter) adapter).getItem(position).getId(), 100);
     }
 

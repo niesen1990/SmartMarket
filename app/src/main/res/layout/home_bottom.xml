@@ -12,13 +12,15 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/shape_white_stroke_no_corner_dark"
         android:paddingBottom="1dp"
-        android:paddingTop="2dp">
+        android:paddingTop="2dp"
+        android:transitionName="home">
 
         <TextView
             android:id="@+id/tv_home"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:drawableTop="@drawable/selector_home_pager"
             android:gravity="center"
             android:text="@string/homepager"
@@ -30,6 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:drawableTop="@drawable/selector_home_shop"
             android:gravity="center"
             android:text="@string/homeshop"
@@ -48,12 +51,14 @@
 
 
         <FrameLayout
+            android:id="@+id/tv_message"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
+            android:clickable="true">
 
             <TextView
-                android:id="@+id/tv_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -70,9 +75,9 @@
                 android:layout_gravity="right"
                 android:background="@drawable/shape_color_circle"
                 android:gravity="center"
-                android:visibility="invisible"
                 android:textColor="@android:color/white"
-                android:textSize="9sp"/>
+                android:textSize="9sp"
+                android:visibility="invisible"/>
         </FrameLayout>
 
         <TextView
@@ -80,6 +85,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:drawableTop="@drawable/selector_home_me"
             android:gravity="center"
             android:text="@string/homeme"

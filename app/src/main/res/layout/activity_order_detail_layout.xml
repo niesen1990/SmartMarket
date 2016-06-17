@@ -33,6 +33,7 @@
                 android:id="@+id/tv_head"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
+                android:background="?android:attr/selectableItemBackground"
                 android:src="@drawable/ic_head_default"/>
 
             <TextView
@@ -51,6 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:background="?android:attr/selectableItemBackground"
                 android:drawableLeft="@drawable/ic_contact"
                 android:gravity="center"
                 android:text="联系TA"
@@ -223,8 +225,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:visibility="invisible"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="invisible">
 
             <TextView
                 android:id="@+id/tv_operation01"

@@ -3,6 +3,9 @@ package com.cmbb.smartmarket.activity.user;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.view.View;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
@@ -67,8 +70,9 @@ public class OffManagerActivity extends BaseRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
-        CommodityDetailActivity.newIntent(this, ((OffManagerAdapter) adapter).getItem(position).getId());
+    public void onItemClick(View rootView, int position) {
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_image), "iv01"));
+        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((OffManagerAdapter) adapter).getItem(position).getId());
     }
 
     @Override

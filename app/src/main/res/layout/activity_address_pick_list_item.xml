@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/shape_white_stroke_no_corner_ripple"
     android:foreground="?android:attr/selectableItemBackground"
-    android:background="@drawable/shape_white_stroke_no_corner"
     android:orientation="vertical"
     android:padding="@dimen/activity_vertical_margin">
 

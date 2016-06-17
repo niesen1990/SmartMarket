@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.EditText;
 
 import com.cmbb.smartmarket.R;
@@ -155,7 +156,7 @@ public class HomeAddressActivity extends BaseRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
         Intent intent = new Intent();
         if (adapter.getItem(position) instanceof MarketHomeGetHotCityListResponseModel.DataEntity.HotCityEntity) {
             //热门城市点击

@@ -412,9 +412,6 @@ public class PublishActivity extends BaseActivity {
                 parentClassify = mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getValue();
                 secondClassify = mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getChildCodeInfoList() != null ? mSystemCodeInfoGetAllResponseModel.getData().get(classParent).getChildCodeInfoList().get(classChild).getValue() : "";
                 break;
-            case R.id.iv:
-
-                break;
             case R.id.tv_submit:
                 String title = etTitle.getText().toString();
                 if (TextUtils.isEmpty(title)) {

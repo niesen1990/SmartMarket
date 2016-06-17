@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shape_white_stroke_no_corner"
-    android:clickable="true"
-    android:foreground="?android:attr/selectableItemBackground"
+    android:background="@drawable/shape_white_stroke_no_corner_ripple"
     android:padding="@dimen/global_padding">
 
 
@@ -25,9 +23,9 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/iv_head"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:textStyle="bold"
         android:layout_toEndOf="@+id/iv_head"
         android:layout_toRightOf="@+id/iv_head"
+        android:textStyle="bold"
         tools:text="niesen918"/>
 
     <TextView
@@ -60,8 +58,8 @@
         android:layout_below="@+id/iv_head"
         android:layout_marginTop="@dimen/global_padding"
         android:maxLines="2"
-        android:textStyle="bold"
         android:textColor="@color/dimgray"
+        android:textStyle="bold"
         tools:text="[求购]贝亲新生儿护肤礼盒"/>
 
 
@@ -78,7 +76,8 @@
             android:layout_width="0dp"
             android:layout_height="100dp"
             android:layout_weight="1"
-            android:src="@color/line"/>
+            android:src="@color/line"
+            android:transitionName="iv01"/>
 
         <ImageView
             android:id="@+id/iv02"

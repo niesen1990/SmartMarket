@@ -2,6 +2,8 @@ package com.cmbb.smartmarket.activity.user.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.TextView;
 
@@ -162,13 +164,15 @@ public class PublishNeedFragment extends BaseRecyclerFragment {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
         switch (this.position) {
             case 0:
-                CommodityDetailActivity.newIntent(getActivity(), ((PublishNeedListAdapter) adapter).getItem(position).getId());
+                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.tv01), "iv01"));
+                CommodityDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((PublishNeedListAdapter) adapter).getItem(position).getId());
                 break;
             case 1:
-                NeedDetailActivity.newIntent(getActivity(), ((PublishNeedListAdapter) adapter).getItem(position).getId());
+                ActivityOptionsCompat activityOptionsCompat1 = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.tv01), "iv01"));
+                NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat1, ((PublishNeedListAdapter) adapter).getItem(position).getId());
                 break;
         }
     }

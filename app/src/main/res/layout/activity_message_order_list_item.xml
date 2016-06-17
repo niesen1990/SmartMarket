@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:background="@drawable/shape_white_stroke_no_corner"
+    android:background="@drawable/shape_white_stroke_no_corner_ripple"
     android:padding="@dimen/global_padding">
 
 
@@ -41,11 +40,11 @@
         android:id="@+id/tv_old_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/darkgray"
         android:layout_alignBottom="@+id/iv_image"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_toRightOf="@+id/iv_image"
         android:maxLines="2"
+        android:textColor="@color/darkgray"
         android:textSize="12sp"
         tools:text="3700"/>
 

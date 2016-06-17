@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -39,6 +41,7 @@ import com.cmbb.smartmarket.activity.market.model.ProductReplyListResponseModel;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.user.ReportActivity;
 import com.cmbb.smartmarket.activity.user.UserCenterActivity;
+import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.image.CircleTransform;
@@ -480,9 +483,10 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
         if (((DetailReplayAdapter) adapter).getItem(position).getIsRecommoned() == 1 || ((DetailReplayAdapter) adapter).getItem(position).getResolveProductId() != -1) {
-            CommodityDetailActivity.newIntent(this, ((DetailReplayAdapter) adapter).getItem(position).getResolveProductId());
+            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_good), "iv01"));
+            CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((DetailReplayAdapter) adapter).getItem(position).getResolveProductId());
         } else if (mProductDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId()) {
             replayId = ((DetailReplayAdapter) adapter).getItem(position).getCreateUser().getId();
             Log.e(TAG, "replayId = " + replayId);
@@ -537,6 +541,12 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
         Intent intent = new Intent(context, NeedDetailActivity.class);
         intent.putExtra("id", id);
         context.startActivity(intent);
+    }
+
+    public static void newIntent(BaseActivity context, ActivityOptionsCompat activityOptionsCompat, int id) {
+        Intent intent = new Intent(context, NeedDetailActivity.class);
+        intent.putExtra("id", id);
+        context.startActivity(intent, activityOptionsCompat.toBundle());
     }
 
     public static void newIntent(Application context, int id) {

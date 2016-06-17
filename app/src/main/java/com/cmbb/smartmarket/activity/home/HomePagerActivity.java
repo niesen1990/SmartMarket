@@ -9,8 +9,10 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -271,18 +273,19 @@ public class HomePagerActivity extends BaseHomeActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(v, "title"));
         switch (v.getId()) {
             case R.id.tv_guanfangtuijian:
-                OfficialRecommendActivity.newIntent(this);
+                OfficialRecommendActivity.newIntent(this, activityOptionsCompat);
                 break;
             case R.id.tv_baobaoyongping:
-                BabyRecommendActivity.newIntent(this);
+                BabyRecommendActivity.newIntent(this, activityOptionsCompat);
                 break;
             case R.id.tv_mamashangping:
-                MamiRecommendActivity.newIntent(this);
+                MamiRecommendActivity.newIntent(this, activityOptionsCompat);
                 break;
             case R.id.tv_jujiashangping:
-                HouseRecommendActivity.newIntent(this);
+                HouseRecommendActivity.newIntent(this, activityOptionsCompat);
                 break;
             case R.id.tv_city:
                 HomeAddressActivity.newIntent(this, true, 100);
@@ -294,8 +297,9 @@ public class HomePagerActivity extends BaseHomeActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
-        CommodityDetailActivity.newIntent(this, ((HomeAdapter) adapter).getItem(position).getId());
+    public void onItemClick(View rootView, int position) {
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
+        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((HomeAdapter) adapter).getItem(position).getId());
     }
 
     @Override

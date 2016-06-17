@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.address.adapter.AddressItemAdapter;
@@ -98,7 +99,7 @@ public class AddressManagerActivity extends BaseRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
         if (requestCode == -1) {
             AddAndEditAddressActivity.newIntent(this, ((AddressItemAdapter) adapter).getItem(position).getId(), 100);
         } else {

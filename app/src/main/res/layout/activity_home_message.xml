@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:id="@+id/main_content"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".activity.home.HomeMessageActivity">
+<RelativeLayout
+    android:id="@+id/main_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.home.HomeMessageActivity">
 
     <include layout="@layout/toolbar"/>
 
@@ -23,7 +24,7 @@
                 android:id="@+id/rl_sys"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_white_stroke_no_corner"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
                 android:padding="@dimen/global_padding">
 
                 <FrameLayout
@@ -90,7 +91,7 @@
                 android:id="@+id/rl_store"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_white_stroke_no_corner"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
                 android:padding="@dimen/global_padding">
 
                 <FrameLayout
@@ -157,7 +158,7 @@
                 android:id="@+id/rl_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_white_stroke_no_corner"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
                 android:padding="@dimen/global_padding">
 
                 <FrameLayout
@@ -224,7 +225,7 @@
                 android:id="@+id/rl_chat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_white_stroke_no_corner"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
                 android:padding="@dimen/global_padding">
 
                 <FrameLayout

@@ -113,7 +113,7 @@ public class PickAccountActivity extends BaseAccountRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
         if (getIntent().getBooleanExtra("isClick", false)) {
             WithdrawalsActivity.newIntent(this, ((WithdrawalsAdapter) adapter).getItem(position));
         }

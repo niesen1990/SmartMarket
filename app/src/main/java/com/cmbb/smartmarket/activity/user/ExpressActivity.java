@@ -127,7 +127,7 @@ public class ExpressActivity extends BaseRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
         express = ((ExpressListAdapter) adapter).getItem(position).getValue();
         tvChoose.setText(((ExpressListAdapter) adapter).getItem(position).getName());
         behavior();

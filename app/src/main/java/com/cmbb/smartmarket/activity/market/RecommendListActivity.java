@@ -145,7 +145,7 @@ public class RecommendListActivity extends BaseRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
         for (MarketCenterSelectProductListResponseModel.DataEntity.ContentEntity contentEntity : ((RecommendItemAdapter) adapter).getAll()) {
             contentEntity.setChecked(false);
         }

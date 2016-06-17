@@ -56,6 +56,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
+                    android:background="?android:attr/selectableItemBackground"
                     android:text="仅退款"/>
 
             </LinearLayout>
@@ -88,6 +89,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
+                    android:background="?android:attr/selectableItemBackground"
                     android:text="请选择退款原因"/>
 
             </LinearLayout>
@@ -158,9 +160,9 @@
                     android:layout_weight="3"
                     android:background="@color/line"
                     android:gravity="top"
+                    android:hint="退款说明"
                     android:maxLength="200"
                     android:padding="@dimen/half_global_padding"
-                    android:hint="退款说明"
                     android:textSize="14sp"/>
             </LinearLayout>
 

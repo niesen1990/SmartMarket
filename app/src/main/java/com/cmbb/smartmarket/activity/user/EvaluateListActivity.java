@@ -3,6 +3,7 @@ package com.cmbb.smartmarket.activity.user;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.user.adapter.EvaluateListAdapter;
@@ -43,7 +44,7 @@ public class EvaluateListActivity extends BaseRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
         EvaluateDetailActivity.newIntent(this, ((EvaluateListAdapter) adapter).getItem(position).getOrderId());
     }
 

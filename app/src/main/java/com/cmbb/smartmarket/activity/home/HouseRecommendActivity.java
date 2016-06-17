@@ -2,6 +2,7 @@ package com.cmbb.smartmarket.activity.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
 
 /**
  * 项目名称：SmartMarket
@@ -20,8 +21,8 @@ public class HouseRecommendActivity extends BaseRecommendActivity {
         setParentClassify("JJYP");
     }
 
-    public static void newIntent(Context context) {
+    public static void newIntent(Context context, ActivityOptionsCompat activityOptionsCompat) {
         Intent intent = new Intent(context, HouseRecommendActivity.class);
-        context.startActivity(intent);
+        context.startActivity(intent, activityOptionsCompat.toBundle());
     }
 }

@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -36,6 +37,7 @@ import com.cmbb.smartmarket.activity.market.model.ProductReplyListResponseModel;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.user.ReportActivity;
 import com.cmbb.smartmarket.activity.user.UserCenterActivity;
+import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.image.CircleTransform;
@@ -358,7 +360,8 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        if(mProductDetailResponseModel == null) return;
+        if (mProductDetailResponseModel == null)
+            return;
         switch (v.getId()) {
             case R.id.iv_head:
                 UserCenterActivity.newIntent(this, mProductDetailResponseModel.getData().getPublicUser().getId());
@@ -454,7 +457,7 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
         replayId = ((DetailReplayAdapter) adapter).getItem(position).getCreateUser().getId();
         Log.e(TAG, "replayId = " + replayId);
         evSendContent.setHint("回复@" + ((DetailReplayAdapter) adapter).getItem(position).getCreateUser().getNickName());
@@ -507,6 +510,12 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
         Intent intent = new Intent(context, CommodityDetailActivity.class);
         intent.putExtra("id", id);
         context.startActivity(intent);
+    }
+
+    public static void newIntent(BaseActivity context, ActivityOptionsCompat activityOptionsCompat, int id) {
+        Intent intent = new Intent(context, CommodityDetailActivity.class);
+        intent.putExtra("id", id);
+        context.startActivity(intent, activityOptionsCompat.toBundle());
     }
 
     public static void newIntent(Application context, int id) {

@@ -3,7 +3,8 @@
     <color name="colorPrimary">#FF4E72</color>
     <color name="colorPrimaryDark">#FF4E72</color>
     <color name="colorAccent">#FE87A0</color>
-    <color name="windowBackgroundColor">#fafafa</color>
+    <color name="colorRipple">#ffebef</color>
+    <color name="windowBackgroundColor">#f1f1f1</color>
     <color name="colorPressed">#FF6785</color>
     <!--字体颜色-->
     <!--暗灰色 -->

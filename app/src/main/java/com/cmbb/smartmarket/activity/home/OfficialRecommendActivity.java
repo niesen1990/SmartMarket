@@ -2,6 +2,7 @@ package com.cmbb.smartmarket.activity.home;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
 
 import com.cmbb.smartmarket.activity.market.model.ProductGetPageRequestModel;
 import com.cmbb.smartmarket.base.BaseApplication;
@@ -31,8 +32,8 @@ public class OfficialRecommendActivity extends BaseRecommendActivity {
         return productGetPageRequestModel;
     }
 
-    public static void newIntent(Context context) {
+    public static void newIntent(Context context, ActivityOptionsCompat activityOptionsCompat) {
         Intent intent = new Intent(context, OfficialRecommendActivity.class);
-        context.startActivity(intent);
+        context.startActivity(intent, activityOptionsCompat.toBundle());
     }
 }

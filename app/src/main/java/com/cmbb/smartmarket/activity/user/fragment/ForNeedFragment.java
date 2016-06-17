@@ -1,6 +1,8 @@
 package com.cmbb.smartmarket.activity.user.fragment;
 
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.view.View;
 
 import com.cmbb.smartmarket.R;
@@ -8,6 +10,7 @@ import com.cmbb.smartmarket.activity.market.NeedDetailActivity;
 import com.cmbb.smartmarket.activity.user.adapter.ForNeedAdapter;
 import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListResponseModel;
+import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerFragment;
 import com.cmbb.smartmarket.network.ApiInterface;
@@ -57,9 +60,9 @@ public class ForNeedFragment extends BaseRecyclerFragment {
     }
 
     @Override
-    public void onItemClick(int position) {
-        NeedDetailActivity.newIntent(getActivity(), ((ForNeedAdapter) adapter).getItem(position).getId());
-
+    public void onItemClick(View rootView, int position) {
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
+        NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((ForNeedAdapter) adapter).getItem(position).getId());
     }
 
     Observer<MarketCenterSelectProductListResponseModel> mMarketCenterSelectProductListResponseModelObserver = new Observer<MarketCenterSelectProductListResponseModel>() {
@@ -98,7 +101,7 @@ public class ForNeedFragment extends BaseRecyclerFragment {
         MarketCenterSelectProductListRequestModel marketCenterSelectProductListRequestModel = new MarketCenterSelectProductListRequestModel();
         marketCenterSelectProductListRequestModel.setCmd(ApiInterface.MarketCenterSelectProductList);
         marketCenterSelectProductListRequestModel.setToken(BaseApplication.getToken());
-        marketCenterSelectProductListRequestModel.setParameters(new MarketCenterSelectProductListRequestModel.ParametersEntity(1, userId,pagerSize, pager));
+        marketCenterSelectProductListRequestModel.setParameters(new MarketCenterSelectProductListRequestModel.ParametersEntity(1, userId, pagerSize, pager));
         return marketCenterSelectProductListRequestModel;
     }
 }

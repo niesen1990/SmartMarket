@@ -9,6 +9,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,7 +41,7 @@ public abstract class BaseHomeActivity extends BaseRecyclerActivity {
     @BindView(R.id.tv_publish)
     ImageView tvPublish;
     @BindView(R.id.tv_message)
-    TextView tvMessage;
+    FrameLayout tvMessage;
     @BindView(R.id.tv_me)
     TextView tvMe;
     @BindView(R.id.tv_message_count)

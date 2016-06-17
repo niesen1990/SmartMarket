@@ -3,6 +3,7 @@ package com.cmbb.smartmarket.activity.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,8 +20,6 @@ import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
-import com.cmbb.smartmarket.widget.SpaceItemDecoration;
-import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import java.util.ArrayList;
@@ -108,18 +107,18 @@ public class HomeShopActivity extends BaseHomeActivity {
     }
 
     @Override
-    protected void setSpaceDecoration(EasyRecyclerView recyclerView) {
-        recyclerView.addItemDecoration(new SpaceItemDecoration(0, 0, 0, getResources().getDimensionPixelOffset(R.dimen.global_padding)));
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.activity_home_shop;
     }
 
     @Override
-    public void onItemClick(int position) {
-        NeedDetailActivity.newIntent(this, ((HomeShopAdapter) adapter).getItem(position).getId());
+    public void onItemClick(View rootView, int position) {
+        //        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
+        //让新的Activity从一个小的范围扩大到全屏
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(rootView,
+                rootView.getLeft(), rootView.getTop(), //拉伸开始的坐标
+                rootView.getWidth(), rootView.getHeight());//拉伸开始的区域大小，这里用（0，0）表示从无到全屏
+        NeedDetailActivity.newIntent(this, activityOptionsCompat, ((HomeShopAdapter) adapter).getItem(position).getId());
     }
 
     Observer<ProductGetPageResponseModel> mProductGetPageResponseModelObserver = new Observer<ProductGetPageResponseModel>() {

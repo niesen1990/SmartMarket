@@ -14,6 +14,7 @@
         android:layout_centerVertical="true"
         android:drawableLeft="@drawable/ic_back"
         android:gravity="left"
+        android:background="?android:attr/selectableItemBackground"
         android:textColor="@android:color/white"
         android:textSize="20sp" />
 

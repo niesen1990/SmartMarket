@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:background="@drawable/shape_white_stroke_no_corner"
+    android:background="@drawable/shape_white_stroke_no_corner_ripple"
     android:padding="@dimen/global_padding">
 
 
@@ -32,7 +32,7 @@
         android:layout_marginTop="@dimen/global_padding"
         android:layout_toLeftOf="@+id/iv_good"
         android:maxLines="3"
-        android:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
+        tools:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
 
     <ImageView
         android:id="@+id/iv_good"

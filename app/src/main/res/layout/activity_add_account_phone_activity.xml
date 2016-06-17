@@ -93,6 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/global_padding"
             android:layout_weight="1"
+            android:background="?android:attr/selectableItemBackground"
             android:text="获取验证码"
             android:textColor="@color/address"/>
     </LinearLayout>

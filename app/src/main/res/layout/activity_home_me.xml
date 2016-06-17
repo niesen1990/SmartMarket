@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbar"
-        android:layout_marginBottom="48dp">
+        android:layout_marginBottom="47dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,7 +22,7 @@
                 android:id="@+id/rl_not_login"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_white_stroke_no_corner"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
                 android:padding="@dimen/global_padding">
 
                 <ImageView
@@ -52,12 +52,11 @@
 
             </RelativeLayout>
 
-
             <RelativeLayout
                 android:id="@+id/rl_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/shape_white_stroke_no_corner"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
                 android:padding="@dimen/global_padding"
                 android:visibility="gone">
 
@@ -124,17 +123,15 @@
                 android:id="@+id/rl_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_marginTop="@dimen/global_padding"
-                android:background="@drawable/shape_white_stroke_no_corner"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
+                android:paddingBottom="7dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="8dp"
-                >
+                android:paddingTop="7dp">
 
                 <TextView
+                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_mine_wallet"
@@ -148,21 +145,19 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:src="@drawable/ic_right"/>
-
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/rl_refund"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_marginTop="@dimen/global_padding"
-                android:background="@drawable/shape_white_stroke_no_corner"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:paddingBottom="7dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="8dp">
+                android:paddingTop="7dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -186,14 +181,12 @@
                 android:id="@+id/rl_publish"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_marginTop="@dimen/global_padding"
-                android:background="@drawable/shape_white_stroke_no_corner"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
+                android:paddingBottom="7dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="8dp">
+                android:paddingTop="7dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -229,13 +222,11 @@
                 android:id="@+id/rl_selled"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/shape_white_stroke_no_corner"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
+                android:paddingBottom="7dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="8dp">
+                android:paddingTop="7dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -270,13 +261,11 @@
                 android:id="@+id/rl_buy"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/shape_white_stroke_no_corner"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
+                android:paddingBottom="7dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="8dp">
+                android:paddingTop="7dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -311,13 +300,11 @@
                 android:id="@+id/rl_collection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:background="@drawable/shape_white_stroke_no_corner"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
+                android:paddingBottom="7dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="8dp">
+                android:paddingTop="7dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -352,14 +339,12 @@
                 android:id="@+id/rl_off"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_marginTop="@dimen/global_padding"
-                android:background="@drawable/shape_white_stroke_no_corner"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
+                android:paddingBottom="7dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="8dp">
+                android:paddingTop="7dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -383,14 +368,12 @@
                 android:id="@+id/rl_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_marginTop="@dimen/global_padding"
-                android:background="@drawable/shape_white_stroke_no_corner"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
+                android:paddingBottom="7dp"
                 android:paddingLeft="@dimen/global_padding"
                 android:paddingRight="@dimen/global_padding"
-                android:paddingTop="8dp">
+                android:paddingTop="7dp">
 
                 <TextView
                     android:layout_width="wrap_content"

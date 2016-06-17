@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:background="@drawable/shape_white_stroke_no_corner"
+    android:background="@drawable/shape_white_stroke_no_corner_ripple"
     android:padding="@dimen/global_padding">
 
     <RelativeLayout
@@ -28,8 +28,8 @@
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_toRightOf="@+id/iv_head"
             android:text="niesen918"
-            android:textStyle="bold"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/tv_time"
@@ -54,7 +54,7 @@
         android:layout_marginTop="@dimen/half_global_padding"
         android:layout_toLeftOf="@+id/iv_good"
         android:maxLines="3"
-        android:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
+        tools:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
 
     <ImageView
         android:id="@+id/iv_good"
@@ -62,6 +62,7 @@
         android:layout_height="72dp"
         android:layout_alignParentRight="true"
         android:layout_marginLeft="@dimen/global_padding"
-        android:src="@color/line"/>
+        android:src="@color/line"
+        android:transitionName="iv01"/>
 
 </RelativeLayout>

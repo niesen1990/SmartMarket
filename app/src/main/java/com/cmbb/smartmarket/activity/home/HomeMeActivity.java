@@ -257,7 +257,7 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
 
     }
 

@@ -2,41 +2,40 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:background="@drawable/shape_white_stroke_no_corner_ripple"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:background="@drawable/shape_white_stroke_no_corner"
+    android:layout_width="match_parent"
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:padding="@dimen/global_padding">
 
         <TextView
-            android:id="@+id/tv_title"
             style="@style/TextAppearance.Smart.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_message"
             android:gravity="center"
+            android:id="@+id/tv_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:maxLines="1"
             tools:text="系统消息"/>
 
         <TextView
-            android:id="@+id/tv_time"
             style="@style/TextAppearance.Smart.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/tv_time"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             tools:text="2016/03/20"/>
     </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_content"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_width="match_parent"
         android:maxLines="7"
         android:padding="@dimen/global_padding"
         tools:text="您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，您的系统需要升级，"/>

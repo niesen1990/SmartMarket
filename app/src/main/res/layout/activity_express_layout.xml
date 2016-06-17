@@ -55,6 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="6"
                 android:gravity="center"
+                android:background="?android:attr/selectableItemBackground"
                 android:text="请选择快递公司"/>
 
             <ImageView

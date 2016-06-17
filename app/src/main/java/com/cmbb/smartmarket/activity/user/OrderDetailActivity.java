@@ -203,7 +203,7 @@ public class OrderDetailActivity extends BaseAccountRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
 
     }
 

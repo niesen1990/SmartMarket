@@ -226,7 +226,7 @@ public class ApplyRefundActivity extends BaseActivity implements RecyclerArrayAd
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
         behavior02.setState(BottomSheetBehavior.STATE_COLLAPSED);
         behavior01.setState(BottomSheetBehavior.STATE_COLLAPSED);
         switch (whichItem) {

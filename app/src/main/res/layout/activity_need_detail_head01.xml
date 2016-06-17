@@ -50,7 +50,7 @@
             android:id="@+id/iv_head"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:background="?android:attr/selectableItemBackground"
             android:src="@drawable/ic_head_default"/>
 
         <TextView
@@ -69,8 +69,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:foreground="?android:attr/selectableItemBackground"
+            android:background="?android:attr/selectableItemBackground"
             android:drawableLeft="@drawable/ic_contact"
+            android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
             android:text="联系TA"
             android:textStyle="bold"/>
@@ -112,8 +113,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_introduce"
             android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:textSize="12sp"
             android:textColor="@color/darkgray"
+            android:textSize="12sp"
             tools:text="6小时以前"/>
 
         <TextView

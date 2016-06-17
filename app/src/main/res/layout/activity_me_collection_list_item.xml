@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/shape_white_stroke_no_corner"
-    android:foreground="?android:attr/selectableItemBackground"
+    android:background="@drawable/shape_white_stroke_no_corner_ripple"
     android:padding="@dimen/global_padding">
 
 
@@ -20,13 +19,13 @@
 
     <TextView
         android:id="@+id/tv_nick"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/iv_head"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_toEndOf="@+id/iv_head"
         android:layout_toRightOf="@+id/iv_head"
+        android:textStyle="bold"
         tools:text="niesen918"/>
 
     <TextView
@@ -37,9 +36,9 @@
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_toEndOf="@+id/iv_head"
         android:layout_toRightOf="@+id/iv_head"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textSize="12sp"
-        tools:text="5小时之前"
-        android:textAppearance="?android:attr/textAppearanceSmall"/>
+        tools:text="5小时之前"/>
 
 
     <TextView
@@ -48,8 +47,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/half_global_padding"
-        tools:text="已出售"
-        android:textColor="@color/colorPrimary"/>
+        android:textColor="@color/colorPrimary"
+        tools:text="已出售"/>
 
     <LinearLayout
         android:id="@+id/ll_images"
@@ -105,9 +104,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            tools:text="2999"
             android:textColor="@color/colorPrimary"
-            android:textSize="16sp"/>
+            android:textSize="16sp"
+            tools:text="2999"/>
 
         <TextView
             android:id="@+id/tv_old_price"
@@ -136,9 +135,9 @@
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_location"
             android:gravity="center"
-            tools:text="来自上海市 虹口区 大连路"
             android:textColor="@color/address"
-            android:textSize="10sp"/>
+            android:textSize="10sp"
+            tools:text="来自上海市 虹口区 大连路"/>
 
         <TextView
             android:id="@+id/tv_message"
@@ -160,8 +159,8 @@
             android:layout_toLeftOf="@+id/tv_message"
             android:drawableLeft="@drawable/ic_browse"
             android:gravity="center"
-            tools:text="140"
-            android:textSize="10sp"/>
+            android:textSize="10sp"
+            tools:text="140"/>
 
     </RelativeLayout>
 

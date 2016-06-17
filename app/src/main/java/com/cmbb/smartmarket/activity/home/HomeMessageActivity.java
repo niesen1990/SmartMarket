@@ -241,7 +241,7 @@ public class HomeMessageActivity extends BaseHomeActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
 
     }
 

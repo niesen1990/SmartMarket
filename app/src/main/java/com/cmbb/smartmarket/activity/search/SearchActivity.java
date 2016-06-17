@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.SearchRecentSuggestions;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -171,16 +173,17 @@ public class SearchActivity extends BaseRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_pic), "iv01"));
         switch (type) {
             case 0:
-                CommodityDetailActivity.newIntent(this, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
+                CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
                 break;
             case 1:
-                NeedDetailActivity.newIntent(this, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
+                NeedDetailActivity.newIntent(this, activityOptionsCompat,((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
                 break;
             case 2:
-                CommodityDetailActivity.newIntent(this, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
+                CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
                 break;
         }
     }

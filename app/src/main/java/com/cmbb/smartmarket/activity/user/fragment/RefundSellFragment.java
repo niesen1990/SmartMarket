@@ -151,7 +151,7 @@ public class RefundSellFragment extends BaseAccountRecyclerFragment {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
         OrderDetailActivity.newIntent(this, ((RefundSellAdapter) adapter).getItem(position).getId(), 100);
     }
 

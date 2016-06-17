@@ -28,9 +28,9 @@
             android:gravity="top"
             android:maxLength="10"
             android:maxLines="1"
-            android:textSize="14sp"
             android:padding="@dimen/global_padding"
-            android:textColor="@color/dimgray"/>
+            android:textColor="@color/dimgray"
+            android:textSize="14sp"/>
 
 
         <TextView

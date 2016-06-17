@@ -2,6 +2,7 @@ package com.cmbb.smartmarket.activity.address;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.address.adapter.AddressPickAdapter;
@@ -77,7 +78,7 @@ public class AddressPickActivity extends BaseRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
         switch (levelCount) {
             case 1:
                 levelCount = 2;

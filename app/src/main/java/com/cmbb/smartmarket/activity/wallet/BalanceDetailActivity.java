@@ -85,7 +85,7 @@ public class BalanceDetailActivity extends BaseRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
 
     }
 

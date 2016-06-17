@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll02"
-        android:background="@drawable/shape_white_stroke_no_corner"
+        android:background="?android:attr/selectableItemBackground"
         android:orientation="horizontal"
         android:padding="@dimen/activity_vertical_margin">
 

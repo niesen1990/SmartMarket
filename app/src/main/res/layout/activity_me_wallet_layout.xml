@@ -63,6 +63,7 @@
                     android:drawableLeft="@drawable/ic_wallet_detail"
                     android:gravity="center"
                     android:text="账户明细"
+                    android:background="?android:attr/selectableItemBackground"
                     android:textColor="@android:color/white"
                     android:textSize="16sp"/>
 
@@ -97,7 +98,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/shape_white_stroke_no_corner"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
                 android:orientation="horizontal"
                 android:padding="@dimen/global_padding">
 
@@ -128,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_pre_payment"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/shape_white_stroke_no_corner"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
                 android:orientation="horizontal"
                 android:padding="@dimen/global_padding">
 
@@ -155,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_balance_out"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/shape_white_stroke_no_corner"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
                 android:orientation="horizontal"
                 android:padding="@dimen/global_padding">
 
@@ -183,7 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_deal_psw"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/shape_white_stroke_no_corner"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
                 android:orientation="horizontal"
                 android:padding="@dimen/global_padding">
 
@@ -211,7 +212,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_change_psw"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/shape_white_stroke_no_corner"
+                android:background="@drawable/shape_white_stroke_no_corner_ripple"
                 android:orientation="horizontal"
                 android:padding="@dimen/global_padding">
 

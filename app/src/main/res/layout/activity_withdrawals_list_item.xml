@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:foreground="?android:attr/selectableItemBackground"
-    android:background="@drawable/shape_white_stroke_no_corner"
+    android:background="@drawable/shape_white_stroke_no_corner_ripple"
     android:padding="@dimen/global_padding">
 
     <ImageView
@@ -39,11 +38,5 @@
         android:textColor="@color/address"
         tools:text="niesen918@163.com"/>
 
-    <!--<ImageView
-        android:id="@+id/iv_checked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:src="@android:drawable/ic_menu_add"/>-->
 
 </RelativeLayout>

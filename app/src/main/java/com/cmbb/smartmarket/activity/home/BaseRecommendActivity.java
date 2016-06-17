@@ -2,6 +2,8 @@ package com.cmbb.smartmarket.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.RecyclerView;
@@ -233,8 +235,9 @@ public abstract class BaseRecommendActivity extends BaseRecyclerActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
-        CommodityDetailActivity.newIntent(this, ((HomeRecommendAdapter) adapter).getItem(position).getId());
+    public void onItemClick(View rootView, int position) {
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_pic), "iv01"));
+        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((HomeRecommendAdapter) adapter).getItem(position).getId());
     }
 
     @Override

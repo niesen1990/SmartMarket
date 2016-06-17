@@ -3,6 +3,9 @@ package com.cmbb.smartmarket.activity.message;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
+import android.view.View;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetPageRequestModel;
@@ -49,14 +52,15 @@ public class StoreMessageActivity extends BaseMessageActivity {
     }
 
     @Override
-    public void onItemClick(int position) {
+    public void onItemClick(View rootView, int position) {
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_image), "iv01"));
         switch (((MessageStoreAdapter) adapter).getItem(position).getProductType()) {
             case 0:
-                CommodityDetailActivity.newIntent(this, ((MessageStoreAdapter) adapter).getItem(position).getRelateField());
+                CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MessageStoreAdapter) adapter).getItem(position).getRelateField());
                 break;
             case 1:
                 //求购
-                NeedDetailActivity.newIntent(this, ((MessageStoreAdapter) adapter).getItem(position).getRelateField());
+                NeedDetailActivity.newIntent(this, activityOptionsCompat, ((MessageStoreAdapter) adapter).getItem(position).getRelateField());
                 break;
         }
     }

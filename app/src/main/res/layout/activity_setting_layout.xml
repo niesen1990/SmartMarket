@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/shape_white_stroke_no_corner"
+        android:background="@drawable/shape_white_stroke_no_corner_ripple"
         android:orientation="horizontal"
         android:padding="@dimen/activity_vertical_margin">
 
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:background="@drawable/shape_white_stroke_no_corner"
+        android:background="@drawable/shape_white_stroke_no_corner_ripple"
         android:orientation="horizontal"
         android:padding="@dimen/activity_vertical_margin">
 
@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="@dimen/half_global_padding"
-        android:background="@drawable/shape_white_stroke_no_corner"
+        android:background="@drawable/shape_white_stroke_no_corner_ripple"
         android:orientation="horizontal"
         android:padding="@dimen/activity_vertical_margin">
 
@@ -97,7 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="@dimen/half_global_padding"
-        android:background="@drawable/shape_white_stroke_no_corner"
+        android:background="@drawable/shape_white_stroke_no_corner_ripple"
         android:orientation="horizontal"
         android:padding="@dimen/activity_vertical_margin">
 
@@ -125,7 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="@dimen/half_global_padding"
-        android:background="@drawable/shape_white_stroke_no_corner"
+        android:background="@drawable/shape_white_stroke_no_corner_ripple"
         android:orientation="horizontal"
         android:padding="@dimen/activity_vertical_margin">
 
@@ -153,10 +153,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:background="@drawable/shape_white_stroke_no_corner"
+        android:background="@drawable/shape_white_stroke_no_corner_ripple"
         android:orientation="horizontal"
-        android:visibility="invisible"
-        android:padding="@dimen/activity_vertical_margin">
+        android:padding="@dimen/activity_vertical_margin"
+        android:visibility="invisible">
 
         <TextView
             android:layout_width="wrap_content"
