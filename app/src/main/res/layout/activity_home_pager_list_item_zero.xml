@@ -1,87 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/shape_white_stroke_no_corner_ripple"
+    android:orientation="vertical"
     android:padding="@dimen/global_padding">
 
-
-    <ImageView
-        android:id="@+id/iv_head"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/ic_head_default"/>
-
-    <TextView
-        android:id="@+id/tv_nick"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/iv_head"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_toEndOf="@+id/iv_head"
-        android:layout_toRightOf="@+id/iv_head"
-        android:textStyle="bold"
-        tools:text="niesen918"/>
-
-    <TextView
-        android:id="@+id/tv_time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/iv_head"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_toEndOf="@+id/iv_head"
-        android:layout_toRightOf="@+id/iv_head"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="12sp"
-        tools:text="5小时之前"/>
-
-
-    <TextView
-        android:id="@+id/tv_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/half_global_padding"
-        android:textColor="@color/colorPrimary"
-        tools:text="已出售"/>
-
-    <LinearLayout
-        android:id="@+id/ll_images"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/iv_head"
-        android:layout_marginTop="@dimen/global_padding"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/iv01"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:src="@color/line"/>
+            android:id="@+id/iv_head"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/ic_head_default"
+            android:transitionName="iv_head"/>
 
-        <ImageView
-            android:id="@+id/iv02"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_marginLeft="@dimen/half_global_padding"
-            android:layout_marginRight="@dimen/half_global_padding"
-            android:layout_weight="1"
-            android:src="@color/line"/>
+        <TextView
+            android:id="@+id/tv_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/iv_head"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_toEndOf="@+id/iv_head"
+            android:layout_toRightOf="@+id/iv_head"
+            android:textStyle="bold"
+            android:transitionName="tv_nick"
+            tools:text="niesen918"/>
 
-        <ImageView
-            android:id="@+id/iv03"
-            android:layout_width="0dp"
-            android:layout_height="100dp"
-            android:layout_weight="1"
-            android:src="@color/line"/>
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iv_head"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_toEndOf="@+id/iv_head"
+            android:layout_toRightOf="@+id/iv_head"
+            android:textColor="@color/darkgray"
+            android:textSize="12sp"
+            tools:text="5小时之前"/>
 
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/half_global_padding"
+            android:textColor="@color/colorPrimary"
+            tools:text="已出售"/>
+
+    </RelativeLayout>
+
 
     <TextView
         android:id="@+id/tv_content"
@@ -90,6 +66,7 @@
         android:layout_below="@+id/ll_images"
         android:layout_marginTop="@dimen/global_padding"
         android:maxLines="2"
+        android:transitionName="tv_content"
         tools:text="就是当减肥sdjfoijsdjfpoiwjefwoiejfsjdf;ajsjdf;ajfjd;ajf时代科技分"/>
 
     <RelativeLayout
@@ -147,8 +124,8 @@
             android:layout_centerVertical="true"
             android:drawableLeft="@drawable/ic_message"
             android:gravity="center"
-            android:text="40"
-            android:textSize="10sp"/>
+            android:textSize="10sp"
+            tools:text="40"/>
 
         <TextView
             android:id="@+id/tv_watch"
@@ -164,4 +141,4 @@
 
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

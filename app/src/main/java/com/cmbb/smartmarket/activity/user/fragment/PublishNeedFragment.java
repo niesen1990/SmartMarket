@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
 import com.cmbb.smartmarket.activity.market.NeedDetailActivity;
 import com.cmbb.smartmarket.activity.market.PublishActivity;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteRequestModel;
@@ -165,15 +164,14 @@ public class PublishNeedFragment extends BaseRecyclerFragment {
 
     @Override
     public void onItemClick(View rootView, int position) {
-        switch (this.position) {
-            case 0:
-                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.tv01), "iv01"));
-                CommodityDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((PublishNeedListAdapter) adapter).getItem(position).getId());
-                break;
-            case 1:
-                ActivityOptionsCompat activityOptionsCompat1 = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.tv01), "iv01"));
-                NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat1, ((PublishNeedListAdapter) adapter).getItem(position).getId());
-                break;
+        if (((PublishNeedListAdapter) adapter).getItem(position).getProductImageList() == null || ((PublishNeedListAdapter) adapter).getItem(position).getProductImageList().size() == 0) {
+            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(rootView,
+                    rootView.getLeft(), rootView.getTop(), //拉伸开始的坐标
+                    rootView.getWidth(), rootView.getHeight());//拉伸开始的区域大小，这里用（0，0）表示从无到全屏
+            NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((PublishNeedListAdapter) adapter).getItem(position).getId());
+        } else {
+            ActivityOptionsCompat activityOptionsCompat1 = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
+            NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat1, ((PublishNeedListAdapter) adapter).getItem(position).getId(),((PublishNeedListAdapter) adapter).getItem(position).getProductImageList());
         }
     }
 

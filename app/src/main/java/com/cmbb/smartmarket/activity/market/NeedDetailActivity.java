@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -49,6 +50,7 @@ import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.network.model.ProductImageList;
 import com.cmbb.smartmarket.utils.DialogUtils;
 import com.cmbb.smartmarket.utils.KeyboardUtil;
 import com.cmbb.smartmarket.utils.SocialUtils;
@@ -58,6 +60,9 @@ import com.cmbb.smartmarket.widget.MengCoordinatorLayout;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.jude.rollviewpager.RollPagerView;
 import com.umeng.socialize.UMShareAPI;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import rx.Observer;
@@ -106,6 +111,8 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
     TextView tvAddress;
     BannerDetailListAdapter mBannerDetailListAdapter;
     RecyclerArrayAdapter.ItemView headItemView;
+    // 辅助动画ProductImageList
+    ArrayList<ProductImageList> mProductImageLists;
     int replayId;
     String imUserId;
     int isSpot;
@@ -127,10 +134,12 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                 mProductDetailResponseModel = productDetailResponseModel;
                 if (productDetailResponseModel.getData().getPublicUser().getImUserId() != null)
                     imUserId = productDetailResponseModel.getData().getPublicUser().getImUserId();
-                if (productDetailResponseModel.getData().getProductImageList() != null && productDetailResponseModel.getData().getProductImageList().size() > 0) {
-                    mBannerDetailListAdapter.updateList(productDetailResponseModel.getData().getProductImageList());
-                } else {
-                    collapsingToolbar.setBackgroundResource(R.mipmap.ic_good_bac);
+                if (mProductImageLists == null) {
+                    if (productDetailResponseModel.getData().getProductImageList() != null && productDetailResponseModel.getData().getProductImageList().size() > 0) {
+                        mBannerDetailListAdapter.updateList(productDetailResponseModel.getData().getProductImageList());
+                    } else {
+                        collapsingToolbar.setBackgroundResource(R.mipmap.ic_good_bac);
+                    }
                 }
                 isSpot = productDetailResponseModel.getData().getIsSpot();
                 tvTitle.setText(productDetailResponseModel.getData().getTitle());
@@ -244,13 +253,15 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
     };
 
     protected void init() {
+        mProductImageLists = getIntent().getParcelableArrayListExtra("productImageLists");
         rollViewPager = (RollPagerView) findViewById(R.id.roll_view_pager);
         mBannerDetailListAdapter = new BannerDetailListAdapter();
         rollViewPager.setAdapter(mBannerDetailListAdapter);
         tvMessage.setOnClickListener(this);
         ivSpot.setOnClickListener(this);
         tvShare.setOnClickListener(this);
-
+        if (mProductImageLists != null && mProductImageLists.size() > 0)
+            mBannerDetailListAdapter.updateList(mProductImageLists);
     }
 
     @Override
@@ -486,7 +497,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
     public void onItemClick(View rootView, int position) {
         if (((DetailReplayAdapter) adapter).getItem(position).getIsRecommoned() == 1 || ((DetailReplayAdapter) adapter).getItem(position).getResolveProductId() != -1) {
             ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_good), "iv01"));
-            CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((DetailReplayAdapter) adapter).getItem(position).getResolveProductId());
+            CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((DetailReplayAdapter) adapter).getItem(position).getResolveProductId(), ((DetailReplayAdapter) adapter).getItem(position).getRecommonedProductImageList());
         } else if (mProductDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId()) {
             replayId = ((DetailReplayAdapter) adapter).getItem(position).getCreateUser().getId();
             Log.e(TAG, "replayId = " + replayId);
@@ -537,18 +548,51 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * 普通启动入口
+     *
+     * @param context
+     * @param id
+     */
     public static void newIntent(Context context, int id) {
         Intent intent = new Intent(context, NeedDetailActivity.class);
         intent.putExtra("id", id);
         context.startActivity(intent);
     }
 
+    /**
+     * 动画启动入口
+     *
+     * @param context
+     * @param activityOptionsCompat
+     * @param id
+     */
     public static void newIntent(BaseActivity context, ActivityOptionsCompat activityOptionsCompat, int id) {
         Intent intent = new Intent(context, NeedDetailActivity.class);
         intent.putExtra("id", id);
         context.startActivity(intent, activityOptionsCompat.toBundle());
     }
 
+    /**
+     * 动画启动入口(动画图片载入)
+     *
+     * @param context
+     * @param activityOptionsCompat
+     * @param id
+     */
+    public static void newIntent(BaseActivity context, ActivityOptionsCompat activityOptionsCompat, int id, List<ProductImageList> productImageLists) {
+        Intent intent = new Intent(context, NeedDetailActivity.class);
+        intent.putExtra("id", id);
+        intent.putParcelableArrayListExtra("productImageLists", (ArrayList<? extends Parcelable>) productImageLists);
+        context.startActivity(intent, activityOptionsCompat.toBundle());
+    }
+
+    /**
+     * Notification启动入口
+     *
+     * @param context
+     * @param id
+     */
     public static void newIntent(Application context, int id) {
         Intent intent = new Intent(context, NeedDetailActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

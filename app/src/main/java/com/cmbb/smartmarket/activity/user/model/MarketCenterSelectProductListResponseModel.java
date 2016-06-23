@@ -1,5 +1,9 @@
 package com.cmbb.smartmarket.activity.user.model;
 
+import com.cmbb.smartmarket.network.model.ProductImageList;
+import com.cmbb.smartmarket.network.model.PublicUser;
+import com.cmbb.smartmarket.network.model.UserLocation;
+
 import java.util.List;
 
 /**
@@ -171,7 +175,7 @@ public class MarketCenterSelectProductListResponseModel {
             private String thirdClassify;
             private String thirdClassifyText;
 
-            private UserLocationEntity userLocation;
+            private UserLocation userLocation;
             private int productType;
             private int productStatus;
             private String productStatusText;
@@ -193,28 +197,8 @@ public class MarketCenterSelectProductListResponseModel {
                 this.checked = checked;
             }
 
-            /**
-             * id : 6
-             * mbpUserId : 100768
-             * imUserId : 15201921714
-             * loginAccount : 15201921714
-             * nickName : Dota2
-             * sex : 1
-             * province :
-             * provinceText :
-             * city :
-             * cityText :
-             * introduce :
-             * userImg : http://smart.image.alimmdn.com/app/test/2016-1-25/image_08d10846139348919717a107c73c16ae
-             * imgWidth :
-             * imgHeight :
-             * userLevel : 0
-             * appVersion :
-             * device :
-             * deviceImei :
-             */
 
-            private PublicUserEntity publicUser;
+            private PublicUser publicUser;
             private int isCollect;
             private int isSpot;
             /**
@@ -223,7 +207,7 @@ public class MarketCenterSelectProductListResponseModel {
              * imageWidth :
              */
 
-            private List<ProductImageListEntity> productImageList;
+            private List<ProductImageList> productImageList;
 
             public int getId() {
                 return id;
@@ -337,11 +321,11 @@ public class MarketCenterSelectProductListResponseModel {
                 this.thirdClassifyText = thirdClassifyText;
             }
 
-            public UserLocationEntity getUserLocation() {
+            public UserLocation getUserLocation() {
                 return userLocation;
             }
 
-            public void setUserLocation(UserLocationEntity userLocation) {
+            public void setUserLocation(UserLocation userLocation) {
                 this.userLocation = userLocation;
             }
 
@@ -425,11 +409,11 @@ public class MarketCenterSelectProductListResponseModel {
                 this.publicDate = publicDate;
             }
 
-            public PublicUserEntity getPublicUser() {
+            public PublicUser getPublicUser() {
                 return publicUser;
             }
 
-            public void setPublicUser(PublicUserEntity publicUser) {
+            public void setPublicUser(PublicUser publicUser) {
                 this.publicUser = publicUser;
             }
 
@@ -449,11 +433,11 @@ public class MarketCenterSelectProductListResponseModel {
                 this.isSpot = isSpot;
             }
 
-            public List<ProductImageListEntity> getProductImageList() {
+            public List<ProductImageList> getProductImageList() {
                 return productImageList;
             }
 
-            public void setProductImageList(List<ProductImageListEntity> productImageList) {
+            public void setProductImageList(List<ProductImageList> productImageList) {
                 this.productImageList = productImageList;
             }
 

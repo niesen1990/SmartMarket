@@ -5,7 +5,7 @@ import android.support.v4.content.LocalBroadcastManager;
 
 import com.cmbb.smartmarket.activity.market.model.ImageUploadResponseModel;
 import com.cmbb.smartmarket.base.BaseApplication;
-import com.cmbb.smartmarket.base.BaseRetrofitModel;
+import com.cmbb.smartmarket.network.model.BaseRetrofitModel;
 import com.cmbb.smartmarket.base.Constants;
 
 import java.util.Map;

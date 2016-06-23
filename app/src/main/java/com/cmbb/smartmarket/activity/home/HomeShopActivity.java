@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -113,12 +114,13 @@ public class HomeShopActivity extends BaseHomeActivity {
 
     @Override
     public void onItemClick(View rootView, int position) {
-        //        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
-        //让新的Activity从一个小的范围扩大到全屏
-        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(rootView,
-                rootView.getLeft(), rootView.getTop(), //拉伸开始的坐标
-                rootView.getWidth(), rootView.getHeight());//拉伸开始的区域大小，这里用（0，0）表示从无到全屏
-        NeedDetailActivity.newIntent(this, activityOptionsCompat, ((HomeShopAdapter) adapter).getItem(position).getId());
+        if (((HomeShopAdapter) adapter).getItem(position).getProductImageList() == null || ((HomeShopAdapter) adapter).getItem(position).getProductImageList().size() == 0) {
+            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(rootView, rootView.getLeft(), rootView.getTop(), rootView.getWidth(), rootView.getHeight());
+            NeedDetailActivity.newIntent(this, activityOptionsCompat, ((HomeShopAdapter) adapter).getItem(position).getId());
+        } else {
+            ActivityOptionsCompat activityOptionsCompat1 = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
+            NeedDetailActivity.newIntent(this, activityOptionsCompat1, ((HomeShopAdapter) adapter).getItem(position).getId(), ((HomeShopAdapter) adapter).getItem(position).getProductImageList());
+        }
     }
 
     Observer<ProductGetPageResponseModel> mProductGetPageResponseModelObserver = new Observer<ProductGetPageResponseModel>() {

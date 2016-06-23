@@ -72,7 +72,7 @@ public class OffManagerActivity extends BaseRecyclerActivity {
     @Override
     public void onItemClick(View rootView, int position) {
         ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_image), "iv01"));
-        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((OffManagerAdapter) adapter).getItem(position).getId());
+        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((OffManagerAdapter) adapter).getItem(position).getId(), ((OffManagerAdapter) adapter).getItem(position).getProductImageList());
     }
 
     @Override

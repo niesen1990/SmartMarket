@@ -1,5 +1,9 @@
 package com.cmbb.smartmarket.activity.market.model;
 
+import com.cmbb.smartmarket.network.model.ProductImageList;
+import com.cmbb.smartmarket.network.model.PublicUser;
+import com.cmbb.smartmarket.network.model.UserLocation;
+
 import java.util.List;
 
 /**
@@ -53,7 +57,7 @@ public class ProductDetailResponseModel {
         private String secondClassifyText;
         private String thirdClassify;
         private String thirdClassifyText;
-        private UserLocationEntity userLocation;
+        private UserLocation userLocation;
         private int productType;
         private int productStatus;
         private String productStatusText;
@@ -64,35 +68,15 @@ public class ProductDetailResponseModel {
         private int shareNumber;
         private int isRecommoned;
         private String publicDate;
-        /**
-         * id : 5
-         * mbpUserId : 101033
-         * loginAccount : 13818155072
-         * nickName : 共产党
-         * sex : 1
-         * province :
-         * provinceText :
-         * city :
-         * cityText :
-         * introduce : ?????
-         * userImg : http://smart-test.image.alimmdn.com/market/user/image/2016-05-16/YTk3MzI1MjgtZGM0NS00YmUwLTk1NTItNzMwMTk2ZDAwNjYx
-         * imgWidth : 2148
-         * imgHeight : 2148
-         * userLevel : 0
-         * appVersion :
-         * device :
-         * deviceImei :
-         */
-
-        private PublicUserEntity publicUser;
+        private PublicUser publicUser;
         private int isCollect;
         private int isSpot;
 
-        public UserLocationEntity getUserLocation() {
+        public UserLocation getUserLocation() {
             return userLocation;
         }
 
-        public void setUserLocation(UserLocationEntity userLocation) {
+        public void setUserLocation(UserLocation userLocation) {
             this.userLocation = userLocation;
         }
 
@@ -103,7 +87,7 @@ public class ProductDetailResponseModel {
          */
 
 
-        private List<ProductImageListEntity> productImageList;
+        private List<ProductImageList> productImageList;
 
         public int getId() {
             return id;
@@ -297,11 +281,11 @@ public class ProductDetailResponseModel {
             this.publicDate = publicDate;
         }
 
-        public PublicUserEntity getPublicUser() {
+        public PublicUser getPublicUser() {
             return publicUser;
         }
 
-        public void setPublicUser(PublicUserEntity publicUser) {
+        public void setPublicUser(PublicUser publicUser) {
             this.publicUser = publicUser;
         }
 
@@ -321,314 +305,13 @@ public class ProductDetailResponseModel {
             this.isSpot = isSpot;
         }
 
-        public List<ProductImageListEntity> getProductImageList() {
+        public List<ProductImageList> getProductImageList() {
             return productImageList;
         }
 
-        public void setProductImageList(List<ProductImageListEntity> productImageList) {
+        public void setProductImageList(List<ProductImageList> productImageList) {
             this.productImageList = productImageList;
         }
 
-        public static class PublicUserEntity {
-            private int id;
-            private int mbpUserId;
-            private String loginAccount;
-            private String nickName;
-            private int sex;
-            private String province;
-            private String provinceText;
-            private String city;
-            private String cityText;
-            private String introduce;
-            private String userImg;
-            private int imgWidth;
-            private int imgHeight;
-            private int userLevel;
-            private String appVersion;
-            private String device;
-            private String deviceImei;
-            private String imUserId;
-
-            public String getImUserId() {
-                return imUserId;
-            }
-
-            public void setImUserId(String imUserId) {
-                this.imUserId = imUserId;
-            }
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public int getMbpUserId() {
-                return mbpUserId;
-            }
-
-            public void setMbpUserId(int mbpUserId) {
-                this.mbpUserId = mbpUserId;
-            }
-
-            public String getLoginAccount() {
-                return loginAccount;
-            }
-
-            public void setLoginAccount(String loginAccount) {
-                this.loginAccount = loginAccount;
-            }
-
-            public String getNickName() {
-                return nickName;
-            }
-
-            public void setNickName(String nickName) {
-                this.nickName = nickName;
-            }
-
-            public int getSex() {
-                return sex;
-            }
-
-            public void setSex(int sex) {
-                this.sex = sex;
-            }
-
-            public String getProvince() {
-                return province;
-            }
-
-            public void setProvince(String province) {
-                this.province = province;
-            }
-
-            public String getProvinceText() {
-                return provinceText;
-            }
-
-            public void setProvinceText(String provinceText) {
-                this.provinceText = provinceText;
-            }
-
-            public String getCity() {
-                return city;
-            }
-
-            public void setCity(String city) {
-                this.city = city;
-            }
-
-            public String getCityText() {
-                return cityText;
-            }
-
-            public void setCityText(String cityText) {
-                this.cityText = cityText;
-            }
-
-            public String getIntroduce() {
-                return introduce;
-            }
-
-            public void setIntroduce(String introduce) {
-                this.introduce = introduce;
-            }
-
-            public String getUserImg() {
-                return userImg;
-            }
-
-            public void setUserImg(String userImg) {
-                this.userImg = userImg;
-            }
-
-            public int getImgWidth() {
-                return imgWidth;
-            }
-
-            public void setImgWidth(int imgWidth) {
-                this.imgWidth = imgWidth;
-            }
-
-            public int getImgHeight() {
-                return imgHeight;
-            }
-
-            public void setImgHeight(int imgHeight) {
-                this.imgHeight = imgHeight;
-            }
-
-            public int getUserLevel() {
-                return userLevel;
-            }
-
-            public void setUserLevel(int userLevel) {
-                this.userLevel = userLevel;
-            }
-
-            public String getAppVersion() {
-                return appVersion;
-            }
-
-            public void setAppVersion(String appVersion) {
-                this.appVersion = appVersion;
-            }
-
-            public String getDevice() {
-                return device;
-            }
-
-            public void setDevice(String device) {
-                this.device = device;
-            }
-
-            public String getDeviceImei() {
-                return deviceImei;
-            }
-
-            public void setDeviceImei(String deviceImei) {
-                this.deviceImei = deviceImei;
-            }
-        }
-
-        public static class ProductImageListEntity {
-            private String imageHeight;
-            private String location;
-            private String imageWidth;
-
-            public String getImageHeight() {
-                return imageHeight;
-            }
-
-            public void setImageHeight(String imageHeight) {
-                this.imageHeight = imageHeight;
-            }
-
-            public String getLocation() {
-                return location;
-            }
-
-            public void setLocation(String location) {
-                this.location = location;
-            }
-
-            public String getImageWidth() {
-                return imageWidth;
-            }
-
-            public void setImageWidth(String imageWidth) {
-                this.imageWidth = imageWidth;
-            }
-        }
-
-        public static class UserLocationEntity {
-
-            /**
-             * id : 57
-             * country : 中国
-             * countryCode : 0
-             * province : 上海市
-             * city : 上海市
-             * cityCode : 289
-             * district : 杨浦区
-             * street : 飞虹路
-             * streetNumber : 568弄-21号
-             * address : 中国上海市杨浦区飞虹路568弄-21号
-             */
-
-            private int id;
-            private String country;
-            private String countryCode;
-            private String province;
-            private String city;
-            private String cityCode;
-            private String district;
-            private String street;
-            private String streetNumber;
-            private String address;
-
-            public int getId() {
-                return id;
-            }
-
-            public void setId(int id) {
-                this.id = id;
-            }
-
-            public String getCountry() {
-                return country;
-            }
-
-            public void setCountry(String country) {
-                this.country = country;
-            }
-
-            public String getCountryCode() {
-                return countryCode;
-            }
-
-            public void setCountryCode(String countryCode) {
-                this.countryCode = countryCode;
-            }
-
-            public String getProvince() {
-                return province;
-            }
-
-            public void setProvince(String province) {
-                this.province = province;
-            }
-
-            public String getCity() {
-                return city;
-            }
-
-            public void setCity(String city) {
-                this.city = city;
-            }
-
-            public String getCityCode() {
-                return cityCode;
-            }
-
-            public void setCityCode(String cityCode) {
-                this.cityCode = cityCode;
-            }
-
-            public String getDistrict() {
-                return district;
-            }
-
-            public void setDistrict(String district) {
-                this.district = district;
-            }
-
-            public String getStreet() {
-                return street;
-            }
-
-            public void setStreet(String street) {
-                this.street = street;
-            }
-
-            public String getStreetNumber() {
-                return streetNumber;
-            }
-
-            public void setStreetNumber(String streetNumber) {
-                this.streetNumber = streetNumber;
-            }
-
-            public String getAddress() {
-                return address;
-            }
-
-            public void setAddress(String address) {
-                this.address = address;
-            }
-        }
     }
 }

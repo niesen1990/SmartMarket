@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
-import com.cmbb.smartmarket.activity.market.NeedDetailActivity;
 import com.cmbb.smartmarket.activity.market.PublishActivity;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteResponseModel;
@@ -165,16 +164,8 @@ public class PublishSellFragment extends BaseRecyclerFragment {
 
     @Override
     public void onItemClick(View rootView, int position) {
-        switch (this.position) {
-            case 0:
-                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.tv01), "iv01"));
-                CommodityDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat,((PublishSellListAdapter) adapter).getItem(position).getId());
-                break;
-            case 1:
-                ActivityOptionsCompat activityOptionsCompat1 = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.tv01), "iv01"));
-                NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat1,((PublishSellListAdapter) adapter).getItem(position).getId());
-                break;
-        }
+        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
+        CommodityDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((PublishSellListAdapter) adapter).getItem(position).getId(), ((PublishSellListAdapter) adapter).getItem(position).getProductImageList());
     }
 
     Observer<MyselfProductPublicListResponseModel> mMyselfProductPublicListResponseModelObserver = new Observer<MyselfProductPublicListResponseModel>() {

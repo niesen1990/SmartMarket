@@ -42,6 +42,7 @@ import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.image.MediaCamera;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.network.model.ProductImageList;
 import com.cmbb.smartmarket.utils.DialogUtils;
 import com.cmbb.smartmarket.utils.KeyboardUtil;
 import com.cmbb.smartmarket.utils.SPCache;
@@ -347,7 +348,7 @@ public class PublishActivity extends BaseActivity {
             tvOldPrice.setText(goodModel.getOriginalPrice() + "");
             tvClass.setText(goodModel.getParentClassifyText() + " - " + goodModel.getSecondClassifyText());
 
-            for (MyselfProductPublicListResponseModel.DataEntity.ContentEntity.ProductImageListEntity model : goodModel.getProductImageList()) {
+            for (ProductImageList model : goodModel.getProductImageList()) {
                 publishImageModels.add(new PublishImageModel(model.getLocation(), 0, model.getBusinessNumber()));
             }
             imageCount = imageCount - publishImageModels.size();

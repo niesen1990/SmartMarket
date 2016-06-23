@@ -6,9 +6,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.market.model.ProductDetailResponseModel;
 import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.log.Log;
+import com.cmbb.smartmarket.network.model.ProductImageList;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 
 import java.util.ArrayList;
@@ -22,13 +22,13 @@ import java.util.List;
  */
 public class BannerDetailListAdapter extends StaticPagerAdapter {
     private static final String TAG = BannerDetailListAdapter.class.getSimpleName();
-    private List<ProductDetailResponseModel.DataEntity.ProductImageListEntity> list;
+    private List<ProductImageList> list;
 
     public BannerDetailListAdapter() {
         list = new ArrayList<>();
     }
 
-    public void updateList(List<ProductDetailResponseModel.DataEntity.ProductImageListEntity> data) {
+    public void updateList(List<ProductImageList> data) {
         if (data == null || data.size() == 0)
             return;
         this.list.clear();

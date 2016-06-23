@@ -138,7 +138,7 @@ import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordReques
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordResponseModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordRequestModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordResponseModel;
-import com.cmbb.smartmarket.base.BaseRetrofitModel;
+import com.cmbb.smartmarket.network.model.BaseRetrofitModel;
 
 import java.util.List;
 import java.util.Map;

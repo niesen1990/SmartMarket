@@ -177,13 +177,13 @@ public class SearchActivity extends BaseRecyclerActivity {
         ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_pic), "iv01"));
         switch (type) {
             case 0:
-                CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
+                CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId(), ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getProductImageList());
                 break;
             case 1:
-                NeedDetailActivity.newIntent(this, activityOptionsCompat,((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
+                NeedDetailActivity.newIntent(this, activityOptionsCompat,((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId(),((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getProductImageList());
                 break;
             case 2:
-                CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
+                CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId(), ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getProductImageList());
                 break;
         }
     }

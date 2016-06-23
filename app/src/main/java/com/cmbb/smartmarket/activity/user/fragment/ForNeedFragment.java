@@ -62,7 +62,7 @@ public class ForNeedFragment extends BaseRecyclerFragment {
     @Override
     public void onItemClick(View rootView, int position) {
         ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
-        NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((ForNeedAdapter) adapter).getItem(position).getId());
+        NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((ForNeedAdapter) adapter).getItem(position).getId(), ((ForNeedAdapter) adapter).getItem(position).getProductImageList());
     }
 
     Observer<MarketCenterSelectProductListResponseModel> mMarketCenterSelectProductListResponseModelObserver = new Observer<MarketCenterSelectProductListResponseModel>() {

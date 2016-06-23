@@ -46,7 +46,7 @@ public class MeCollectionActivity extends BaseRecyclerActivity {
     @Override
     public void onItemClick(View rootView, int position) {
         ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
-        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MeCollectionAdapter) adapter).getItem(position).getProduct().getId());
+        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MeCollectionAdapter) adapter).getItem(position).getProduct().getId(), ((MeCollectionAdapter) adapter).getItem(position).getProduct().getProductImageList());
     }
 
     Observer<MyselfProductCollectListResponseModel> mMyselfProductCollectListResponseModelObserver = new Observer<MyselfProductCollectListResponseModel>() {

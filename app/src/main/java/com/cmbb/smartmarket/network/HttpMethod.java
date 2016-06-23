@@ -142,7 +142,7 @@ import com.cmbb.smartmarket.activity.wallet.model.WalletAccountSetPasswordRespon
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordRequestModel;
 import com.cmbb.smartmarket.activity.wallet.model.WalletAccountValiatePayPasswordResponseModel;
 import com.cmbb.smartmarket.base.BaseApplication;
-import com.cmbb.smartmarket.base.BaseRetrofitModel;
+import com.cmbb.smartmarket.network.model.BaseRetrofitModel;
 import com.cmbb.smartmarket.base.Constants;
 
 import java.util.Map;

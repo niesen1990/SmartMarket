@@ -1,5 +1,8 @@
 package com.cmbb.smartmarket.activity.market.model;
 
+import com.cmbb.smartmarket.network.model.ProductImageList;
+import com.cmbb.smartmarket.network.model.PublicUser;
+
 import java.util.List;
 
 /**
@@ -162,34 +165,8 @@ public class ProductReplyListResponseModel  {
             private int resolveProductId = -1;
             private int isRecommoned;
             private String createDate;
-            /**
-             * id : 3
-             * mbpUserId : 108074
-             * loginAccount : 18221507236
-             * nickName : mywaystay
-             * sex : 2
-             * province : 310000
-             * provinceText :
-             * city : 310104
-             * cityText :
-             * introduce :
-             * userImg : http://smart.image.alimmdn.com/app/test/2015-12-8/C6BDAD0C-A958-428A-8287-745234FE9253
-             * imgWidth :
-             * imgHeight :
-             * userLevel : 0
-             * appVersion :
-             * device :
-             * deviceImei :
-             */
-
-            private CreateUserEntity createUser;
-            /**
-             * imageHeight :
-             * location : http://smart-test.image.alimmdn.com/market/product/image/2016-05-19/NzQ2YThmYmUtNjliMy00ZGRmLTg1YjItYjc2ZjQ3ZTUxNjFj
-             * imageWidth :
-             */
-
-            private List<RecommonedProductImageListEntity> recommonedProductImageList;
+            private PublicUser createUser;
+            private List<ProductImageList> recommonedProductImageList;
 
             public int getId() {
                 return id;
@@ -255,19 +232,19 @@ public class ProductReplyListResponseModel  {
                 this.createDate = createDate;
             }
 
-            public CreateUserEntity getCreateUser() {
+            public PublicUser getCreateUser() {
                 return createUser;
             }
 
-            public void setCreateUser(CreateUserEntity createUser) {
+            public void setCreateUser(PublicUser createUser) {
                 this.createUser = createUser;
             }
 
-            public List<RecommonedProductImageListEntity> getRecommonedProductImageList() {
+            public List<ProductImageList> getRecommonedProductImageList() {
                 return recommonedProductImageList;
             }
 
-            public void setRecommonedProductImageList(List<RecommonedProductImageListEntity> recommonedProductImageList) {
+            public void setRecommonedProductImageList(List<ProductImageList> recommonedProductImageList) {
                 this.recommonedProductImageList = recommonedProductImageList;
             }
 

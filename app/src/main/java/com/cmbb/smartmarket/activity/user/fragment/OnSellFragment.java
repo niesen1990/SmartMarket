@@ -71,7 +71,7 @@ public class OnSellFragment extends BaseRecyclerFragment {
     @Override
     public void onItemClick(View rootView, int position) {
         ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.iv_pic), "iv01"));
-        CommodityDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((OnSellAdapter) adapter).getItem(position).getId());
+        CommodityDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((OnSellAdapter) adapter).getItem(position).getId(),((OnSellAdapter) adapter).getItem(position).getProductImageList());
     }
 
     Observer<MarketCenterSelectProductListResponseModel> mMarketCenterSelectProductListResponseModelObserver = new Observer<MarketCenterSelectProductListResponseModel>() {

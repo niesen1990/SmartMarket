@@ -57,6 +57,7 @@ import rx.Observer;
  * 创建时间：16/4/19 上午9:34
  */
 public class HomePagerActivity extends BaseHomeActivity {
+
     private static final String TAG = HomePagerActivity.class.getSimpleName();
 
     @BindView(R.id.tv_city)
@@ -301,7 +302,7 @@ public class HomePagerActivity extends BaseHomeActivity {
     @Override
     public void onItemClick(View rootView, int position) {
         ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
-        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((HomeAdapter) adapter).getItem(position).getId());
+        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((HomeAdapter) adapter).getItem(position).getId(),((HomeAdapter) adapter).getItem(position).getProductImageList());
     }
 
     @Override
@@ -339,6 +340,7 @@ public class HomePagerActivity extends BaseHomeActivity {
      * @return params
      */
     protected ProductGetPageRequestModel setParams() {
+        unSubscribe();
         ProductGetPageRequestModel productGetPageRequestModel = new ProductGetPageRequestModel();
         productGetPageRequestModel.setCmd(ApiInterface.ProductGetPage);
         productGetPageRequestModel.setParameters(new ProductGetPageRequestModel.ParametersEntity(pagerSize, pager, 0, city));

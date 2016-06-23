@@ -1,4 +1,4 @@
-package com.cmbb.smartmarket.base;
+package com.cmbb.smartmarket.network.model;
 
 /**
  * 项目名称：SmartMarket

@@ -1,5 +1,9 @@
 package com.cmbb.smartmarket.activity.home.model;
 
+import com.cmbb.smartmarket.network.model.ProductImageList;
+import com.cmbb.smartmarket.network.model.PublicUser;
+import com.cmbb.smartmarket.network.model.UserLocation;
+
 import java.util.List;
 
 /**
@@ -147,37 +151,6 @@ public class MyselfProductCollectListResponseModel {
             private int isDelete;
             private String createDate;
             private int createUserId;
-            /**
-             * id : 231
-             * title : 测试数据
-             * introduce :
-             * content : Android
-             * originalPrice : 9.02
-             * currentPrice : 0.01
-             * freight : 0.01
-             * priceDesc :
-             * parentClassify : MMYP
-             * parentClassifyText : 妈妈用品
-             * secondClassify : MMYP_XB
-             * secondClassifyText : 鞋包
-             * thirdClassify :
-             * thirdClassifyText :
-             * userLocation : {"id":153,"country":"中国","countryCode":"0","province":"上海市","city":"上海市","cityCode":"289","district":"杨浦区","street":"飞虹路","streetNumber":"568弄-13","address":"中国上海市杨浦区飞虹路568弄-13"}
-             * productType : 0
-             * productStatus : 0
-             * productStatusText : 上架
-             * isResolve : 1
-             * resolveDate :
-             * browseNumber : 19
-             * replyNumber : 1
-             * shareNumber : 0
-             * isRecommoned : 1
-             * publicDate : 2016-06-06 16:11:09
-             * publicUser : {"id":5,"mbpUserId":101033,"imUserId":"13818155072","loginAccount":"13818155072","nickName":"共产党","sex":1,"province":"","provinceText":"","city":"","cityText":"","introduce":"哈哈","userImg":"http://smart-test.image.alimmdn.com/market/user/image/2016-06-03/ZTljYWI0YjUtYjhmYy00YTk4LTk3YWItYWI5ZTMzYmFhNGU5","imgWidth":512,"imgHeight":512,"userLevel":0,"appVersion":"hm_android_1.0.0","device":"ANDROID","deviceImei":"352514065726683"}
-             * productImageList : [{"imageHeight":640,"businessNumber":"8a7c7f4755244eaa015524c3bdee0013","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-06-06/OWE3MzRkMzEtMmFlMi00NjZmLTkyZTktZTE1YTQ1NDlhMWY4","imageWidth":1138}]
-             * isCollect : 1
-             * isSpot : 1
-             */
 
             private ProductEntity product;
 
@@ -244,20 +217,8 @@ public class MyselfProductCollectListResponseModel {
                 private String secondClassifyText;
                 private String thirdClassify;
                 private String thirdClassifyText;
-                /**
-                 * id : 153
-                 * country : 中国
-                 * countryCode : 0
-                 * province : 上海市
-                 * city : 上海市
-                 * cityCode : 289
-                 * district : 杨浦区
-                 * street : 飞虹路
-                 * streetNumber : 568弄-13
-                 * address : 中国上海市杨浦区飞虹路568弄-13
-                 */
 
-                private UserLocationEntity userLocation;
+                private UserLocation userLocation;
                 private int productType;
                 private int productStatus;
                 private String productStatusText;
@@ -289,7 +250,7 @@ public class MyselfProductCollectListResponseModel {
                  * deviceImei : 352514065726683
                  */
 
-                private PublicUserEntity publicUser;
+                private PublicUser publicUser;
                 private int isCollect;
                 private int isSpot;
                 /**
@@ -299,7 +260,7 @@ public class MyselfProductCollectListResponseModel {
                  * imageWidth : 1138
                  */
 
-                private List<ProductImageListEntity> productImageList;
+                private List<ProductImageList> productImageList;
 
                 public int getId() {
                     return id;
@@ -413,11 +374,11 @@ public class MyselfProductCollectListResponseModel {
                     this.thirdClassifyText = thirdClassifyText;
                 }
 
-                public UserLocationEntity getUserLocation() {
+                public UserLocation getUserLocation() {
                     return userLocation;
                 }
 
-                public void setUserLocation(UserLocationEntity userLocation) {
+                public void setUserLocation(UserLocation userLocation) {
                     this.userLocation = userLocation;
                 }
 
@@ -501,11 +462,11 @@ public class MyselfProductCollectListResponseModel {
                     this.publicDate = publicDate;
                 }
 
-                public PublicUserEntity getPublicUser() {
+                public PublicUser getPublicUser() {
                     return publicUser;
                 }
 
-                public void setPublicUser(PublicUserEntity publicUser) {
+                public void setPublicUser(PublicUser publicUser) {
                     this.publicUser = publicUser;
                 }
 
@@ -525,11 +486,11 @@ public class MyselfProductCollectListResponseModel {
                     this.isSpot = isSpot;
                 }
 
-                public List<ProductImageListEntity> getProductImageList() {
+                public List<ProductImageList> getProductImageList() {
                     return productImageList;
                 }
 
-                public void setProductImageList(List<ProductImageListEntity> productImageList) {
+                public void setProductImageList(List<ProductImageList> productImageList) {
                     this.productImageList = productImageList;
                 }
 

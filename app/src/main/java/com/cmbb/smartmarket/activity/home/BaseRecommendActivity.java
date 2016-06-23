@@ -237,7 +237,7 @@ public abstract class BaseRecommendActivity extends BaseRecyclerActivity {
     @Override
     public void onItemClick(View rootView, int position) {
         ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_pic), "iv01"));
-        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((HomeRecommendAdapter) adapter).getItem(position).getId());
+        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((HomeRecommendAdapter) adapter).getItem(position).getId(), ((HomeRecommendAdapter) adapter).getItem(position).getProductImageList());
     }
 
     @Override
