@@ -161,12 +161,13 @@ import rx.Observable;
 public interface ApiInterface {
 
     //正式环境地址 http://market.smart-kids.com:81/wine-market-rest/cgi
-    String Base = "http://market.smart-kids.com:81/";
-    String HOST = Base + "wine-market-rest/cgi/";
-
-    //    String Base = "http://erpuat.mengbp.com:8094/";
+    //    String Base = "http://market.smart-kids.com:81/";
     //    String HOST = Base + "wine-market-rest/cgi/";
-    //    String Base = "http://192.168.100.109:8080/";l
+
+    String Base = "http://erpuat.mengbp.com:8094/";
+    String HOST = Base + "wine-market-rest/cgi/";
+    //    String Base = "http://192.168.100.64:8085/wine-market-rest/";
+    //    String Base = "http://192.168.100.130:8080/wine-market-rest/";
     //    String HOST = Base + "cgi/";
 
     String SHARE_NEED = "http://www.mengbp.com/web/App/share/mbpz/index.html#/shopDetail/";// 分享求购详情

@@ -31,7 +31,6 @@ public class ApiException extends RuntimeException {
                 break;
             default:
                 message = "未知错误";
-
         }
         return message;
     }

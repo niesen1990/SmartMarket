@@ -77,7 +77,8 @@ public class HomePagerActivity extends BaseHomeActivity {
             if (TextUtils.isEmpty(city))
                 return;
             tvCity.setText(city);
-            HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
+            unSubscribe();
+            subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
         }
     };
     Observer<ProductGetPageResponseModel> mProductGetPageResponseModelObserver = new Observer<ProductGetPageResponseModel>() {
@@ -213,6 +214,7 @@ public class HomePagerActivity extends BaseHomeActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if ((requestCode == 4000 || requestCode == 5000) && grantResults.length > 0) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.e("product/getPage", "onRequestPermissionsResult");
                 BaiduLocation.getInstance().getLocationClient().start();
             } else {
                 showToast("关闭定位权限可能影响使用");
@@ -235,8 +237,8 @@ public class HomePagerActivity extends BaseHomeActivity {
 
     @Override
     protected void onPause() {
-        super.onPause();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(locationReceiver);
+        super.onPause();
     }
 
     @Override
@@ -305,16 +307,15 @@ public class HomePagerActivity extends BaseHomeActivity {
     @Override
     public void onLoadMore() {
         pager++;
-        HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
+        subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
     }
 
     @Override
     public void onRefresh() {
         pager = 0;
-        HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
+        subscription = HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserver, setParams());
         HttpMethod.getInstance().marketHomeAdvertInfo(mMarketHomeAdvertInfoResponseModelObserver, setAdParams());
         HttpMethod.getInstance().requestProductGetPage(mProductGetPageResponseModelObserverFlip, setFlipperParams());
-
     }
 
     private MarketHomeAdvertInfoRequestModel setAdParams() {
@@ -338,7 +339,6 @@ public class HomePagerActivity extends BaseHomeActivity {
      * @return params
      */
     protected ProductGetPageRequestModel setParams() {
-        unSubscribe();
         ProductGetPageRequestModel productGetPageRequestModel = new ProductGetPageRequestModel();
         productGetPageRequestModel.setCmd(ApiInterface.ProductGetPage);
         productGetPageRequestModel.setParameters(new ProductGetPageRequestModel.ParametersEntity(pagerSize, pager, 0, city));

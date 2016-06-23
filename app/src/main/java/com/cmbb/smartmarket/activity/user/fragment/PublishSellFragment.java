@@ -167,11 +167,11 @@ public class PublishSellFragment extends BaseRecyclerFragment {
     public void onItemClick(View rootView, int position) {
         switch (this.position) {
             case 0:
-                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
+                ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.tv01), "iv01"));
                 CommodityDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat,((PublishSellListAdapter) adapter).getItem(position).getId());
                 break;
             case 1:
-                ActivityOptionsCompat activityOptionsCompat1 = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
+                ActivityOptionsCompat activityOptionsCompat1 = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.tv01), "iv01"));
                 NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat1,((PublishSellListAdapter) adapter).getItem(position).getId());
                 break;
         }

@@ -146,7 +146,7 @@ public class SettingActivity extends BaseActivity {
                         .show("http://mbpz.file.alimmdn.com/question.html?version=" + TDevice.getVersionName() + "&type=2");
                 break;
             case R.id.rl_share:
-                SocialUtils.share(this, R.mipmap.ic_launcher, "萌宝铺子", "我分享了一个用家中闲置物品赚钱的神器，妈妈们都来试试身手吧！", ApiInterface.SHARE_APP);
+                SocialUtils.share(this, R.mipmap.ic_launcher, "萌宝铺子\r\n我分享了一个用家中闲置物品赚钱的神器，妈妈们都来试试身手吧", "我分享了一个用家中闲置物品赚钱的神器，妈妈们都来试试身手吧", ApiInterface.SHARE_APP);
                 break;
             case R.id.tv_logout:
                 // TODO: 16/4/27

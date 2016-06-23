@@ -148,7 +148,7 @@ public class ImageLoader {
         Map<String, RequestBody> params = new HashMap<>();
         params.put("token", RequestBody.create(MediaType.parse("text/plain"), BaseApplication.getToken()));
         params.put("type", RequestBody.create(MediaType.parse("text/plain"), "1"));
-        params.put("imageList\"; filename=\"" + "image" + "\"", RequestBody.create(MediaType.parse("image/*"), ExifUtils.decodeFile(url).toByteArray()));
+        params.put("imageList\"; filename=\"" + "image" + "\"", RequestBody.create(MediaType.parse("image/*"), ExifUtils.compressImage(url).toByteArray()));
         return params;
     }
 

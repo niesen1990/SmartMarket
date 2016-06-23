@@ -93,9 +93,11 @@ public class WithdrawalsActivity extends BaseAccountActivity {
             }
         });
         walletEntity = getIntent().getParcelableExtra("data");
-        tvAccount.setText(walletEntity.getCardCode());
-        tvName.setText(walletEntity.getCardUsername());
-        tvSubmit.setOnClickListener(this);
+        if (walletEntity != null) {
+            tvAccount.setText(walletEntity.getCardCode());
+            tvName.setText(walletEntity.getCardUsername());
+            tvSubmit.setOnClickListener(this);
+        }
     }
 
     @Override
@@ -120,7 +122,6 @@ public class WithdrawalsActivity extends BaseAccountActivity {
     @Override
     protected void pswOnConfirm(String psw) {
         subscription = HttpMethod.getInstance().walletAccountGetCashRequest(mWalletAccountGetCashResponseModelObserver, setCashParams(psw));
-
     }
 
     @Override

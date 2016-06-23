@@ -448,11 +448,11 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                 subscription = HttpMethod.getInstance().requestProductReplay(mProductReplayResponseModelObserver, setReplayParams());
                 break;
             case R.id.tv_contact:
-                if (!TextUtils.isEmpty(imUserId)) {
+                if (!TextUtils.isEmpty(imUserId) && IMHelper.getInstance().getIMKit() != null) {
                     Intent intent = IMHelper.getInstance().getIMKit().getChattingActivityIntent(imUserId, IMHelper.getAppKey());
                     startActivity(intent);
                 } else {
-                    Log.e(TAG, "IM ID 为空");
+                    showToast("请登陆");
                 }
                 break;
         }

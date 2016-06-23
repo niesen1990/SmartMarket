@@ -137,7 +137,8 @@ public class UserCenterActivity extends BaseActivity implements AppBarLayout.OnO
         tablayout.setTabMode(TabLayout.MODE_FIXED);
         llEvaluate.setOnClickListener(this);
         ivContact.setOnClickListener(this);
-        subscription = HttpMethod.getInstance().marketCenterPersonCenterInfo(mMarketCenterPersonCenterInfoResponseModelObserver, setParams());
+        if (userId != -1)
+            subscription = HttpMethod.getInstance().marketCenterPersonCenterInfo(mMarketCenterPersonCenterInfoResponseModelObserver, setParams());
     }
 
     private MarketCenterPersonCenterInfoRequestModel setParams() {
