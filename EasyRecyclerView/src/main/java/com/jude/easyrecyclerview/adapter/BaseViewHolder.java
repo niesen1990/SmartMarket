@@ -15,13 +15,11 @@ import android.view.ViewGroup;
  * 推荐子类继承第二个构造函数。并将子类的构造函数设为一个ViewGroup parent。
  * 然后这个ViewHolder就完全独立。adapter在new的时候只需将parentView传进来。View的生成与管理由ViewHolder执行。
  * 实现setData来实现UI修改。Adapter会在onCreateViewHolder里自动调用。
- * <p>
- * 在一些特殊情况下，只能在setData里设置监听。
  *
+ * 在一些特殊情况下，只能在setData里设置监听。
  * @param <M>
  */
 abstract public class BaseViewHolder<M> extends RecyclerView.ViewHolder {
-
     public BaseViewHolder(View itemView) {
         super(itemView);
     }
@@ -37,7 +35,7 @@ abstract public class BaseViewHolder<M> extends RecyclerView.ViewHolder {
         return (T) itemView.findViewById(id);
     }
 
-    protected Context getContext() {
+    protected Context getContext(){
         return itemView.getContext();
     }
 

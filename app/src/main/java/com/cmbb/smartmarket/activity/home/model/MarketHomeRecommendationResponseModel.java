@@ -1,5 +1,8 @@
 package com.cmbb.smartmarket.activity.home.model;
 
+import com.cmbb.smartmarket.network.model.ProductImageList;
+import com.cmbb.smartmarket.network.model.PublicUser;
+
 import java.util.List;
 
 /**
@@ -214,7 +217,7 @@ public class MarketHomeRecommendationResponseModel {
              * deviceImei :
              */
 
-            private PublicUserEntity publicUser;
+            private PublicUser publicUser;
             private int isCollect;
             private int isSpot;
             /**
@@ -224,7 +227,7 @@ public class MarketHomeRecommendationResponseModel {
              * imageWidth :
              */
 
-            private List<ProductImageListEntity> productImageList;
+            private List<ProductImageList> productImageList;
 
             public int getId() {
                 return id;
@@ -426,11 +429,11 @@ public class MarketHomeRecommendationResponseModel {
                 this.publicDate = publicDate;
             }
 
-            public PublicUserEntity getPublicUser() {
+            public PublicUser getPublicUser() {
                 return publicUser;
             }
 
-            public void setPublicUser(PublicUserEntity publicUser) {
+            public void setPublicUser(PublicUser publicUser) {
                 this.publicUser = publicUser;
             }
 
@@ -450,11 +453,11 @@ public class MarketHomeRecommendationResponseModel {
                 this.isSpot = isSpot;
             }
 
-            public List<ProductImageListEntity> getProductImageList() {
+            public List<ProductImageList> getProductImageList() {
                 return productImageList;
             }
 
-            public void setProductImageList(List<ProductImageListEntity> productImageList) {
+            public void setProductImageList(List<ProductImageList> productImageList) {
                 this.productImageList = productImageList;
             }
 
@@ -551,209 +554,6 @@ public class MarketHomeRecommendationResponseModel {
                 }
             }
 
-            public static class PublicUserEntity {
-                private int id;
-                private int mbpUserId;
-                private String imUserId;
-                private String loginAccount;
-                private String nickName;
-                private Object sex;
-                private String province;
-                private String provinceText;
-                private String city;
-                private String cityText;
-                private String introduce;
-                private String userImg;
-                private String imgWidth;
-                private String imgHeight;
-                private int userLevel;
-                private String appVersion;
-                private String device;
-                private String deviceImei;
-
-                public int getId() {
-                    return id;
-                }
-
-                public void setId(int id) {
-                    this.id = id;
-                }
-
-                public int getMbpUserId() {
-                    return mbpUserId;
-                }
-
-                public void setMbpUserId(int mbpUserId) {
-                    this.mbpUserId = mbpUserId;
-                }
-
-                public String getImUserId() {
-                    return imUserId;
-                }
-
-                public void setImUserId(String imUserId) {
-                    this.imUserId = imUserId;
-                }
-
-                public String getLoginAccount() {
-                    return loginAccount;
-                }
-
-                public void setLoginAccount(String loginAccount) {
-                    this.loginAccount = loginAccount;
-                }
-
-                public String getNickName() {
-                    return nickName;
-                }
-
-                public void setNickName(String nickName) {
-                    this.nickName = nickName;
-                }
-
-                public Object getSex() {
-                    return sex;
-                }
-
-                public void setSex(Object sex) {
-                    this.sex = sex;
-                }
-
-                public String getProvince() {
-                    return province;
-                }
-
-                public void setProvince(String province) {
-                    this.province = province;
-                }
-
-                public String getProvinceText() {
-                    return provinceText;
-                }
-
-                public void setProvinceText(String provinceText) {
-                    this.provinceText = provinceText;
-                }
-
-                public String getCity() {
-                    return city;
-                }
-
-                public void setCity(String city) {
-                    this.city = city;
-                }
-
-                public String getCityText() {
-                    return cityText;
-                }
-
-                public void setCityText(String cityText) {
-                    this.cityText = cityText;
-                }
-
-                public String getIntroduce() {
-                    return introduce;
-                }
-
-                public void setIntroduce(String introduce) {
-                    this.introduce = introduce;
-                }
-
-                public String getUserImg() {
-                    return userImg;
-                }
-
-                public void setUserImg(String userImg) {
-                    this.userImg = userImg;
-                }
-
-                public String getImgWidth() {
-                    return imgWidth;
-                }
-
-                public void setImgWidth(String imgWidth) {
-                    this.imgWidth = imgWidth;
-                }
-
-                public String getImgHeight() {
-                    return imgHeight;
-                }
-
-                public void setImgHeight(String imgHeight) {
-                    this.imgHeight = imgHeight;
-                }
-
-                public int getUserLevel() {
-                    return userLevel;
-                }
-
-                public void setUserLevel(int userLevel) {
-                    this.userLevel = userLevel;
-                }
-
-                public String getAppVersion() {
-                    return appVersion;
-                }
-
-                public void setAppVersion(String appVersion) {
-                    this.appVersion = appVersion;
-                }
-
-                public String getDevice() {
-                    return device;
-                }
-
-                public void setDevice(String device) {
-                    this.device = device;
-                }
-
-                public String getDeviceImei() {
-                    return deviceImei;
-                }
-
-                public void setDeviceImei(String deviceImei) {
-                    this.deviceImei = deviceImei;
-                }
-            }
-
-            public static class ProductImageListEntity {
-                private String imageHeight;
-                private String businessNumber;
-                private String location;
-                private String imageWidth;
-
-                public String getImageHeight() {
-                    return imageHeight;
-                }
-
-                public void setImageHeight(String imageHeight) {
-                    this.imageHeight = imageHeight;
-                }
-
-                public String getBusinessNumber() {
-                    return businessNumber;
-                }
-
-                public void setBusinessNumber(String businessNumber) {
-                    this.businessNumber = businessNumber;
-                }
-
-                public String getLocation() {
-                    return location;
-                }
-
-                public void setLocation(String location) {
-                    this.location = location;
-                }
-
-                public String getImageWidth() {
-                    return imageWidth;
-                }
-
-                public void setImageWidth(String imageWidth) {
-                    this.imageWidth = imageWidth;
-                }
-            }
         }
     }
 }

@@ -46,8 +46,8 @@
                 android:layout_margin="@dimen/global_padding"
                 android:background="@drawable/shape_white_stroke_corner"
                 android:gravity="top"
-                android:hint="描述一下你的宝贝，字数不超过200字（尽可能描述详尽，例如买入时间，用了几次，现在如何等等）"
-                android:maxLength="200"
+                android:hint="描述一下你的宝贝，字数不超过1000字（尽可能描述详尽，例如买入时间，用了几次，现在如何等等）"
+                android:maxLength="1000"
                 android:padding="@dimen/global_padding"
                 android:textSize="12sp"/>
 
@@ -418,10 +418,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/rl_type"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:layout_marginLeft="@dimen/global_padding"
                 android:layout_marginRight="@dimen/global_padding"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:text="确定发布"/>
 
         </RelativeLayout>
@@ -499,8 +499,8 @@
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:gravity="center"
                 android:padding="@dimen/activity_vertical_margin"
-                android:textStyle="bold"
-                android:text="照相机"/>
+                android:text="照相机"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/tv_gallery"
@@ -508,9 +508,9 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_white_stroke_no_corner"
                 android:gravity="center"
-                android:textStyle="bold"
                 android:padding="@dimen/activity_vertical_margin"
-                android:text="图 库"/>
+                android:text="图 库"
+                android:textStyle="bold"/>
 
         </LinearLayout>
     </com.cmbb.smartmarket.widget.NestedScrollView>

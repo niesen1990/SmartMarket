@@ -148,7 +148,7 @@ public class SwipeRefreshLayout extends FrameLayout {
     // Whether the client has set a custom starting position;
     private boolean mUsingCustomStart;
 
-    private Animation.AnimationListener mRefreshListener = new Animation.AnimationListener() {
+    private AnimationListener mRefreshListener = new AnimationListener() {
         @Override
         public void onAnimationStart(Animation animation) {
         }
@@ -406,7 +406,7 @@ public class SwipeRefreshLayout extends FrameLayout {
         }
     }
 
-    private void startScaleDownAnimation(Animation.AnimationListener listener) {
+    private void startScaleDownAnimation(AnimationListener listener) {
         mScaleDownAnimation = new Animation() {
             @Override
             public void applyTransformation(float interpolatedTime, Transformation t) {
@@ -819,9 +819,9 @@ public class SwipeRefreshLayout extends FrameLayout {
                     // cancel refresh
                     mRefreshing = false;
                     mProgress.setStartEndTrim(0f, 0f);
-                    Animation.AnimationListener listener = null;
+                    AnimationListener listener = null;
                     if (!mScale) {
-                        listener = new Animation.AnimationListener() {
+                        listener = new AnimationListener() {
 
                             @Override
                             public void onAnimationStart(Animation animation) {
@@ -911,7 +911,7 @@ public class SwipeRefreshLayout extends FrameLayout {
     };
 
     private void startScaleDownReturnToStartAnimation(int from,
-            Animation.AnimationListener listener) {
+            AnimationListener listener) {
         mFrom = from;
         if (isAlphaUsedForScale()) {
             mStartingScale = mProgress.getAlpha();

@@ -71,6 +71,7 @@ import rx.Observer;
  */
 public class CommodityDetailActivity extends BaseRecyclerActivity {
     private static final String TAG = CommodityDetailActivity.class.getSimpleName();
+
     @BindView(R.id.root)
     MengCoordinatorLayout root;
     @BindView(R.id.roll_view_pager)
@@ -85,16 +86,13 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
     TextView tvBuy;
     @BindView(R.id.scroll)
     RelativeLayout scroll;
-
     @BindView(R.id.tv_send)
     TextView tvSend;
     @BindView(R.id.tv_send_content)
     EditText evSendContent;
     @BindView(R.id.bottom)
     LinearLayout bottom;
-
     BottomSheetBehavior behaviorBottom;
-
     //HeadView
     private LinearLayout ll01;
     private TextView tvTag;
@@ -114,7 +112,6 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
     private TextView tvLine;
     BannerDetailListAdapter mBannerDetailListAdapter;
     RecyclerArrayAdapter.ItemView headItemView;
-
     // 辅助动画ProductImageList
     ArrayList<ProductImageList> mProductImageLists;
     int replayId;

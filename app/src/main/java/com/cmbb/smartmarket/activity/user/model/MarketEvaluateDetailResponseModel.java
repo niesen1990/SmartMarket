@@ -1,5 +1,9 @@
 package com.cmbb.smartmarket.activity.user.model;
 
+import com.cmbb.smartmarket.network.model.ProductImageList;
+import com.cmbb.smartmarket.network.model.PublicUser;
+import com.cmbb.smartmarket.network.model.UserLocation;
+
 import java.util.List;
 
 /**
@@ -229,45 +233,25 @@ public class MarketEvaluateDetailResponseModel {
             private int shareNumber;
             private int isRecommoned;
             private String publicDate;
-            private UserLocationEntity userLocation;
-            private List<ProductImageListEntity> productImageList;
-            /**
-             * id : 3
-             * mbpUserId : 108074
-             * loginAccount : 18221507236
-             * nickName : mywaystay
-             * sex : null
-             * province : 310000
-             * provinceText :
-             * city : 310104
-             * cityText :
-             * introduce :
-             * userImg : http://smart.image.alimmdn.com/app/test/2015-12-8/C6BDAD0C-A958-428A-8287-745234FE9253
-             * imgWidth :
-             * imgHeight :
-             * userLevel : 0
-             * appVersion :
-             * device :
-             * deviceImei :
-             */
-
-            private PublicUserEntity publicUser;
+            private UserLocation userLocation;
+            private List<ProductImageList> productImageList;
+            private PublicUser publicUser;
             private int isCollect;
             private int isSpot;
 
-            public UserLocationEntity getUserLocation() {
+            public UserLocation getUserLocation() {
                 return userLocation;
             }
 
-            public void setUserLocation(UserLocationEntity userLocation) {
+            public void setUserLocation(UserLocation userLocation) {
                 this.userLocation = userLocation;
             }
 
-            public List<ProductImageListEntity> getProductImageList() {
+            public List<ProductImageList> getProductImageList() {
                 return productImageList;
             }
 
-            public void setProductImageList(List<ProductImageListEntity> productImageList) {
+            public void setProductImageList(List<ProductImageList> productImageList) {
                 this.productImageList = productImageList;
             }
 
@@ -463,11 +447,11 @@ public class MarketEvaluateDetailResponseModel {
                 this.publicDate = publicDate;
             }
 
-            public PublicUserEntity getPublicUser() {
+            public PublicUser getPublicUser() {
                 return publicUser;
             }
 
-            public void setPublicUser(PublicUserEntity publicUser) {
+            public void setPublicUser(PublicUser publicUser) {
                 this.publicUser = publicUser;
             }
 
@@ -486,299 +470,6 @@ public class MarketEvaluateDetailResponseModel {
             public void setIsSpot(int isSpot) {
                 this.isSpot = isSpot;
             }
-
-            public static class PublicUserEntity {
-                private int id;
-                private int mbpUserId;
-                private String loginAccount;
-                private String nickName;
-                private Object sex;
-                private int province;
-                private String provinceText;
-                private int city;
-                private String cityText;
-                private String introduce;
-                private String userImg;
-                private String imgWidth;
-                private String imgHeight;
-                private int userLevel;
-                private String appVersion;
-                private String device;
-                private String deviceImei;
-
-                public int getId() {
-                    return id;
-                }
-
-                public void setId(int id) {
-                    this.id = id;
-                }
-
-                public int getMbpUserId() {
-                    return mbpUserId;
-                }
-
-                public void setMbpUserId(int mbpUserId) {
-                    this.mbpUserId = mbpUserId;
-                }
-
-                public String getLoginAccount() {
-                    return loginAccount;
-                }
-
-                public void setLoginAccount(String loginAccount) {
-                    this.loginAccount = loginAccount;
-                }
-
-                public String getNickName() {
-                    return nickName;
-                }
-
-                public void setNickName(String nickName) {
-                    this.nickName = nickName;
-                }
-
-                public Object getSex() {
-                    return sex;
-                }
-
-                public void setSex(Object sex) {
-                    this.sex = sex;
-                }
-
-                public int getProvince() {
-                    return province;
-                }
-
-                public void setProvince(int province) {
-                    this.province = province;
-                }
-
-                public String getProvinceText() {
-                    return provinceText;
-                }
-
-                public void setProvinceText(String provinceText) {
-                    this.provinceText = provinceText;
-                }
-
-                public int getCity() {
-                    return city;
-                }
-
-                public void setCity(int city) {
-                    this.city = city;
-                }
-
-                public String getCityText() {
-                    return cityText;
-                }
-
-                public void setCityText(String cityText) {
-                    this.cityText = cityText;
-                }
-
-                public String getIntroduce() {
-                    return introduce;
-                }
-
-                public void setIntroduce(String introduce) {
-                    this.introduce = introduce;
-                }
-
-                public String getUserImg() {
-                    return userImg;
-                }
-
-                public void setUserImg(String userImg) {
-                    this.userImg = userImg;
-                }
-
-                public String getImgWidth() {
-                    return imgWidth;
-                }
-
-                public void setImgWidth(String imgWidth) {
-                    this.imgWidth = imgWidth;
-                }
-
-                public String getImgHeight() {
-                    return imgHeight;
-                }
-
-                public void setImgHeight(String imgHeight) {
-                    this.imgHeight = imgHeight;
-                }
-
-                public int getUserLevel() {
-                    return userLevel;
-                }
-
-                public void setUserLevel(int userLevel) {
-                    this.userLevel = userLevel;
-                }
-
-                public String getAppVersion() {
-                    return appVersion;
-                }
-
-                public void setAppVersion(String appVersion) {
-                    this.appVersion = appVersion;
-                }
-
-                public String getDevice() {
-                    return device;
-                }
-
-                public void setDevice(String device) {
-                    this.device = device;
-                }
-
-                public String getDeviceImei() {
-                    return deviceImei;
-                }
-
-                public void setDeviceImei(String deviceImei) {
-                    this.deviceImei = deviceImei;
-                }
-            }
-
-            public static class UserLocationEntity {
-
-                /**
-                 * id : 57
-                 * country : 中国
-                 * countryCode : 0
-                 * province : 上海市
-                 * city : 上海市
-                 * cityCode : 289
-                 * district : 杨浦区
-                 * street : 飞虹路
-                 * streetNumber : 568弄-21号
-                 * address : 中国上海市杨浦区飞虹路568弄-21号
-                 */
-
-                private int id;
-                private String country;
-                private String countryCode;
-                private String province;
-                private String city;
-                private String cityCode;
-                private String district;
-                private String street;
-                private String streetNumber;
-                private String address;
-
-                public int getId() {
-                    return id;
-                }
-
-                public void setId(int id) {
-                    this.id = id;
-                }
-
-                public String getCountry() {
-                    return country;
-                }
-
-                public void setCountry(String country) {
-                    this.country = country;
-                }
-
-                public String getCountryCode() {
-                    return countryCode;
-                }
-
-                public void setCountryCode(String countryCode) {
-                    this.countryCode = countryCode;
-                }
-
-                public String getProvince() {
-                    return province;
-                }
-
-                public void setProvince(String province) {
-                    this.province = province;
-                }
-
-                public String getCity() {
-                    return city;
-                }
-
-                public void setCity(String city) {
-                    this.city = city;
-                }
-
-                public String getCityCode() {
-                    return cityCode;
-                }
-
-                public void setCityCode(String cityCode) {
-                    this.cityCode = cityCode;
-                }
-
-                public String getDistrict() {
-                    return district;
-                }
-
-                public void setDistrict(String district) {
-                    this.district = district;
-                }
-
-                public String getStreet() {
-                    return street;
-                }
-
-                public void setStreet(String street) {
-                    this.street = street;
-                }
-
-                public String getStreetNumber() {
-                    return streetNumber;
-                }
-
-                public void setStreetNumber(String streetNumber) {
-                    this.streetNumber = streetNumber;
-                }
-
-                public String getAddress() {
-                    return address;
-                }
-
-                public void setAddress(String address) {
-                    this.address = address;
-                }
-            }
-
-            public static class ProductImageListEntity {
-                private String imageHeight;
-                private String location;
-                private String imageWidth;
-
-                public String getImageHeight() {
-                    return imageHeight;
-                }
-
-                public void setImageHeight(String imageHeight) {
-                    this.imageHeight = imageHeight;
-                }
-
-                public String getLocation() {
-                    return location;
-                }
-
-                public void setLocation(String location) {
-                    this.location = location;
-                }
-
-                public String getImageWidth() {
-                    return imageWidth;
-                }
-
-                public void setImageWidth(String imageWidth) {
-                    this.imageWidth = imageWidth;
-                }
-            }
         }
 
 
@@ -790,27 +481,7 @@ public class MarketEvaluateDetailResponseModel {
             private int expressSpeed;
             private int productMatche;
             private String content;
-            /**
-             * id : 3
-             * mbpUserId : 108074
-             * loginAccount : 18221507236
-             * nickName : mywaystay
-             * sex : null
-             * province : 310000
-             * provinceText :
-             * city : 310104
-             * cityText :
-             * introduce :
-             * userImg : http://smart.image.alimmdn.com/app/test/2015-12-8/C6BDAD0C-A958-428A-8287-745234FE9253
-             * imgWidth :
-             * imgHeight :
-             * userLevel : 0
-             * appVersion :
-             * device :
-             * deviceImei :
-             */
-
-            private EvaluateUserEntity evaluateUser;
+            private PublicUser evaluateUser;
             private String evaluateDate;
 
             public int getId() {
@@ -869,11 +540,11 @@ public class MarketEvaluateDetailResponseModel {
                 this.content = content;
             }
 
-            public EvaluateUserEntity getEvaluateUser() {
+            public PublicUser getEvaluateUser() {
                 return evaluateUser;
             }
 
-            public void setEvaluateUser(EvaluateUserEntity evaluateUser) {
+            public void setEvaluateUser(PublicUser evaluateUser) {
                 this.evaluateUser = evaluateUser;
             }
 
@@ -890,27 +561,6 @@ public class MarketEvaluateDetailResponseModel {
     }
 
     public static class EvaluateUserEntity {
-
-        /**
-         * id : 6
-         * mbpUserId : 100768
-         * imUserId : 15201921714
-         * loginAccount : 15201921714
-         * nickName : 库里
-         * sex : 1
-         * province :
-         * provinceText :
-         * city :
-         * cityText :
-         * introduce :
-         * userImg : http://smart.image.alimmdn.com/app/test/2016-1-25/image_08d10846139348919717a107c73c16ae
-         * imgWidth :
-         * imgHeight :
-         * userLevel : 0
-         * appVersion :
-         * device :
-         * deviceImei :
-         */
 
         private int id;
         private int mbpUserId;

@@ -232,7 +232,6 @@ public class HttpMethod {
         }
     }
 
-
     /**
      * 登陆接口
      *
@@ -354,6 +353,34 @@ public class HttpMethod {
                 .productDetailsRequest(retrofitRequestModel)
                 .map(new HttpResultFunc<ProductDetailResponseModel>());
         return addSubscribe(observable, observer);
+    }
+
+    /**
+     * 获取产品详情(merge)
+     *
+     * @param observer
+     * @param retrofitRequestModel
+     * @return
+     */
+    public Subscription requestProductDetailMergeReplay(Observer<Object> observer, ProductDetailRequestModel retrofitRequestModel, ProductReplyListRequestModel retrofitRequestModel2) {
+        Observable<ProductDetailResponseModel> observable = mApiInterface
+                .productDetailsRequest(retrofitRequestModel)
+                .map(new HttpResultFunc<ProductDetailResponseModel>());
+        return mergeReplaySubscribe(observable, observer, retrofitRequestModel2);
+    }
+
+    /**
+     * 合并Observer
+     *
+     * @param o Observable<T>
+     * @param s Subscriber<T>
+     */
+    private Subscription mergeReplaySubscribe(Observable o, Observer s, ProductReplyListRequestModel retrofitRequestModel) {
+        return o.mergeWith(mApiInterface.productReplyListRequest(retrofitRequestModel).map(new HttpResultFunc<ProductReplyListResponseModel>()))
+                .subscribeOn(Schedulers.io())
+                .unsubscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s);
     }
 
     /**

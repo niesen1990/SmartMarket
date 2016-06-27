@@ -32,7 +32,7 @@ import com.cmbb.smartmarket.activity.home.model.MarketHomeAdvertInfoRequestModel
 import com.cmbb.smartmarket.activity.home.model.MarketHomeAdvertInfoResponseModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeSaveLocationAddressResponseModel;
-import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
+import com.cmbb.smartmarket.activity.market.DetailSellActivity;
 import com.cmbb.smartmarket.activity.market.model.ProductGetPageRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductGetPageResponseModel;
 import com.cmbb.smartmarket.activity.search.SearchActivity;
@@ -301,8 +301,9 @@ public class HomePagerActivity extends BaseHomeActivity {
 
     @Override
     public void onItemClick(View rootView, int position) {
-        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
-        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((HomeAdapter) adapter).getItem(position).getId(),((HomeAdapter) adapter).getItem(position).getProductImageList());
+//        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
+//        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((HomeAdapter) adapter).getItem(position).getId(),((HomeAdapter) adapter).getItem(position).getProductImageList());
+        DetailSellActivity.newIntent(this, ((HomeAdapter) adapter).getItem(position).getId());
     }
 
     @Override

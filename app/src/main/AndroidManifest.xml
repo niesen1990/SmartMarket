@@ -161,6 +161,10 @@
             android:name=".activity.market.CommodityDetailActivity"
             android:theme="@style/AppTheme.v21"
             android:windowSoftInputMode="adjustResize|stateHidden"/>
+
+        <activity
+            android:name=".activity.market.DetailSellActivity"
+            android:windowSoftInputMode="adjustResize|stateHidden"/>
         <activity
             android:name=".activity.market.NeedDetailActivity"
             android:theme="@style/AppTheme.v21"

@@ -116,16 +116,17 @@ public class OrderDetailActivity extends BaseAccountRecyclerActivity {
                 return;
             orderType = marketOrderDetailResponseModel.getData().getOrderType();
             saleType = marketOrderDetailResponseModel.getData().getSaleType();
-            recyclerAdapter.clear();
             adapter.clear();
-            if (marketOrderDetailResponseModel.getData().getLogistics() == null) {
+            if (marketOrderDetailResponseModel.getData().getProcess() != null && marketOrderDetailResponseModel.getData().getProcess().size() > 0) {
+                recyclerAdapter.addAll(marketOrderDetailResponseModel.getData().getProcess());
+            }
+
+            /*if (marketOrderDetailResponseModel.getData().getLogistics() == null || marketOrderDetailResponseModel.getData().getLogistics().size() == 0) {
                 mSmartRecyclerView.showEmpty();
             } else {
                 adapter.addAll(marketOrderDetailResponseModel.getData().getLogistics());
-            }
+            }*/
 
-            if (marketOrderDetailResponseModel.getData().getProcess() != null && marketOrderDetailResponseModel.getData().getProcess().size() > 0)
-                recyclerAdapter.addAll(marketOrderDetailResponseModel.getData().getProcess());
             //更新UI
             imUserIdBuy = marketOrderDetailResponseModel.getData().getProduct().getPublicUser().getImUserId();
             imUserIdSell = marketOrderDetailResponseModel.getData().getBuyUser().getImUserId();

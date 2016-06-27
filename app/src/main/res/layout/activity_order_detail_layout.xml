@@ -208,13 +208,16 @@
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/ll_bottom"
             android:layout_below="@+id/rl02"
-            android:background="@drawable/shape_white_stroke_no_corner"/>
+            android:background="@drawable/shape_white_stroke_no_corner"
+            app:layout_progress="@layout/view_progress"
+            app:scrollbarStyle="insideOverlay"/>
 
         <com.jude.easyrecyclerview.EasyRecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_above="@+id/ll_bottom"
             android:layout_below="@+id/recycler"
             app:layout_progress="@layout/view_progress"

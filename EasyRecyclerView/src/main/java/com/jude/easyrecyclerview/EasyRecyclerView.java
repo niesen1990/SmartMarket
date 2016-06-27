@@ -18,7 +18,7 @@ import com.jude.easyrecyclerview.swipe.SwipeRefreshLayout;
 
 public class EasyRecyclerView extends FrameLayout {
     public static final String TAG = "EasyRecyclerView";
-    public static final boolean DEBUG = false;
+    public static boolean DEBUG = false;
     protected RecyclerView mRecycler;
     protected ViewGroup mProgressView;
     protected ViewGroup mEmptyView;
@@ -35,11 +35,14 @@ public class EasyRecyclerView extends FrameLayout {
     protected int mPaddingRight;
     protected int mScrollbarStyle;
 
+
+
     protected RecyclerView.OnScrollListener mInternalOnScrollListener;
     protected RecyclerView.OnScrollListener mExternalOnScrollListener;
 
     protected SwipeRefreshLayout mPtrLayout;
     protected android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener mRefreshListener;
+
 
     public SwipeRefreshLayout getSwipeToRefresh() {
         return mPtrLayout;
@@ -92,19 +95,15 @@ public class EasyRecyclerView extends FrameLayout {
         //生成主View
         View v = LayoutInflater.from(getContext()).inflate(R.layout.layout_progress_recyclerview, this);
         mPtrLayout = (SwipeRefreshLayout) v.findViewById(R.id.ptr_layout);
-
-        setRefreshingColorResources(android.R.color.holo_orange_light, android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_green_dark);
+        mPtrLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
         mPtrLayout.setEnabled(false);
 
         mProgressView = (ViewGroup) v.findViewById(R.id.progress);
-        if (mProgressId != 0)
-            LayoutInflater.from(getContext()).inflate(mProgressId, mProgressView);
+        if (mProgressId!=0)LayoutInflater.from(getContext()).inflate(mProgressId,mProgressView);
         mEmptyView = (ViewGroup) v.findViewById(R.id.empty);
-        if (mEmptyId != 0)
-            LayoutInflater.from(getContext()).inflate(mEmptyId, mEmptyView);
+        if (mEmptyId!=0)LayoutInflater.from(getContext()).inflate(mEmptyId,mEmptyView);
         mErrorView = (ViewGroup) v.findViewById(R.id.error);
-        if (mErrorId != 0)
-            LayoutInflater.from(getContext()).inflate(mErrorId, mErrorView);
+        if (mErrorId!=0)LayoutInflater.from(getContext()).inflate(mErrorId,mErrorView);
         initRecyclerView(v);
     }
 
@@ -113,7 +112,7 @@ public class EasyRecyclerView extends FrameLayout {
         return mPtrLayout.dispatchTouchEvent(ev);
     }
 
-    public void setRecyclerPadding(int left, int top, int right, int bottom) {
+    public void setRecyclerPadding(int left,int top,int right,int bottom){
         this.mPaddingLeft = left;
         this.mPaddingTop = top;
         this.mPaddingRight = right;
@@ -121,37 +120,32 @@ public class EasyRecyclerView extends FrameLayout {
         mRecycler.setPadding(mPaddingLeft, mPaddingTop, mPaddingRight, mPaddingBottom);
     }
 
-    public void setEmptyView(View emptyView) {
+    public void setEmptyView(View emptyView){
         mEmptyView.removeAllViews();
         mEmptyView.addView(emptyView);
     }
-
-    public void setProgressView(View progressView) {
+    public void setProgressView(View progressView){
         mProgressView.removeAllViews();
         mProgressView.addView(progressView);
     }
-
-    public void setErrorView(View errorView) {
+    public void setErrorView(View errorView){
         mErrorView.removeAllViews();
         mErrorView.addView(errorView);
     }
-
-    public void setEmptyView(int emptyView) {
+    public void setEmptyView(int emptyView){
         mEmptyView.removeAllViews();
         LayoutInflater.from(getContext()).inflate(emptyView, mEmptyView);
     }
-
-    public void setProgressView(int progressView) {
+    public void setProgressView(int progressView){
         mProgressView.removeAllViews();
         LayoutInflater.from(getContext()).inflate(progressView, mProgressView);
     }
-
-    public void setErrorView(int errorView) {
+    public void setErrorView(int errorView){
         mErrorView.removeAllViews();
         LayoutInflater.from(getContext()).inflate(errorView, mErrorView);
     }
 
-    public void scrollToPosition(int position) {
+    public void scrollToPosition(int position){
         getRecyclerView().scrollToPosition(position);
     }
 
@@ -160,7 +154,7 @@ public class EasyRecyclerView extends FrameLayout {
      */
     protected void initRecyclerView(View view) {
         mRecycler = (RecyclerView) view.findViewById(android.R.id.list);
-
+        setItemAnimator(null);
         if (mRecycler != null) {
             mRecycler.setHasFixedSize(true);
             mRecycler.setClipToPadding(mClipToPadding);
@@ -193,8 +187,8 @@ public class EasyRecyclerView extends FrameLayout {
                 mRecycler.setScrollBarStyle(mScrollbarStyle);
             }
         }
-        showRecycler();
     }
+
 
     /**
      * Set the layout manager to the recycler
@@ -205,14 +199,12 @@ public class EasyRecyclerView extends FrameLayout {
         mRecycler.setLayoutManager(manager);
     }
 
-    private static class EasyDataObserver extends AdapterDataObserver {
-        private EasyRecyclerView recyclerView;
-        private boolean isInitialized = false;
-        private boolean hasProgress = false;
 
-        public EasyDataObserver(EasyRecyclerView recyclerView, boolean hasProgress) {
+    public static class EasyDataObserver extends AdapterDataObserver {
+        private EasyRecyclerView recyclerView;
+
+        public EasyDataObserver(EasyRecyclerView recyclerView) {
             this.recyclerView = recyclerView;
-            this.hasProgress = hasProgress;
         }
 
         @Override
@@ -248,30 +240,19 @@ public class EasyRecyclerView extends FrameLayout {
         //自动更改Container的样式
         private void update() {
             log("update");
+            int count;
             if (recyclerView.getAdapter() instanceof RecyclerArrayAdapter) {
-                if (((RecyclerArrayAdapter) recyclerView.getAdapter()).getCount() == 0) {
-                    log("no data:" + ((hasProgress && !isInitialized) ? "show progress" : "show empty"));
-                    if (hasProgress && !isInitialized)
-                        recyclerView.showProgress();
-                    else
-                        recyclerView.showEmpty();
-                } else {
-                    log("has data");
-                    recyclerView.showRecycler();
-                }
+                count = ((RecyclerArrayAdapter) recyclerView.getAdapter()).getCount();
             } else {
-                if (recyclerView.getAdapter().getItemCount() == 0) {
-                    log("no data:" + ((hasProgress && !isInitialized) ? "show progress" : "show empty"));
-                    if (hasProgress && !isInitialized)
-                        recyclerView.showProgress();
-                    else
-                        recyclerView.showEmpty();
-                } else {
-                    log("has data");
-                    recyclerView.showRecycler();
-                }
+                count = recyclerView.getAdapter().getItemCount();
             }
-            isInitialized = true;//设置Adapter时会有一次onChange。忽略此次。
+            if (count == 0) {
+                log("no data:"+"show empty");
+                recyclerView.showEmpty();
+            } else{
+                log("has data");
+                recyclerView.showRecycler();
+            }
         }
     }
 
@@ -283,8 +264,8 @@ public class EasyRecyclerView extends FrameLayout {
      */
     public void setAdapter(RecyclerView.Adapter adapter) {
         mRecycler.setAdapter(adapter);
-        adapter.registerAdapterDataObserver(new EasyDataObserver(this, false));
-        adapter.notifyDataSetChanged();
+        adapter.registerAdapterDataObserver(new EasyDataObserver(this));
+        showRecycler();
     }
 
     /**
@@ -295,8 +276,21 @@ public class EasyRecyclerView extends FrameLayout {
      */
     public void setAdapterWithProgress(RecyclerView.Adapter adapter) {
         mRecycler.setAdapter(adapter);
-        adapter.registerAdapterDataObserver(new EasyDataObserver(this, true));
-        adapter.notifyDataSetChanged();
+        adapter.registerAdapterDataObserver(new EasyDataObserver(this));
+        //只有Adapter为空时才显示ProgressView
+        if (adapter instanceof RecyclerArrayAdapter){
+            if (((RecyclerArrayAdapter) adapter).getCount() == 0){
+                showProgress();
+            }else {
+                showRecycler();
+            }
+        }else {
+            if (adapter.getItemCount() == 0){
+                showProgress();
+            }else {
+                showRecycler();
+            }
+        }
     }
 
     /**
@@ -306,7 +300,8 @@ public class EasyRecyclerView extends FrameLayout {
         mRecycler.setAdapter(null);
     }
 
-    private void hideAll() {
+
+    private void hideAll(){
         mEmptyView.setVisibility(View.GONE);
         mProgressView.setVisibility(View.GONE);
         mErrorView.setVisibility(GONE);
@@ -314,12 +309,13 @@ public class EasyRecyclerView extends FrameLayout {
         mRecycler.setVisibility(View.INVISIBLE);
     }
 
+
     public void showError() {
         log("showError");
-        if (mErrorView.getChildCount() > 0) {
+        if (mErrorView.getChildCount()>0){
             hideAll();
             mErrorView.setVisibility(View.VISIBLE);
-        } else {
+        }else {
             showRecycler();
         }
 
@@ -327,29 +323,32 @@ public class EasyRecyclerView extends FrameLayout {
 
     public void showEmpty() {
         log("showEmpty");
-        if (mEmptyView.getChildCount() > 0) {
+        if (mEmptyView.getChildCount()>0){
             hideAll();
             mEmptyView.setVisibility(View.VISIBLE);
-        } else {
+        }else {
             showRecycler();
         }
     }
 
+
     public void showProgress() {
         log("showProgress");
-        if (mProgressView.getChildCount() > 0) {
+        if (mProgressView.getChildCount()>0){
             hideAll();
             mProgressView.setVisibility(View.VISIBLE);
-        } else {
+        }else {
             showRecycler();
         }
     }
+
 
     public void showRecycler() {
         log("showRecycler");
         hideAll();
         mRecycler.setVisibility(View.VISIBLE);
     }
+
 
     /**
      * Set the listener when refresh is triggered and enable the SwipeRefreshLayout
@@ -362,7 +361,7 @@ public class EasyRecyclerView extends FrameLayout {
         this.mRefreshListener = listener;
     }
 
-    public void setRefreshing(final boolean isRefreshing) {
+    public void setRefreshing(final boolean isRefreshing){
         mPtrLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -371,12 +370,12 @@ public class EasyRecyclerView extends FrameLayout {
         });
     }
 
-    public void setRefreshing(final boolean isRefreshing, final boolean isCallbackListener) {
+    public void setRefreshing(final boolean isRefreshing, final boolean isCallbackListener){
         mPtrLayout.post(new Runnable() {
             @Override
             public void run() {
                 mPtrLayout.setRefreshing(isRefreshing);
-                if (isRefreshing && isCallbackListener && mRefreshListener != null) {
+                if (isRefreshing&&isCallbackListener&&mRefreshListener!=null){
                     mRefreshListener.onRefresh();
                 }
             }
@@ -386,25 +385,19 @@ public class EasyRecyclerView extends FrameLayout {
     /**
      * Set the colors for the SwipeRefreshLayout states
      *
-     * @param colRes1
-     * @param colRes2
-     * @param colRes3
-     * @param colRes4
+     * @param colRes
      */
-    public void setRefreshingColorResources(@ColorRes int colRes1, @ColorRes int colRes2, @ColorRes int colRes3, @ColorRes int colRes4) {
-        mPtrLayout.setColorSchemeResources(colRes1, colRes2, colRes3, colRes4);
+    public void setRefreshingColorResources(@ColorRes int... colRes) {
+        mPtrLayout.setColorSchemeResources(colRes);
     }
 
     /**
      * Set the colors for the SwipeRefreshLayout states
      *
-     * @param col1
-     * @param col2
-     * @param col3
-     * @param col4
+     * @param col
      */
-    public void setRefreshingColor(int col1, int col2, int col3, int col4) {
-        mPtrLayout.setColorSchemeColors(col1, col2, col3, col4);
+    public void setRefreshingColor(int... col) {
+        mPtrLayout.setColorSchemeColors(col);
     }
 
     /**
@@ -441,6 +434,7 @@ public class EasyRecyclerView extends FrameLayout {
         return mRecycler.getAdapter();
     }
 
+
     public void setOnTouchListener(OnTouchListener listener) {
         mRecycler.setOnTouchListener(listener);
     }
@@ -461,12 +455,12 @@ public class EasyRecyclerView extends FrameLayout {
         mRecycler.removeItemDecoration(itemDecoration);
     }
 
+
     /**
      * @return inflated error view or null
      */
     public View getErrorView() {
-        if (mErrorView.getChildCount() > 0)
-            return mErrorView.getChildAt(0);
+        if (mErrorView.getChildCount()>0)return mErrorView.getChildAt(0);
         return null;
     }
 
@@ -474,23 +468,22 @@ public class EasyRecyclerView extends FrameLayout {
      * @return inflated progress view or null
      */
     public View getProgressView() {
-        if (mProgressView.getChildCount() > 0)
-            return mProgressView.getChildAt(0);
+        if (mProgressView.getChildCount()>0)return mProgressView.getChildAt(0);
         return null;
     }
+
 
     /**
      * @return inflated empty view or null
      */
     public View getEmptyView() {
-        if (mEmptyView.getChildCount() > 0)
-            return mEmptyView.getChildAt(0);
+        if (mEmptyView.getChildCount()>0)return mEmptyView.getChildAt(0);
         return null;
     }
 
-    private static void log(String content) {
-        if (DEBUG) {
-            Log.i(TAG, content);
+    private static void log(String content){
+        if (DEBUG){
+            Log.i(TAG,content);
         }
     }
 

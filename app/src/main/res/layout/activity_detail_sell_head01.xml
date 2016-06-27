@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_white_stroke_no_corner"
+    android:orientation="vertical"
+    android:padding="@dimen/global_padding">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/tv_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/global_padding"
+            android:background="@drawable/shape_color_solid_corner"
+            android:gravity="center"
+            android:paddingBottom="2dp"
+            android:paddingLeft="@dimen/half_global_padding"
+            android:paddingRight="@dimen/half_global_padding"
+            android:paddingTop="2dp"
+            android:text="官方推荐"
+            android:textColor="@android:color/white"
+            android:textSize="12sp"/>
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/tv_watch_count"
+            android:layout_toRightOf="@+id/tv_tag"
+            android:maxLength="26"
+            android:maxLines="2"
+            android:textStyle="bold"
+            tools:text="贝亲新生婴儿清洁护肤礼品贝亲新生婴儿清洁护肤礼品贝亲新生婴儿清洁护肤礼品贝亲新生婴儿清洁护肤礼品贝亲新生婴儿清洁护肤礼品"/>
+
+        <TextView
+            android:id="@+id/tv_watch_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:drawableLeft="@drawable/ic_browse"
+            android:gravity="center"
+            tools:text="2106"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl02"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll01"
+        android:layout_marginTop="@dimen/global_padding">
+
+        <TextView
+            android:id="@+id/tv_real_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="￥128"/>
+
+        <TextView
+            android:id="@+id/tv_old_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/global_padding"
+            android:layout_marginTop="3dp"
+            android:layout_toRightOf="@+id/tv_real_price"
+            android:background="@drawable/shape_gray_single_line"
+            android:textSize="12sp"
+            tools:text="￥128"/>
+
+        <TextView
+            android:id="@+id/tv_freight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/tv_old_price"
+            android:textSize="12sp"
+            tools:text="(已含运费)"/>
+
+        <TextView
+            android:id="@+id/tv_introduce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_real_price"
+            android:layout_marginTop="@dimen/global_padding"
+            tools:text="洗护全套，送宝宝的好礼品。（爽身粉）140g,洗发精200ml，沐浴露200ml, 论腐乳300ml"/>
+
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_introduce"
+            android:layout_marginTop="@dimen/global_padding"
+            android:textColor="@color/darkgray"
+            android:textSize="12sp"
+            tools:text="6小时以前"/>
+
+        <TextView
+            android:id="@+id/tv_line01"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tv_time"
+            android:layout_marginTop="@dimen/half_global_padding"
+            android:background="@color/line"/>
+
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_line01"
+            android:layout_marginTop="@dimen/global_padding"
+            android:drawableLeft="@drawable/ic_location"
+            android:gravity="center"
+            android:textColor="@color/address"
+            android:textSize="10sp"
+            tools:text="上海 | 杨浦区"/>
+
+
+    </RelativeLayout>
+</LinearLayout>

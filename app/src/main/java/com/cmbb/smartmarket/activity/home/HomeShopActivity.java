@@ -36,7 +36,6 @@ import rx.Observer;
  * 创建时间：16/4/19 上午9:34
  */
 public class HomeShopActivity extends BaseHomeActivity {
-
     private static final String TAG = HomeShopActivity.class.getSimpleName();
 
     @BindView(R.id.spinner)

@@ -1,16 +1,17 @@
 package com.jude.easyrecyclerview.adapter;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.jude.easyrecyclerview.EasyRecyclerView;
+
 /**
  * Created by Mr.Jude on 2015/8/18.
  */
 public class DefaultEventDelegate implements EventDelegate {
-
+    private RecyclerArrayAdapter adapter;
     private EventFooter footer ;
 
     private RecyclerArrayAdapter.OnLoadMoreListener onLoadMoreListener;
@@ -29,12 +30,13 @@ public class DefaultEventDelegate implements EventDelegate {
     private static final int STATUS_ERROR = 732;
 
     public DefaultEventDelegate(RecyclerArrayAdapter adapter) {
-        footer = new EventFooter(adapter.getContext());
+        this.adapter = adapter;
+        footer = new EventFooter();
         adapter.addFooter(footer);
     }
 
     public void onMoreViewShowed() {
-        Log.i("recycler", "onMoreViewShowed");
+        log("onMoreViewShowed");
         if (!isLoadingMore&&onLoadMoreListener!=null){
             isLoadingMore = true;
             onLoadMoreListener.onLoadMore();
@@ -48,7 +50,7 @@ public class DefaultEventDelegate implements EventDelegate {
     //-------------------5个状态触发事件-------------------
     @Override
     public void addData(int length) {
-        Log.i("recycler", "addData" + length);
+        log("addData" + length);
         if (hasMore){
             if (length == 0){
                 //当添加0个时，认为已结束加载到底
@@ -73,7 +75,7 @@ public class DefaultEventDelegate implements EventDelegate {
 
     @Override
     public void clear() {
-        Log.i("recycler","clear");
+        log("clear");
         hasData = false;
         status = STATUS_INITIAL;
         footer.hide();
@@ -82,7 +84,7 @@ public class DefaultEventDelegate implements EventDelegate {
 
     @Override
     public void stopLoadMore() {
-        Log.i("recycler", "stopLoadMore");
+        log("stopLoadMore");
         footer.showNoMore();
         status = STATUS_NOMORE;
         isLoadingMore = false;
@@ -90,7 +92,7 @@ public class DefaultEventDelegate implements EventDelegate {
 
     @Override
     public void pauseLoadMore() {
-        Log.i("recycler", "pauseLoadMore");
+        log("pauseLoadMore");
         footer.showError();
         status = STATUS_ERROR;
         isLoadingMore = false;
@@ -110,21 +112,21 @@ public class DefaultEventDelegate implements EventDelegate {
         this.footer.setMoreView(view);
         this.onLoadMoreListener = listener;
         hasMore = true;
-        Log.i("recycler","setMore");
+        log("setMore");
     }
 
     @Override
     public void setNoMore(View view) {
         this.footer.setNoMoreView(view);
         hasNoMore = true;
-        Log.i("recycler", "setNoMore");
+        log("setNoMore");
     }
 
     @Override
     public void setErrorMore(View view) {
         this.footer.setErrorView(view);
         hasError = true;
-        Log.i("recycler","setErrorMore");
+        log("setErrorMore");
     }
 
 
@@ -134,65 +136,79 @@ public class DefaultEventDelegate implements EventDelegate {
         private View noMoreView;
         private View errorView;
 
-        private int flag = 0;
+        private int flag = Hide;
+        public static final int Hide = 0;
+        public static final int ShowMore = 1;
+        public static final int ShowError = 2;
+        public static final int ShowNoMore = 3;
 
 
-        public EventFooter(Context ctx){
-            container = new FrameLayout(ctx);
+        public EventFooter(){
+            container = new FrameLayout(adapter.getContext());
             container.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         }
 
         @Override
         public View onCreateView(ViewGroup parent) {
-            Log.i("recycler", "onCreateView");
+            log("onCreateView");
             return container;
         }
 
         @Override
         public void onBindView(View headerView) {
-            Log.i("recycler","onBindView");
+            log("onBindView");
             switch (flag){
-                case 1:
+                case ShowMore:
                     onMoreViewShowed();
                     break;
-                case 2:
+                case ShowError:
                     onErrorViewShowed();
                     break;
-
             }
         }
 
-        private void showView(View view){
-            if (view!=null){
+        public void refreshStatus(){
+            if (container!=null){
+                if (flag == Hide){
+                    container.setVisibility(View.GONE);
+                    return;
+                }
                 if (container.getVisibility() != View.VISIBLE)container.setVisibility(View.VISIBLE);
+                View view = null;
+                switch (flag){
+                    case ShowMore:view = moreView;break;
+                    case ShowError:view = errorView;break;
+                    case ShowNoMore:view = noMoreView;break;
+                }
+                if (view == null){
+                    hide();
+                    return;
+                }
                 if (view.getParent()==null)container.addView(view);
-
                 for (int i = 0; i < container.getChildCount(); i++) {
                     if (container.getChildAt(i) == view)view.setVisibility(View.VISIBLE);
                     else container.getChildAt(i).setVisibility(View.GONE);
                 }
-            }else {
-                container.setVisibility(View.GONE);
             }
         }
 
         public void showError(){
-            showView(errorView);
-            flag = 2;
+            flag = ShowError;
+            refreshStatus();
         }
         public void showMore(){
-            showView(moreView);
-            flag = 1;
+            flag = ShowMore;
+            refreshStatus();
         }
         public void showNoMore(){
-            showView(noMoreView);
-            flag = 3;
+            flag = ShowNoMore;
+            refreshStatus();
         }
 
         //初始化
         public void hide(){
-            flag = 0;
-            container.setVisibility(View.GONE);
+            flag = Hide;
+            refreshStatus();
         }
 
         public void setMoreView(View moreView) {
@@ -208,4 +224,9 @@ public class DefaultEventDelegate implements EventDelegate {
         }
     }
 
+    private static void log(String content){
+        if (EasyRecyclerView.DEBUG){
+            Log.i(EasyRecyclerView.TAG,content);
+        }
+    }
 }
