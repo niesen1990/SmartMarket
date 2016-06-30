@@ -3,10 +3,6 @@ package com.cmbb.smartmarket.activity.user.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.cmbb.smartmarket.network.model.ProductImageList;
-import com.cmbb.smartmarket.network.model.PublicUser;
-import com.cmbb.smartmarket.network.model.UserLocation;
-
 import java.util.List;
 
 /**
@@ -65,6 +61,41 @@ public class MyselfProductPublicListResponseModel {
         private boolean first;
         private Object sort;
         private int numberOfElements;
+        /**
+         * id : 14
+         * title : 优衣库
+         * introduce :
+         * content :
+         * originalPrice : 500
+         * currentPrice : 100
+         * freight : 100.0
+         * priceDesc :
+         * parentClassify : MMYP
+         * parentClassifyText :
+         * secondClassify : MMYP_FZ
+         * secondClassifyText :
+         * thirdClassify :
+         * thirdClassifyText :
+         * lontitude :
+         * latitude :
+         * province :
+         * city :
+         * district :
+         * address :
+         * productType : 0
+         * productStatus : 0
+         * productStatusText : 上架
+         * isResolve : 1
+         * resolveDate :
+         * browseNumber : 0
+         * replyNumber : 0
+         * shareNumber : 0
+         * isRecommoned : 2
+         * publicDate : 2016-05-13 10:48:58
+         * publicUserDto :
+         * isCollect : 1
+         * isSpot : 1
+         */
 
         private List<ContentEntity> content;
 
@@ -142,6 +173,42 @@ public class MyselfProductPublicListResponseModel {
 
         public static class ContentEntity implements Parcelable {
 
+            /**
+             * id : 52
+             * title : 很重要
+             * introduce :
+             * content : 经济
+             * originalPrice : 6.0
+             * currentPrice : 6.0
+             * freight : 6.0
+             * priceDesc :
+             * parentClassify : JJYP
+             * parentClassifyText :
+             * secondClassify :
+             * secondClassifyText :
+             * thirdClassify :
+             * thirdClassifyText :
+             * lontitude :
+             * latitude :
+             * province :
+             * city :
+             * district :
+             * address :
+             * productType : 0
+             * productStatus : 0
+             * productStatusText : 上架
+             * isResolve : 1
+             * resolveDate :
+             * browseNumber : 0
+             * replyNumber : 0
+             * shareNumber : 0
+             * isRecommoned : 1
+             * publicDate : 2016-05-19 19:35:27
+             * publicUser : {"id":5,"mbpUserId":101033,"loginAccount":"13818155072","nickName":"共产党","sex":1,"province":"","provinceText":"","city":"","cityText":"","introduce":"?????","userImg":"http://smart-test.image.alimmdn.com/market/user/image/2016-05-16/YTk3MzI1MjgtZGM0NS00YmUwLTk1NTItNzMwMTk2ZDAwNjYx","imgWidth":2148,"imgHeight":2148,"userLevel":0,"appVersion":"","device":"","deviceImei":""}
+             * productImageList : [{"imageHeight":"","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-05-19/NzQ2YThmYmUtNjliMy00ZGRmLTg1YjItYjc2ZjQ3ZTUxNjFj","imageWidth":""}]
+             * isCollect : 1
+             * isSpot : 1
+             */
 
             private int id;
             private String title;
@@ -175,9 +242,28 @@ public class MyselfProductPublicListResponseModel {
             private String publicDate;
             //add
             private boolean checked;
+            /**
+             * id : 5
+             * mbpUserId : 101033
+             * loginAccount : 13818155072
+             * nickName : 共产党
+             * sex : 1
+             * province :
+             * provinceText :
+             * city :
+             * cityText :
+             * introduce : ?????
+             * userImg : http://smart-test.image.alimmdn.com/market/user/image/2016-05-16/YTk3MzI1MjgtZGM0NS00YmUwLTk1NTItNzMwMTk2ZDAwNjYx
+             * imgWidth : 2148
+             * imgHeight : 2148
+             * userLevel : 0
+             * appVersion :
+             * device :
+             * deviceImei :
+             */
 
-            private PublicUser publicUser;
-            private UserLocation userLocation;
+            private PublicUserEntity publicUser;
+            private UserLocationEntity userLocation;
 
             private int isCollect;
             private int isSpot;
@@ -196,7 +282,9 @@ public class MyselfProductPublicListResponseModel {
              * imageWidth :
              */
 
-            private List<ProductImageList> productImageList;
+
+
+            private List<ProductImageListEntity> productImageList;
 
             public int getId() {
                 return id;
@@ -438,19 +526,19 @@ public class MyselfProductPublicListResponseModel {
                 this.publicDate = publicDate;
             }
 
-            public PublicUser getPublicUser() {
+            public PublicUserEntity getPublicUser() {
                 return publicUser;
             }
 
-            public void setPublicUser(PublicUser publicUser) {
+            public void setPublicUser(PublicUserEntity publicUser) {
                 this.publicUser = publicUser;
             }
 
-            public UserLocation getUserLocation() {
+            public UserLocationEntity getUserLocation() {
                 return userLocation;
             }
 
-            public void setUserLocation(UserLocation userLocation) {
+            public void setUserLocation(UserLocationEntity userLocation) {
                 this.userLocation = userLocation;
             }
 
@@ -470,17 +558,458 @@ public class MyselfProductPublicListResponseModel {
                 this.isSpot = isSpot;
             }
 
-            public List<ProductImageList> getProductImageList() {
+            public List<ProductImageListEntity> getProductImageList() {
                 return productImageList;
             }
 
-            public void setProductImageList(List<ProductImageList> productImageList) {
+            public void setProductImageList(List<ProductImageListEntity> productImageList) {
                 this.productImageList = productImageList;
             }
 
+            public static class PublicUserEntity implements Parcelable {
+                private int id;
+                private int mbpUserId;
+                private String loginAccount;
+                private String nickName;
+                private int sex;
+                private String province;
+                private String provinceText;
+                private String city;
+                private String cityText;
+                private String introduce;
+                private String userImg;
+                private int imgWidth;
+                private int imgHeight;
+                private int userLevel;
+                private String appVersion;
+                private String device;
+                private String deviceImei;
 
+                public int getId() {
+                    return id;
+                }
 
+                public void setId(int id) {
+                    this.id = id;
+                }
 
+                public int getMbpUserId() {
+                    return mbpUserId;
+                }
+
+                public void setMbpUserId(int mbpUserId) {
+                    this.mbpUserId = mbpUserId;
+                }
+
+                public String getLoginAccount() {
+                    return loginAccount;
+                }
+
+                public void setLoginAccount(String loginAccount) {
+                    this.loginAccount = loginAccount;
+                }
+
+                public String getNickName() {
+                    return nickName;
+                }
+
+                public void setNickName(String nickName) {
+                    this.nickName = nickName;
+                }
+
+                public int getSex() {
+                    return sex;
+                }
+
+                public void setSex(int sex) {
+                    this.sex = sex;
+                }
+
+                public String getProvince() {
+                    return province;
+                }
+
+                public void setProvince(String province) {
+                    this.province = province;
+                }
+
+                public String getProvinceText() {
+                    return provinceText;
+                }
+
+                public void setProvinceText(String provinceText) {
+                    this.provinceText = provinceText;
+                }
+
+                public String getCity() {
+                    return city;
+                }
+
+                public void setCity(String city) {
+                    this.city = city;
+                }
+
+                public String getCityText() {
+                    return cityText;
+                }
+
+                public void setCityText(String cityText) {
+                    this.cityText = cityText;
+                }
+
+                public String getIntroduce() {
+                    return introduce;
+                }
+
+                public void setIntroduce(String introduce) {
+                    this.introduce = introduce;
+                }
+
+                public String getUserImg() {
+                    return userImg;
+                }
+
+                public void setUserImg(String userImg) {
+                    this.userImg = userImg;
+                }
+
+                public int getImgWidth() {
+                    return imgWidth;
+                }
+
+                public void setImgWidth(int imgWidth) {
+                    this.imgWidth = imgWidth;
+                }
+
+                public int getImgHeight() {
+                    return imgHeight;
+                }
+
+                public void setImgHeight(int imgHeight) {
+                    this.imgHeight = imgHeight;
+                }
+
+                public int getUserLevel() {
+                    return userLevel;
+                }
+
+                public void setUserLevel(int userLevel) {
+                    this.userLevel = userLevel;
+                }
+
+                public String getAppVersion() {
+                    return appVersion;
+                }
+
+                public void setAppVersion(String appVersion) {
+                    this.appVersion = appVersion;
+                }
+
+                public String getDevice() {
+                    return device;
+                }
+
+                public void setDevice(String device) {
+                    this.device = device;
+                }
+
+                public String getDeviceImei() {
+                    return deviceImei;
+                }
+
+                public void setDeviceImei(String deviceImei) {
+                    this.deviceImei = deviceImei;
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(this.id);
+                    dest.writeInt(this.mbpUserId);
+                    dest.writeString(this.loginAccount);
+                    dest.writeString(this.nickName);
+                    dest.writeInt(this.sex);
+                    dest.writeString(this.province);
+                    dest.writeString(this.provinceText);
+                    dest.writeString(this.city);
+                    dest.writeString(this.cityText);
+                    dest.writeString(this.introduce);
+                    dest.writeString(this.userImg);
+                    dest.writeInt(this.imgWidth);
+                    dest.writeInt(this.imgHeight);
+                    dest.writeInt(this.userLevel);
+                    dest.writeString(this.appVersion);
+                    dest.writeString(this.device);
+                    dest.writeString(this.deviceImei);
+                }
+
+                public PublicUserEntity() {
+                }
+
+                protected PublicUserEntity(Parcel in) {
+                    this.id = in.readInt();
+                    this.mbpUserId = in.readInt();
+                    this.loginAccount = in.readString();
+                    this.nickName = in.readString();
+                    this.sex = in.readInt();
+                    this.province = in.readString();
+                    this.provinceText = in.readString();
+                    this.city = in.readString();
+                    this.cityText = in.readString();
+                    this.introduce = in.readString();
+                    this.userImg = in.readString();
+                    this.imgWidth = in.readInt();
+                    this.imgHeight = in.readInt();
+                    this.userLevel = in.readInt();
+                    this.appVersion = in.readString();
+                    this.device = in.readString();
+                    this.deviceImei = in.readString();
+                }
+
+                public static final Parcelable.Creator<PublicUserEntity> CREATOR = new Parcelable.Creator<PublicUserEntity>() {
+                    @Override
+                    public PublicUserEntity createFromParcel(Parcel source) {
+                        return new PublicUserEntity(source);
+                    }
+
+                    @Override
+                    public PublicUserEntity[] newArray(int size) {
+                        return new PublicUserEntity[size];
+                    }
+                };
+            }
+
+            public static class UserLocationEntity implements Parcelable {
+
+                /**
+                 * id : 362
+                 * country : 中国
+                 * countryCode : 0
+                 * province : 上海市
+                 * city : 上海市
+                 * cityCode : 289
+                 * district : 杨浦区
+                 * street : 飞虹路
+                 * streetNumber : 568弄-20
+                 * address : 中国上海市杨浦区飞虹路568弄-20
+                 */
+
+                private int id;
+                private String country;
+                private String countryCode;
+                private String province;
+                private String city;
+                private String cityCode;
+                private String district;
+                private String street;
+                private String streetNumber;
+                private String address;
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public String getCountry() {
+                    return country;
+                }
+
+                public void setCountry(String country) {
+                    this.country = country;
+                }
+
+                public String getCountryCode() {
+                    return countryCode;
+                }
+
+                public void setCountryCode(String countryCode) {
+                    this.countryCode = countryCode;
+                }
+
+                public String getProvince() {
+                    return province;
+                }
+
+                public void setProvince(String province) {
+                    this.province = province;
+                }
+
+                public String getCity() {
+                    return city;
+                }
+
+                public void setCity(String city) {
+                    this.city = city;
+                }
+
+                public String getCityCode() {
+                    return cityCode;
+                }
+
+                public void setCityCode(String cityCode) {
+                    this.cityCode = cityCode;
+                }
+
+                public String getDistrict() {
+                    return district;
+                }
+
+                public void setDistrict(String district) {
+                    this.district = district;
+                }
+
+                public String getStreet() {
+                    return street;
+                }
+
+                public void setStreet(String street) {
+                    this.street = street;
+                }
+
+                public String getStreetNumber() {
+                    return streetNumber;
+                }
+
+                public void setStreetNumber(String streetNumber) {
+                    this.streetNumber = streetNumber;
+                }
+
+                public String getAddress() {
+                    return address;
+                }
+
+                public void setAddress(String address) {
+                    this.address = address;
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(this.id);
+                    dest.writeString(this.country);
+                    dest.writeString(this.countryCode);
+                    dest.writeString(this.province);
+                    dest.writeString(this.city);
+                    dest.writeString(this.cityCode);
+                    dest.writeString(this.district);
+                    dest.writeString(this.street);
+                    dest.writeString(this.streetNumber);
+                    dest.writeString(this.address);
+                }
+
+                public UserLocationEntity() {
+                }
+
+                protected UserLocationEntity(Parcel in) {
+                    this.id = in.readInt();
+                    this.country = in.readString();
+                    this.countryCode = in.readString();
+                    this.province = in.readString();
+                    this.city = in.readString();
+                    this.cityCode = in.readString();
+                    this.district = in.readString();
+                    this.street = in.readString();
+                    this.streetNumber = in.readString();
+                    this.address = in.readString();
+                }
+
+                public static final Creator<UserLocationEntity> CREATOR = new Creator<UserLocationEntity>() {
+                    @Override
+                    public UserLocationEntity createFromParcel(Parcel source) {
+                        return new UserLocationEntity(source);
+                    }
+
+                    @Override
+                    public UserLocationEntity[] newArray(int size) {
+                        return new UserLocationEntity[size];
+                    }
+                };
+            }
+
+            public static class ProductImageListEntity implements Parcelable {
+                private String imageHeight;
+                private String location;
+                private String imageWidth;
+                private String businessNumber;
+
+                public String getBusinessNumber() {
+                    return businessNumber;
+                }
+
+                public void setBusinessNumber(String businessNumber) {
+                    this.businessNumber = businessNumber;
+                }
+
+                public String getImageHeight() {
+                    return imageHeight;
+                }
+
+                public void setImageHeight(String imageHeight) {
+                    this.imageHeight = imageHeight;
+                }
+
+                public String getLocation() {
+                    return location;
+                }
+
+                public void setLocation(String location) {
+                    this.location = location;
+                }
+
+                public String getImageWidth() {
+                    return imageWidth;
+                }
+
+                public void setImageWidth(String imageWidth) {
+                    this.imageWidth = imageWidth;
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(this.imageHeight);
+                    dest.writeString(this.location);
+                    dest.writeString(this.imageWidth);
+                    dest.writeString(this.businessNumber);
+                }
+
+                public ProductImageListEntity() {
+                }
+
+                protected ProductImageListEntity(Parcel in) {
+                    this.imageHeight = in.readString();
+                    this.location = in.readString();
+                    this.imageWidth = in.readString();
+                    this.businessNumber = in.readString();
+                }
+
+                public static final Parcelable.Creator<ProductImageListEntity> CREATOR = new Parcelable.Creator<ProductImageListEntity>() {
+                    @Override
+                    public ProductImageListEntity createFromParcel(Parcel source) {
+                        return new ProductImageListEntity(source);
+                    }
+
+                    @Override
+                    public ProductImageListEntity[] newArray(int size) {
+                        return new ProductImageListEntity[size];
+                    }
+                };
+            }
 
             @Override
             public int describeContents() {
@@ -520,7 +1049,6 @@ public class MyselfProductPublicListResponseModel {
                 dest.writeInt(this.isRecommoned);
                 dest.writeString(this.publicDate);
                 dest.writeParcelable(this.publicUser, flags);
-                dest.writeParcelable(this.userLocation, flags);
                 dest.writeInt(this.isCollect);
                 dest.writeInt(this.isSpot);
                 dest.writeTypedList(this.productImageList);
@@ -560,11 +1088,10 @@ public class MyselfProductPublicListResponseModel {
                 this.shareNumber = in.readInt();
                 this.isRecommoned = in.readInt();
                 this.publicDate = in.readString();
-                this.publicUser = in.readParcelable(PublicUser.class.getClassLoader());
-                this.userLocation = in.readParcelable(UserLocation.class.getClassLoader());
+                this.publicUser = in.readParcelable(PublicUserEntity.class.getClassLoader());
                 this.isCollect = in.readInt();
                 this.isSpot = in.readInt();
-                this.productImageList = in.createTypedArrayList(ProductImageList.CREATOR);
+                this.productImageList = in.createTypedArrayList(ProductImageListEntity.CREATOR);
             }
 
             public static final Parcelable.Creator<ContentEntity> CREATOR = new Parcelable.Creator<ContentEntity>() {

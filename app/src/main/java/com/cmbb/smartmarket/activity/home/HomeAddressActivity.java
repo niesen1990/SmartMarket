@@ -99,7 +99,8 @@ public class HomeAddressActivity extends BaseRecyclerActivity {
     protected void initView(Bundle savedInstanceState) {
         getToolbar().setDisplayHomeAsUpEnabled(false);
         needHotCity = getIntent().getBooleanExtra("hotCity", false);
-        cityAll.add(SPCache.getString(Constants.LOCATION_CITY, "您可能未开启定位权限"));
+        cityAll.add("定位城市");
+        cityAll.add(new MarketHomeGetHotCityListResponseModel.DataEntity.HotCityEntity(SPCache.getString(Constants.LOCATION_CITY, "您可能未开启定位权限")));
         etContent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

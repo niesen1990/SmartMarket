@@ -79,6 +79,10 @@ public class MarketHomeGetHotCityListResponseModel{
             private int modifierId;
             private String modifyTime;
 
+            public HotCityEntity(String name) {
+                this.name = name;
+            }
+
             public int getId() {
                 return id;
             }

@@ -56,6 +56,7 @@
             android:layout_weight="3"
             android:background="@null"
             android:hint="输入手机号码"
+            android:maxLength="11"
             android:inputType="phone"/>
     </LinearLayout>
 
@@ -64,7 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll02"
-        android:background="?android:attr/selectableItemBackground"
+        android:background="@drawable/shape_white_stroke_no_corner"
         android:orientation="horizontal"
         android:padding="@dimen/activity_vertical_margin">
 
@@ -73,6 +74,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:maxLength="5"
             android:text="所在地址"/>
 
         <TextView
@@ -114,7 +116,7 @@
             android:background="@null"
             android:gravity="top"
             android:hint="5-60个字"
-            android:maxLength="30"/>
+            android:maxLength="60"/>
     </LinearLayout>
 
     <LinearLayout

@@ -155,6 +155,9 @@
         <activity android:name=".activity.user.EvaluationForSellerActivity"/>
         <activity android:name=".activity.address.AddressPickActivity"/>
         <activity
+            android:name=".image.ImagePreviewActivity"
+            android:theme="@style/AppTheme.FullScreen.Image"/>
+        <activity
             android:name=".activity.user.ApplyRefundActivity"
             android:windowSoftInputMode="stateHidden"/>
         <activity

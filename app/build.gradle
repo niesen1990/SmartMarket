@@ -103,4 +103,5 @@ dependencies {
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile 'com.android.support:support-v4:23.4.0'
     compile 'com.thefinestartist:finestwebview:1.2.7'
+    compile 'com.github.chrisbanes:PhotoView:1.2.6'
 }

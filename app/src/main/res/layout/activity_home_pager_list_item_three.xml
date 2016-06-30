@@ -55,6 +55,7 @@
             android:textColor="@color/colorPrimary"
             tools:text="已出售"/>
 
+
     </RelativeLayout>
 
     <LinearLayout
@@ -115,7 +116,9 @@
             android:gravity="center"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
+            android:textStyle="bold"
             tools:text="2999"/>
+
 
         <TextView
             android:id="@+id/tv_old_price"

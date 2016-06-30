@@ -10,7 +10,7 @@ import android.view.View;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetPageRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketMessageGetPageResponseModel;
-import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
+import com.cmbb.smartmarket.activity.market.DetailSellActivity;
 import com.cmbb.smartmarket.activity.market.NeedDetailActivity;
 import com.cmbb.smartmarket.activity.message.adapter.MessageStoreAdapter;
 import com.cmbb.smartmarket.base.BaseApplication;
@@ -56,7 +56,8 @@ public class StoreMessageActivity extends BaseMessageActivity {
         ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_image), "iv01"));
         switch (((MessageStoreAdapter) adapter).getItem(position).getProductType()) {
             case 0:
-                CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MessageStoreAdapter) adapter).getItem(position).getRelateField());
+                //                CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MessageStoreAdapter) adapter).getItem(position).getRelateField());
+                DetailSellActivity.newIntent(this, ((MessageStoreAdapter) adapter).getItem(position).getRelateField());
                 break;
             case 1:
                 //求购

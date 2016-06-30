@@ -43,10 +43,10 @@ import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.image.CircleTransform;
 import com.cmbb.smartmarket.image.ImageLoader;
+import com.cmbb.smartmarket.image.model.ImageModel;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
-import com.cmbb.smartmarket.network.model.ProductImageList;
 import com.cmbb.smartmarket.utils.DialogUtils;
 import com.cmbb.smartmarket.utils.KeyboardUtil;
 import com.cmbb.smartmarket.utils.SocialUtils;
@@ -113,7 +113,7 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
     BannerDetailListAdapter mBannerDetailListAdapter;
     RecyclerArrayAdapter.ItemView headItemView;
     // 辅助动画ProductImageList
-    ArrayList<ProductImageList> mProductImageLists;
+    ArrayList<ImageModel> mProductImageLists;
     int replayId;
     String imUserId;
     int isCollection;
@@ -136,8 +136,15 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
                 isCollection = productDetailResponseModel.getData().getIsCollect();
                 if (productDetailResponseModel.getData().getPublicUser().getImUserId() != null)
                     imUserId = productDetailResponseModel.getData().getPublicUser().getImUserId();
-                if (mProductImageLists == null)
-                    mBannerDetailListAdapter.updateList(productDetailResponseModel.getData().getProductImageList());
+                if (mProductImageLists == null) {
+                    //model 转化
+                    List<ImageModel> imageModels = new ArrayList<>();
+                    for (ProductDetailResponseModel.DataEntity.ProductImageListEntity entity : productDetailResponseModel.getData().getProductImageList()) {
+                        imageModels.add(new ImageModel(entity.getImageHeight(), entity.getBusinessNumber(), entity.getLocation(), entity.getImageWidth()));
+                    }
+                    mBannerDetailListAdapter.updateList(imageModels);
+
+                }
                 if (productDetailResponseModel.getData().getIsRecommoned() == 1) {
                     tvTag.setVisibility(View.VISIBLE);
                 } else {
@@ -253,7 +260,7 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
     protected void init() {
         mProductImageLists = getIntent().getParcelableArrayListExtra("productImageLists");
         rollViewPager = (RollPagerView) findViewById(R.id.roll_view_pager);
-        mBannerDetailListAdapter = new BannerDetailListAdapter();
+        mBannerDetailListAdapter = new BannerDetailListAdapter(this);
         rollViewPager.setAdapter(mBannerDetailListAdapter);
         tvMessage.setOnClickListener(this);
         ivCollection.setOnClickListener(this);
@@ -546,7 +553,7 @@ public class CommodityDetailActivity extends BaseRecyclerActivity {
      * @param activityOptionsCompat
      * @param id
      */
-    public static void newIntent(BaseActivity context, ActivityOptionsCompat activityOptionsCompat, int id, List<ProductImageList> productImageLists) {
+    public static void newIntent(BaseActivity context, ActivityOptionsCompat activityOptionsCompat, int id, List<ImageModel> productImageLists) {
         Intent intent = new Intent(context, CommodityDetailActivity.class);
         intent.putExtra("id", id);
         intent.putParcelableArrayListExtra("productImageLists", (ArrayList<? extends Parcelable>) productImageLists);

@@ -1,9 +1,5 @@
 package com.cmbb.smartmarket.activity.home.model;
 
-import com.cmbb.smartmarket.network.model.ProductImageList;
-import com.cmbb.smartmarket.network.model.PublicUser;
-import com.cmbb.smartmarket.network.model.UserLocation;
-
 import java.util.List;
 
 /**
@@ -151,6 +147,37 @@ public class MyselfProductCollectListResponseModel {
             private int isDelete;
             private String createDate;
             private int createUserId;
+            /**
+             * id : 231
+             * title : 测试数据
+             * introduce :
+             * content : Android
+             * originalPrice : 9.02
+             * currentPrice : 0.01
+             * freight : 0.01
+             * priceDesc :
+             * parentClassify : MMYP
+             * parentClassifyText : 妈妈用品
+             * secondClassify : MMYP_XB
+             * secondClassifyText : 鞋包
+             * thirdClassify :
+             * thirdClassifyText :
+             * userLocation : {"id":153,"country":"中国","countryCode":"0","province":"上海市","city":"上海市","cityCode":"289","district":"杨浦区","street":"飞虹路","streetNumber":"568弄-13","address":"中国上海市杨浦区飞虹路568弄-13"}
+             * productType : 0
+             * productStatus : 0
+             * productStatusText : 上架
+             * isResolve : 1
+             * resolveDate :
+             * browseNumber : 19
+             * replyNumber : 1
+             * shareNumber : 0
+             * isRecommoned : 1
+             * publicDate : 2016-06-06 16:11:09
+             * publicUser : {"id":5,"mbpUserId":101033,"imUserId":"13818155072","loginAccount":"13818155072","nickName":"共产党","sex":1,"province":"","provinceText":"","city":"","cityText":"","introduce":"哈哈","userImg":"http://smart-test.image.alimmdn.com/market/user/image/2016-06-03/ZTljYWI0YjUtYjhmYy00YTk4LTk3YWItYWI5ZTMzYmFhNGU5","imgWidth":512,"imgHeight":512,"userLevel":0,"appVersion":"hm_android_1.0.0","device":"ANDROID","deviceImei":"352514065726683"}
+             * productImageList : [{"imageHeight":640,"businessNumber":"8a7c7f4755244eaa015524c3bdee0013","location":"http://smart-test.image.alimmdn.com/market/product/image/2016-06-06/OWE3MzRkMzEtMmFlMi00NjZmLTkyZTktZTE1YTQ1NDlhMWY4","imageWidth":1138}]
+             * isCollect : 1
+             * isSpot : 1
+             */
 
             private ProductEntity product;
 
@@ -217,7 +244,20 @@ public class MyselfProductCollectListResponseModel {
                 private String secondClassifyText;
                 private String thirdClassify;
                 private String thirdClassifyText;
-                private UserLocation userLocation;
+                /**
+                 * id : 153
+                 * country : 中国
+                 * countryCode : 0
+                 * province : 上海市
+                 * city : 上海市
+                 * cityCode : 289
+                 * district : 杨浦区
+                 * street : 飞虹路
+                 * streetNumber : 568弄-13
+                 * address : 中国上海市杨浦区飞虹路568弄-13
+                 */
+
+                private UserLocationEntity userLocation;
                 private int productType;
                 private int productStatus;
                 private String productStatusText;
@@ -228,11 +268,38 @@ public class MyselfProductCollectListResponseModel {
                 private int shareNumber;
                 private int isRecommoned;
                 private String publicDate;
-                private PublicUser publicUser;
+                /**
+                 * id : 5
+                 * mbpUserId : 101033
+                 * imUserId : 13818155072
+                 * loginAccount : 13818155072
+                 * nickName : 共产党
+                 * sex : 1
+                 * province :
+                 * provinceText :
+                 * city :
+                 * cityText :
+                 * introduce : 哈哈
+                 * userImg : http://smart-test.image.alimmdn.com/market/user/image/2016-06-03/ZTljYWI0YjUtYjhmYy00YTk4LTk3YWItYWI5ZTMzYmFhNGU5
+                 * imgWidth : 512.0
+                 * imgHeight : 512.0
+                 * userLevel : 0
+                 * appVersion : hm_android_1.0.0
+                 * device : ANDROID
+                 * deviceImei : 352514065726683
+                 */
+
+                private PublicUserEntity publicUser;
                 private int isCollect;
                 private int isSpot;
+                /**
+                 * imageHeight : 640
+                 * businessNumber : 8a7c7f4755244eaa015524c3bdee0013
+                 * location : http://smart-test.image.alimmdn.com/market/product/image/2016-06-06/OWE3MzRkMzEtMmFlMi00NjZmLTkyZTktZTE1YTQ1NDlhMWY4
+                 * imageWidth : 1138
+                 */
 
-                private List<ProductImageList> productImageList;
+                private List<ProductImageListEntity> productImageList;
 
                 public int getId() {
                     return id;
@@ -346,11 +413,11 @@ public class MyselfProductCollectListResponseModel {
                     this.thirdClassifyText = thirdClassifyText;
                 }
 
-                public UserLocation getUserLocation() {
+                public UserLocationEntity getUserLocation() {
                     return userLocation;
                 }
 
-                public void setUserLocation(UserLocation userLocation) {
+                public void setUserLocation(UserLocationEntity userLocation) {
                     this.userLocation = userLocation;
                 }
 
@@ -434,11 +501,11 @@ public class MyselfProductCollectListResponseModel {
                     this.publicDate = publicDate;
                 }
 
-                public PublicUser getPublicUser() {
+                public PublicUserEntity getPublicUser() {
                     return publicUser;
                 }
 
-                public void setPublicUser(PublicUser publicUser) {
+                public void setPublicUser(PublicUserEntity publicUser) {
                     this.publicUser = publicUser;
                 }
 
@@ -458,11 +525,11 @@ public class MyselfProductCollectListResponseModel {
                     this.isSpot = isSpot;
                 }
 
-                public List<ProductImageList> getProductImageList() {
+                public List<ProductImageListEntity> getProductImageList() {
                     return productImageList;
                 }
 
-                public void setProductImageList(List<ProductImageList> productImageList) {
+                public void setProductImageList(List<ProductImageListEntity> productImageList) {
                     this.productImageList = productImageList;
                 }
 
@@ -556,6 +623,210 @@ public class MyselfProductCollectListResponseModel {
 
                     public void setAddress(String address) {
                         this.address = address;
+                    }
+                }
+
+                public static class PublicUserEntity {
+                    private int id;
+                    private int mbpUserId;
+                    private String imUserId;
+                    private String loginAccount;
+                    private String nickName;
+                    private int sex;
+                    private String province;
+                    private String provinceText;
+                    private String city;
+                    private String cityText;
+                    private String introduce;
+                    private String userImg;
+                    private double imgWidth;
+                    private double imgHeight;
+                    private int userLevel;
+                    private String appVersion;
+                    private String device;
+                    private String deviceImei;
+
+                    public int getId() {
+                        return id;
+                    }
+
+                    public void setId(int id) {
+                        this.id = id;
+                    }
+
+                    public int getMbpUserId() {
+                        return mbpUserId;
+                    }
+
+                    public void setMbpUserId(int mbpUserId) {
+                        this.mbpUserId = mbpUserId;
+                    }
+
+                    public String getImUserId() {
+                        return imUserId;
+                    }
+
+                    public void setImUserId(String imUserId) {
+                        this.imUserId = imUserId;
+                    }
+
+                    public String getLoginAccount() {
+                        return loginAccount;
+                    }
+
+                    public void setLoginAccount(String loginAccount) {
+                        this.loginAccount = loginAccount;
+                    }
+
+                    public String getNickName() {
+                        return nickName;
+                    }
+
+                    public void setNickName(String nickName) {
+                        this.nickName = nickName;
+                    }
+
+                    public int getSex() {
+                        return sex;
+                    }
+
+                    public void setSex(int sex) {
+                        this.sex = sex;
+                    }
+
+                    public String getProvince() {
+                        return province;
+                    }
+
+                    public void setProvince(String province) {
+                        this.province = province;
+                    }
+
+                    public String getProvinceText() {
+                        return provinceText;
+                    }
+
+                    public void setProvinceText(String provinceText) {
+                        this.provinceText = provinceText;
+                    }
+
+                    public String getCity() {
+                        return city;
+                    }
+
+                    public void setCity(String city) {
+                        this.city = city;
+                    }
+
+                    public String getCityText() {
+                        return cityText;
+                    }
+
+                    public void setCityText(String cityText) {
+                        this.cityText = cityText;
+                    }
+
+                    public String getIntroduce() {
+                        return introduce;
+                    }
+
+                    public void setIntroduce(String introduce) {
+                        this.introduce = introduce;
+                    }
+
+                    public String getUserImg() {
+                        return userImg;
+                    }
+
+                    public void setUserImg(String userImg) {
+                        this.userImg = userImg;
+                    }
+
+                    public double getImgWidth() {
+                        return imgWidth;
+                    }
+
+                    public void setImgWidth(double imgWidth) {
+                        this.imgWidth = imgWidth;
+                    }
+
+                    public double getImgHeight() {
+                        return imgHeight;
+                    }
+
+                    public void setImgHeight(double imgHeight) {
+                        this.imgHeight = imgHeight;
+                    }
+
+                    public int getUserLevel() {
+                        return userLevel;
+                    }
+
+                    public void setUserLevel(int userLevel) {
+                        this.userLevel = userLevel;
+                    }
+
+                    public String getAppVersion() {
+                        return appVersion;
+                    }
+
+                    public void setAppVersion(String appVersion) {
+                        this.appVersion = appVersion;
+                    }
+
+                    public String getDevice() {
+                        return device;
+                    }
+
+                    public void setDevice(String device) {
+                        this.device = device;
+                    }
+
+                    public String getDeviceImei() {
+                        return deviceImei;
+                    }
+
+                    public void setDeviceImei(String deviceImei) {
+                        this.deviceImei = deviceImei;
+                    }
+                }
+
+                public static class ProductImageListEntity {
+                    private int imageHeight;
+                    private String businessNumber;
+                    private String location;
+                    private int imageWidth;
+
+                    public int getImageHeight() {
+                        return imageHeight;
+                    }
+
+                    public void setImageHeight(int imageHeight) {
+                        this.imageHeight = imageHeight;
+                    }
+
+                    public String getBusinessNumber() {
+                        return businessNumber;
+                    }
+
+                    public void setBusinessNumber(String businessNumber) {
+                        this.businessNumber = businessNumber;
+                    }
+
+                    public String getLocation() {
+                        return location;
+                    }
+
+                    public void setLocation(String location) {
+                        this.location = location;
+                    }
+
+                    public int getImageWidth() {
+                        return imageWidth;
+                    }
+
+                    public void setImageWidth(int imageWidth) {
+                        this.imageWidth = imageWidth;
                     }
                 }
             }

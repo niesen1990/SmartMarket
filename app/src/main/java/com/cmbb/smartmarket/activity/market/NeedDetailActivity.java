@@ -11,7 +11,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -47,10 +46,10 @@ import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.image.CircleTransform;
 import com.cmbb.smartmarket.image.ImageLoader;
+import com.cmbb.smartmarket.image.model.ImageModel;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
-import com.cmbb.smartmarket.network.model.ProductImageList;
 import com.cmbb.smartmarket.utils.DialogUtils;
 import com.cmbb.smartmarket.utils.KeyboardUtil;
 import com.cmbb.smartmarket.utils.SocialUtils;
@@ -58,6 +57,7 @@ import com.cmbb.smartmarket.utils.date.JTimeTransform;
 import com.cmbb.smartmarket.utils.date.RecentDateFormat;
 import com.cmbb.smartmarket.widget.MengCoordinatorLayout;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.jude.rollviewpager.PointHintView;
 import com.jude.rollviewpager.RollPagerView;
 import com.umeng.socialize.UMShareAPI;
 
@@ -112,7 +112,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
     BannerDetailListAdapter mBannerDetailListAdapter;
     RecyclerArrayAdapter.ItemView headItemView;
     // 辅助动画ProductImageList
-    ArrayList<ProductImageList> mProductImageLists;
+    ArrayList<ImageModel> mProductImageLists;
     int replayId;
     String imUserId;
     int isSpot;
@@ -136,7 +136,12 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
                     imUserId = productDetailResponseModel.getData().getPublicUser().getImUserId();
                 if (mProductImageLists == null) {
                     if (productDetailResponseModel.getData().getProductImageList() != null && productDetailResponseModel.getData().getProductImageList().size() > 0) {
-                        mBannerDetailListAdapter.updateList(productDetailResponseModel.getData().getProductImageList());
+                        // 转Model
+                        List<ImageModel> imageModels = new ArrayList<>();
+                        for (ProductDetailResponseModel.DataEntity.ProductImageListEntity entity : productDetailResponseModel.getData().getProductImageList()) {
+                            imageModels.add(new ImageModel(entity.getImageHeight(), entity.getBusinessNumber(), entity.getLocation(), entity.getImageWidth()));
+                        }
+                        mBannerDetailListAdapter.updateList(imageModels);
                     } else {
                         collapsingToolbar.setBackgroundResource(R.mipmap.ic_good_bac);
                     }
@@ -255,8 +260,10 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
     protected void init() {
         mProductImageLists = getIntent().getParcelableArrayListExtra("productImageLists");
         rollViewPager = (RollPagerView) findViewById(R.id.roll_view_pager);
-        mBannerDetailListAdapter = new BannerDetailListAdapter();
+        mBannerDetailListAdapter = new BannerDetailListAdapter(this);
         rollViewPager.setAdapter(mBannerDetailListAdapter);
+        rollViewPager.setHintView(new PointHintView(this));
+        rollViewPager.setHintPadding(0, 0, 0, 10);
         tvMessage.setOnClickListener(this);
         ivSpot.setOnClickListener(this);
         tvShare.setOnClickListener(this);
@@ -496,8 +503,9 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
     @Override
     public void onItemClick(View rootView, int position) {
         if (((DetailReplayAdapter) adapter).getItem(position).getIsRecommoned() == 1 || ((DetailReplayAdapter) adapter).getItem(position).getResolveProductId() != -1) {
-            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_good), "iv01"));
-            CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((DetailReplayAdapter) adapter).getItem(position).getResolveProductId(), ((DetailReplayAdapter) adapter).getItem(position).getRecommonedProductImageList());
+//            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_good), "iv01"));
+//            CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((DetailReplayAdapter) adapter).getItem(position).getResolveProductId(), ((DetailReplayAdapter) adapter).getItem(position).getRecommonedProductImageList());
+            DetailSellActivity.newIntent(this, ((DetailReplayAdapter) adapter).getItem(position).getResolveProductId());
         } else if (mProductDetailResponseModel.getData().getPublicUser().getId() == BaseApplication.getUserId()) {
             replayId = ((DetailReplayAdapter) adapter).getItem(position).getCreateUser().getId();
             Log.e(TAG, "replayId = " + replayId);
@@ -580,7 +588,7 @@ public class NeedDetailActivity extends BaseRecyclerActivity {
      * @param activityOptionsCompat
      * @param id
      */
-    public static void newIntent(BaseActivity context, ActivityOptionsCompat activityOptionsCompat, int id, List<ProductImageList> productImageLists) {
+    public static void newIntent(BaseActivity context, ActivityOptionsCompat activityOptionsCompat, int id, List<ImageModel> productImageLists) {
         Intent intent = new Intent(context, NeedDetailActivity.class);
         intent.putExtra("id", id);
         intent.putParcelableArrayListExtra("productImageLists", (ArrayList<? extends Parcelable>) productImageLists);

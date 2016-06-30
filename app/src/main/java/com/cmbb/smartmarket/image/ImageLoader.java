@@ -22,8 +22,6 @@ import com.cmbb.smartmarket.activity.market.model.PublishImageModel;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.HttpMethod;
-import com.cmbb.smartmarket.network.model.ProductImageList;
-import com.cmbb.smartmarket.utils.TDevice;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -76,24 +74,6 @@ public class ImageLoader {
                 .into(imageView);
     }
 
-    /**
-     * 未完成
-     *
-     * @param context
-     * @param productImageList
-     * @param imageView
-     */
-    public static void loadWithSize(Context context, ProductImageList productImageList, ImageView imageView) {
-        Glide.with(context)
-                .load(productImageList.getLocation())
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .placeholder(R.color.line)
-                .error(R.color.darkgray)
-                .override(TDevice.getScreenWidth(context), Integer.parseInt(productImageList.getImageHeight()))
-                .crossFade()
-                .fitCenter()
-                .into(imageView);
-    }
 
     public static void loadWithUploadListener(final Context context, final PublishImageModel row, final ImageView imageView, final ProgressBar progressBar) {
         Glide.with(context)

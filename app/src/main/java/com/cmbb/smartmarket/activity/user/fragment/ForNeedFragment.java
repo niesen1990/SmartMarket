@@ -6,6 +6,7 @@ import android.support.v4.util.Pair;
 import android.view.View;
 
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.activity.home.adapter.HomeShopAdapter;
 import com.cmbb.smartmarket.activity.market.NeedDetailActivity;
 import com.cmbb.smartmarket.activity.user.adapter.ForNeedAdapter;
 import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListRequestModel;
@@ -13,9 +14,13 @@ import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListRes
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerFragment;
+import com.cmbb.smartmarket.image.model.ImageModel;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import rx.Observer;
 
@@ -61,8 +66,19 @@ public class ForNeedFragment extends BaseRecyclerFragment {
 
     @Override
     public void onItemClick(View rootView, int position) {
-        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
-        NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((ForNeedAdapter) adapter).getItem(position).getId(), ((ForNeedAdapter) adapter).getItem(position).getProductImageList());
+
+        if (((ForNeedAdapter) adapter).getItem(position).getProductImageList() == null || ((ForNeedAdapter) adapter).getItem(position).getProductImageList().size() == 0) {
+            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(rootView, rootView.getLeft(), rootView.getTop(), rootView.getWidth(), rootView.getHeight());
+            NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((HomeShopAdapter) adapter).getItem(position).getId());
+        } else {
+            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
+            // model转换
+            List<ImageModel> imageModels = new ArrayList<>();
+            for (MarketCenterSelectProductListResponseModel.DataEntity.ContentEntity.ProductImageListEntity entity : ((ForNeedAdapter) adapter).getItem(position).getProductImageList()) {
+                imageModels.add(new ImageModel(entity.getImageHeight(), entity.getBusinessNumber(), entity.getLocation(), entity.getImageWidth()));
+            }
+            NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((ForNeedAdapter) adapter).getItem(position).getId(), imageModels);
+        }
     }
 
     Observer<MarketCenterSelectProductListResponseModel> mMarketCenterSelectProductListResponseModelObserver = new Observer<MarketCenterSelectProductListResponseModel>() {

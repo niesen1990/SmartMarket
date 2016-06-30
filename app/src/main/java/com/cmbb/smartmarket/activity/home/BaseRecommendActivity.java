@@ -2,8 +2,6 @@ package com.cmbb.smartmarket.activity.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.ListPopupWindow;
 import android.support.v7.widget.RecyclerView;
@@ -25,7 +23,7 @@ import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.home.adapter.HomeRecommendAdapter;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetScreenRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MarketHomeGetScreenResponseModel;
-import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
+import com.cmbb.smartmarket.activity.market.DetailSellActivity;
 import com.cmbb.smartmarket.activity.market.model.CodeInfoListRequestModel;
 import com.cmbb.smartmarket.activity.market.model.CodeInfoListResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductGetPageRequestModel;
@@ -236,8 +234,9 @@ public abstract class BaseRecommendActivity extends BaseRecyclerActivity {
 
     @Override
     public void onItemClick(View rootView, int position) {
-        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_pic), "iv01"));
-        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((HomeRecommendAdapter) adapter).getItem(position).getId(), ((HomeRecommendAdapter) adapter).getItem(position).getProductImageList());
+        //        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_pic), "iv01"));
+        //        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((HomeRecommendAdapter) adapter).getItem(position).getId(), ((HomeRecommendAdapter) adapter).getItem(position).getProductImageList());
+        DetailSellActivity.newIntent(this, ((HomeRecommendAdapter) adapter).getItem(position).getId());
     }
 
     @Override

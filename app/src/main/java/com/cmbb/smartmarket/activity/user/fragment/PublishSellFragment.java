@@ -2,13 +2,11 @@ package com.cmbb.smartmarket.activity.user.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.view.View;
 import android.widget.TextView;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
+import com.cmbb.smartmarket.activity.market.DetailSellActivity;
 import com.cmbb.smartmarket.activity.market.PublishActivity;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteRequestModel;
 import com.cmbb.smartmarket.activity.market.model.ProductDeleteResponseModel;
@@ -30,6 +28,7 @@ import rx.Observer;
 
 public class PublishSellFragment extends BaseRecyclerFragment {
     private static final String ARG_PARAM = "position";
+    private static final String TAG = PublishSellFragment.class.getSimpleName();
     private int position;
 
     @BindView(R.id.scroll)
@@ -113,24 +112,16 @@ public class PublishSellFragment extends BaseRecyclerFragment {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_edit:
+                PublishActivity.newIntent(getActivity(), ((PublishSellListAdapter) adapter).getItem((Integer) tvEdit.getTag()).getId(), "0");
                 startBehavior();
-                switch (position) {
-                    case 0:
-                        PublishActivity.newIntent(getActivity(), ((PublishSellListAdapter) adapter).getItem((Integer) tvEdit.getTag()), "0");
-                        break;
-                    case 1:
-                        PublishActivity.newIntent(getActivity(), ((PublishSellListAdapter) adapter).getItem((Integer) tvEdit.getTag()), "1");
-                        break;
-                }
-
                 break;
             case R.id.tv_delete:
-                startBehavior();
                 if (tvDelete.getTag() == null)
                     return;
                 int position = (int) tvDelete.getTag();
                 ((BaseActivity) getActivity()).showWaitingDialog();
                 subscription = HttpMethod.getInstance().productDeleteRequest(mProductDeleteResponseModelObserver, setDeleteParams(position));
+                startBehavior();
                 break;
         }
 
@@ -164,8 +155,9 @@ public class PublishSellFragment extends BaseRecyclerFragment {
 
     @Override
     public void onItemClick(View rootView, int position) {
-        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
-        CommodityDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((PublishSellListAdapter) adapter).getItem(position).getId(), ((PublishSellListAdapter) adapter).getItem(position).getProductImageList());
+//        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
+//        CommodityDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((PublishSellListAdapter) adapter).getItem(position).getId(), ((PublishSellListAdapter) adapter).getItem(position).getProductImageList());
+        DetailSellActivity.newIntent((BaseActivity) getActivity(), ((PublishSellListAdapter) adapter).getItem(position).getId());
     }
 
     Observer<MyselfProductPublicListResponseModel> mMyselfProductPublicListResponseModelObserver = new Observer<MyselfProductPublicListResponseModel>() {

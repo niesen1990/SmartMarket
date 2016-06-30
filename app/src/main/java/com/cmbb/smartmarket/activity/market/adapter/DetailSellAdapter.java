@@ -7,8 +7,8 @@ import com.cmbb.smartmarket.activity.market.holder.DetailDetailImageItemHolder;
 import com.cmbb.smartmarket.activity.market.holder.DetailReplayItemHolder;
 import com.cmbb.smartmarket.activity.market.holder.DetailReplayOfficeItemHolder;
 import com.cmbb.smartmarket.activity.market.holder.DetailReplayRecommendItemHolder;
+import com.cmbb.smartmarket.activity.market.model.ProductDetailResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ProductReplyListResponseModel;
-import com.cmbb.smartmarket.network.model.ProductImageList;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -33,7 +33,7 @@ public class DetailSellAdapter extends RecyclerArrayAdapter<Object> {
 
     @Override
     public int getViewType(int position) {
-        if (getItem(position) instanceof ProductImageList) {
+        if (getItem(position) instanceof ProductDetailResponseModel.DataEntity.ProductImageListEntity) {
             return TYPE_IMAGE;
         }
         if (getItem(position) instanceof ProductReplyListResponseModel.DataEntity.ContentEntity) {

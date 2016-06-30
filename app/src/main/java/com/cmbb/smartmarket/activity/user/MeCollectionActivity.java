@@ -3,14 +3,12 @@ package com.cmbb.smartmarket.activity.user;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.view.View;
 
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListRequestModel;
 import com.cmbb.smartmarket.activity.home.model.MyselfProductCollectListResponseModel;
-import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
+import com.cmbb.smartmarket.activity.market.DetailSellActivity;
 import com.cmbb.smartmarket.activity.user.adapter.MeCollectionAdapter;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
@@ -45,8 +43,9 @@ public class MeCollectionActivity extends BaseRecyclerActivity {
 
     @Override
     public void onItemClick(View rootView, int position) {
-        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
-        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MeCollectionAdapter) adapter).getItem(position).getProduct().getId(), ((MeCollectionAdapter) adapter).getItem(position).getProduct().getProductImageList());
+        //        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
+        //        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MeCollectionAdapter) adapter).getItem(position).getProduct().getId(), ((MeCollectionAdapter) adapter).getItem(position).getProduct().getProductImageList());
+        DetailSellActivity.newIntent(this, ((MeCollectionAdapter) adapter).getItem(position).getProduct().getId());
     }
 
     Observer<MyselfProductCollectListResponseModel> mMyselfProductCollectListResponseModelObserver = new Observer<MyselfProductCollectListResponseModel>() {

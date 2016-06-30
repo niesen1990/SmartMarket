@@ -3,9 +3,6 @@ package com.cmbb.smartmarket.activity.user.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.cmbb.smartmarket.network.model.ProductImageList;
-import com.cmbb.smartmarket.network.model.PublicUser;
-
 import java.util.List;
 
 /**
@@ -17,7 +14,7 @@ import java.util.List;
  * 修改时间：16/5/18 下午3:55
  * 修改备注：
  */
-public class MarketOrderListResponseModel {
+public class MarketOrderListResponseModel  {
 
     /**
      * content : [{"id":5,"product":{"id":9,"title":"【求购】 求购服装111","introduce":"","content":"求购服装111","originalPrice":500,"currentPrice":100,"freight":5,"priceDesc":"","parentClassify":"MMYP","parentClassifyText":"","secondClassify":"MMYP_FZ","secondClassifyText":"","thirdClassify":"","thirdClassifyText":"","lontitude":"","latitude":"","province":"","city":"","district":"","address":"","type":"ASK_TO_BUY","status":"ITEMDOWNSHELF","statusText":"下架","isResolve":1,"resolveDate":"","browseNumber":0,"replyNumber":0,"shareNumber":0,"isRecommoned":1,"publicDate":"2016-05-10 17:03:37","publicUser":{"id":3,"mbpUserId":108074,"loginAccount":"18221507236","nickName":"mywaystay","sex":1,"province":310000,"provinceText":"","city":310104,"cityText":"","introduce":"","userImg":"http://smart.image.alimmdn.com/app/test/2015-12-8/C6BDAD0C-A958-428A-8287-745234FE9253","imgWidth":"","imgHeight":"","userLevel":0,"appVersion":"","device":"","deviceImei":""},"isCollect":1,"isSpot":1},"buyUser":{"id":1,"mbpUserId":108075,"loginAccount":"15901718791","nickName":"臻萌兔","sex":1,"province":110000,"provinceText":null,"city":110100,"cityText":"","introduce":"","userImg":"http://smart-test.image.alimmdn.com/market/user/image/2016-05-13/ODUxNmNiNDctYjVlZC00N2JiLTljMzAtY2UwMDQxYWE4NjYx","imgWidth":542,"imgHeight":408,"userLevel":0,"appVersion":"","device":"","deviceImei":""},"status":"NOT_PAID","statusName":"等待买家付款","orderCode":"00982024","phone":"15901718791","price":100,"payDate":"","freight":5,"express":"","expressNum":"","receiveName":"收货人姓名","receivePhone":"15901718791","postCode":"200000","address":"上海上海市杨浦区飞虹路568弄13号","cancelDate":"","cancelReason":"","refundStatus":1,"refundDate":"","refundServer":"","refundReason":"","refundMark":"","refundExpress":"","refundExpressNum":"","rejectDate":"","rejectReason":"","createDate":"2016-05-16 19:38:38","process":""}]
@@ -82,7 +79,7 @@ public class MarketOrderListResponseModel {
         public static class ContentEntity implements Parcelable {
             private int id;
             private ProductEntity product;
-            private PublicUser buyUser;
+            private BuyUserEntity buyUser;
             private String status;
             private String statusName;
             private String orderCode;
@@ -135,11 +132,11 @@ public class MarketOrderListResponseModel {
                 this.product = product;
             }
 
-            public PublicUser getBuyUser() {
+            public BuyUserEntity getBuyUser() {
                 return buyUser;
             }
 
-            public void setBuyUser(PublicUser buyUser) {
+            public void setBuyUser(BuyUserEntity buyUser) {
                 this.buyUser = buyUser;
             }
 
@@ -382,16 +379,16 @@ public class MarketOrderListResponseModel {
                 private int shareNumber;
                 private int isRecommoned;
                 private String publicDate;
-                private List<ProductImageList> productImageList;
-                private PublicUser publicUser;
+                private List<ProductImageListEntity> productImageList;
+                private PublicUserEntity publicUser;
                 private int isCollect;
                 private int isSpot;
 
-                public List<ProductImageList> getProductImageList() {
+                public List<ProductImageListEntity> getProductImageList() {
                     return productImageList;
                 }
 
-                public void setProductImageList(List<ProductImageList> productImageList) {
+                public void setProductImageList(List<ProductImageListEntity> productImageList) {
                     this.productImageList = productImageList;
                 }
 
@@ -635,11 +632,11 @@ public class MarketOrderListResponseModel {
                     this.publicDate = publicDate;
                 }
 
-                public PublicUser getPublicUser() {
+                public PublicUserEntity getPublicUser() {
                     return publicUser;
                 }
 
-                public void setPublicUser(PublicUser publicUser) {
+                public void setPublicUser(PublicUserEntity publicUser) {
                     this.publicUser = publicUser;
                 }
 
@@ -964,7 +961,7 @@ public class MarketOrderListResponseModel {
                     this.shareNumber = in.readInt();
                     this.isRecommoned = in.readInt();
                     this.publicDate = in.readString();
-                    this.productImageList = in.createTypedArrayList(ProductImageList.CREATOR);
+                    this.productImageList = in.createTypedArrayList(ProductImageListEntity.CREATOR);
                     this.publicUser = in.readParcelable(PublicUserEntity.class.getClassLoader());
                     this.isCollect = in.readInt();
                     this.isSpot = in.readInt();
@@ -979,6 +976,307 @@ public class MarketOrderListResponseModel {
                     @Override
                     public ProductEntity[] newArray(int size) {
                         return new ProductEntity[size];
+                    }
+                };
+            }
+            public static class ProductImageListEntity implements Parcelable {
+                private String imageHeight;
+                private String location;
+                private String imageWidth;
+                private String businessNumber;
+
+                public String getBusinessNumber() {
+                    return businessNumber;
+                }
+
+                public void setBusinessNumber(String businessNumber) {
+                    this.businessNumber = businessNumber;
+                }
+
+                public String getImageHeight() {
+                    return imageHeight;
+                }
+
+                public void setImageHeight(String imageHeight) {
+                    this.imageHeight = imageHeight;
+                }
+
+                public String getLocation() {
+                    return location;
+                }
+
+                public void setLocation(String location) {
+                    this.location = location;
+                }
+
+                public String getImageWidth() {
+                    return imageWidth;
+                }
+
+                public void setImageWidth(String imageWidth) {
+                    this.imageWidth = imageWidth;
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeString(this.imageHeight);
+                    dest.writeString(this.location);
+                    dest.writeString(this.imageWidth);
+                    dest.writeString(this.businessNumber);
+                }
+
+                public ProductImageListEntity() {
+                }
+
+                protected ProductImageListEntity(Parcel in) {
+                    this.imageHeight = in.readString();
+                    this.location = in.readString();
+                    this.imageWidth = in.readString();
+                    this.businessNumber = in.readString();
+                }
+
+                public static final Parcelable.Creator<ProductImageListEntity> CREATOR = new Parcelable.Creator<ProductImageListEntity>() {
+                    @Override
+                    public ProductImageListEntity createFromParcel(Parcel source) {
+                        return new ProductImageListEntity(source);
+                    }
+
+                    @Override
+                    public ProductImageListEntity[] newArray(int size) {
+                        return new ProductImageListEntity[size];
+                    }
+                };
+            }
+
+            public static class BuyUserEntity implements Parcelable {
+                private int id;
+                private int mbpUserId;
+                private String loginAccount;
+                private String nickName;
+                private int sex;
+                private int province;
+                private String provinceText;
+                private int city;
+                private String cityText;
+                private String introduce;
+                private String userImg;
+                private int imgWidth;
+                private int imgHeight;
+                private int userLevel;
+                private String appVersion;
+                private String device;
+                private String deviceImei;
+                private String imUserId;
+
+                public String getImUserId() {
+                    return imUserId;
+                }
+
+                public void setImUserId(String imUserId) {
+                    this.imUserId = imUserId;
+                }
+
+                public int getId() {
+                    return id;
+                }
+
+                public void setId(int id) {
+                    this.id = id;
+                }
+
+                public int getMbpUserId() {
+                    return mbpUserId;
+                }
+
+                public void setMbpUserId(int mbpUserId) {
+                    this.mbpUserId = mbpUserId;
+                }
+
+                public String getLoginAccount() {
+                    return loginAccount;
+                }
+
+                public void setLoginAccount(String loginAccount) {
+                    this.loginAccount = loginAccount;
+                }
+
+                public String getNickName() {
+                    return nickName;
+                }
+
+                public void setNickName(String nickName) {
+                    this.nickName = nickName;
+                }
+
+                public int getSex() {
+                    return sex;
+                }
+
+                public void setSex(int sex) {
+                    this.sex = sex;
+                }
+
+                public int getProvince() {
+                    return province;
+                }
+
+                public void setProvince(int province) {
+                    this.province = province;
+                }
+
+                public String getProvinceText() {
+                    return provinceText;
+                }
+
+                public void setProvinceText(String provinceText) {
+                    this.provinceText = provinceText;
+                }
+
+                public int getCity() {
+                    return city;
+                }
+
+                public void setCity(int city) {
+                    this.city = city;
+                }
+
+                public String getCityText() {
+                    return cityText;
+                }
+
+                public void setCityText(String cityText) {
+                    this.cityText = cityText;
+                }
+
+                public String getIntroduce() {
+                    return introduce;
+                }
+
+                public void setIntroduce(String introduce) {
+                    this.introduce = introduce;
+                }
+
+                public String getUserImg() {
+                    return userImg;
+                }
+
+                public void setUserImg(String userImg) {
+                    this.userImg = userImg;
+                }
+
+                public int getImgWidth() {
+                    return imgWidth;
+                }
+
+                public void setImgWidth(int imgWidth) {
+                    this.imgWidth = imgWidth;
+                }
+
+                public int getImgHeight() {
+                    return imgHeight;
+                }
+
+                public void setImgHeight(int imgHeight) {
+                    this.imgHeight = imgHeight;
+                }
+
+                public int getUserLevel() {
+                    return userLevel;
+                }
+
+                public void setUserLevel(int userLevel) {
+                    this.userLevel = userLevel;
+                }
+
+                public String getAppVersion() {
+                    return appVersion;
+                }
+
+                public void setAppVersion(String appVersion) {
+                    this.appVersion = appVersion;
+                }
+
+                public String getDevice() {
+                    return device;
+                }
+
+                public void setDevice(String device) {
+                    this.device = device;
+                }
+
+                public String getDeviceImei() {
+                    return deviceImei;
+                }
+
+                public void setDeviceImei(String deviceImei) {
+                    this.deviceImei = deviceImei;
+                }
+
+                @Override
+                public int describeContents() {
+                    return 0;
+                }
+
+                @Override
+                public void writeToParcel(Parcel dest, int flags) {
+                    dest.writeInt(this.id);
+                    dest.writeInt(this.mbpUserId);
+                    dest.writeString(this.loginAccount);
+                    dest.writeString(this.nickName);
+                    dest.writeInt(this.sex);
+                    dest.writeInt(this.province);
+                    dest.writeString(this.provinceText);
+                    dest.writeInt(this.city);
+                    dest.writeString(this.cityText);
+                    dest.writeString(this.introduce);
+                    dest.writeString(this.userImg);
+                    dest.writeInt(this.imgWidth);
+                    dest.writeInt(this.imgHeight);
+                    dest.writeInt(this.userLevel);
+                    dest.writeString(this.appVersion);
+                    dest.writeString(this.device);
+                    dest.writeString(this.deviceImei);
+                    dest.writeString(this.imUserId);
+                }
+
+                public BuyUserEntity() {
+                }
+
+                protected BuyUserEntity(Parcel in) {
+                    this.id = in.readInt();
+                    this.mbpUserId = in.readInt();
+                    this.loginAccount = in.readString();
+                    this.nickName = in.readString();
+                    this.sex = in.readInt();
+                    this.province = in.readInt();
+                    this.provinceText = in.readString();
+                    this.city = in.readInt();
+                    this.cityText = in.readString();
+                    this.introduce = in.readString();
+                    this.userImg = in.readString();
+                    this.imgWidth = in.readInt();
+                    this.imgHeight = in.readInt();
+                    this.userLevel = in.readInt();
+                    this.appVersion = in.readString();
+                    this.device = in.readString();
+                    this.deviceImei = in.readString();
+                    this.imUserId = in.readString();
+                }
+
+                public static final Parcelable.Creator<BuyUserEntity> CREATOR = new Parcelable.Creator<BuyUserEntity>() {
+                    @Override
+                    public BuyUserEntity createFromParcel(Parcel source) {
+                        return new BuyUserEntity(source);
+                    }
+
+                    @Override
+                    public BuyUserEntity[] newArray(int size) {
+                        return new BuyUserEntity[size];
                     }
                 };
             }
@@ -1028,7 +1326,7 @@ public class MarketOrderListResponseModel {
             protected ContentEntity(Parcel in) {
                 this.id = in.readInt();
                 this.product = in.readParcelable(ProductEntity.class.getClassLoader());
-                this.buyUser = in.readParcelable(PublicUser.class.getClassLoader());
+                this.buyUser = in.readParcelable(BuyUserEntity.class.getClassLoader());
                 this.status = in.readString();
                 this.statusName = in.readString();
                 this.orderCode = in.readString();

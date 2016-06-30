@@ -1,5 +1,6 @@
 package com.cmbb.smartmarket.activity.user.holder;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -30,9 +31,9 @@ public class OffManagerItemHolder extends BaseViewHolder<MyselfProductPublicList
     private TextView tvOperation;
     private TextView tvStatus;
 
-    public OffManagerItemHolder(ViewGroup parent) {
+    public OffManagerItemHolder(ViewGroup parent, Context context) {
         super(parent, R.layout.activity_off_manager_list_item);
-        mContext = (BaseRecyclerActivity) parent.getContext();
+        mContext = (BaseRecyclerActivity) context;
         ivImage = $(R.id.iv_image);
         tvTitle = $(R.id.tv_title);
         tvNewPrice = $(R.id.tv_new_price);
@@ -53,7 +54,7 @@ public class OffManagerItemHolder extends BaseViewHolder<MyselfProductPublicList
         tvOperation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PublishActivity.newIntent(mContext, row, "0");
+                PublishActivity.newIntent(mContext, row.getId(), "0");
             }
         });
     }

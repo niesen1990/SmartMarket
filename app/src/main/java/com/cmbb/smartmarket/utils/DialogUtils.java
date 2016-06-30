@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 
+import com.cmbb.smartmarket.activity.login.LoginActivity;
+
 /**
  * 项目名称：SmartMarket
  * 类描述：
@@ -20,6 +22,20 @@ public class DialogUtils {
                 .setMessage(content)
                 .setPositiveButton("确定", onClickListener).create();
         dialog.setCanceledOnTouchOutside(canceledOnTouchOutside);
+        dialog.show();
+    }
+
+    public static void createLoginDialog(final Context context) {
+        AlertDialog dialog = new AlertDialog.Builder(context)
+                .setTitle("警告")
+                .setMessage("您还没有登陆？")
+                .setPositiveButton("登陆", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        LoginActivity.newIntent(context);
+                    }
+                }).create();
+        dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }
 }

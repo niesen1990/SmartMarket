@@ -121,6 +121,14 @@ public class AddAndEditAddressActivity extends BaseActivity {
                     switchDefault.setChecked(true);
                     break;
             }
+
+            province = userAddressDetailResponseModel.getData().getProvinceText();
+            provinceCode = userAddressDetailResponseModel.getData().getProvince();
+            city = userAddressDetailResponseModel.getData().getCityText();
+            cityCode = userAddressDetailResponseModel.getData().getCity();
+            district = userAddressDetailResponseModel.getData().getDistrictText();
+            districtCode = userAddressDetailResponseModel.getData().getDistrict();
+            tvPcd.setText(province + " " + city + " " + district);
         }
     };
 

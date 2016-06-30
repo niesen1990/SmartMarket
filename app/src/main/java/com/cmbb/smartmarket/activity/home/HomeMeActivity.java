@@ -36,6 +36,7 @@ import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
+import com.cmbb.smartmarket.utils.DialogUtils;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import butterknife.BindView;
@@ -165,64 +166,68 @@ public class HomeMeActivity extends BaseHomeActivity implements LoaderManager.Lo
         switch (v.getId()) {
             case R.id.rl_wallet:
                 if (TextUtils.isEmpty(BaseApplication.getToken())) {
-                    showToast("请登陆");
-                } else {
-                    WalletActivity.newIntent(this);
+                    DialogUtils.createLoginDialog(this);
+                    return;
                 }
+                WalletActivity.newIntent(this);
                 break;
             case R.id.rl_info:
+                if (TextUtils.isEmpty(BaseApplication.getToken())) {
+                    DialogUtils.createLoginDialog(this);
+                    return;
+                }
                 if (userId == 0)
                     return;
                 UserCenterActivity.newIntent(this, userId);
                 break;
             case R.id.rl_refund:
                 if (TextUtils.isEmpty(BaseApplication.getToken())) {
-                    showToast("请登陆");
-                } else {
-                    RefundActivity.newIntent(this);
+                    DialogUtils.createLoginDialog(this);
+                    return;
                 }
+                RefundActivity.newIntent(this);
                 break;
             case R.id.rl_publish:
                 if (TextUtils.isEmpty(BaseApplication.getToken())) {
-                    showToast("请登陆");
-                } else {
-                    PublishListActivity.newIntent(this);
+                    DialogUtils.createLoginDialog(this);
+                    return;
                 }
+                PublishListActivity.newIntent(this);
                 break;
             case R.id.rl_selled:
                 if (TextUtils.isEmpty(BaseApplication.getToken())) {
-                    showToast("请登陆");
-                } else {
-                    SoldFinishedActivity.newIntent(this);
+                    DialogUtils.createLoginDialog(this);
+                    return;
                 }
+                SoldFinishedActivity.newIntent(this);
                 break;
             case R.id.rl_buy:
                 if (TextUtils.isEmpty(BaseApplication.getToken())) {
-                    showToast("请登陆");
-                } else {
-                    BuyFinishedActivity.newIntent(this);
+                    DialogUtils.createLoginDialog(this);
+                    return;
                 }
+                BuyFinishedActivity.newIntent(this);
                 break;
             case R.id.rl_collection:
                 if (TextUtils.isEmpty(BaseApplication.getToken())) {
-                    showToast("请登陆");
-                } else {
-                    MeCollectionActivity.newIntent(this);
+                    DialogUtils.createLoginDialog(this);
+                    return;
                 }
+                MeCollectionActivity.newIntent(this);
                 break;
             case R.id.rl_off:
                 if (TextUtils.isEmpty(BaseApplication.getToken())) {
-                    showToast("请登陆");
-                } else {
-                    OffManagerActivity.newIntent(this);
+                    DialogUtils.createLoginDialog(this);
+                    return;
                 }
+                OffManagerActivity.newIntent(this);
                 break;
             case R.id.rl_address:
                 if (TextUtils.isEmpty(BaseApplication.getToken())) {
-                    showToast("请登陆");
-                } else {
-                    AddressManagerActivity.newIntent(this);
+                    DialogUtils.createLoginDialog(this);
+                    return;
                 }
+                AddressManagerActivity.newIntent(this);
                 break;
             case R.id.tv_login:
                 LoginActivity.newIntent(this);

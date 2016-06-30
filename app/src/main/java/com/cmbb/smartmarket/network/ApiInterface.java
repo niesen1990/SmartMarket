@@ -166,9 +166,6 @@ public interface ApiInterface {
 
     String Base = "http://erpuat.mengbp.com:8094/";
     String HOST = Base + "wine-market-rest/cgi/";
-    //    String Base = "http://192.168.100.64:8085/wine-market-rest/";
-    //    String Base = "http://192.168.100.130:8080/wine-market-rest/";
-    //    String HOST = Base + "cgi/";
 
     String SHARE_NEED = "http://www.mengbp.com/web/App/share/mbpz/index.html#/shopDetail/";// 分享求购详情
     String SHARE_PUBLISH = "http://www.mengbp.com/web/App/share/mbpz/index.html#/productDetail/";// 分享发布详情

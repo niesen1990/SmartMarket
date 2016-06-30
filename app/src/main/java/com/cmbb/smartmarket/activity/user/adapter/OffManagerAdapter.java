@@ -16,12 +16,15 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
  */
 public class OffManagerAdapter extends RecyclerArrayAdapter<MyselfProductPublicListResponseModel.DataEntity.ContentEntity> {
 
+    private Context mContext;
+
     public OffManagerAdapter(Context context) {
         super(context);
+        this.mContext = context;
     }
 
     @Override
     public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-        return new OffManagerItemHolder(parent);
+        return new OffManagerItemHolder(parent, mContext);
     }
 }

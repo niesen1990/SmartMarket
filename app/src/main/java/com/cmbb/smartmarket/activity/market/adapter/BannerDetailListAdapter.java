@@ -6,9 +6,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.cmbb.smartmarket.R;
+import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.image.ImageLoader;
-import com.cmbb.smartmarket.log.Log;
-import com.cmbb.smartmarket.network.model.ProductImageList;
+import com.cmbb.smartmarket.image.ImagePreviewActivity;
+import com.cmbb.smartmarket.image.model.ImageModel;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
 
 import java.util.ArrayList;
@@ -22,13 +23,15 @@ import java.util.List;
  */
 public class BannerDetailListAdapter extends StaticPagerAdapter {
     private static final String TAG = BannerDetailListAdapter.class.getSimpleName();
-    private List<ProductImageList> list;
+    private List<ImageModel> list;
+    private BaseActivity mContext;
 
-    public BannerDetailListAdapter() {
+    public BannerDetailListAdapter(BaseActivity baseActivity) {
         list = new ArrayList<>();
+        this.mContext = baseActivity;
     }
 
-    public void updateList(List<ProductImageList> data) {
+    public void updateList(List<ImageModel> data) {
         if (data == null || data.size() == 0)
             return;
         this.list.clear();
@@ -37,13 +40,15 @@ public class BannerDetailListAdapter extends StaticPagerAdapter {
     }
 
     @Override
-    public View getView(ViewGroup container, final int position) {
-        ImageView imageView = (ImageView) LayoutInflater.from(container.getContext()).inflate(R.layout.banner_image, null);
+    public View getView(final ViewGroup container, final int position) {
+        final ImageView imageView = (ImageView) LayoutInflater.from(container.getContext()).inflate(R.layout.banner_image, null);
         ImageLoader.loadCenterCropCache(container.getContext(), list.get(position).getLocation(), imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i(TAG, list.get(position).getLocation());
+                // TODO: 16/6/30  
+                //                ActivityOptionsCompat activityOptionsCompat1 = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext, Pair.create((View) imageView, "iv01"));
+                ImagePreviewActivity.newIntent(mContext, position, list);
             }
         });
         return imageView;

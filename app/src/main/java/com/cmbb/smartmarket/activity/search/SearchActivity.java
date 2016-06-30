@@ -17,17 +17,22 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
+import com.cmbb.smartmarket.activity.market.DetailSellActivity;
 import com.cmbb.smartmarket.activity.market.NeedDetailActivity;
 import com.cmbb.smartmarket.activity.search.adapter.SearchAdapter;
 import com.cmbb.smartmarket.activity.search.model.MarketHomeSearchRequestModel;
 import com.cmbb.smartmarket.activity.search.model.MarketHomeSearchResponseModel;
+import com.cmbb.smartmarket.activity.user.adapter.ForNeedAdapter;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
+import com.cmbb.smartmarket.image.model.ImageModel;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import rx.Observer;
@@ -177,13 +182,27 @@ public class SearchActivity extends BaseRecyclerActivity {
         ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv_pic), "iv01"));
         switch (type) {
             case 0:
-                CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId(), ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getProductImageList());
+                //                CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId(), ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getProductImageList());
+                DetailSellActivity.newIntent(this, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
                 break;
             case 1:
-                NeedDetailActivity.newIntent(this, activityOptionsCompat,((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId(),((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getProductImageList());
+                // 转化
+                if (((ForNeedAdapter) adapter).getItem(position).getProductImageList() == null || ((ForNeedAdapter) adapter).getItem(position).getProductImageList().size() == 0) {
+                    ActivityOptionsCompat activityOptionsCompat1 = ActivityOptionsCompat.makeScaleUpAnimation(rootView, rootView.getLeft(), rootView.getTop(), rootView.getWidth(), rootView.getHeight());
+                    NeedDetailActivity.newIntent(this, activityOptionsCompat1, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
+                } else {
+                    ActivityOptionsCompat activityOptionsCompat2 = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
+                    // model转换
+                    List<ImageModel> imageModels = new ArrayList<>();
+                    for (MarketHomeSearchResponseModel.DataEntity.ContentEntity.ProductImageListEntity entity : ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getProductImageList()) {
+                        imageModels.add(new ImageModel(entity.getImageHeight(), entity.getBusinessNumber(), entity.getLocation(), entity.getImageWidth()));
+                    }
+                    NeedDetailActivity.newIntent(this, activityOptionsCompat2, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId(), imageModels);
+                }
                 break;
             case 2:
-                CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId(), ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getProductImageList());
+                //                CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId(), ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getProductImageList());
+                DetailSellActivity.newIntent(this, ((MarketHomeSearchResponseModel.DataEntity.ContentEntity) adapter.getItem(position)).getId());
                 break;
         }
     }

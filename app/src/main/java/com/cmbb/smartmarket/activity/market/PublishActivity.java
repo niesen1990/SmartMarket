@@ -30,11 +30,12 @@ import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.login.LoginActivity;
 import com.cmbb.smartmarket.activity.market.model.CommodityPublishResponseModel;
 import com.cmbb.smartmarket.activity.market.model.ImageDeleteResponseModel;
+import com.cmbb.smartmarket.activity.market.model.ProductDetailRequestModel;
+import com.cmbb.smartmarket.activity.market.model.ProductDetailResponseModel;
 import com.cmbb.smartmarket.activity.market.model.PublishEditResponseModel;
 import com.cmbb.smartmarket.activity.market.model.PublishImageModel;
 import com.cmbb.smartmarket.activity.market.model.SystemCodeInfoGetAllRequest;
 import com.cmbb.smartmarket.activity.market.model.SystemCodeInfoGetAllResponseModel;
-import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListResponseModel;
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.Constants;
@@ -42,7 +43,6 @@ import com.cmbb.smartmarket.image.ImageLoader;
 import com.cmbb.smartmarket.image.MediaCamera;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
-import com.cmbb.smartmarket.network.model.ProductImageList;
 import com.cmbb.smartmarket.utils.DialogUtils;
 import com.cmbb.smartmarket.utils.KeyboardUtil;
 import com.cmbb.smartmarket.utils.SPCache;
@@ -156,7 +156,6 @@ public class PublishActivity extends BaseActivity {
     WheelStraightPicker curvedPicker;
     BottomSheetBehavior behavior;
 
-    MyselfProductPublicListResponseModel.DataEntity.ContentEntity goodModel;
     SystemCodeInfoGetAllResponseModel mSystemCodeInfoGetAllResponseModel;//所有类别
     int classParent = 0;
     int classChild = 0;
@@ -244,6 +243,42 @@ public class PublishActivity extends BaseActivity {
         }
     };
 
+    Observer<ProductDetailResponseModel> mProductDetailResponseModelObserver = new Observer<ProductDetailResponseModel>() {
+        @Override
+        public void onCompleted() {
+            hideWaitingDialog();
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.e(TAG, e.toString());
+            hideWaitingDialog();
+        }
+
+        @Override
+        public void onNext(ProductDetailResponseModel productDetailResponseModel) {
+            if (productDetailResponseModel != null) {
+                //详情UI
+                setTitle("编辑");
+                Log.e(TAG, "size = " + productDetailResponseModel.getData().getProductImageList().size());
+                parentClassify = productDetailResponseModel.getData().getParentClassify();
+                secondClassify = productDetailResponseModel.getData().getSecondClassify();
+                etTitle.setText(productDetailResponseModel.getData().getTitle());
+                etContent.setText(productDetailResponseModel.getData().getContent());
+                tvNewPrice.setText(productDetailResponseModel.getData().getCurrentPrice() + "");
+                tvOldPrice.setText(productDetailResponseModel.getData().getOriginalPrice() + "");
+                tvClass.setText(productDetailResponseModel.getData().getParentClassifyText() + " - " + productDetailResponseModel.getData().getSecondClassifyText());
+                if (productDetailResponseModel.getData().getProductImageList() != null && productDetailResponseModel.getData().getProductImageList().size() > 0) {
+                    for (ProductDetailResponseModel.DataEntity.ProductImageListEntity model : productDetailResponseModel.getData().getProductImageList()) {
+                        publishImageModels.add(new PublishImageModel(model.getLocation(), 0, model.getBusinessNumber()));
+                    }
+                }
+                imageCount = imageCount - publishImageModels.size();
+                imageControl(publishImageModels);
+            }
+        }
+    };
+
     //分类数据
     private ArrayList<String> straightStrings = new ArrayList<>();
     private ArrayList<String> curvedStrings = new ArrayList<>();
@@ -261,7 +296,7 @@ public class PublishActivity extends BaseActivity {
             });
         }
         productType = getIntent().getStringExtra("productType");
-        goodModel = getIntent().getParcelableExtra("data");
+        //定位
         if (!TextUtils.isEmpty(SPCache.getString(Constants.LOCATION, ""))) {
             location = new Gson().fromJson(SPCache.getString(Constants.LOCATION, ""), Location.class);
             tvAddress.setText(location.getCity() + " " + location.getDistrict());
@@ -320,7 +355,13 @@ public class PublishActivity extends BaseActivity {
             public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
             }
         });
-        subscription = HttpMethod.getInstance().systemCodeInfoGetAllRequest(mSystemCodeInfoGetAllResponseModelObserver, setParams());
+        //获取分类
+        HttpMethod.getInstance().systemCodeInfoGetAllRequest(mSystemCodeInfoGetAllResponseModelObserver, setParams());
+        //获取详情
+        if (getIntent().getIntExtra("productId", -1) != -1) {
+            showWaitingDialog();
+            HttpMethod.getInstance().requestProductDetail(mProductDetailResponseModelObserver, setDetailParams());
+        }
         behavior = BottomSheetBehavior.from(scroll);
         behaviorPic = BottomSheetBehavior.from(pic);
         tvSubmit.setOnClickListener(this);
@@ -337,22 +378,6 @@ public class PublishActivity extends BaseActivity {
         tvGallery.setOnClickListener(this);
         if (productType.equals("1")) {
             ll03.setVisibility(View.GONE);
-        }
-        if (goodModel != null) {
-            setTitle("编辑");
-            parentClassify = goodModel.getParentClassify();
-            secondClassify = goodModel.getSecondClassify();
-            etTitle.setText(goodModel.getTitle());
-            etContent.setText(goodModel.getContent());
-            tvNewPrice.setText(goodModel.getCurrentPrice() + "");
-            tvOldPrice.setText(goodModel.getOriginalPrice() + "");
-            tvClass.setText(goodModel.getParentClassifyText() + " - " + goodModel.getSecondClassifyText());
-
-            for (ProductImageList model : goodModel.getProductImageList()) {
-                publishImageModels.add(new PublishImageModel(model.getLocation(), 0, model.getBusinessNumber()));
-            }
-            imageCount = imageCount - publishImageModels.size();
-            imageControl(publishImageModels);
         }
     }
 
@@ -440,7 +465,7 @@ public class PublishActivity extends BaseActivity {
                 if (TextUtils.isEmpty(locationJosnStr)) {
                     showToast("您未开启定位功能，可能影响使用");
                 }
-                if (goodModel == null) {
+                if (getIntent().getIntExtra("productId", -1) == -1){
                     publishCommodity(title, content, currentPrice, originalPrice, freight, parentClassify, secondClassify, locationJosnStr, productType);
                 } else {
                     editCommodity(title, content, currentPrice, originalPrice, freight, parentClassify, secondClassify, locationJosnStr, productType);
@@ -602,7 +627,7 @@ public class PublishActivity extends BaseActivity {
     private void editCommodity(String title, String content, String currentPrice, String originalPrice, String freight, String parentClassify,
                                String secondClassify, String locationJosnStr, String productType) {
         Map<String, RequestBody> params = new HashMap<>();
-        params.put("id", RequestBody.create(MediaType.parse("text/plain"), goodModel.getId() + ""));
+        params.put("id", RequestBody.create(MediaType.parse("text/plain"), getIntent().getIntExtra("productId", -1) + ""));
         if (!TextUtils.isEmpty(title))
             params.put("title", RequestBody.create(MediaType.parse("text/plain"), title));
         if (!TextUtils.isEmpty(content))
@@ -740,12 +765,22 @@ public class PublishActivity extends BaseActivity {
     private Map<String, RequestBody> setDeleteParams(String businessNumber) {
         Map<String, RequestBody> params = new HashMap<>();
         params.put("token", RequestBody.create(MediaType.parse("text/plain"), BaseApplication.getToken()));
-        Log.e(TAG, "token = " + BaseApplication.getToken());
         params.put("type", RequestBody.create(MediaType.parse("text/plain"), "1"));
-        Log.e(TAG, "type = " + 1);
         params.put("businessNumber", RequestBody.create(MediaType.parse("text/plain"), businessNumber));
-        Log.e(TAG, "businessNumber = " + businessNumber);
         return params;
+    }
+
+    /**
+     * 设置参数
+     *
+     * @return params
+     */
+    protected ProductDetailRequestModel setDetailParams() {
+        ProductDetailRequestModel productDetailRequestModel = new ProductDetailRequestModel();
+        productDetailRequestModel.setCmd(ApiInterface.ProductDetails);
+        productDetailRequestModel.setToken(BaseApplication.getToken());
+        productDetailRequestModel.setParameters(new ProductDetailRequestModel.ParametersEntity(getIntent().getIntExtra("productId", -1)));
+        return productDetailRequestModel;
     }
 
     private void deletePublishImageModels(String businessNumber) {
@@ -775,14 +810,12 @@ public class PublishActivity extends BaseActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        Log.e(TAG, "onConfigurationChanged");
 
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e(TAG, "onDestroy");
     }
 
     public static void newIntent(Context context, String title, String productType) {
@@ -792,10 +825,10 @@ public class PublishActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    public static void newIntent(Context context, MyselfProductPublicListResponseModel.DataEntity.ContentEntity entity, String productType) {
+    public static void newIntent(Context context, int productId, String productType) {
         Intent intent = new Intent(context, PublishActivity.class);
         intent.putExtra("productType", productType);
-        intent.putExtra("data", entity);
+        intent.putExtra("productId", productId);
         context.startActivity(intent);
     }
 }

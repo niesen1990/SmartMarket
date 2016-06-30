@@ -18,6 +18,7 @@ import com.alibaba.mobileim.YWAPI;
 import com.alibaba.wxlib.util.SysUtil;
 import com.cmbb.smartmarket.R;
 import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
+import com.cmbb.smartmarket.activity.market.DetailSellActivity;
 import com.cmbb.smartmarket.activity.market.NeedDetailActivity;
 import com.cmbb.smartmarket.activity.message.im.IMHelper;
 import com.cmbb.smartmarket.activity.message.im.custom.CustomHelper;
@@ -280,7 +281,8 @@ public class BaseApplication extends MultiDexApplication {
                         switch (msg.extra.get("modual")) {
                             case "product":
                                 if (msg.extra.get("type").equals("0")) {
-                                    CommodityDetailActivity.newIntent(getContext(), Integer.parseInt(msg.extra.get("relateField")));
+//                                    CommodityDetailActivity.newIntent(getContext(), Integer.parseInt(msg.extra.get("relateField")));
+                                    DetailSellActivity.newIntent(getContext(), Integer.parseInt(msg.extra.get("relateField")));
                                 } else {
                                     NeedDetailActivity.newIntent(getContext(), Integer.parseInt(msg.extra.get("relateField")));
                                 }

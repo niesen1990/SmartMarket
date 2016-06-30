@@ -18,12 +18,16 @@ import com.cmbb.smartmarket.activity.user.model.MyselfProductPublicListResponseM
 import com.cmbb.smartmarket.base.BaseActivity;
 import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerFragment;
+import com.cmbb.smartmarket.image.model.ImageModel;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
 import com.cmbb.smartmarket.widget.NestedScrollView;
 import com.cmbb.smartmarket.widget.SpaceItemDecoration;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import rx.Observer;
@@ -113,24 +117,16 @@ public class PublishNeedFragment extends BaseRecyclerFragment {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.tv_edit:
+                PublishActivity.newIntent(getActivity(), ((PublishNeedListAdapter) adapter).getItem((Integer) tvEdit.getTag()).getId(), "1");
                 startBehavior();
-                switch (position) {
-                    case 0:
-                        PublishActivity.newIntent(getActivity(), ((PublishNeedListAdapter) adapter).getItem((Integer) tvEdit.getTag()), "0");
-                        break;
-                    case 1:
-                        PublishActivity.newIntent(getActivity(), ((PublishNeedListAdapter) adapter).getItem((Integer) tvEdit.getTag()), "1");
-                        break;
-                }
-
                 break;
             case R.id.tv_delete:
-                startBehavior();
                 if (tvDelete.getTag() == null)
                     return;
                 int position = (int) tvDelete.getTag();
                 ((BaseActivity) getActivity()).showWaitingDialog();
                 subscription = HttpMethod.getInstance().productDeleteRequest(mProductDeleteResponseModelObserver, setDeleteParams(position));
+                startBehavior();
                 break;
         }
 
@@ -171,7 +167,11 @@ public class PublishNeedFragment extends BaseRecyclerFragment {
             NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((PublishNeedListAdapter) adapter).getItem(position).getId());
         } else {
             ActivityOptionsCompat activityOptionsCompat1 = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
-            NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat1, ((PublishNeedListAdapter) adapter).getItem(position).getId(),((PublishNeedListAdapter) adapter).getItem(position).getProductImageList());
+            List<ImageModel> imageModels = new ArrayList<>();
+            for (MyselfProductPublicListResponseModel.DataEntity.ContentEntity.ProductImageListEntity entity : ((PublishNeedListAdapter) adapter).getItem(position).getProductImageList()) {
+                imageModels.add(new ImageModel(entity.getImageHeight(), entity.getBusinessNumber(), entity.getLocation(), entity.getImageWidth()));
+            }
+            NeedDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat1, ((PublishNeedListAdapter) adapter).getItem(position).getId(), imageModels);
         }
     }
 

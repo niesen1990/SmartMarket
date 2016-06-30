@@ -92,6 +92,7 @@
             android:gravity="center"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
+            android:textStyle="bold"
             tools:text="2999"/>
 
         <TextView

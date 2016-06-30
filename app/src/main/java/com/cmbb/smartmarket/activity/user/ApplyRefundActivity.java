@@ -128,12 +128,13 @@ public class ApplyRefundActivity extends BaseActivity implements RecyclerArrayAd
             data = getIntent().getParcelableExtra("entity");
             tvMoney.setText("￥" + data.getPrice());
             tvEnclosure.setText("（包含邮费" + data.getFreight() + "元）");
+            Log.e(TAG, "tvMoney = " + getIntent().getParcelableExtra("entity").toString());
         } else {
             dataFormDetail = getIntent().getParcelableExtra("entity");
             tvMoney.setText("￥" + (dataFormDetail.getData().getProduct().getCurrentPrice() + dataFormDetail.getData().getProduct().getFreight()));
             tvEnclosure.setText("（包含邮费" + dataFormDetail.getData().getProduct().getFreight() + "元）");
+            Log.e(TAG, "tvMoney = " + "￥" + "￥" + (dataFormDetail.getData().getProduct().getCurrentPrice() + dataFormDetail.getData().getProduct().getFreight()) + "  tvEnclosure = " + "（包含邮费" + dataFormDetail.getData().getProduct().getFreight() + "元）");
         }
-
         ll01.setOnClickListener(this);
         ll02.setOnClickListener(this);
         tvSubmit.setOnClickListener(this);

@@ -156,7 +156,7 @@ public class ChattingUICustom extends IMChattingPageUI {
      */
     @Override
     public int getDefaultHeadImageResId() {
-        return 0;
+        return R.drawable.ic_head_default;
     }
 
     /**
@@ -236,7 +236,7 @@ public class ChattingUICustom extends IMChattingPageUI {
     }
 
     /**
-     * 是否隐藏底部ChattingReplyBar
+     * 是否隐藏底部
      *
      * @return
      */

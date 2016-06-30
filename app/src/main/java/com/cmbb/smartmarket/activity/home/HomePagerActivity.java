@@ -173,6 +173,7 @@ public class HomePagerActivity extends BaseHomeActivity {
                 FrameLayout header = (FrameLayout) LayoutInflater.from(HomePagerActivity.this).inflate(R.layout.activity_home_pager_head02, null);
                 RollPagerView rollPagerView = (RollPagerView) header.findViewById(R.id.roll_view_pager);
                 rollPagerView.setHintView(new PointHintView(HomePagerActivity.this));
+                rollPagerView.setHintPadding(0, 0, 0, 5);
                 mBannerAdapter = new BannerAdapter(null);
                 rollPagerView.setAdapter(mBannerAdapter);
                 return header;
@@ -301,8 +302,8 @@ public class HomePagerActivity extends BaseHomeActivity {
 
     @Override
     public void onItemClick(View rootView, int position) {
-//        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
-//        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((HomeAdapter) adapter).getItem(position).getId(),((HomeAdapter) adapter).getItem(position).getProductImageList());
+        //        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
+        //        CommodityDetailActivity.newIntent(this, activityOptionsCompat, ((HomeAdapter) adapter).getItem(position).getId(),((HomeAdapter) adapter).getItem(position).getProductImageList());
         DetailSellActivity.newIntent(this, ((HomeAdapter) adapter).getItem(position).getId());
     }
 

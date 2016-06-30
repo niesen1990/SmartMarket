@@ -38,10 +38,11 @@ import com.cmbb.smartmarket.base.BaseApplication;
 import com.cmbb.smartmarket.base.BaseRecyclerActivity;
 import com.cmbb.smartmarket.image.CircleTransform;
 import com.cmbb.smartmarket.image.ImageLoader;
+import com.cmbb.smartmarket.image.ImagePreviewActivity;
+import com.cmbb.smartmarket.image.model.ImageModel;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
-import com.cmbb.smartmarket.network.model.ProductImageList;
 import com.cmbb.smartmarket.utils.DialogUtils;
 import com.cmbb.smartmarket.utils.KeyboardUtil;
 import com.cmbb.smartmarket.utils.SocialUtils;
@@ -50,6 +51,7 @@ import com.cmbb.smartmarket.utils.date.RecentDateFormat;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.umeng.socialize.UMShareAPI;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -66,6 +68,7 @@ import rx.Observer;
  */
 public class DetailSellActivity extends BaseRecyclerActivity {
     private static final String TAG = DetailSellActivity.class.getSimpleName();
+
     RecyclerArrayAdapter.ItemView headItemView;
     @BindView(R.id.iv_head)
     ImageView ivHead;
@@ -248,7 +251,7 @@ public class DetailSellActivity extends BaseRecyclerActivity {
         }
     };
 
-    List<ProductImageList> detailProductImageLists;
+    List<ProductDetailResponseModel.DataEntity.ProductImageListEntity> detailProductImageLists;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -433,6 +436,13 @@ public class DetailSellActivity extends BaseRecyclerActivity {
             tvSendContent.setFocusableInTouchMode(true);
             tvSendContent.requestFocus();
             KeyboardUtil.showKeyboard(this);
+        } else if (adapter.getItem(position) instanceof ProductDetailResponseModel.DataEntity.ProductImageListEntity) {
+            // model转换
+            List<ImageModel> imageModels = new ArrayList<>();
+            for (ProductDetailResponseModel.DataEntity.ProductImageListEntity entity : mProductDetailResponseModel.getData().getProductImageList()) {
+                imageModels.add(new ImageModel(entity.getImageHeight(), entity.getBusinessNumber(),entity.getLocation(),entity.getImageWidth()));
+            }
+            ImagePreviewActivity.newIntent(this, position, imageModels);
         }
     }
 

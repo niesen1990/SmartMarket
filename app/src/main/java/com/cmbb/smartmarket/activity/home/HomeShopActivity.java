@@ -18,6 +18,7 @@ import com.cmbb.smartmarket.activity.market.model.ProductGetPageResponseModel;
 import com.cmbb.smartmarket.activity.market.model.SystemDictListRequestModel;
 import com.cmbb.smartmarket.activity.market.model.SystemDictListResponseModel;
 import com.cmbb.smartmarket.base.BaseApplication;
+import com.cmbb.smartmarket.image.model.ImageModel;
 import com.cmbb.smartmarket.log.Log;
 import com.cmbb.smartmarket.network.ApiInterface;
 import com.cmbb.smartmarket.network.HttpMethod;
@@ -118,7 +119,12 @@ public class HomeShopActivity extends BaseHomeActivity {
             NeedDetailActivity.newIntent(this, activityOptionsCompat, ((HomeShopAdapter) adapter).getItem(position).getId());
         } else {
             ActivityOptionsCompat activityOptionsCompat1 = ActivityOptionsCompat.makeSceneTransitionAnimation(this, Pair.create(rootView.findViewById(R.id.iv01), "iv01"));
-            NeedDetailActivity.newIntent(this, activityOptionsCompat1, ((HomeShopAdapter) adapter).getItem(position).getId(), ((HomeShopAdapter) adapter).getItem(position).getProductImageList());
+            //model 转化
+            List<ImageModel> imageModels = new ArrayList<>();
+            for (ProductGetPageResponseModel.DataEntity.ContentEntity.ProductImageListEntity entity : ((HomeShopAdapter) adapter).getItem(position).getProductImageList()) {
+                imageModels.add(new ImageModel(entity.getImageHeight(), entity.getBusinessNumber(), entity.getLocation(), entity.getImageWidth()));
+            }
+            NeedDetailActivity.newIntent(this, activityOptionsCompat1, ((HomeShopAdapter) adapter).getItem(position).getId(), imageModels);
         }
     }
 

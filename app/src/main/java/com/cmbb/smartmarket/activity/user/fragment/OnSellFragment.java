@@ -1,14 +1,12 @@
 package com.cmbb.smartmarket.activity.user.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.cmbb.smartmarket.R;
-import com.cmbb.smartmarket.activity.market.CommodityDetailActivity;
+import com.cmbb.smartmarket.activity.market.DetailSellActivity;
 import com.cmbb.smartmarket.activity.user.adapter.OnSellAdapter;
 import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListRequestModel;
 import com.cmbb.smartmarket.activity.user.model.MarketCenterSelectProductListResponseModel;
@@ -70,8 +68,9 @@ public class OnSellFragment extends BaseRecyclerFragment {
 
     @Override
     public void onItemClick(View rootView, int position) {
-        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.iv_pic), "iv01"));
-        CommodityDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((OnSellAdapter) adapter).getItem(position).getId(),((OnSellAdapter) adapter).getItem(position).getProductImageList());
+//        ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(getActivity(), Pair.create(rootView.findViewById(R.id.iv_pic), "iv01"));
+//        CommodityDetailActivity.newIntent((BaseActivity) getActivity(), activityOptionsCompat, ((OnSellAdapter) adapter).getItem(position).getId(),((OnSellAdapter) adapter).getItem(position).getProductImageList());
+        DetailSellActivity.newIntent((BaseActivity) getActivity(),((OnSellAdapter) adapter).getItem(position).getId());
     }
 
     Observer<MarketCenterSelectProductListResponseModel> mMarketCenterSelectProductListResponseModelObserver = new Observer<MarketCenterSelectProductListResponseModel>() {

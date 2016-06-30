@@ -50,13 +50,13 @@ public class UserAddressDetailResponseModel {
         private int isDefault;
         private String address;
         private String districtText;
-        private int province;
+        private String province;
         private String postCode;
         private String receiveName;
         private String receivePhone;
         private String cityText;
-        private int district;
-        private int city;
+        private String district;
+        private String city;
 
         public int getId() {
             return id;
@@ -98,11 +98,11 @@ public class UserAddressDetailResponseModel {
             this.districtText = districtText;
         }
 
-        public int getProvince() {
+        public String getProvince() {
             return province;
         }
 
-        public void setProvince(int province) {
+        public void setProvince(String province) {
             this.province = province;
         }
 
@@ -138,19 +138,19 @@ public class UserAddressDetailResponseModel {
             this.cityText = cityText;
         }
 
-        public int getDistrict() {
+        public String getDistrict() {
             return district;
         }
 
-        public void setDistrict(int district) {
+        public void setDistrict(String district) {
             this.district = district;
         }
 
-        public int getCity() {
+        public String getCity() {
             return city;
         }
 
-        public void setCity(int city) {
+        public void setCity(String city) {
             this.city = city;
         }
     }

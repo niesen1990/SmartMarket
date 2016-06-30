@@ -12,6 +12,12 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="AppTheme.FullScreen.Image" parent="AppTheme.Base">
+        <item name="android:windowBackground">@color/half_transparent</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <style name="AppTheme.FullScreen.Publish" parent="AppTheme.Base">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>

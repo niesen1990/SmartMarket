@@ -10,5 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/global_padding"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"
+        android:transitionName="iv01"/>
 </LinearLayout>
